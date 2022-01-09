@@ -1,3 +1,6 @@
-import './styles.scss';
+import './styles/styles.scss';
+import './modules/self-assessment';
+import App from './modules/pages/app/index'
 
-console.log("Hello World!");
+const app: App = new App();
+app.start();

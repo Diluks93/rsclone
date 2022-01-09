@@ -24,8 +24,7 @@ const config = {
       template: "./src/index.html",
       title: "How to annoy neighbor",
       favicon: "./src/favicon.ico",
-      minify: true,
-      inject: "body"
+      minify: true
     }),
   ],
   module: {
