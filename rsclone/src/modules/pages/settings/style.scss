@@ -1,6 +1,174 @@
-@import "../../../styles/variables";
-@import "../../../styles/mixins";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .settings-page {
-  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 35px;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+  color: $settings;
+
+  &__logo {
+    width: 651px;
+    height: 380px;
+    background-image: url('https://raw.githubusercontent.com/randomspells/source-rsclone/randomspells-source/rsclone-source/logo/title.png');
+  }
+
+  &__wrapper {
+    width: 1447px;
+    height: 558px;
+    display: flex;
+    justify-content: center;
+    background-image: url('https://raw.githubusercontent.com/randomspells/source-rsclone/randomspells-source/rsclone-source/settings-page/img/tv-settings.png');
+  }
+
+  &__inner {
+    max-width: 839px;
+    margin-top: 65px;
+    width: 406px;
+  }
+
+  &__btn {
+    width: calc(50% - 5px);
+    padding: 12px 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    color: inherit;
+    background: transparent;
+    border: 4px solid $settings;
+    border-radius: 10rem;
+    transition: 0.4s;
+
+    &:hover {
+      background-color: rgba($settings, 0.2);
+    }
+
+    &:first-of-type {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    &:nth-of-type(2) {
+      margin-right: 10px;
+    }
+  }
+
+  &__toggle-btn {
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__range {
+    -webkit-appearance: none;
+    width: 175px;
+    height: 5px;
+    margin-left: 5px;
+    appearance: none;
+    background: $settings-hover;
+    outline: none;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &::-webkit-slider-thumb {
+      height: 15px;
+      width: 17px;
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: $green;
+      transition: 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__range-label {
+    width: 350px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border: 3px solid $settings;
+    transition: 0.4s;
+
+    &:after {
+      content: '';
+      position: absolute;
+      display: none;
+    }
+  }
+
+  &__checkbox-label {
+    width: 350px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 40px;
+    padding-top: 3px;
+    margin-bottom: 15px;
+    display: block;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: inherit;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+
+    &:hover input ~ .settings-page__checkmark {
+      background-color: rgba($settings, 0.2);
+    }
+
+    & input:checked ~ .settings-page__checkmark:after {
+      background-color: $settings;
+    }
+
+    & input:checked ~ .settings-page__checkmark:after {
+      display: block;
+    }
+
+    & .settings-page__checkmark:after {
+      left: 3px;
+      top: 3px;
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  .title {
+    visibility: hidden;
+  }
 }
