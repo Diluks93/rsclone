@@ -2,6 +2,24 @@ import Page from '../../core/templates/page';
 import { LevelsSeries } from '../../core/interfaces/enums';
 import './style.scss';
 
+interface IData {
+  episodeList: string;
+  episodeDetails: string;
+  intro: string;
+  seasonOne: string;
+  seasonTwo: string;
+  backToMain: string;
+  startEpisode: string;
+  hintTitle: string;
+  minimumRating: string;
+  duration: string;
+}
+
+interface ILang {
+  ru: IData;
+  en: IData;
+}
+
 class CategoriesPage extends Page {
   static TextObject = {
     mainTitle: 'Categories Page',
@@ -10,14 +28,14 @@ class CategoriesPage extends Page {
   async getInfo() {
     const url = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/json/categories.json';
     const responce = await fetch(url);
-    const data = await responce.json();
+    const data: ILang = await responce.json();
     return data;
   }
 
   async addHeader() {
     const data = await this.getInfo();
     const dataArr = [data.ru.episodeList, data.ru.episodeDetails];
-    const titleArr = [];
+    const titleArr: HTMLElement[] = [];
     const header = document.createElement('div');
     const headerWrapper = document.createElement('div');
     const headerImage = document.createElement('div');
@@ -54,7 +72,7 @@ class CategoriesPage extends Page {
     const btnWrapper = document.createElement('div');
     const btn = document.createElement('div');
     const btnInfo = document.createElement('div');
-    const seriesArr = [];
+    const seriesArr: HTMLElement[] = [];
 
     episodeList.classList.add('categories-page__episode-list', 'episode-list');
     btnWrapper.classList.add('episode-list__btn-wrapper');
@@ -87,7 +105,7 @@ class CategoriesPage extends Page {
   }
 
   addCards(num: number) {
-    const result = [];
+    const result: HTMLElement[] = [];
 
     for (let i = 0; i < num; i++) {
       const card = document.createElement('div');
@@ -106,7 +124,6 @@ class CategoriesPage extends Page {
   }
 
   async addSeriesDescription() {
-    const data = await this.getInfo();
     const seriesDescription = document.createElement('div');
     const title = document.createElement('div');
     const seriesWrapper = document.createElement('div');
@@ -142,7 +159,7 @@ class CategoriesPage extends Page {
   }
 
   addSeriesHide() {
-    const result = [];
+    const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const text = document.createElement('p');
 
@@ -157,7 +174,7 @@ class CategoriesPage extends Page {
   }
 
   addSeriesTime() {
-    const result = [];
+    const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const text = document.createElement('p');
 
@@ -172,7 +189,7 @@ class CategoriesPage extends Page {
   }
 
   addSeriesRating() {
-    const result = [];
+    const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const text = document.createElement('p');
 
@@ -187,7 +204,7 @@ class CategoriesPage extends Page {
   }
 
   addSeriesPic() {
-    const result = [];
+    const result: HTMLElement[] = [];
     const img = document.createElement('div');
     const title = document.createElement('div');
 
@@ -201,7 +218,7 @@ class CategoriesPage extends Page {
   }
 
   addSeriesBtn() {
-    const result = [];
+    const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const btn = document.createElement('div');
 
