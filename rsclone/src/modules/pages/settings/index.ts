@@ -4,6 +4,8 @@ import { SettingsButtonType, SettingsRangeType } from '../../core/types/settings
 import Page from '../../core/templates/page';
 import './style.scss';
 
+const titleUrlRu = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/title/ru.webp';
+
 class SettingsPage extends Page {
   static TextObject = {
     mainTitle: 'Настройки',
@@ -60,10 +62,11 @@ class SettingsPage extends Page {
     return settingsCheckboxes;
   }
 
-  async renderLogo() {
-    const logo = document.createElement('div');
-    logo.classList.add('settings-page__logo');
-    this.container.append(logo);
+  async renderTitle() {
+    const title = document.createElement('div');
+    title.classList.add('settings-page__title');
+    title.style.backgroundImage = `url(${titleUrlRu})`;
+    this.container.append(title);
   }
 
   renderWrapper() {
@@ -82,7 +85,7 @@ class SettingsPage extends Page {
 
   render(): HTMLElement {
     const title = this.createHeaderTitle(SettingsPage.TextObject.mainTitle, 'h2', 'title');
-    this.renderLogo();
+    this.renderTitle();
     this.renderWrapper();
     this.container.append(title);
     return this.container;

@@ -14,10 +14,11 @@
   font-family: 'Roboto', sans-serif;
   color: $settings;
 
-  &__logo {
+  &__title {
     width: 40rem;
     height: 23rem;
-    background-image: url('https://raw.githubusercontent.com/randomspells/source-rsclone/randomspells-source/rsclone-source/logo/title.png');
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   &__wrapper {
