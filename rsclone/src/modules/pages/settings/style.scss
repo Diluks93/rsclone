@@ -113,7 +113,6 @@
 
   &__checkmark {
     position: absolute;
-    top: 0;
     left: 0;
     height: 1.6rem;
     width: 1.6rem;
@@ -133,7 +132,8 @@
     position: relative;
     padding-left: 2.5rem;
     margin-bottom: 1.2rem;
-    display: block;
+    display: flex;
+    align-items: center;
     font-size: 1.25rem;
     text-transform: uppercase;
     color: inherit;
