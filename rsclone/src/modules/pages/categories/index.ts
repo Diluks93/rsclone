@@ -1,6 +1,7 @@
 import Page from '../../core/templates/page';
 import { LevelsSeries } from '../../core/interfaces/enums';
 import './style.scss';
+
 class CategoriesPage extends Page {
   static TextObject = {
     mainTitle: 'Categories Page',
