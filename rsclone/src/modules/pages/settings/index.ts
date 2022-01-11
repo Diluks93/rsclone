@@ -1,6 +1,4 @@
 import { rangesProps, checkboxesProps, btnsProps } from './../../../constants/elementsProps';
-import { settingsJsonUrl } from './../../../data/jsonUrls';
-import { getTranslationJson } from './../../../utils/getTranslationJson';
 import Page from '../../core/templates/page';
 import './style.scss';
 
@@ -9,7 +7,7 @@ class SettingsPage extends Page {
     mainTitle: 'Настройки',
   };
 
-  getRanges(props: Record<string, string>[]) {
+  getRangeLabels(props: Record<string, string>[]): HTMLLabelElement[] {
     const settingsSliders = props.map((rangeProps) => {
       const range = document.createElement('input');
       range.type = 'range';
@@ -28,7 +26,7 @@ class SettingsPage extends Page {
     return settingsSliders;
   }
 
-  getBtns(props: Record<string, string>[]) {
+  getBtns(props: Record<string, string>[]): HTMLButtonElement[] {
     const settingsBtns = props.map((btnProps) => {
       const btn = document.createElement('button');
       btn.classList.add('settings-page__btn');
@@ -38,7 +36,7 @@ class SettingsPage extends Page {
     return settingsBtns;
   }
 
-  getCheckboxes(props: Record<string, string>[]) {
+  getCheckboxLabels(props: Record<string, string>[]): HTMLLabelElement[] {
     const settingsCheckboxes = props.map((checkboxProps) => {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
@@ -72,13 +70,13 @@ class SettingsPage extends Page {
     const inner = document.createElement('div');
     inner.classList.add('settings-page__inner');
     wrapper.append(inner);
-    this.getRanges(rangesProps).forEach((item) => inner.append(item));
-    this.getCheckboxes(checkboxesProps).forEach((item) => inner.append(item));
+    this.getRangeLabels(rangesProps).forEach((item) => inner.append(item));
+    this.getCheckboxLabels(checkboxesProps).forEach((item) => inner.append(item));
     this.getBtns(btnsProps).forEach((item) => inner.append(item));
     this.container.append(wrapper);
   }
 
-  render() {
+  render(): HTMLElement {
     const title = this.createHeaderTitle(SettingsPage.TextObject.mainTitle, 'h2', 'title');
     this.renderLogo();
     this.renderWrapper();
