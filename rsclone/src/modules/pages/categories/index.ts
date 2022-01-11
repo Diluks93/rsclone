@@ -1,6 +1,7 @@
 import Page from '../../core/templates/page';
 import { LevelsSeries } from '../../core/interfaces/enums';
 import './style.scss';
+
 class CategoriesPage extends Page {
   static TextObject = {
     mainTitle: 'Categories Page',
@@ -40,12 +41,8 @@ class CategoriesPage extends Page {
 
   async addCategoriesWrapper() {
     const wrapper = document.createElement('div');
-    const seriesDescription = document.createElement('div');
-
     wrapper.classList.add('categories-page__wrapper');
-    seriesDescription.classList.add('categories-page__series-description', 'series-description');
-
-    wrapper.append(await this.addEpisodeList(), seriesDescription);
+    wrapper.append(await this.addEpisodeList(), await this.addSeriesDescription());
 
     this.container.append(wrapper);
   }
@@ -94,7 +91,12 @@ class CategoriesPage extends Page {
 
     for (let i = 0; i < num; i++) {
       const card = document.createElement('div');
+      const cardInfo = document.createElement('div');
+
       card.classList.add('episode-list__card');
+      cardInfo.classList.add('episode-list__card-result');
+      cardInfo.textContent = '0%';
+      card.append(cardInfo);
       card.style.backgroundImage =
         'url("https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/neighbor_test.webp")';
       result.push(card);
@@ -103,7 +105,114 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  addSeriesDescription() {}
+  async addSeriesDescription() {
+    const data = await this.getInfo();
+    const seriesDescription = document.createElement('div');
+    const title = document.createElement('div');
+    const seriesWrapper = document.createElement('div');
+    const seriesPic = document.createElement('div');
+    const seriesRating = document.createElement('div');
+    const seriesTime = document.createElement('div');
+    const seriesHint = document.createElement('div');
+    const seriesDesc = document.createElement('div');
+    const seriesBtnWrapper = document.createElement('div');
+
+    seriesDescription.classList.add('categories-page__series-description', 'series-description');
+    title.classList.add('series-description__title');
+    seriesWrapper.classList.add('series-description__wrapper');
+    seriesPic.classList.add('series-description__pictures-wrap');
+    seriesRating.classList.add('series-description__rating');
+    seriesTime.classList.add('series-description__time');
+    seriesHint.classList.add('series-description__hint');
+    seriesDesc.classList.add('series-description__desc');
+    seriesBtnWrapper.classList.add('series-description__btn-wrapper');
+
+    title.innerText = 'у телеэкрана';
+    seriesDesc.innerText = 'Какой-то текст...';
+    seriesPic.append(...this.addSeriesPic());
+    seriesRating.append(...this.addSeriesRating());
+    seriesTime.append(...this.addSeriesTime());
+    seriesHint.append(...this.addSeriesHide());
+    seriesBtnWrapper.append(...this.addSeriesBtn());
+
+    seriesWrapper.append(seriesPic, seriesRating, seriesTime, seriesHint, seriesDesc, seriesBtnWrapper);
+    seriesDescription.append(title, seriesWrapper);
+
+    return seriesDescription;
+  }
+
+  addSeriesHide() {
+    const result = [];
+    const title = document.createElement('div');
+    const text = document.createElement('p');
+
+    title.classList.add('series-description__hint-title');
+    text.classList.add('series-description__hint-text');
+    title.textContent = 'Подсказка!';
+    text.textContent = 'Слушайте советы режисера!';
+
+    result.push(title, text);
+
+    return result;
+  }
+
+  addSeriesTime() {
+    const result = [];
+    const title = document.createElement('div');
+    const text = document.createElement('p');
+
+    title.classList.add('series-description__parameter-title');
+    text.classList.add('series-description__parameter-text');
+    title.textContent = 'Минимальное время';
+    text.textContent = '5:00 мин';
+
+    result.push(text, title);
+
+    return result;
+  }
+
+  addSeriesRating() {
+    const result = [];
+    const title = document.createElement('div');
+    const text = document.createElement('p');
+
+    title.classList.add('series-description__parameter-title');
+    text.classList.add('series-description__parameter-text');
+    title.textContent = 'Минимальный рейтинг';
+    text.textContent = '50%';
+
+    result.push(text, title);
+
+    return result;
+  }
+
+  addSeriesPic() {
+    const result = [];
+    const img = document.createElement('div');
+    const title = document.createElement('div');
+
+    title.classList.add('series-description__pictures-title');
+    img.classList.add('series-description__pictures');
+    title.textContent = 'Соседушка в любимом кресле';
+
+    result.push(img, title);
+
+    return result;
+  }
+
+  addSeriesBtn() {
+    const result = [];
+    const title = document.createElement('div');
+    const btn = document.createElement('div');
+
+    title.classList.add('series-description__btn-title');
+    btn.classList.add('series-description__btn');
+    title.textContent = 'Съемка';
+
+    result.push(title, btn);
+
+    return result;
+  }
 
   render() {
     this.addHeader();

@@ -45,9 +45,11 @@
   }
   &__episode-list {
     flex: 50%;
+    margin-right: 15px;
   }
   &__series-description {
     flex: 50%;
+    margin-left: 15px;
   }
 }
 
@@ -66,6 +68,7 @@
     background: #dfccb4;
     border-radius: 20px;
     overflow: hidden;
+    border: 2px solid #5c5656;
   }
 
   &__title {
@@ -90,6 +93,17 @@
     height: 100%;
     background-position: center center;
     background-size: cover;
+    position: relative;
+    border: 3px solid rgba(0, 0, 0, 0.8);
+  }
+
+  &__card-result {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
   }
 
   &__btn-wrapper {
@@ -97,6 +111,7 @@
     border-radius: 20px;
     display: flex;
     align-items: center;
+    border: 2px solid #5c5656;
   }
 
   &__btn {
@@ -112,4 +127,143 @@
   }
 }
 .series-description {
+  position: relative;
+  padding: 22px 0 20px 0;
+  display: grid;
+  grid-template: auto 1fr / 1fr;
+
+  &__title {
+    background: #e9c546;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    padding: 20px 0 20px 25px;
+    border: 2px solid rgba(92, 86, 86, 0.8);
+    border-bottom: none;
+  }
+  &__wrapper {
+    background: #ded6cc;
+    display: grid;
+    grid-template: 20% 25% 55% / 40% 30% 30%;
+    border: 2px solid rgba(92, 86, 86, 0.8);
+  }
+  &__pictures-wrap {
+    grid-row: 1/3;
+    grid-column: 1/2;
+    display: grid;
+    grid-template: 80% 20% / 1fr;
+    margin: 7px;
+  }
+  &__pictures-title {
+    font-size: 1.2rem;
+    justify-self: center;
+    align-self: center;
+  }
+  &__pictures {
+    background: url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/neighbor_test.webp');
+    background-position: center center;
+    background-size: cover;
+    border-radius: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.8);
+  }
+  &__rating {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    background: linear-gradient(0deg, rgba(42, 63, 34, 0.88), rgba(42, 63, 34, 0.88)),
+      url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/tv2.webp');
+    background-position: center center;
+    background-size: cover;
+    border: 3px solid #262320;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin: 7px;
+    display: grid;
+    grid-template: 70% 30% / 1fr;
+    color: #ffffff;
+  }
+  &__time {
+    grid-row: 1/2;
+    grid-column: 3/4;
+    background: linear-gradient(0deg, rgba(42, 63, 34, 0.88), rgba(42, 63, 34, 0.88)),
+      url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/map.webp');
+    background-position: center center;
+    background-size: cover;
+    border: 3px solid #262320;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin: 7px;
+    display: grid;
+    grid-template: 70% 30% / 1fr;
+    color: #ffffff;
+  }
+  &__parameter-title {
+    background: rgba(142, 151, 138, 0.8);
+    border-radius: 0px 0px 17px 17px;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.2rem;
+    line-height: 21px;
+  }
+  &__parameter-text {
+    font-size: 36px;
+    line-height: 3rem;
+    align-self: center;
+    justify-self: center;
+    font-weight: 800;
+  }
+  &__hint {
+    grid-row: 2/3;
+    grid-column: 2/4;
+    background: #82a5c5;
+    border: 3px solid #095aa4;
+    box-sizing: border-box;
+    border-radius: 20px;
+    margin: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  &__hint-title {
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 33px;
+    color: #004c92;
+  }
+  &__hint-text {
+    font-weight: 300;
+    font-size: 1.4rem;
+    line-height: 23px;
+  }
+  &__desc {
+    grid-row: 3/4;
+    grid-column: 1/4;
+    font-size: 1.3rem;
+    margin: 7px;
+  }
+  &__btn-wrapper {
+    width: 280px;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #aebdc5;
+    border: 1px solid #5c5656;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+  &__btn-title {
+    font-size: 1.7rem;
+    margin-right: 35px;
+  }
+  &__btn {
+    width: 92px;
+    height: 92px;
+    margin-right: 15px;
+    background: url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/svg/play.svg');
+  }
 }
