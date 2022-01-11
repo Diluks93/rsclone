@@ -1,4 +1,4 @@
-import { rangesProps, checkboxesProps, btnsProps } from './../../../constants/elementsProps';
+import { rangesProps, checkboxesProps, btnsProps } from '../../core/constants/constSettings';
 import Page from '../../core/templates/page';
 import './style.scss';
 
