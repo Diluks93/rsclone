@@ -1,4 +1,6 @@
-import { rangesProps, checkboxesProps, btnsProps } from '../../core/constants/constSettings';
+import { SettingsCheckboxType } from './../../core/types/settingsTypes';
+import { rangesProps, checkboxesProps, buttonsProps } from '../../core/constants/constSettings';
+import { SettingsButtonType, SettingsRangeType } from '../../core/types/settingsTypes';
 import Page from '../../core/templates/page';
 import './style.scss';
 
@@ -7,36 +9,36 @@ class SettingsPage extends Page {
     mainTitle: 'Настройки',
   };
 
-  getRangeLabels(props: Record<string, string>[]): HTMLLabelElement[] {
+  getRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
     const settingsSliders = props.map((rangeProps) => {
       const range = document.createElement('input');
       range.type = 'range';
       range.id = rangeProps.id;
       range.classList.add('settings-page__range');
 
-      const soundBtn = document.createElement('button');
-      soundBtn.classList.add('settings-page__toggle-btn');
-      soundBtn.style.backgroundImage = `url(${rangeProps.iconUrl})`;
+      const soundButton = document.createElement('button');
+      soundButton.classList.add('settings-page__toggle-btn');
+      soundButton.style.backgroundImage = `url(${rangeProps.iconUrl})`;
 
       const label = document.createElement('label');
       label.classList.add('settings-page__range-label');
-      label.append(soundBtn, range);
+      label.append(soundButton, range);
       return label;
     });
     return settingsSliders;
   }
 
-  getBtns(props: Record<string, string>[]): HTMLButtonElement[] {
-    const settingsBtns = props.map((btnProps) => {
-      const btn = document.createElement('button');
-      btn.classList.add('settings-page__btn');
-      btn.textContent = btnProps.text;
-      return btn;
+  getButtons(props: SettingsButtonType[]): HTMLButtonElement[] {
+    const settingsButtons = props.map((buttonProps) => {
+      const button = document.createElement('button');
+      button.classList.add('settings-page__btn');
+      button.textContent = buttonProps.text;
+      return button;
     });
-    return settingsBtns;
+    return settingsButtons;
   }
 
-  getCheckboxLabels(props: Record<string, string>[]): HTMLLabelElement[] {
+  getCheckboxLabels(props: SettingsCheckboxType[]): HTMLLabelElement[] {
     const settingsCheckboxes = props.map((checkboxProps) => {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
@@ -67,12 +69,14 @@ class SettingsPage extends Page {
   renderWrapper() {
     const wrapper = document.createElement('div');
     wrapper.classList.add('settings-page__wrapper');
+
     const inner = document.createElement('div');
     inner.classList.add('settings-page__inner');
+
     wrapper.append(inner);
     this.getRangeLabels(rangesProps).forEach((item) => inner.append(item));
     this.getCheckboxLabels(checkboxesProps).forEach((item) => inner.append(item));
-    this.getBtns(btnsProps).forEach((item) => inner.append(item));
+    this.getButtons(buttonsProps).forEach((item) => inner.append(item));
     this.container.append(wrapper);
   }
 
