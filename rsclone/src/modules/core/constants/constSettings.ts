@@ -1,4 +1,6 @@
-export const rangesProps: Record<string, string>[] = [
+import { SettingsCheckboxType, SettingsButtonType, SettingsRangeType } from './../types/settingsTypes';
+
+export const rangesProps: SettingsRangeType[] = [
   {
     iconUrl:
       'https://raw.githubusercontent.com/randomspells/source-rsclone/af3870fdc4d1d92e27d7603277d7c09b9710b449/rsclone-source/settings-page/svg/sound.svg',
@@ -7,7 +9,7 @@ export const rangesProps: Record<string, string>[] = [
   },
 ];
 
-export const checkboxesProps: Record<string, string>[] = [
+export const checkboxesProps: SettingsCheckboxType[] = [
   {
     text: 'Вкл / откл звук',
     id: 'toggle-sound',
@@ -22,7 +24,7 @@ export const checkboxesProps: Record<string, string>[] = [
   },
 ];
 
-export const btnsProps: Record<string, string>[] = [
+export const buttonsProps: SettingsButtonType[] = [
   {
     text: 'Удалить прогресс игры',
     id: 'reset-progress',
