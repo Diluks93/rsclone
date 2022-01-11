@@ -1,69 +1,13 @@
+import { rangesProps, checkboxesProps, btnsProps } from './../../../constants/elementsProps';
+import { settingsJsonUrl } from './../../../data/jsonUrls';
+import { getTranslationJson } from './../../../utils/getTranslationJson';
 import Page from '../../core/templates/page';
 import './style.scss';
-
-const jsonUrl =
-  'https://raw.githubusercontent.com/randomspells/source-rsclone/randomspells-source/rsclone-source/json/settings.json';
-const getSettingsJson = async () => {
-  try {
-    const data = await fetch(jsonUrl);
-    const json = await data.json();
-    return json;
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-const rangesProps: Record<string, string>[] = [
-  {
-    iconUrl:
-      'https://raw.githubusercontent.com/randomspells/source-rsclone/af3870fdc4d1d92e27d7603277d7c09b9710b449/rsclone-source/settings-page/svg/sound.svg',
-    id: 'volume-bar',
-    value: '60',
-  },
-];
-
-const checkboxesProps: Record<string, string>[] = [
-  {
-    text: 'Вкл / откл звук',
-    id: 'toggle-sound',
-  },
-  {
-    text: 'Ограничение по времени',
-    id: 'toggle-time',
-  },
-  {
-    text: 'Отчет по пакостям',
-    id: 'toggle-report',
-  },
-];
-
-const btnsProps: Record<string, string>[] = [
-  {
-    text: 'Удалить прогресс игры',
-    id: 'reset-progress',
-  },
-  {
-    text: 'Отмена',
-    id: 'cancel-settings',
-  },
-  {
-    text: 'Ок',
-    id: 'save-settings',
-  },
-];
 
 class SettingsPage extends Page {
   static TextObject = {
     mainTitle: 'Настройки',
   };
-
-  async renderLogo() {
-    const logo = document.createElement('div');
-    logo.classList.add('settings-page__logo');
-    this.container.append(logo);
-    const json = await getSettingsJson();
-    console.log(json);
-  }
 
   getRanges(props: Record<string, string>[]) {
     const settingsSliders = props.map((rangeProps) => {
@@ -114,6 +58,12 @@ class SettingsPage extends Page {
     });
 
     return settingsCheckboxes;
+  }
+
+  async renderLogo() {
+    const logo = document.createElement('div');
+    logo.classList.add('settings-page__logo');
+    this.container.append(logo);
   }
 
   renderWrapper() {
