@@ -1,6 +1,115 @@
-@import "../../../styles/variables";
-@import "../../../styles/mixins";
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .categories-page {
-  
+  height: 100%;
+  width: 100%;
+  background: #a7cff4;
+  display: grid;
+  grid-template: 100px 1fr / 1fr;
+
+  &__header {
+    grid-row: 1/2;
+    height: 100%;
+    background: #495c61;
+  }
+  &__header-wrapper {
+    height: 100%;
+    max-width: 1800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+  }
+  &__header-image {
+    width: 122px;
+    height: 100%;
+    background: url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/neighbor_logo.webp');
+    margin-right: 20px;
+  }
+  &__header-title {
+    color: #ffffff;
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+  &__header-title:last-child {
+    margin-left: auto;
+  }
+  &__wrapper {
+    display: flex;
+    max-width: 1800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  &__episode-list {
+    flex: 50%;
+  }
+  &__series-description {
+    flex: 50%;
+  }
+}
+
+.header {
+}
+.episode-list {
+  padding: 22px 0 20px 0;
+  height: 100%;
+  display: grid;
+  grid-template: repeat(3, 27%) 19% / 1fr;
+
+  &__series-block {
+    display: grid;
+    grid-template: minmax(25px, auto) 1fr / 1fr;
+    margin-bottom: 15px;
+    background: #dfccb4;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    padding: 10px 0 10px 35px;
+    background: #b95f1d;
+  }
+  &__series-block:first-child &__title {
+    background: #33813b;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template: 1fr / repeat(4, 1fr);
+    column-gap: 17px;
+    padding: 20px;
+  }
+
+  &__card {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  &__btn-wrapper {
+    background: #aebdc5;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__btn {
+    margin: 0 30px 0 20px;
+    width: 92px;
+    height: 92px;
+    background: url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/svg/back.svg');
+    border-radius: 50%;
+  }
+
+  &__btn-info {
+    font-size: 1.7rem;
+  }
+}
+.series-description {
 }
