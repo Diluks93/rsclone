@@ -38,9 +38,12 @@
   &__btn {
     width: calc(50% - 0.3rem);
     padding: 0.75rem 0;
+    display: inline-block;
     font-size: 1.5rem;
     text-transform: uppercase;
     color: inherit;
+    text-decoration: none;
+    text-align: center;
     background: transparent;
     border: 0.25rem solid $settings;
     border-radius: 10rem;
@@ -50,12 +53,12 @@
       background-color: rgba($settings, 0.2);
     }
 
-    &:first-of-type {
+    &#reset-progress {
       width: 100%;
       margin-bottom: 1rem;
     }
 
-    &:nth-of-type(2) {
+    &#cancel-settings {
       margin-right: 0.6rem;
     }
   }
