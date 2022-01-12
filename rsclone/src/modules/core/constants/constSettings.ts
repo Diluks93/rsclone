@@ -7,7 +7,7 @@ import {
   SettingsLinkButtonType,
 } from './../types/settingsTypes';
 
-const settingsTranslation = translationStore.translation.settingsTranslation || null;
+const settingsTranslation = translationStore.settingsTranslation || null;
 const PLACEHOLDER = 'Lorem ipsum';
 const LANG = 'ru';
 
