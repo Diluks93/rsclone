@@ -1,9 +1,9 @@
 import { StorageKeys } from '../interfaces/enums';
 import { jsonUrl } from './../data/jsonUrls';
-import { saveTranslationToStorage } from '../utils/utils';
+import { saveFetchedJsonToStorage } from '../utils/utils';
 
 for (const storageKey of Object.values(StorageKeys)) {
-  saveTranslationToStorage(storageKey, jsonUrl[storageKey]);
+  saveFetchedJsonToStorage(storageKey, jsonUrl[storageKey]);
 }
 
 type TranslationInterface = {
