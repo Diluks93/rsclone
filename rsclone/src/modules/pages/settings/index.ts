@@ -1,4 +1,5 @@
-import { SettingsCheckboxType } from './../../core/types/settingsTypes';
+import { linkButtonsProps } from './../../core/constants/constSettings';
+import { SettingsCheckboxType, SettingsLinkButtonType } from './../../core/types/settingsTypes';
 import { rangesProps, checkboxesProps, buttonsProps } from '../../core/constants/constSettings';
 import { SettingsButtonType, SettingsRangeType } from '../../core/types/settingsTypes';
 import Page from '../../core/templates/page';
@@ -7,10 +8,6 @@ import './style.scss';
 const titleUrlRu = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/title/ru.webp';
 
 class SettingsPage extends Page {
-  static TextObject = {
-    mainTitle: 'Настройки',
-  };
-
   getRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
     const settingsSliders = props.map((rangeProps) => {
       const range = document.createElement('input');
@@ -34,10 +31,23 @@ class SettingsPage extends Page {
     const settingsButtons = props.map((buttonProps) => {
       const button = document.createElement('button');
       button.classList.add('settings-page__btn');
+      button.id = buttonProps.id;
       button.textContent = buttonProps.text;
       return button;
     });
     return settingsButtons;
+  }
+
+  getLinkButtons(props: SettingsLinkButtonType[]): HTMLAnchorElement[] {
+    const settingsLinkButtons = props.map((buttonProps) => {
+      const link = document.createElement('a');
+      link.classList.add('settings-page__btn');
+      link.id = buttonProps.id;
+      link.textContent = buttonProps.text;
+      link.href = buttonProps.href;
+      return link;
+    });
+    return settingsLinkButtons;
   }
 
   getCheckboxLabels(props: SettingsCheckboxType[]): HTMLLabelElement[] {
@@ -80,14 +90,13 @@ class SettingsPage extends Page {
     this.getRangeLabels(rangesProps).forEach((item) => inner.append(item));
     this.getCheckboxLabels(checkboxesProps).forEach((item) => inner.append(item));
     this.getButtons(buttonsProps).forEach((item) => inner.append(item));
+    this.getLinkButtons(linkButtonsProps).forEach((item) => inner.append(item));
     this.container.append(wrapper);
   }
 
   render(): HTMLElement {
-    const title = this.createHeaderTitle(SettingsPage.TextObject.mainTitle, 'h2', 'title');
     this.renderTitle();
     this.renderWrapper();
-    this.container.append(title);
     return this.container;
   }
 }
