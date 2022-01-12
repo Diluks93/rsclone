@@ -23,6 +23,7 @@
     align-items: center;
     height: 30%;
     &__item {
+      display: flex;
       border-top: 0.5rem solid $grey;
       border-bottom: 0.5rem solid $grey;
       border-left: 1.5rem solid $grey;
@@ -36,6 +37,8 @@
       font-family: $lorem;
       text-decoration: none;
       margin-top: 0.5rem;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

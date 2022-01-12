@@ -1,4 +1,4 @@
-import { SettingsCheckboxType, SettingsButtonType, SettingsRangeType } from './../types/settingsTypes';
+import { SettingsCheckboxType, SettingsButtonType, SettingsRangeType } from '../types/types';
 
 export const rangesProps: SettingsRangeType[] = [
   {

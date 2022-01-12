@@ -1,6 +1,6 @@
-import { SettingsCheckboxType } from './../../core/types/settingsTypes';
+import { SettingsCheckboxType } from '../../core/types/types';
 import { rangesProps, checkboxesProps, buttonsProps } from '../../core/constants/constSettings';
-import { SettingsButtonType, SettingsRangeType } from '../../core/types/settingsTypes';
+import { SettingsButtonType, SettingsRangeType } from '../../core/types/types';
 import Page from '../../core/templates/page';
 import './style.scss';
 
