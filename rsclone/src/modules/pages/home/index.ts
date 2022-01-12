@@ -1,8 +1,9 @@
-import { PageIds } from '../../core/interfaces/enums';
+import { PageIds } from '../../core/enums/enums';
+import { ButtonAuthorsOrNames } from '../../core/types/types';
 import Page from '../../core/templates/page';
 import './style.scss';
 
-const buttons = [
+const buttons: ButtonAuthorsOrNames = [
   {
     text: 'Начать игру',
     id: PageIds.CategoriesPage
@@ -24,23 +25,10 @@ class HomePage extends Page {
     super(id, className);
   };
 
-  renderPageButtons() {
-    const pageButtons = document.createElement('div');
-    pageButtons.className = 'btn';
-    buttons.forEach(({text, id}) => {
-      const buttonHTML = document.createElement('a');
-      buttonHTML.className = 'btn btn__item';
-      buttonHTML.href = `#${id}`;
-      buttonHTML.innerText = text;
-      pageButtons.append(buttonHTML);
-    });
-    this.container.append(pageButtons);
-  };
-
   render() {
     const title = this.createHeaderTitle('', 'h1', 'title title__main');
     this.container.append(title);
-    this.renderPageButtons();
+    this.renderPageButtons(buttons);
     return this.container;
   };
 

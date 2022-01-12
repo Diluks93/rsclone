@@ -1,3 +1,5 @@
+import { ButtonAuthorsOrNames } from '../types/types';
+
 abstract class Page {
   protected container: HTMLElement;
   static TextObject = {};
@@ -13,6 +15,19 @@ abstract class Page {
     headerTitle.innerText = title;
     headerTitle.className = className;
     return headerTitle;
+  };
+
+  protected renderPageButtons(buttons: ButtonAuthorsOrNames) {
+    const pageButtons = document.createElement('div');
+    pageButtons.className = 'btn';
+    buttons.forEach(({text, id, url}) => {
+      const buttonHTML = document.createElement('a');
+      buttonHTML.className = 'btn__item';
+      buttonHTML.href = id ? `#${id}` : `${url}`;
+      buttonHTML.innerText = text;
+      pageButtons.append(buttonHTML);
+    });
+    this.container.append(pageButtons);
   };
 
   render(): HTMLElement {

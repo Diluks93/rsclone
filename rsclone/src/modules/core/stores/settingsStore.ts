@@ -1,5 +1,5 @@
 import { jsonUrl } from './../data/jsonUrls';
-import { SettingsTranslationKeys, StorageKeys } from '../interfaces/enums';
+import { SettingsTranslationKeys, StorageKeys } from '../enums/enums';
 import { LanguageKeys, SettingsConfigType } from './../types/settingsTypes';
 
 const TEXT_NODE = 3;

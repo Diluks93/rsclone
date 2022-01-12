@@ -1,4 +1,4 @@
-import { PageIds, SettingsTranslationKeys } from '../interfaces/enums';
+import { PageIds, SettingsTranslationKeys } from '../enums/enums';
 import {
   SettingsCheckboxType,
   SettingsButtonType,
@@ -6,7 +6,7 @@ import {
   SettingsLinkButtonType,
   SettingsSelectType,
   LanguageKeys,
-} from './../types/settingsTypes';
+} from './../types/types';
 import { settingsStore } from './../../core/stores/settingsStore';
 
 export const selectProps: SettingsSelectType = {

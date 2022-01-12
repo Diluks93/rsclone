@@ -27,6 +27,7 @@
     height: 30%;
     &__item {
       position: relative;
+      display: flex;
       border-top: 0.5rem solid $grey;
       border-bottom: 0.5rem solid $grey;
       border-left: 2rem solid $grey;
@@ -65,6 +66,8 @@
         right: 100%;
         transform: translateX(50%);
       }
+      justify-content: center;
+      align-items: center;
     }
   }
 }
