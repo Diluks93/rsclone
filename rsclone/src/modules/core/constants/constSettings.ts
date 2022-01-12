@@ -1,4 +1,10 @@
-import { SettingsCheckboxType, SettingsButtonType, SettingsRangeType } from './../types/settingsTypes';
+import { PageIds } from '../interfaces/enums';
+import {
+  SettingsCheckboxType,
+  SettingsButtonType,
+  SettingsRangeType,
+  SettingsLinkButtonType,
+} from './../types/settingsTypes';
 
 export const rangesProps: SettingsRangeType[] = [
   {
@@ -29,12 +35,17 @@ export const buttonsProps: SettingsButtonType[] = [
     text: 'Удалить прогресс игры',
     id: 'reset-progress',
   },
+];
+
+export const linkButtonsProps: SettingsLinkButtonType[] = [
   {
     text: 'Отмена',
     id: 'cancel-settings',
+    href: `/#${PageIds.HomePage}`,
   },
   {
     text: 'Ок',
     id: 'save-settings',
+    href: `/#${PageIds.HomePage}`,
   },
 ];
