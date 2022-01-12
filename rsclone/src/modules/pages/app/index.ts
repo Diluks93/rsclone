@@ -6,14 +6,12 @@ import CategoriesPage from '../categories/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/page';
 import { PageIds, ErrorTypes} from '../../core/interfaces/enums';
-import Header from '../../core/components/header/index';
 import Footer from '../../core/components/footer/index';
 
 class App {
   private static container: HTMLElement = document.body;
   private static defaultPageId: string = PageIds.CurrentPage;
   private initialPage: HomePage;
-  private header: Header;
   private footer: Footer;
 
   static renderNewPage(idPage: string) {
@@ -55,20 +53,18 @@ class App {
   constructor() {
     App.container = document.body;
     this.initialPage = new HomePage(PageIds.HomePage, PageIds.HomePage);
-    this.header = new Header('header', 'header');
     this.footer = new Footer('footer', 'footer');
   };
 
   start(): void {
     
     //TODO Что бы постоянно не перещелкивать страницу при разработке передайте аргументом сюда свою страницу.
-    App.renderNewPage(PageIds.HomePage); 
-    App.container.prepend(this.header.render());
+    App.renderNewPage(PageIds.SettingsPage); 
     this.enableRouteChange();
     App.container.append(this.footer.render());
     
     //TODO И следующую строку закомментируйте.
-    window.location.hash = PageIds.HomePage;
+    // window.location.hash = PageIds.HomePage;
   };
 };
 

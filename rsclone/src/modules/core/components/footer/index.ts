@@ -7,7 +7,7 @@ const buttons = [
     url: 'https://rs.school/js/'
   },
   {
-    text: '2021',
+    text: '2022',
   },
   {
     text: 'Diluks93 | ',
