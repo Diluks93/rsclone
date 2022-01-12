@@ -5,11 +5,18 @@ const enum PageIds {
   AuthorsPage = 'authors-page',
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
-  CategoriesPage = 'categories-page'
-};
-
-const enum ErrorTypes {
-  Error_404 = '404'
+  CategoriesPage = 'categories-page',
 }
 
-export { PageIds, ErrorTypes };
+const enum ErrorTypes {
+  Error_404 = '404',
+}
+
+enum StorageKeys {
+  HomeTranslation = 'homeTranslation',
+  CategoriesTranslation = 'categoriesTranslation',
+  EpisodesTranslation = 'episodesTranslation',
+  SettingsTranslation = 'settingsTranslation',
+}
+
+export { PageIds, ErrorTypes, StorageKeys };
