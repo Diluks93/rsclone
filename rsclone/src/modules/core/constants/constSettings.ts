@@ -22,7 +22,7 @@ export const rangesProps: SettingsRangeType[] = [
 
 export const checkboxesProps: SettingsCheckboxType[] = [
   {
-    text: settingsTranslation ? settingsTranslation[LANG].music : PLACEHOLDER,
+    text: settingsTranslation ? settingsTranslation[LANG].sound : PLACEHOLDER,
     id: 'toggle-sound',
   },
   {
@@ -30,7 +30,7 @@ export const checkboxesProps: SettingsCheckboxType[] = [
     id: 'toggle-time',
   },
   {
-    text: settingsTranslation ? settingsTranslation[LANG].trickReport : PLACEHOLDER,
+    text: settingsTranslation ? settingsTranslation[LANG].tricksReport : PLACEHOLDER,
     id: 'toggle-report',
   },
 ];
@@ -49,7 +49,7 @@ export const linkButtonsProps: SettingsLinkButtonType[] = [
     href: `/#${PageIds.HomePage}`,
   },
   {
-    text: settingsTranslation ? settingsTranslation[LANG].ok : PLACEHOLDER,
+    text: settingsTranslation ? settingsTranslation[LANG].save : PLACEHOLDER,
     id: 'save-settings',
     href: `/#${PageIds.HomePage}`,
   },
