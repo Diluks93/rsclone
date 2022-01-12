@@ -1,3 +1,4 @@
+import { translationStore } from './../stores/translationStore';
 import { PageIds } from '../interfaces/enums';
 import {
   SettingsCheckboxType,
@@ -5,6 +6,10 @@ import {
   SettingsRangeType,
   SettingsLinkButtonType,
 } from './../types/settingsTypes';
+
+const settingsTranslation = translationStore.translation.settingsTranslation || null;
+const PLACEHOLDER = 'Lorem ipsum';
+const LANG = 'ru';
 
 export const rangesProps: SettingsRangeType[] = [
   {
@@ -17,34 +22,34 @@ export const rangesProps: SettingsRangeType[] = [
 
 export const checkboxesProps: SettingsCheckboxType[] = [
   {
-    text: 'Вкл / откл звук',
+    text: settingsTranslation ? settingsTranslation[LANG].music : PLACEHOLDER,
     id: 'toggle-sound',
   },
   {
-    text: 'Ограничение по времени',
+    text: settingsTranslation ? settingsTranslation[LANG].timeLimit : PLACEHOLDER,
     id: 'toggle-time',
   },
   {
-    text: 'Отчет по пакостям',
+    text: settingsTranslation ? settingsTranslation[LANG].trickReport : PLACEHOLDER,
     id: 'toggle-report',
   },
 ];
 
 export const buttonsProps: SettingsButtonType[] = [
   {
-    text: 'Удалить прогресс игры',
+    text: settingsTranslation ? settingsTranslation[LANG].resetProgress : PLACEHOLDER,
     id: 'reset-progress',
   },
 ];
 
 export const linkButtonsProps: SettingsLinkButtonType[] = [
   {
-    text: 'Отмена',
+    text: settingsTranslation ? settingsTranslation[LANG].cancel : PLACEHOLDER,
     id: 'cancel-settings',
     href: `/#${PageIds.HomePage}`,
   },
   {
-    text: 'Ок',
+    text: settingsTranslation ? settingsTranslation[LANG].ok : PLACEHOLDER,
     id: 'save-settings',
     href: `/#${PageIds.HomePage}`,
   },
