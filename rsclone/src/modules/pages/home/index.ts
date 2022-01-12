@@ -18,9 +18,7 @@ const buttons = [
 ]
 
 class HomePage extends Page {
-  static TextObject = {
-    mainTitle: 'Как достать соседа',
-  };
+  
 
   constructor(id: string, className: string) {
     super(id, className);
@@ -40,7 +38,7 @@ class HomePage extends Page {
   };
 
   render() {
-    const title = this.createHeaderTitle(HomePage.TextObject.mainTitle, 'h1', 'title title__main');
+    const title = this.createHeaderTitle('', 'h1', 'title title__main');
     this.container.append(title);
     this.renderPageButtons();
     return this.container;
