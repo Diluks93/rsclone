@@ -6,20 +6,20 @@ for (const storageKey of Object.values(StorageKeys)) {
   saveFetchedJsonToStorage(storageKey, jsonUrl[storageKey]);
 }
 
-type TranslationInterface = {
-  [key in StorageKeys]?: TranslationType;
+type TranslationStoreType = {
+  [key in StorageKeys]?: TranslationPageType;
 };
 
 type LanguageKeys = 'ru' | 'en';
 
-type TranslationType = {
+type TranslationPageType = {
   [K in LanguageKeys]: {
     [key: string]: string;
   };
 };
 
 class TranslationStore {
-  translation: TranslationInterface;
+  translation: TranslationStoreType;
 
   constructor() {
     this.translation = {};
@@ -35,19 +35,19 @@ class TranslationStore {
     }
   }
 
-  get homeTranslation() {
+  get homeTranslation(): TranslationPageType | undefined {
     return this.translation.homeTranslation;
   }
 
-  get categoriesTranslation() {
+  get categoriesTranslation(): TranslationPageType | undefined {
     return this.translation.categoriesTranslation;
   }
 
-  get episodesTranslation() {
+  get episodesTranslation(): TranslationPageType | undefined {
     return this.translation.episodesTranslation;
   }
 
-  get settingsTranslation() {
+  get settingsTranslation(): TranslationPageType | undefined {
     return this.translation.settingsTranslation;
   }
 }
