@@ -14,10 +14,10 @@ type SettingsRangeType = {
   value: string;
 };
 
-type ButtonAuthors = {
+type ButtonsPagesOrAuthors = {
   text: string;
   url?: string;
   id?: string;
 }[];
 
-export { SettingsButtonType, SettingsCheckboxType, SettingsRangeType, ButtonAuthors };
+export { SettingsButtonType, SettingsCheckboxType, SettingsRangeType, ButtonsPagesOrAuthors };

@@ -1,4 +1,4 @@
-import { ButtonAuthors } from '../types/types';
+import { ButtonsPagesOrAuthors } from '../types/types';
 
 abstract class Page {
   protected container: HTMLElement;
@@ -17,7 +17,7 @@ abstract class Page {
     return headerTitle;
   };
 
-  protected renderPageButtons(buttons: ButtonAuthors) {
+  protected renderPageButtons(buttons: ButtonsPagesOrAuthors) {
     const pageButtons = document.createElement('div');
     pageButtons.className = 'btn';
     buttons.forEach(({text, id, url}) => {

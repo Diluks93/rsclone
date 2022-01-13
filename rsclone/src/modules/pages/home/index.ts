@@ -1,9 +1,9 @@
 import { PageIds } from '../../core/enums/enums';
 import Page from '../../core/templates/page';
-import { ButtonAuthors } from '../../core/types/types';
+import { ButtonsPagesOrAuthors } from '../../core/types/types';
 import './style.scss';
 
-const buttons: ButtonAuthors = [
+const buttons: ButtonsPagesOrAuthors = [
   {
     text: 'Начать игру',
     id: PageIds.CategoriesPage
