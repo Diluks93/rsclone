@@ -54,7 +54,7 @@ class CategoriesPage extends Page {
     this.container.append(wrapper);
   }
 
-  async addEpisodeList() {
+  async addEpisodeList(): Promise<HTMLElement> {
     const categoryData = await this.getDataByCategorySection();
     const seriesTitles: string[] = [];
     if (categoryData) {
@@ -102,7 +102,7 @@ class CategoriesPage extends Page {
     return episodeList;
   }
 
-  addCards(num: number) {
+  addCards(num: number): HTMLElement[] {
     const result: HTMLElement[] = [];
 
     for (let i = 0; i < num; i++) {
@@ -121,7 +121,7 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  async addSeriesDescription() {
+  async addSeriesDescription(): Promise<HTMLDivElement> {
     const seriesDescription = document.createElement('div');
     const title = document.createElement('div');
     const seriesWrapper = document.createElement('div');
@@ -156,7 +156,7 @@ class CategoriesPage extends Page {
     return seriesDescription;
   }
 
-  async addSeriesHide() {
+  async addSeriesHide(): Promise<HTMLElement[]> {
     const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
@@ -174,7 +174,7 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  async addSeriesTime() {
+  async addSeriesTime(): Promise<HTMLElement[]> {
     const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
@@ -192,7 +192,7 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  async addSeriesRating() {
+  async addSeriesRating(): Promise<HTMLElement[]> {
     const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
@@ -210,7 +210,7 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  addSeriesPic() {
+  addSeriesPic(): HTMLElement[] {
     const result: HTMLElement[] = [];
     const img = document.createElement('div');
     const title = document.createElement('div');
@@ -224,7 +224,7 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  async addSeriesBtn() {
+  async addSeriesBtn(): Promise<HTMLElement[]> {
     const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
