@@ -5,18 +5,27 @@ import {
   SettingsButtonType,
   SettingsRangeType,
   SettingsLinkButtonType,
+  SettingsSelectType,
 } from './../types/settingsTypes';
 
 const settingsTranslation = translationStore.settingsTranslation || null;
-const PLACEHOLDER = 'Lorem ipsum';
-const LANG = 'ru';
+const PLACEHOLDER = 'Lorem';
+const LANG = translationStore.language;
+
+export const selectProps: SettingsSelectType = {
+  id: 'lang-select',
+  options: ['ru', 'en'],
+};
 
 export const rangesProps: SettingsRangeType[] = [
   {
     iconUrl:
       'https://raw.githubusercontent.com/randomspells/source-rsclone/af3870fdc4d1d92e27d7603277d7c09b9710b449/rsclone-source/settings-page/svg/sound.svg',
     id: 'volume-bar',
-    value: '60',
+    min: '0',
+    max: '1',
+    step: '0.1',
+    value: '0.5',
   },
 ];
 
