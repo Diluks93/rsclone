@@ -1,39 +1,17 @@
 import Page from '../../core/templates/page';
 import { LevelsSeries } from '../../core/interfaces/enums';
+import { categoriesJsonUrl } from '../../core/data/jsonUrls';
+import { getTranslationJson } from '../../core/utils/getTranslationJson';
+import { CategoriesByLanguageType } from '../../core/types/categoriesTypes';
 import './style.scss';
-
-interface IData {
-  episodeList: string;
-  episodeDetails: string;
-  intro: string;
-  seasonOne: string;
-  seasonTwo: string;
-  backToMain: string;
-  startEpisode: string;
-  hintTitle: string;
-  minimumRating: string;
-  duration: string;
-}
-
-interface ILang {
-  ru: IData;
-  en: IData;
-}
 
 class CategoriesPage extends Page {
   static TextObject = {
     mainTitle: 'Categories Page',
   };
 
-  async getInfo() {
-    const url = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/json/categories.json';
-    const responce = await fetch(url);
-    const data: ILang = await responce.json();
-    return data;
-  }
-
   async addHeader() {
-    const data = await this.getInfo();
+    const data: CategoriesByLanguageType = await getTranslationJson(categoriesJsonUrl);
     const dataArr = [data.ru.episodeList, data.ru.episodeDetails];
     const titleArr: HTMLElement[] = [];
     const header = document.createElement('div');
@@ -66,7 +44,7 @@ class CategoriesPage extends Page {
   }
 
   async addEpisodeList() {
-    const data = await this.getInfo();
+    const data: CategoriesByLanguageType = await getTranslationJson(categoriesJsonUrl);
     const dataArr = [data.ru.intro, data.ru.seasonOne, data.ru.seasonTwo];
     const episodeList = document.createElement('div');
     const btnWrapper = document.createElement('div');
