@@ -12,9 +12,4 @@ const enum ErrorTypes {
   Error_404 = '404',
 }
 
-const enum LevelsSeries {
-  preparatoryLevel = 3,
-  mainLevel = 4,
-}
-
-export { PageIds, ErrorTypes, LevelsSeries };
+export { PageIds, ErrorTypes };

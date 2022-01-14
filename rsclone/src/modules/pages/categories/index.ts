@@ -1,8 +1,8 @@
 import Page from '../../core/templates/page';
-import { LevelsSeries } from '../../core/interfaces/enums';
 import { categoriesJsonUrl } from '../../core/data/jsonUrls';
 import { getTranslationJson } from '../../core/utils/getTranslationJson';
 import { CategoriesByLanguageType } from '../../core/types/categoriesTypes';
+import { numericСonstants } from '../../core/constants/constCategories';
 import './style.scss';
 
 class CategoriesPage extends Page {
@@ -10,9 +10,17 @@ class CategoriesPage extends Page {
     mainTitle: 'Categories Page',
   };
 
-  async addHeader() {
+  async getDataByCategorySection() {
     const data: CategoriesByLanguageType = await getTranslationJson(categoriesJsonUrl);
-    const dataArr = [data.ru.episodeList, data.ru.episodeDetails];
+    if (data) return data.ru;
+  }
+
+  async addHeader() {
+    const categoryData = await this.getDataByCategorySection();
+    const pageSectionNames: string[] = [];
+    if (categoryData) {
+      pageSectionNames.push(categoryData.episodeList, categoryData.episodeDetails);
+    }
     const titleArr: HTMLElement[] = [];
     const header = document.createElement('div');
     const headerWrapper = document.createElement('div');
@@ -22,10 +30,12 @@ class CategoriesPage extends Page {
     headerWrapper.classList.add('categories-page__header-wrapper');
     headerImage.classList.add('categories-page__header-image');
 
-    for (let i = 0; i < dataArr.length; i++) {
+    for (let i = 0; i < pageSectionNames.length; i++) {
       const headerTitle = document.createElement('div');
       headerTitle.classList.add('categories-page__header-title');
-      headerTitle.innerText = dataArr[i];
+      if (categoryData) {
+        headerTitle.innerText = pageSectionNames[i];
+      }
       titleArr.push(headerTitle);
     }
 
@@ -44,8 +54,12 @@ class CategoriesPage extends Page {
   }
 
   async addEpisodeList() {
-    const data: CategoriesByLanguageType = await getTranslationJson(categoriesJsonUrl);
-    const dataArr = [data.ru.intro, data.ru.seasonOne, data.ru.seasonTwo];
+    const categoryData = await this.getDataByCategorySection();
+    const seriesTitles: string[] = [];
+    if (categoryData) {
+      seriesTitles.push(categoryData.intro, categoryData.seasonOne, categoryData.seasonTwo);
+    }
+
     const episodeList = document.createElement('div');
     const btnWrapper = document.createElement('div');
     const btn = document.createElement('div');
@@ -56,9 +70,11 @@ class CategoriesPage extends Page {
     btnWrapper.classList.add('episode-list__btn-wrapper');
     btn.classList.add('episode-list__btn');
     btnInfo.classList.add('episode-list__btn-info');
-    btnInfo.innerText = data.ru.backToMain;
+    if (categoryData) {
+      btnInfo.innerText = categoryData.backToMain;
+    }
 
-    for (let i = 0; i < dataArr.length; i++) {
+    for (let i = 0; i < numericСonstants.NUMBER_SERIES_SECTIONS; i++) {
       const seriesBlock = document.createElement('div');
       const title = document.createElement('div');
       const cards = document.createElement('div');
@@ -67,10 +83,12 @@ class CategoriesPage extends Page {
       title.classList.add('episode-list__title');
       cards.classList.add('episode-list__cards');
 
-      title.innerText = dataArr[i];
+      if (categoryData) {
+        title.innerText = seriesTitles[i];
+      }
 
-      if (i === 0) cards.append(...this.addCards(LevelsSeries.preparatoryLevel));
-      else cards.append(...this.addCards(LevelsSeries.mainLevel));
+      if (i === 0) cards.append(...this.addCards(numericСonstants.PREPARATORY_LEVEL_NUMBER));
+      else cards.append(...this.addCards(numericСonstants.MAIN_LEVEL_NUMBER));
 
       seriesBlock.append(title, cards);
       seriesArr.push(seriesBlock);
@@ -125,10 +143,10 @@ class CategoriesPage extends Page {
     title.innerText = 'у телеэкрана';
     seriesDesc.innerText = 'Какой-то текст...';
     seriesPic.append(...this.addSeriesPic());
-    seriesRating.append(...this.addSeriesRating());
-    seriesTime.append(...this.addSeriesTime());
-    seriesHint.append(...this.addSeriesHide());
-    seriesBtnWrapper.append(...this.addSeriesBtn());
+    seriesRating.append(...(await this.addSeriesRating()));
+    seriesTime.append(...(await this.addSeriesTime()));
+    seriesHint.append(...(await this.addSeriesHide()));
+    seriesBtnWrapper.append(...(await this.addSeriesBtn()));
 
     seriesWrapper.append(seriesPic, seriesRating, seriesTime, seriesHint, seriesDesc, seriesBtnWrapper);
     seriesDescription.append(title, seriesWrapper);
@@ -136,14 +154,17 @@ class CategoriesPage extends Page {
     return seriesDescription;
   }
 
-  addSeriesHide() {
+  async addSeriesHide() {
+    const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const text = document.createElement('p');
 
     title.classList.add('series-description__hint-title');
     text.classList.add('series-description__hint-text');
-    title.textContent = 'Подсказка!';
+    if (categoryData) {
+      title.textContent = categoryData.hintTitle;
+    }
     text.textContent = 'Слушайте советы режисера!';
 
     result.push(title, text);
@@ -151,29 +172,35 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  addSeriesTime() {
+  async addSeriesTime() {
+    const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const text = document.createElement('p');
 
     title.classList.add('series-description__parameter-title');
     text.classList.add('series-description__parameter-text');
-    title.textContent = 'Минимальное время';
-    text.textContent = '5:00 мин';
+    if (categoryData) {
+      title.textContent = categoryData.duration;
+    }
+    text.textContent = '5:00';
 
     result.push(text, title);
 
     return result;
   }
 
-  addSeriesRating() {
+  async addSeriesRating() {
+    const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const text = document.createElement('p');
 
     title.classList.add('series-description__parameter-title');
     text.classList.add('series-description__parameter-text');
-    title.textContent = 'Минимальный рейтинг';
+    if (categoryData) {
+      title.textContent = categoryData.minimumRating;
+    }
     text.textContent = '50%';
 
     result.push(text, title);
@@ -195,14 +222,17 @@ class CategoriesPage extends Page {
     return result;
   }
 
-  addSeriesBtn() {
+  async addSeriesBtn() {
+    const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
     const btn = document.createElement('div');
 
     title.classList.add('series-description__btn-title');
     btn.classList.add('series-description__btn');
-    title.textContent = 'Съемка';
+    if (categoryData) {
+      title.textContent = categoryData.startEpisode;
+    }
 
     result.push(title, btn);
 
