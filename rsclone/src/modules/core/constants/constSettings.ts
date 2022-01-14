@@ -1,5 +1,5 @@
-import { translationStore } from './../stores/translationStore';
-import { PageIds } from '../interfaces/enums';
+import { LanguageKeys } from './../stores/translationStore';
+import { PageIds, SettingsTranslationKeys } from '../interfaces/enums';
 import {
   SettingsCheckboxType,
   SettingsButtonType,
@@ -7,14 +7,18 @@ import {
   SettingsLinkButtonType,
   SettingsSelectType,
 } from './../types/settingsTypes';
-
-const settingsTranslation = translationStore.settingsTranslation || null;
-const PLACEHOLDER = 'Lorem';
-const LANG = translationStore.language;
+import { settingsStore } from './../../core/stores/settingsStore';
 
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
   options: ['ru', 'en'],
+  changeHandler(e: Event): void {
+    if (e.target instanceof HTMLSelectElement) {
+      settingsStore.languageValue = e.target.value as LanguageKeys;
+      settingsStore.setSettingsLanguage();
+      console.log(settingsStore);
+    }
+  },
 };
 
 export const rangesProps: SettingsRangeType[] = [
@@ -25,41 +29,69 @@ export const rangesProps: SettingsRangeType[] = [
     min: '0',
     max: '1',
     step: '0.1',
-    value: '0.5',
+    value: settingsStore.volumeValue,
+    inputHandler(e: Event): void {
+      const target = e.target;
+      if (target instanceof HTMLInputElement) {
+        settingsStore.volumeValue = target.value;
+
+        target.style.backgroundImage = [
+          '-webkit-gradient(',
+          'linear, ',
+          'left top, ',
+          'right top, ',
+          'color-stop(' + target.value + ', #4CD235), ',
+          'color-stop(' + target.value + ', #E9F110)',
+          ')',
+        ].join('');
+      }
+    },
   },
 ];
 
 export const checkboxesProps: SettingsCheckboxType[] = [
   {
-    text: settingsTranslation ? settingsTranslation[LANG].sound : PLACEHOLDER,
-    id: 'toggle-sound',
+    text: 'Sound',
+    id: SettingsTranslationKeys.Sound,
+    isEnabled: settingsStore.isSoundEnabled,
+    clickHandler(): void {
+      settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
+    },
   },
   {
-    text: settingsTranslation ? settingsTranslation[LANG].timeLimit : PLACEHOLDER,
-    id: 'toggle-time',
+    text: 'Time Limit',
+    id: SettingsTranslationKeys.TimeLimit,
+    isEnabled: settingsStore.isTimeLimitEnabled,
+    clickHandler(): void {
+      settingsStore.isTimeLimitEnabled = !settingsStore.isTimeLimitEnabled;
+    },
   },
   {
-    text: settingsTranslation ? settingsTranslation[LANG].tricksReport : PLACEHOLDER,
-    id: 'toggle-report',
+    text: 'Report',
+    id: SettingsTranslationKeys.TricksReport,
+    isEnabled: settingsStore.isTricksReportEnabled,
+    clickHandler(): void {
+      settingsStore.isTricksReportEnabled = !settingsStore.isTricksReportEnabled;
+    },
   },
 ];
 
 export const buttonsProps: SettingsButtonType[] = [
   {
-    text: settingsTranslation ? settingsTranslation[LANG].resetProgress : PLACEHOLDER,
-    id: 'reset-progress',
+    text: 'Reset',
+    id: SettingsTranslationKeys.Reset,
   },
 ];
 
 export const linkButtonsProps: SettingsLinkButtonType[] = [
   {
-    text: settingsTranslation ? settingsTranslation[LANG].cancel : PLACEHOLDER,
-    id: 'cancel-settings',
+    text: 'Cancel',
+    id: SettingsTranslationKeys.Cancel,
     href: `/#${PageIds.HomePage}`,
   },
   {
-    text: settingsTranslation ? settingsTranslation[LANG].save : PLACEHOLDER,
-    id: 'save-settings',
+    text: 'Save',
+    id: SettingsTranslationKeys.Save,
     href: `/#${PageIds.HomePage}`,
   },
 ];
