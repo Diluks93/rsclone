@@ -3,6 +3,7 @@ import { categoriesJsonUrl } from '../../core/data/jsonUrls';
 import { getTranslationJson } from '../../core/utils/getTranslationJson';
 import { CategoriesByLanguageType } from '../../core/types/categoriesTypes';
 import { numericСonstants } from '../../core/constants/constCategories';
+import { PageIds } from '../../core/interfaces/enums';
 import './style.scss';
 
 class CategoriesPage extends Page {
@@ -62,13 +63,14 @@ class CategoriesPage extends Page {
 
     const episodeList = document.createElement('div');
     const btnWrapper = document.createElement('div');
-    const btn = document.createElement('div');
+    const btn = document.createElement('a');
     const btnInfo = document.createElement('div');
     const seriesArr: HTMLElement[] = [];
 
     episodeList.classList.add('categories-page__episode-list', 'episode-list');
     btnWrapper.classList.add('episode-list__btn-wrapper');
     btn.classList.add('episode-list__btn');
+    btn.href = `#${PageIds.HomePage}`;
     btnInfo.classList.add('episode-list__btn-info');
     if (categoryData) {
       btnInfo.innerText = categoryData.backToMain;
@@ -226,10 +228,11 @@ class CategoriesPage extends Page {
     const categoryData = await this.getDataByCategorySection();
     const result: HTMLElement[] = [];
     const title = document.createElement('div');
-    const btn = document.createElement('div');
+    const btn = document.createElement('a');
 
     title.classList.add('series-description__btn-title');
     btn.classList.add('series-description__btn');
+    btn.href = `#${PageIds.MainPage}`;
     if (categoryData) {
       title.textContent = categoryData.startEpisode;
     }
