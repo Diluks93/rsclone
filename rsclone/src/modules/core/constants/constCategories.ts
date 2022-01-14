@@ -1,6 +1,6 @@
 const NUMBER_SERIES_SECTIONS = 3;
 const PREPARATORY_LEVEL_NUMBER = 3;
-const MAIN_LEVEL_NUMBER = 3;
+const MAIN_LEVEL_NUMBER = 4;
 
 export const numericСonstants = {
   NUMBER_SERIES_SECTIONS,
