@@ -128,7 +128,6 @@
   }
 }
 .series-description {
-  position: relative;
   padding: 1.4rem 0 1.3rem 0;
   display: grid;
   grid-template: auto 1fr / 1fr;
@@ -144,6 +143,7 @@
     border-bottom: none;
   }
   &__wrapper {
+    position: relative;
     background: $series-description-bg;
     display: grid;
     grid-template: 20% 25% 55% / 40% 30% 30%;
@@ -157,7 +157,7 @@
     margin: 0.4rem;
   }
   &__pictures-title {
-    font-size: 1rem;
+    font-size: 1.2rem;
     justify-self: center;
     align-self: center;
   }
