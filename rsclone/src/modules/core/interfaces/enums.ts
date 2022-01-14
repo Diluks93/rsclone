@@ -19,4 +19,13 @@ enum StorageKeys {
   SettingsTranslation = 'settingsTranslation',
 }
 
-export { PageIds, ErrorTypes, StorageKeys };
+enum SettingsTranslationKeys {
+  Sound = 'isSoundEnabled',
+  Reset = 'resetProgress',
+  TimeLimit = 'isTimeLimitEnabled',
+  TricksReport = 'isTricksReportEnabled',
+  Cancel = 'cancelSettings',
+  Save = 'saveSettings',
+}
+
+export { PageIds, ErrorTypes, StorageKeys, SettingsTranslationKeys };
