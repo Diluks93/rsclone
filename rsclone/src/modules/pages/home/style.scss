@@ -1,11 +1,9 @@
-@import "../../../styles/variables";
-@import "../../../styles/mixins";
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .home-page {
-  position: absolute;
-  left: 0;
+  grid-row: 1/2;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
