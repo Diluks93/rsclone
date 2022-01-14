@@ -4,14 +4,14 @@
 .categories-page {
   height: 100%;
   width: 100%;
-  background: #a7cff4;
+  background: $category-bg;
   display: grid;
   grid-template: 100px 1fr / 1fr;
 
   &__header {
     grid-row: 1/2;
     height: 100%;
-    background: #495c61;
+    background: $main-color;
   }
   &__header-wrapper {
     height: 100%;
@@ -29,7 +29,7 @@
     margin-right: 20px;
   }
   &__header-title {
-    color: #ffffff;
+    color: $text;
     font-size: 2rem;
     text-transform: uppercase;
   }
@@ -65,19 +65,19 @@
     display: grid;
     grid-template: minmax(25px, auto) 1fr / 1fr;
     margin-bottom: 15px;
-    background: #dfccb4;
+    background: $series-block;
     border-radius: 20px;
     overflow: hidden;
-    border: 2px solid #5c5656;
+    border: 2px solid $category-border;
   }
 
   &__title {
     font-size: 1.4rem;
     padding: 10px 0 10px 35px;
-    background: #b95f1d;
+    background: $red;
   }
   &__series-block:first-child &__title {
-    background: #33813b;
+    background: $green;
   }
 
   &__cards {
@@ -103,15 +103,15 @@
     left: 5px;
     font-size: 2rem;
     font-weight: 800;
-    color: #ffffff;
+    color: $text;
   }
 
   &__btn-wrapper {
-    background: #aebdc5;
+    background: $grey;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    border: 2px solid #5c5656;
+    border: 2px solid $category-border;
   }
 
   &__btn {
@@ -133,7 +133,7 @@
   grid-template: auto 1fr / 1fr;
 
   &__title {
-    background: #e9c546;
+    background: $yellow;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     font-size: 2.5rem;
@@ -143,7 +143,7 @@
     border-bottom: none;
   }
   &__wrapper {
-    background: #ded6cc;
+    background: $series-description-bg;
     display: grid;
     grid-template: 20% 25% 55% / 40% 30% 30%;
     border: 2px solid rgba(92, 86, 86, 0.8);
@@ -174,13 +174,13 @@
       url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/tv2.webp');
     background-position: center center;
     background-size: cover;
-    border: 3px solid #262320;
+    border: 3px solid $series-border;
     box-sizing: border-box;
     border-radius: 20px;
     margin: 7px;
     display: grid;
     grid-template: 70% 30% / 1fr;
-    color: #ffffff;
+    color: $text;
   }
   &__time {
     grid-row: 1/2;
@@ -189,13 +189,13 @@
       url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/map.webp');
     background-position: center center;
     background-size: cover;
-    border: 3px solid #262320;
+    border: 3px solid $series-border;
     box-sizing: border-box;
     border-radius: 20px;
     margin: 7px;
     display: grid;
     grid-template: 70% 30% / 1fr;
-    color: #ffffff;
+    color: $text;
   }
   &__parameter-title {
     background: rgba(142, 151, 138, 0.8);
@@ -215,8 +215,8 @@
   &__hint {
     grid-row: 2/3;
     grid-column: 2/4;
-    background: #82a5c5;
-    border: 3px solid #095aa4;
+    background: $blue;
+    border: 3px solid $hint-border;
     box-sizing: border-box;
     border-radius: 20px;
     margin: 7px;
@@ -230,7 +230,7 @@
     font-weight: 500;
     font-size: 2rem;
     line-height: 33px;
-    color: #004c92;
+    color: $hint-text;
   }
   &__hint-text {
     font-weight: 300;
@@ -249,8 +249,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    background: #aebdc5;
-    border: 1px solid #5c5656;
+    background: $grey;
+    border: 1px solid $category-border;
     border-radius: 20px;
     display: flex;
     align-items: center;
