@@ -8,5 +8,5 @@ export const jsonUrl: Record<string, string> = {
   [StorageKeys.EpisodesTranslation]:
     'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/episodes.json',
   [StorageKeys.SettingsTranslation]:
-    'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/settings.json',
+    'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/json/settings.json',
 };
