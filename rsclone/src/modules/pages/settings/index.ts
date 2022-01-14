@@ -1,16 +1,16 @@
-import { LanguageKeys, translationStore } from './../../core/stores/translationStore';
 import { linkButtonsProps } from './../../core/constants/constSettings';
 import { SettingsCheckboxType, SettingsLinkButtonType, SettingsSelectType } from './../../core/types/settingsTypes';
 import { rangesProps, checkboxesProps, buttonsProps, selectProps } from '../../core/constants/constSettings';
 import { SettingsButtonType, SettingsRangeType } from '../../core/types/settingsTypes';
 import Page from '../../core/templates/page';
 import './style.scss';
+import { settingsStore } from '../../core/stores/settingsStore';
 
 const titleUrlRu = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/title/ru.webp';
 
 class SettingsPage extends Page {
   getRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
-    const settingsSliders = props.map(({ id, min, max, step, value, iconUrl }) => {
+    const settingsSliders = props.map(({ id, min, max, step, value, iconUrl, inputHandler }) => {
       const range = document.createElement('input');
       range.type = 'range';
       range.id = id;
@@ -28,15 +28,15 @@ class SettingsPage extends Page {
       label.classList.add('settings-page__range-label');
       label.append(soundButton, range);
 
-      range.addEventListener('input', this.setRangeBefore);
-      range.oninput = (e) => this.setRangeBefore(e);
+      range.addEventListener('input', inputHandler);
+
       return label;
     });
     return settingsSliders;
   }
 
   getCustomSelect(props: SettingsSelectType): HTMLDivElement {
-    const { id, options } = props;
+    const { id, options, changeHandler } = props;
     const customSelect = document.createElement('div');
     customSelect.classList.add('settings-page__custom-select');
     const select = document.createElement('select');
@@ -50,28 +50,11 @@ class SettingsPage extends Page {
       select.append(optionElement);
     });
 
-    select.addEventListener('change', (e) => {
-      if (e.target instanceof HTMLSelectElement) {
-        translationStore.currentLanguage = e.target.value as LanguageKeys;
-      }
-    });
+    select.addEventListener('change', changeHandler);
 
     customSelect.append(select);
 
     return customSelect;
-  }
-
-  setRangeBefore({ target }: Event) {
-    const range = <HTMLInputElement>target;
-    range.style.backgroundImage = [
-      '-webkit-gradient(',
-      'linear, ',
-      'left top, ',
-      'right top, ',
-      'color-stop(' + range.value + ', #4CD235), ',
-      'color-stop(' + range.value + ', #E9F110)',
-      ')',
-    ].join('');
   }
 
   getButtons(props: SettingsButtonType[]): HTMLButtonElement[] {
@@ -103,6 +86,8 @@ class SettingsPage extends Page {
       checkbox.type = 'checkbox';
       checkbox.classList.add('settings-page__checkbox');
       checkbox.id = checkboxProps.id;
+      checkbox.checked = checkboxProps.isEnabled;
+      checkbox.onclick = checkboxProps.clickHandler;
 
       const checkmark = document.createElement('span');
       checkmark.classList.add('settings-page__checkmark');
@@ -145,9 +130,13 @@ class SettingsPage extends Page {
   render(): HTMLElement {
     this.renderTitle();
     this.renderWrapper();
-
     return this.container;
   }
 }
+
+// todo: move to app component or events controller
+window.onload = () => {
+  settingsStore.setSettingsLanguage();
+};
 
 export default SettingsPage;
