@@ -10,7 +10,7 @@ type TranslationStoreType = {
   [key in StorageKeys]?: TranslationPageType;
 };
 
-type LanguageKeys = 'ru' | 'en';
+export type LanguageKeys = 'ru' | 'en';
 
 type TranslationPageType = {
   [K in LanguageKeys]: {
@@ -21,8 +21,11 @@ type TranslationPageType = {
 class TranslationStore {
   translation: TranslationStoreType;
 
+  language: LanguageKeys;
+
   constructor() {
     this.translation = {};
+    this.language = 'ru';
     this.parseTranslationFromStorage();
   }
 
@@ -33,6 +36,10 @@ class TranslationStore {
         this.translation[storageKey] = JSON.parse(itemFromStorageByKey);
       }
     }
+  }
+
+  set currentLanguage(language: LanguageKeys) {
+    this.language = language;
   }
 
   get homeTranslation(): TranslationPageType | undefined {
