@@ -5,11 +5,11 @@ const enum PageIds {
   AuthorsPage = 'authors-page',
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
-  CategoriesPage = 'categories-page',
-}
+  CategoriesPage = 'categories-page'
+};
 
 const enum ErrorTypes {
-  Error_404 = '404',
+  Error_404 = '404'
 }
 
 enum StorageKeys {

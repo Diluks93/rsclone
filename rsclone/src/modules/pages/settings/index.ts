@@ -1,10 +1,8 @@
-import { linkButtonsProps } from './../../core/constants/constSettings';
-import { SettingsCheckboxType, SettingsLinkButtonType, SettingsSelectType } from './../../core/types/settingsTypes';
-import { rangesProps, checkboxesProps, buttonsProps, selectProps } from '../../core/constants/constSettings';
-import { SettingsButtonType, SettingsRangeType } from '../../core/types/settingsTypes';
+import { SettingsCheckboxType, SettingsLinkButtonType, SettingsSelectType, SettingsButtonType, SettingsRangeType } from './../../core/types/types';
+import { rangesProps, checkboxesProps, buttonsProps, selectProps, linkButtonsProps } from '../../core/constants/constSettings';
 import Page from '../../core/templates/page';
-import './style.scss';
 import { settingsStore } from '../../core/stores/settingsStore';
+import './style.scss';
 
 const titleUrlRu = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/title/ru.webp';
 

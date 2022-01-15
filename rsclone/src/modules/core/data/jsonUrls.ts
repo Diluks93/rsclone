@@ -1,4 +1,4 @@
-import { StorageKeys } from '../interfaces/enums';
+import { StorageKeys } from '../enums/enums';
 
 export const jsonUrl: Record<string, string> = {
   [StorageKeys.HomeTranslation]:

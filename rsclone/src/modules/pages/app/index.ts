@@ -5,7 +5,7 @@ import HomePage from '../home/index';
 import CategoriesPage from '../categories/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/page';
-import { PageIds, ErrorTypes} from '../../core/interfaces/enums';
+import { PageIds, ErrorTypes} from '../../core/enums/enums';
 import Footer from '../../core/components/footer/index';
 
 class App {
@@ -59,12 +59,12 @@ class App {
   start(): void {
     
     //TODO Что бы постоянно не перещелкивать страницу при разработке передайте аргументом сюда свою страницу.
-    App.renderNewPage(PageIds.SettingsPage); 
+    App.renderNewPage(PageIds.HomePage); 
     this.enableRouteChange();
     App.container.append(this.footer.render());
     
     //TODO И следующую строку закомментируйте.
-    // window.location.hash = PageIds.HomePage;
+    window.location.hash = PageIds.HomePage;
   };
 };
 
