@@ -35,15 +35,11 @@ export const rangesProps: SettingsRangeType[] = [
       if (target instanceof HTMLInputElement) {
         settingsStore.volumeValue = target.value;
 
-        target.style.backgroundImage = [
-          '-webkit-gradient(',
-          'linear, ',
-          'left top, ',
-          'right top, ',
-          'color-stop(' + target.value + ', #4CD235), ',
-          'color-stop(' + target.value + ', #E9F110)',
-          ')',
-        ].join('');
+        target.style.backgroundImage = `
+          -webkit-gradient(linear, left top, right top, 
+          color-stop(${target.value}, #4CD235), 
+          color-stop(${target.value}, #E9F110))
+        `;
       }
     },
   },
