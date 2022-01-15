@@ -1,11 +1,12 @@
-export const homeJsonUrl =
-  'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/home.json';
+import { StorageKeys } from '../interfaces/enums';
 
-export const categoriesJsonUrl =
-  'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/categories.json';
-
-export const episodesJsonUrl =
-  'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/episodes.json';
-
-export const settingsJsonUrl =
-  'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/settings.json';
+export const jsonUrl: Record<string, string> = {
+  [StorageKeys.HomeTranslation]:
+    'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/home.json',
+  [StorageKeys.CategoriesTranslation]:
+    'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/categories.json',
+  [StorageKeys.EpisodesTranslation]:
+    'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/episodes.json',
+  [StorageKeys.SettingsTranslation]:
+    'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/json/settings.json',
+};
