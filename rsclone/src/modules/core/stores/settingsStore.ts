@@ -2,6 +2,8 @@ import { jsonUrl } from './../data/jsonUrls';
 import { SettingsTranslationKeys, StorageKeys } from '../interfaces/enums';
 import { LanguageKeys, SettingsConfigType } from './../types/settingsTypes';
 
+const TEXT_NODE = 3;
+
 const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
   volumeValue: '0.5',
@@ -96,7 +98,7 @@ class SettingsStore {
         element = element.parentElement;
         if (element === null) return;
         element.childNodes.forEach((node) => {
-          if (node.nodeType === 3) {
+          if (node.nodeType === TEXT_NODE) {
             this.getSpecificPhrase(language, key).then((phrase) => {
               node.textContent = phrase;
             });
