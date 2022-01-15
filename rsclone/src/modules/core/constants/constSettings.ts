@@ -1,4 +1,3 @@
-import { LanguageKeys } from './../stores/translationStore';
 import { PageIds, SettingsTranslationKeys } from '../interfaces/enums';
 import {
   SettingsCheckboxType,
@@ -6,6 +5,7 @@ import {
   SettingsRangeType,
   SettingsLinkButtonType,
   SettingsSelectType,
+  LanguageKeys,
 } from './../types/settingsTypes';
 import { settingsStore } from './../../core/stores/settingsStore';
 
@@ -16,7 +16,6 @@ export const selectProps: SettingsSelectType = {
     if (e.target instanceof HTMLSelectElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
       settingsStore.setSettingsLanguage();
-      console.log(settingsStore);
     }
   },
 };

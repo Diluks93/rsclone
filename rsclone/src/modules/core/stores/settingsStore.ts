@@ -1,7 +1,6 @@
 import { jsonUrl } from './../data/jsonUrls';
 import { SettingsTranslationKeys, StorageKeys } from '../interfaces/enums';
-import { SettingsConfigType } from './../types/settingsTypes';
-import { LanguageKeys } from './translationStore';
+import { LanguageKeys, SettingsConfigType } from './../types/settingsTypes';
 
 const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',

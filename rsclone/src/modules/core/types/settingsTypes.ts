@@ -1,5 +1,3 @@
-import { LanguageKeys } from '../stores/translationStore';
-
 export type SettingsButtonType = {
   text: string;
   id: string;
@@ -42,3 +40,5 @@ export type SettingsConfigType = {
   isTimeLimitEnabled: boolean;
   isTricksReportEnabled: boolean;
 };
+
+export type LanguageKeys = 'ru' | 'en';
