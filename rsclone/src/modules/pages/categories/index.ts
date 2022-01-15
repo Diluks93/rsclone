@@ -1,10 +1,11 @@
 import Page from '../../core/templates/page';
-import { categoriesJsonUrl } from '../../core/data/jsonUrls';
-import { getTranslationJson } from '../../core/utils/getTranslationJson';
+import { jsonUrl } from '../../core/data/jsonUrls';
+import { getTranslationJson } from '../../core/utils/utils';
 import { CategoriesByLanguageType } from '../../core/types/categoriesTypes';
-import { numericСonstants } from '../../core/constants/constCategories';
+import { numericConstants } from '../../core/constants/constCategories';
 import { PageIds } from '../../core/interfaces/enums';
 import './style.scss';
+import { StorageKeys } from '../../core/enums/enums';
 
 class CategoriesPage extends Page {
   static TextObject = {
@@ -12,7 +13,7 @@ class CategoriesPage extends Page {
   };
 
   async getDataByCategorySection() {
-    const data: CategoriesByLanguageType = await getTranslationJson(categoriesJsonUrl);
+    const data: CategoriesByLanguageType = await getTranslationJson(jsonUrl[StorageKeys.CategoriesTranslation]);
     if (data) return data.ru;
   }
 
@@ -76,7 +77,7 @@ class CategoriesPage extends Page {
       btnInfo.innerText = categoryData.backToMain;
     }
 
-    for (let i = 0; i < numericСonstants.NUMBER_SERIES_SECTIONS; i++) {
+    for (let i = 0; i < numericConstants.NUMBER_SERIES_SECTIONS; i++) {
       const seriesBlock = document.createElement('div');
       const title = document.createElement('div');
       const cards = document.createElement('div');
@@ -89,8 +90,8 @@ class CategoriesPage extends Page {
         title.innerText = seriesTitles[i];
       }
 
-      if (i === 0) cards.append(...this.addCards(numericСonstants.PREPARATORY_LEVEL_NUMBER));
-      else cards.append(...this.addCards(numericСonstants.MAIN_LEVEL_NUMBER));
+      if (i === 0) cards.append(...this.addCards(numericConstants.PREPARATORY_LEVEL_NUMBER));
+      else cards.append(...this.addCards(numericConstants.MAIN_LEVEL_NUMBER));
 
       seriesBlock.append(title, cards);
       seriesArr.push(seriesBlock);
