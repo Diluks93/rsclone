@@ -82,11 +82,11 @@ export const linkButtonsProps: SettingsLinkButtonType[] = [
   {
     text: 'Cancel',
     id: SettingsTranslationKeys.Cancel,
-    href: `/#${PageIds.HomePage}`,
+    href: `#${PageIds.HomePage}`,
   },
   {
     text: 'Save',
     id: SettingsTranslationKeys.Save,
-    href: `/#${PageIds.HomePage}`,
+    href: `#${PageIds.HomePage}`,
   },
 ];

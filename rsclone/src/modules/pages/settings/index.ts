@@ -61,6 +61,7 @@ class SettingsPage extends Page {
     const settingsButtons = props.map((buttonProps) => {
       const button = document.createElement('button');
       button.classList.add('settings-page__btn');
+      button.classList.add(`settings-page__btn--${buttonProps.text.toLowerCase()}`);
       button.id = buttonProps.id;
       button.textContent = buttonProps.text;
       return button;
@@ -72,6 +73,7 @@ class SettingsPage extends Page {
     const settingsLinkButtons = props.map((buttonProps) => {
       const link = document.createElement('a');
       link.classList.add('settings-page__btn');
+      link.classList.add(`settings-page__btn--${buttonProps.text.toLowerCase()}`);
       link.id = buttonProps.id;
       link.textContent = buttonProps.text;
       link.href = buttonProps.href;
