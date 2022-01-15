@@ -12,8 +12,11 @@
   flex-direction: column;
   .title {
     &__main {
-      font-size: 4rem;
-      font-family: $title;
+      background-image: url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/title/ru.webp');
+      width: 41rem;
+      height: 16rem;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
   .btn {
@@ -23,11 +26,12 @@
     align-items: center;
     height: 30%;
     &__item {
+      position: relative;
       border-top: 0.5rem solid $grey;
       border-bottom: 0.5rem solid $grey;
-      border-left: 1.5rem solid $grey;
-      border-right: 1.5rem solid $grey;
-      border-radius: 70% 70% 50% 50% / 80% 80% 50% 50%;
+      border-left: 2rem solid $grey;
+      border-right: 2rem solid $grey;
+      border-radius: 1rem;
       background: $main-color;
       width: 35rem;
       height: 5rem;
@@ -36,6 +40,31 @@
       font-family: $lorem;
       text-decoration: none;
       margin-top: 0.5rem;
+      transition: all 0.5s linear;
+      &:hover,
+      &:focus {
+        transform: scale(1.1)
+      }
+      &::after,
+      &::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2rem;
+        background-color: $main-color;
+      }
+      &::after {
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 1rem;
+        left: 100%;
+        transform: translateX(-50%);
+      }
+      &::before {
+        border-bottom-left-radius: 1rem;
+        border-top-left-radius: 1rem;
+        right: 100%;
+        transform: translateX(50%);
+      }
     }
   }
 }
