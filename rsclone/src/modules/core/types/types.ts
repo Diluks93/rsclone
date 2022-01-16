@@ -1,10 +1,12 @@
-type SettingsButtonType = {
+type TitleType = {
   text: string;
   id: string;
+  imageUrl?: string;
 };
 
 type SettingsLinkButtonType = {
   text: string;
+  className: string;
   id: string;
   href: string;
 };
@@ -49,12 +51,13 @@ type ButtonAuthorsOrNames = {
   id?: string;
 }[];
 
-export { 
-  SettingsButtonType, 
-  SettingsCheckboxType, 
-  SettingsRangeType, 
-  SettingsLinkButtonType, 
-  SettingsSelectType, 
-  SettingsConfigType, 
-  LanguageKeys, 
-  ButtonAuthorsOrNames };
+export {
+  SettingsCheckboxType,
+  SettingsRangeType,
+  SettingsLinkButtonType,
+  SettingsSelectType,
+  SettingsConfigType,
+  LanguageKeys,
+  ButtonAuthorsOrNames,
+  TitleType,
+};
