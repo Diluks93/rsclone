@@ -1,6 +1,8 @@
-import { jsonUrl } from './../data/jsonUrls';
-import { SettingsTranslationKeys, StorageKeys } from '../enums/enums';
 import { LanguageKeys, SettingsConfigType } from './../types/settingsTypes';
+
+type TranslationType = {
+  [K in LanguageKeys]: Record<string, string>;
+};
 
 const TEXT_NODE = 3;
 
@@ -77,31 +79,21 @@ class SettingsStore {
     this._isTricksReportEnabled = value;
   }
 
-  private async getSpecificPhrase(lang: LanguageKeys, key: string) {
-    const data = await fetch(jsonUrl[StorageKeys.SettingsTranslation]);
-    const json = await data.json();
-    return json[lang][key];
-  }
-
-  setSettingsLanguage() {
+  setSettingsLanguage(translation: TranslationType) {
     const language = this.languageValue;
-    const translationKeys = Object.values(SettingsTranslationKeys);
+    const translationKeys = Object.keys(translation[language]);
+    console.log(translationKeys);
     translationKeys.forEach((key) => {
       let element = document.getElementById(key);
-      if (!(element instanceof HTMLInputElement)) {
-        this.getSpecificPhrase(language, key).then((value) => {
-          if (element !== null) {
-            element.textContent = value;
-          }
-        });
+      if (element === null) return;
+      if (!(element instanceof HTMLInputElement) && element !== null) {
+        element.textContent = translation[language][key];
       } else {
         element = element.parentElement;
         if (element === null) return;
         element.childNodes.forEach((node) => {
-          if (node.nodeType === TEXT_NODE) {
-            this.getSpecificPhrase(language, key).then((phrase) => {
-              node.textContent = phrase;
-            });
+          if (node.nodeType === TEXT_NODE && element !== null) {
+            node.textContent = translation[language][key];
           }
         });
       }
