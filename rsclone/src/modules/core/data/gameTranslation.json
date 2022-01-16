@@ -1,0 +1,31 @@
+{
+  "ru": {
+    "gameTitle": "Как достать соседа",
+    "startGameBtn": "Игра",
+    "openSettingsBtn": "Настройки",
+    "openAuthorsBtn": "Авторы",
+    "tutorialTitle": "Обучение",
+    "seasonOneTitle": "Сезон 1",
+    "backToMainBtn": "Назад",
+    "playLevelBtn": "Играть",
+    "settingsTitle": "Настройки",
+    "isSoundEnabledLabel": "Звук",
+    "isTimeLimitEnabledLabel": "Игра на время",
+    "saveSettingsBtn": "Ок"
+  },
+
+  "en": {
+    "gameTitle": "Neighbours from hell",
+    "startGameBtn": "Game",
+    "openSettingsBtn": "Settings",
+    "openAuthorsBtn": "Authors",
+    "tutorialTitle": "Tutorial",
+    "seasonOneTitle": "Season 1",
+    "backToMainBtn": "Back",
+    "playLevelBtn": "Play",
+    "settingsTitle": "Settings",
+    "isSoundEnabledLabel": "Sound",
+    "isTimeLimitEnabledLabel": "Time limit",
+    "saveSettingsBtn": "Ok"
+  }
+}
