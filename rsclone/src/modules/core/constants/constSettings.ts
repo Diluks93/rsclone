@@ -1,13 +1,21 @@
-import { PageIds, SettingsTranslationKeys } from '../enums/enums';
+import { PageIds } from '../enums/enums';
+import gameTranslation from '../data/gameTranslation.json';
 import {
   SettingsCheckboxType,
-  SettingsButtonType,
   SettingsRangeType,
   SettingsLinkButtonType,
   SettingsSelectType,
   LanguageKeys,
+  TitleType,
 } from './../types/types';
 import { settingsStore } from './../../core/stores/settingsStore';
+
+console.log(gameTranslation.ru.saveSettingsBtn);
+
+export const titleProps: TitleType = {
+  text: gameTranslation[settingsStore.languageValue].settingsTitle,
+  id: 'settingsTitle',
+};
 
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
@@ -15,16 +23,15 @@ export const selectProps: SettingsSelectType = {
   changeHandler(e: Event): void {
     if (e.target instanceof HTMLSelectElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
-      settingsStore.setSettingsLanguage();
+      settingsStore.setSettingsLanguage(gameTranslation);
     }
   },
 };
 
 export const rangesProps: SettingsRangeType[] = [
   {
-    iconUrl:
-      'https://raw.githubusercontent.com/randomspells/source-rsclone/af3870fdc4d1d92e27d7603277d7c09b9710b449/rsclone-source/settings-page/svg/sound.svg',
-    id: 'volume-bar',
+    iconUrl: '../../../assets/svg/volume.svg',
+    id: 'volumeBar',
     min: '0',
     max: '1',
     step: '0.1',
@@ -36,8 +43,8 @@ export const rangesProps: SettingsRangeType[] = [
 
         target.style.backgroundImage = `
           -webkit-gradient(linear, left top, right top, 
-          color-stop(${target.value}, #4CD235), 
-          color-stop(${target.value}, #E9F110))
+          color-stop(${target.value}, #ff6633), 
+          color-stop(${target.value}, #fff))
         `;
       }
     },
@@ -46,47 +53,34 @@ export const rangesProps: SettingsRangeType[] = [
 
 export const checkboxesProps: SettingsCheckboxType[] = [
   {
-    text: 'Sound',
-    id: SettingsTranslationKeys.Sound,
+    text: gameTranslation[settingsStore.languageValue].isSoundEnabledLabel,
+    id: 'isSoundEnabledLabel',
     isEnabled: settingsStore.isSoundEnabled,
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
     },
   },
   {
-    text: 'Time Limit',
-    id: SettingsTranslationKeys.TimeLimit,
+    text: gameTranslation[settingsStore.languageValue].isTimeLimitEnabledLabel,
+    id: 'isTimeLimitEnabledLabel',
     isEnabled: settingsStore.isTimeLimitEnabled,
     clickHandler(): void {
       settingsStore.isTimeLimitEnabled = !settingsStore.isTimeLimitEnabled;
     },
   },
-  {
-    text: 'Report',
-    id: SettingsTranslationKeys.TricksReport,
-    isEnabled: settingsStore.isTricksReportEnabled,
-    clickHandler(): void {
-      settingsStore.isTricksReportEnabled = !settingsStore.isTricksReportEnabled;
-    },
-  },
-];
-
-export const buttonsProps: SettingsButtonType[] = [
-  {
-    text: 'Reset',
-    id: SettingsTranslationKeys.Reset,
-  },
 ];
 
 export const linkButtonsProps: SettingsLinkButtonType[] = [
   {
-    text: 'Cancel',
-    id: SettingsTranslationKeys.Cancel,
+    text: gameTranslation[settingsStore.languageValue].backToMainBtn,
+    className: gameTranslation.en.backToMainBtn.toLowerCase(),
+    id: 'backToMainBtn',
     href: `#${PageIds.HomePage}`,
   },
   {
-    text: 'Save',
-    id: SettingsTranslationKeys.Save,
+    text: gameTranslation[settingsStore.languageValue].saveSettingsBtn,
+    className: gameTranslation.en.saveSettingsBtn.toLowerCase(),
+    id: 'saveSettingsBtn',
     href: `#${PageIds.HomePage}`,
   },
 ];
