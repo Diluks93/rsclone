@@ -1,10 +1,21 @@
-import { SettingsCheckboxType, SettingsLinkButtonType, SettingsSelectType, SettingsButtonType, SettingsRangeType } from './../../core/types/types';
-import { rangesProps, checkboxesProps, buttonsProps, selectProps, linkButtonsProps } from '../../core/constants/constSettings';
+import {
+  SettingsCheckboxType,
+  SettingsLinkButtonType,
+  SettingsSelectType,
+  SettingsRangeType,
+  TitleType,
+} from './../../core/types/types';
+import {
+  rangesProps,
+  checkboxesProps,
+  selectProps,
+  linkButtonsProps,
+  titleProps,
+} from '../../core/constants/constSettings';
 import Page from '../../core/templates/page';
 import { settingsStore } from '../../core/stores/settingsStore';
+import gameTranslation from '../../core/data/gameTranslation.json';
 import './style.scss';
-
-const titleUrlRu = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/title/ru.webp';
 
 class SettingsPage extends Page {
   getRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
@@ -36,7 +47,7 @@ class SettingsPage extends Page {
   getCustomSelect(props: SettingsSelectType): HTMLDivElement {
     const { id, options, changeHandler } = props;
     const customSelect = document.createElement('div');
-    customSelect.classList.add('settings-page__custom-select');
+    customSelect.classList.add('settings-page__custom-select', 'basic-hover');
     const select = document.createElement('select');
     select.classList.add('settings-page__select');
     select.id = id;
@@ -55,23 +66,10 @@ class SettingsPage extends Page {
     return customSelect;
   }
 
-  getButtons(props: SettingsButtonType[]): HTMLButtonElement[] {
-    const settingsButtons = props.map((buttonProps) => {
-      const button = document.createElement('button');
-      button.classList.add('settings-page__btn');
-      button.classList.add(`settings-page__btn--${buttonProps.text.toLowerCase()}`);
-      button.id = buttonProps.id;
-      button.textContent = buttonProps.text;
-      return button;
-    });
-    return settingsButtons;
-  }
-
   getLinkButtons(props: SettingsLinkButtonType[]): HTMLAnchorElement[] {
     const settingsLinkButtons = props.map((buttonProps) => {
       const link = document.createElement('a');
-      link.classList.add('settings-page__btn');
-      link.classList.add(`settings-page__btn--${buttonProps.text.toLowerCase()}`);
+      link.classList.add('settings-page__btn', `settings-page__btn--${buttonProps.className}`, 'basic-hover');
       link.id = buttonProps.id;
       link.textContent = buttonProps.text;
       link.href = buttonProps.href;
@@ -104,31 +102,29 @@ class SettingsPage extends Page {
     return settingsCheckboxes;
   }
 
-  async renderTitle() {
-    const title = document.createElement('div');
+  getSettingsTitle({ id, text }: TitleType): HTMLHeadingElement {
+    const title = document.createElement('h2');
     title.classList.add('settings-page__title');
-    title.style.backgroundImage = `url(${titleUrlRu})`;
-    this.container.append(title);
+    title.id = id;
+    title.textContent = text;
+    return title;
   }
 
   renderWrapper() {
     const wrapper = document.createElement('div');
     wrapper.classList.add('settings-page__wrapper');
 
-    const inner = document.createElement('div');
-    inner.classList.add('settings-page__inner');
+    wrapper.append(this.getSettingsTitle(titleProps));
+    wrapper.append(this.getCustomSelect(selectProps));
+    this.getRangeLabels(rangesProps).forEach((item) => wrapper.append(item));
+    this.getCheckboxLabels(checkboxesProps).forEach((item) => wrapper.append(item));
+    wrapper.append(this.getLinkButtons(linkButtonsProps)[1]);
 
-    wrapper.append(inner);
-    inner.append(this.getCustomSelect(selectProps));
-    this.getRangeLabels(rangesProps).forEach((item) => inner.append(item));
-    this.getCheckboxLabels(checkboxesProps).forEach((item) => inner.append(item));
-    this.getButtons(buttonsProps).forEach((item) => inner.append(item));
-    this.getLinkButtons(linkButtonsProps).forEach((item) => inner.append(item));
+    this.container.append(this.getLinkButtons(linkButtonsProps)[0]);
     this.container.append(wrapper);
   }
 
   render(): HTMLElement {
-    this.renderTitle();
     this.renderWrapper();
     return this.container;
   }
@@ -136,7 +132,7 @@ class SettingsPage extends Page {
 
 // todo: move to app component or events controller
 window.onload = () => {
-  settingsStore.setSettingsLanguage();
+  settingsStore.setSettingsLanguage(gameTranslation);
 };
 
 export default SettingsPage;
