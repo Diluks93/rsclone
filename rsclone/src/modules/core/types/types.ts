@@ -1,12 +1,15 @@
 type TitleType = {
-  text: string;
+  pageName: string;
+  tagName: string;
   id: string;
+  text?: string;
   imageUrl?: string;
 };
 
-type SettingsLinkButtonType = {
+type LinkButtonType = {
   text: string;
   className: string;
+  pageName: string;
   id: string;
   href: string;
 };
@@ -54,7 +57,7 @@ type ButtonAuthorsOrNames = {
 export {
   SettingsCheckboxType,
   SettingsRangeType,
-  SettingsLinkButtonType,
+  LinkButtonType,
   SettingsSelectType,
   SettingsConfigType,
   LanguageKeys,
