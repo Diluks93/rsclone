@@ -1,4 +1,4 @@
-import { LanguageKeys, SettingsConfigType } from './../types/settingsTypes';
+import { LanguageKeys, SettingsConfigType } from './../types/types';
 
 type TranslationType = {
   [K in LanguageKeys]: Record<string, string>;
@@ -85,17 +85,22 @@ class SettingsStore {
     console.log(translationKeys);
     translationKeys.forEach((key) => {
       let element = document.getElementById(key);
-      if (element === null) return;
-      if (!(element instanceof HTMLInputElement) && element !== null) {
-        element.textContent = translation[language][key];
-      } else {
-        element = element.parentElement;
+      if (key !== 'gameTitle') {
         if (element === null) return;
-        element.childNodes.forEach((node) => {
-          if (node.nodeType === TEXT_NODE && element !== null) {
-            node.textContent = translation[language][key];
-          }
-        });
+        if (!(element instanceof HTMLInputElement) && element !== null) {
+          element.textContent = translation[language][key];
+        } else {
+          element = element.parentElement;
+          if (element === null) return;
+          element.childNodes.forEach((node) => {
+            if (node.nodeType === TEXT_NODE && element !== null) {
+              node.textContent = translation[language][key];
+            }
+          });
+        }
+      } else {
+        if (element === null) return;
+        element.style.backgroundImage = `url(${translation[language][key]})`;
       }
     });
   }
