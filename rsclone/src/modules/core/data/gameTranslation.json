@@ -1,6 +1,6 @@
 {
   "ru": {
-    "gameTitle": "Как достать соседа",
+    "gameTitle": "https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/title/titleRU.png",
     "startGameBtn": "Игра",
     "openSettingsBtn": "Настройки",
     "openAuthorsBtn": "Авторы",
@@ -9,13 +9,14 @@
     "backToMainBtn": "Назад",
     "playLevelBtn": "Играть",
     "settingsTitle": "Настройки",
+    "authorsTitle": "Авторы",
     "isSoundEnabledLabel": "Звук",
     "isTimeLimitEnabledLabel": "Игра на время",
     "saveSettingsBtn": "Ок"
   },
 
   "en": {
-    "gameTitle": "Neighbours from hell",
+    "gameTitle": "https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/title/titleEN.png",
     "startGameBtn": "Game",
     "openSettingsBtn": "Settings",
     "openAuthorsBtn": "Authors",
@@ -24,6 +25,7 @@
     "backToMainBtn": "Back",
     "playLevelBtn": "Play",
     "settingsTitle": "Settings",
+    "authorsTitle": "Authors",
     "isSoundEnabledLabel": "Sound",
     "isTimeLimitEnabledLabel": "Time limit",
     "saveSettingsBtn": "Ok"

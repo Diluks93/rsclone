@@ -5,65 +5,39 @@
   grid-row: 1/2;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  .title {
-    &__main {
-      width: 41rem;
-      height: 16rem;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-  }
-  .btn {
+  font-family: $title;
+  color: $white;
+
+  &__wrapper {
+    width: 40rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 30%;
-    &__item {
-      position: relative;
-      display: flex;
-      border-top: 0.5rem solid $grey;
-      border-bottom: 0.5rem solid $grey;
-      border-left: 2rem solid $grey;
-      border-right: 2rem solid $grey;
-      border-radius: 1rem;
-      background: $main-color;
-      width: 35rem;
-      height: 5rem;
-      font-size: 2rem;
-      color: $text;
-      font-family: $text;
-      text-decoration: none;
-      margin-top: 0.5rem;
-      justify-content: center;
-      align-items: center;
-      &:hover,
-      &:focus {
-        transform: scale(1.1);
-      }
-      &::after,
-      &::before {
-        content: '';
-        position: absolute;
-        height: 100%;
-        width: 2rem;
-        background-color: $main-color;
-      }
-      &::after {
-        border-bottom-right-radius: 1rem;
-        border-top-right-radius: 1rem;
-        left: 100%;
-        transform: translateX(-50%);
-      }
-      &::before {
-        border-bottom-left-radius: 1rem;
-        border-top-left-radius: 1rem;
-        right: 100%;
-        transform: translateX(50%);
-      }
-    }
+  }
+
+  &__title {
+    width: 49rem;
+    height: 12.5rem;
+    margin-top: 7rem;
+    margin-bottom: 10rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &__btn {
+    margin-bottom: 3rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $orange;
+    border-radius: 4rem;
+    background: transparent;
   }
 }
