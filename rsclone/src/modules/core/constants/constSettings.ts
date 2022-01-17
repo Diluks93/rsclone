@@ -75,13 +75,6 @@ export const checkboxesProps: SettingsCheckboxType[] = [
 export const settingsLinkButtonsProps: LinkButtonType[] = [
   {
     pageName: PAGE_NAME,
-    text: gameTranslation[settingsStore.languageValue].backToMainBtn,
-    className: gameTranslation.en.backToMainBtn.toLowerCase(),
-    id: 'backToMainBtn',
-    href: `#${PageIds.HomePage}`,
-  },
-  {
-    pageName: PAGE_NAME,
     text: gameTranslation[settingsStore.languageValue].saveSettingsBtn,
     className: gameTranslation.en.saveSettingsBtn.toLowerCase(),
     id: 'saveSettingsBtn',
