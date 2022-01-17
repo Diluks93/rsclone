@@ -3,18 +3,20 @@ import gameTranslation from '../data/gameTranslation.json';
 import {
   SettingsCheckboxType,
   SettingsRangeType,
-  SettingsLinkButtonType,
+  LinkButtonType,
   SettingsSelectType,
   LanguageKeys,
   TitleType,
 } from './../types/types';
 import { settingsStore } from './../../core/stores/settingsStore';
 
-console.log(gameTranslation.ru.saveSettingsBtn);
+const PAGE_NAME = 'settings-page';
 
-export const titleProps: TitleType = {
+export const settingsTitleProps: TitleType = {
+  pageName: PAGE_NAME,
   text: gameTranslation[settingsStore.languageValue].settingsTitle,
   id: 'settingsTitle',
+  tagName: 'h2',
 };
 
 export const selectProps: SettingsSelectType = {
@@ -70,14 +72,16 @@ export const checkboxesProps: SettingsCheckboxType[] = [
   },
 ];
 
-export const linkButtonsProps: SettingsLinkButtonType[] = [
+export const settingsLinkButtonsProps: LinkButtonType[] = [
   {
+    pageName: PAGE_NAME,
     text: gameTranslation[settingsStore.languageValue].backToMainBtn,
     className: gameTranslation.en.backToMainBtn.toLowerCase(),
     id: 'backToMainBtn',
     href: `#${PageIds.HomePage}`,
   },
   {
+    pageName: PAGE_NAME,
     text: gameTranslation[settingsStore.languageValue].saveSettingsBtn,
     className: gameTranslation.en.saveSettingsBtn.toLowerCase(),
     id: 'saveSettingsBtn',
