@@ -21,19 +21,6 @@
     font-weight: normal;
   }
 
-  &__wrapper {
-    position: relative;
-    box-sizing: content-box;
-    margin-top: 2rem;
-    padding: 5rem 10rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: inherit;
-    background-color: rgba($pale-navy, 0.7);
-    border-radius: 2rem;
-  }
-
   &__select {
     appearance: none;
     padding: 1.5rem;
@@ -65,35 +52,12 @@
   }
 
   &__btn {
-    display: inline-block;
-    padding: 1rem;
-    text-transform: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    color: $orange;
-    text-decoration: none;
-    text-align: center;
-    background: transparent;
-    border-radius: 4rem;
-    transition: 0.4s;
-
     &::before {
       content: '';
       display: inline-block;
       width: 2.5rem;
       height: 2.5rem;
       padding-left: 1.2rem;
-    }
-
-    &--back {
-      position: fixed;
-      top: 2.5rem;
-      left: 3.5rem;
-
-      &::before {
-        background-image: url(../../../assets/svg/arrow-left.svg);
-        background-repeat: no-repeat;
-      }
     }
 
     &--ok {

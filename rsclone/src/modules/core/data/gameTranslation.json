@@ -12,7 +12,10 @@
     "authorsTitle": "Авторы",
     "isSoundEnabledLabel": "Звук",
     "isTimeLimitEnabledLabel": "Игра на время",
-    "saveSettingsBtn": "Ок"
+    "saveSettingsBtn": "Ок",
+    "diluksSubtitle": "Самый главный",
+    "jenyaSubtitle": "Разработчик игры",
+    "randomspellsSubtitle": "Разработчик игры"
   },
 
   "en": {
@@ -28,6 +31,9 @@
     "authorsTitle": "Authors",
     "isSoundEnabledLabel": "Sound",
     "isTimeLimitEnabledLabel": "Time limit",
-    "saveSettingsBtn": "Ok"
+    "saveSettingsBtn": "Ok",
+    "diluksSubtitle": "Team leader",
+    "jenyaSubtitle": "Game developer",
+    "randomspellsSubtitle": "Game developer"
   }
 }

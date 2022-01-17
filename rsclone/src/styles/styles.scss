@@ -153,3 +153,29 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.wrapper {
+  position: relative;
+  box-sizing: content-box;
+  margin-top: 2rem;
+  padding: 5rem 10rem;
+  display: flex;
+  flex-direction: column;
+  font-size: inherit;
+  background-color: rgba($pale-navy, 0.7);
+  border-radius: 2rem;
+}
+
+.primary-btn {
+  display: inline-block;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-family: $title;
+  font-size: 2rem;
+  color: $orange;
+  text-decoration: none;
+  text-align: center;
+  background: transparent;
+  border-radius: 4rem;
+  transition: 0.4s;
+}
