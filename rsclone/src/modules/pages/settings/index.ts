@@ -6,13 +6,13 @@ import {
   settingsLinkButtonsProps,
   settingsTitleProps,
 } from '../../core/constants/constSettings';
-import Page from '../../core/templates/page';
+import Page from '../../core/templates/Page';
 import { settingsStore } from '../../core/stores/settingsStore';
 import gameTranslation from '../../core/data/gameTranslation.json';
 import './style.scss';
 
 class SettingsPage extends Page {
-  getRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
+  createRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
     const settingsSliders = props.map(({ id, min, max, step, value, inputHandler }) => {
       const range = document.createElement('input');
       range.type = 'range';
@@ -37,7 +37,7 @@ class SettingsPage extends Page {
     return settingsSliders;
   }
 
-  getCustomSelect(props: SettingsSelectType): HTMLDivElement {
+  createCustomSelect(props: SettingsSelectType): HTMLDivElement {
     const { id, options, changeHandler } = props;
     const customSelect = document.createElement('div');
     customSelect.classList.add('settings-page__custom-select', 'basic-hover');
@@ -59,7 +59,7 @@ class SettingsPage extends Page {
     return customSelect;
   }
 
-  getCheckboxLabels(props: SettingsCheckboxType[]): HTMLLabelElement[] {
+  createCheckboxLabels(props: SettingsCheckboxType[]): HTMLLabelElement[] {
     const settingsCheckboxes = props.map((checkboxProps) => {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
@@ -85,19 +85,19 @@ class SettingsPage extends Page {
 
   renderWrapper() {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('settings-page__wrapper');
+    wrapper.classList.add('wrapper');
 
     wrapper.append(this.createHeaderTitle(settingsTitleProps));
-    wrapper.append(this.getCustomSelect(selectProps));
-    this.getRangeLabels(rangesProps).forEach((item) => wrapper.append(item));
-    this.getCheckboxLabels(checkboxesProps).forEach((item) => wrapper.append(item));
-    wrapper.append(this.createLinkButtons(settingsLinkButtonsProps)[1]);
+    wrapper.append(this.createCustomSelect(selectProps));
+    this.createRangeLabels(rangesProps).forEach((item) => wrapper.append(item));
+    this.createCheckboxLabels(checkboxesProps).forEach((item) => wrapper.append(item));
+    wrapper.append(this.createLinkButtons(settingsLinkButtonsProps)[0]);
 
-    this.container.append(this.createLinkButtons(settingsLinkButtonsProps)[0]);
     this.container.append(wrapper);
   }
 
   render(): HTMLElement {
+    this.renderBackBtn();
     this.renderWrapper();
     return this.container;
   }

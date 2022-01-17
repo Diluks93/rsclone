@@ -1,4 +1,4 @@
-import Page from '../../core/templates/page';
+import Page from '../../core/templates/Page';
 import './style.scss';
 
 class ErrorPage extends Page {

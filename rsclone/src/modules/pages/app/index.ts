@@ -4,9 +4,8 @@ import AuthorsPage from '../authors/index';
 import HomePage from '../home/index';
 import CategoriesPage from '../categories/index';
 import ErrorPage from '../error/index';
-import Page from '../../core/templates/page';
+import Page from '../../core/templates/Page';
 import { PageIds, ErrorTypes } from '../../core/enums/enums';
-import Footer from '../../core/components/footer/index';
 
 class App {
   private static container: HTMLElement = document.body;
@@ -14,8 +13,6 @@ class App {
   private static defaultPageId: string = PageIds.CurrentPage;
 
   private initialPage: HomePage;
-
-  private footer: Footer;
 
   static renderNewPage(idPage: string) {
     const currentPageHTML = document.querySelector(`#${App.defaultPageId}`);
@@ -62,17 +59,16 @@ class App {
   constructor() {
     App.container = document.body;
     this.initialPage = new HomePage(PageIds.HomePage, PageIds.HomePage);
-    this.footer = new Footer('footer', 'footer');
   }
 
   start(): void {
     //TODO Что бы постоянно не перещелкивать страницу при разработке передайте аргументом сюда свою страницу.
-    App.renderNewPage(PageIds.HomePage);
+    App.renderNewPage(PageIds.AuthorsPage);
     this.enableRouteChange();
     // App.container.append(this.footer.render());
 
     //TODO И следующую строку закомментируйте.
-    window.location.hash = PageIds.HomePage;
+    window.location.hash = PageIds.AuthorsPage;
   }
 }
 

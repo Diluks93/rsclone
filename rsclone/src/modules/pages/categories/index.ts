@@ -1,4 +1,4 @@
-import Page from '../../core/templates/page';
+import Page from '../../core/templates/Page';
 import { jsonUrl } from '../../core/data/jsonUrls';
 import { getTranslationJson } from '../../core/utils/utils';
 import { CategoriesByLanguageType } from '../../core/types/categoriesTypes';

@@ -1,5 +1,5 @@
 import { homeTitleProps, homeLinkButtonsProps } from './../../core/constants/constHome';
-import Page from '../../core/templates/page';
+import Page from '../../core/templates/Page';
 import './style.scss';
 
 class HomePage extends Page {

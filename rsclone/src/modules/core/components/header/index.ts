@@ -1,5 +1,5 @@
-import Component from '../../templates/components';
-import { PageIds } from '../../interfaces/enums';
+import Component from '../../templates/Component';
+import { PageIds } from '../../enums/enums';
 import '../style.scss';
 
 const buttons = [
@@ -23,12 +23,12 @@ const buttons = [
     id: PageIds.CategoriesPage,
     text: 'Categories Page',
   },
-]
+];
 
 class Header extends Component {
   constructor(tagName: string, className: string) {
     super(tagName, className);
-  };
+  }
 
   remove() {
     this.container.remove();
@@ -36,16 +36,16 @@ class Header extends Component {
 
   renderPageButtons() {
     const pageButtons = document.createElement('nav');
-    pageButtons.className = 'nav items'
-    buttons.forEach(({id, text}) => {
+    pageButtons.className = 'nav items';
+    buttons.forEach(({ id, text }) => {
       const buttonHTML = document.createElement('a');
       buttonHTML.href = `#${id}`;
       buttonHTML.innerText = text;
-      buttonHTML.className = 'item'
+      buttonHTML.className = 'item';
       pageButtons.append(buttonHTML);
     });
     this.container.append(pageButtons);
-  };
-};
+  }
+}
 
 export default Header;
