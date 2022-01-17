@@ -6,16 +6,9 @@ class MainPage extends Page {
     mainTitle: 'Main Page',
   };
 
-  constructor(id: string, className: string) {
-    super(id, className);
-  };
-
   render() {
-    const title = this.createHeaderTitle(MainPage.TextObject.mainTitle, 'h2', 'title');
-    this.container.append(title);
     return this.container;
-  };
-
-};
+  }
+}
 
 export default MainPage;

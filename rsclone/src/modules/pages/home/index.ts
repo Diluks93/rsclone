@@ -1,37 +1,22 @@
-import { PageIds } from '../../core/enums/enums';
-import { ButtonAuthorsOrNames } from '../../core/types/types';
+import { homeTitleProps, homeLinkButtonsProps } from './../../core/constants/constHome';
 import Page from '../../core/templates/page';
 import './style.scss';
 
-const buttons: ButtonAuthorsOrNames = [
-  {
-    text: 'Начать игру',
-    id: PageIds.CategoriesPage
-  },
-  {
-    text: 'Опции',
-    id: PageIds.SettingsPage
-  },
-  {
-    text: 'Авторы',
-    id: PageIds.AuthorsPage
-  },
-]
-
 class HomePage extends Page {
-  
+  renderWrapper() {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('home-page__wrapper');
 
-  constructor(id: string, className: string) {
-    super(id, className);
-  };
+    this.createLinkButtons(homeLinkButtonsProps).forEach((item) => wrapper.append(item));
+    this.container.append(wrapper);
+  }
 
   render() {
-    const title = this.createHeaderTitle('', 'h1', 'title title__main');
+    const title = this.createHeaderTitle(homeTitleProps);
     this.container.append(title);
-    this.renderPageButtons(buttons);
+    this.renderWrapper();
     return this.container;
-  };
-
-};
+  }
+}
 
 export default HomePage;

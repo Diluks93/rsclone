@@ -3,7 +3,7 @@ import { jsonUrl } from '../../core/data/jsonUrls';
 import { getTranslationJson } from '../../core/utils/utils';
 import { CategoriesByLanguageType } from '../../core/types/categoriesTypes';
 import { numericConstants } from '../../core/constants/constCategories';
-import { PageIds } from '../../core/interfaces/enums';
+import { PageIds } from '../../core/enums/enums';
 import './style.scss';
 import { StorageKeys } from '../../core/enums/enums';
 
