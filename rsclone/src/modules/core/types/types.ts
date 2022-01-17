@@ -9,9 +9,10 @@ type TitleType = {
 type LinkButtonType = {
   text: string;
   className: string;
-  pageName: string;
+  pageName?: string;
   id: string;
   href: string;
+  subTitle?: string;
 };
 
 type SettingsCheckboxType = {

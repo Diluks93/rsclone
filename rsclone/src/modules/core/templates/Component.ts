@@ -4,7 +4,7 @@ abstract class Component {
   constructor(tagName: string, className: string) {
     this.container = document.createElement(tagName);
     this.container.className = className;
-  };
+  }
 
   renderPageButtons() {
     const pageButtons = document.createElement('a');
@@ -14,7 +14,7 @@ abstract class Component {
   render() {
     this.renderPageButtons();
     return this.container;
-  };
-};
+  }
+}
 
 export default Component;
