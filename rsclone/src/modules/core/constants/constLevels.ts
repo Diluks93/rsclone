@@ -1,13 +1,8 @@
-import { settingsStore } from '../stores/settingsStore';
-import { DescriptionType, TitleType } from '../types/types';
-import gameTranslation from '../data/gameTranslation.json';
-import levelsTranslation from '../data/levelsTranslation.json';
+import { DescriptionType, LevelPreviewType, LinkButtonType, TitleType } from '../types/types';
 
-const PAGE_NAME = 'levels-page';
 const NUMBER_SERIES_SECTIONS = 2;
 const PREPARATORY_LEVEL_NUMBER = 3;
 const MAIN_LEVEL_NUMBER = 4;
-const INITIAL_RATING = '0';
 
 export const numericConstants = {
   NUMBER_SERIES_SECTIONS,
@@ -15,41 +10,83 @@ export const numericConstants = {
   MAIN_LEVEL_NUMBER,
 };
 
-export const levelTitlesProps: TitleType[] = [
-  {
-    pageName: PAGE_NAME,
-    text: gameTranslation[settingsStore.languageValue].tutorialTitle,
+interface LevelTitleInterface {
+  tutorialTitle: TitleType;
+  seasonOneTitle: TitleType;
+  levelDetailsTitle: TitleType;
+}
+
+export const levelPageTitleProps: LevelTitleInterface = {
+  tutorialTitle: {
+    pageName: 'levels-page',
     id: 'tutorialTitle',
     tagName: 'h2',
   },
-  {
-    pageName: PAGE_NAME,
-    text: gameTranslation[settingsStore.languageValue].seasonOneTitle,
+  seasonOneTitle: {
+    pageName: 'levels-page',
     id: 'seasonOneTitle',
     tagName: 'h2',
   },
-];
 
-export const levelDescriptionProps: DescriptionType[] = [
-  {
-    pageName: PAGE_NAME,
-    titleProps: {
-      pageName: PAGE_NAME,
-      text: levelsTranslation[settingsStore.languageValue].levelsDetailsBlock[0].levelTitle,
-      id: 'levelTitle',
-      tagName: 'h2',
-    },
-
-    timeLimitText: levelsTranslation[settingsStore.languageValue].levelsDetailsBlock[0].timeLimit,
-    timeLimitId: 'timeLimit',
-
-    ratingCount: INITIAL_RATING,
-    ratingCountId: 'ratingCount',
-
-    hintText: levelsTranslation[settingsStore.languageValue].levelsDetailsBlock[0].hintText,
-    hintId: 'hintText',
-
-    levelDescriptionText: levelsTranslation[settingsStore.languageValue].levelsDetailsBlock[0].levelDescriptionText,
-    levelDescriptionId: 'levelDescriptionText',
+  levelDetailsTitle: {
+    pageName: 'levels-page',
+    id: 'levelTitle',
+    tagName: 'h2',
   },
-];
+};
+
+export const levelDetailsProps: DescriptionType = {
+  timeLimitId: 'timeLimit',
+  ratingCountId: 'ratingCount',
+  hintId: 'hintText',
+  levelDescriptionId: 'levelDescriptionText',
+};
+
+interface LevelPreviewInterface {
+  [key: string]: LevelPreviewType[];
+}
+
+export const levelPreviewProps: LevelPreviewInterface = {
+  tutorialTitle: [
+    {
+      id: 'firstSteps',
+      imageUrl: '#',
+      isLocked: false,
+    },
+    {
+      id: 'owardsAndUpwards',
+      imageUrl: '#',
+      isLocked: true,
+    },
+    {
+      id: 'hereWeGo',
+      imageUrl: '#',
+      isLocked: true,
+    },
+  ],
+  seasonOneTitle: [
+    {
+      id: '4',
+      imageUrl: '#',
+      isLocked: true,
+    },
+    {
+      id: '5',
+      imageUrl: '#',
+      isLocked: true,
+    },
+    {
+      id: '6',
+      imageUrl: '#',
+      isLocked: true,
+    },
+  ],
+};
+
+export const levelLinkButtonProps: Record<string, LinkButtonType> = {
+  playLevelButton: {
+    pageName: 'levels-page',
+    id: 'playLevelButton',
+    href: '#',
+  },
+};

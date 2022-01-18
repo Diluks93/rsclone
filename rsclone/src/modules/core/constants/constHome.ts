@@ -1,38 +1,28 @@
-import { LinkButtonType } from './../types/types';
-import { settingsStore } from './../stores/settingsStore';
-import gameTranslation from '../data/gameTranslation.json';
-import { TitleType } from './../types/types';
+import { LinkButtonInterface, TitleType } from './../types/types';
 import { PageIds } from '../enums/enums';
 
 const PAGE_NAME = 'home-page';
 
 export const homeTitleProps: TitleType = {
   pageName: 'home-page',
-  imageUrl: gameTranslation[settingsStore.languageValue].gameTitle,
   id: 'gameTitle',
   tagName: 'div',
 };
 
-export const homeLinkButtonsProps: LinkButtonType[] = [
-  {
+export const homeLinkButtonProps: LinkButtonInterface = {
+  startGameButton: {
     pageName: PAGE_NAME,
-    className: gameTranslation.en.startGameBtn.toLowerCase(),
-    id: 'startGameBtn',
-    text: gameTranslation[settingsStore.languageValue].startGameBtn,
-    href: `#${PageIds.LevelsPage}`,
+    id: 'startGameButton',
+    href: `#${PageIds.LevelSelectPage}`,
   },
-  {
+  openSettingsButton: {
     pageName: PAGE_NAME,
-    className: gameTranslation.en.openSettingsBtn.toLowerCase(),
-    id: 'openSettingsBtn',
-    text: gameTranslation[settingsStore.languageValue].openSettingsBtn,
+    id: 'openSettingsButton',
     href: `#${PageIds.SettingsPage}`,
   },
-  {
+  openAuthorsButton: {
     pageName: PAGE_NAME,
-    className: gameTranslation.en.openAuthorsBtn.toLowerCase(),
-    id: 'openAuthorsBtn',
-    text: gameTranslation[settingsStore.languageValue].openAuthorsBtn,
+    id: 'openAuthorsButton',
     href: `#${PageIds.AuthorsPage}`,
   },
-];
+};
