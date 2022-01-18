@@ -1,8 +1,10 @@
+import { settingsStore } from './../../core/stores/settingsStore';
+import gameTranslation from '../../core/data/gameTranslation.json';
 import MainPage from '../main/index';
 import SettingsPage from '../settings/index';
 import AuthorsPage from '../authors/index';
 import HomePage from '../home/index';
-import LevelsPage from '../levels/index';
+import LevelSelectPage from '../levelSelect/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageIds, ErrorTypes } from '../../core/enums/enums';
@@ -35,14 +37,15 @@ class App {
       case PageIds.MainPage:
         page = new MainPage(idPage, PageIds.MainPage);
         break;
-      case PageIds.LevelsPage:
-        page = new LevelsPage(idPage, PageIds.LevelsPage);
+      case PageIds.LevelSelectPage:
+        page = new LevelSelectPage(idPage, PageIds.LevelSelectPage);
         break;
       default:
         page = new ErrorPage(idPage, PageIds.ErrorPage, ErrorTypes.Error_404);
     }
 
     if (page) {
+      page.setPageLanguage(gameTranslation, settingsStore.languageValue);
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
       App.container.append(pageHTML);
@@ -63,11 +66,11 @@ class App {
 
   start(): void {
     //TODO Что бы постоянно не перещелкивать страницу при разработке передайте аргументом сюда свою страницу.
-    App.renderNewPage(PageIds.LevelsPage);
+    App.renderNewPage(PageIds.HomePage);
     this.enableRouteChange();
 
     //TODO И следующую строку закомментируйте.
-    window.location.hash = PageIds.LevelsPage;
+    window.location.hash = PageIds.HomePage;
   }
 }
 
