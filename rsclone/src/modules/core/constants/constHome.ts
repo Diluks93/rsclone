@@ -19,7 +19,7 @@ export const homeLinkButtonsProps: LinkButtonType[] = [
     className: gameTranslation.en.startGameBtn.toLowerCase(),
     id: 'startGameBtn',
     text: gameTranslation[settingsStore.languageValue].startGameBtn,
-    href: `#${PageIds.CategoriesPage}`,
+    href: `#${PageIds.LevelsPage}`,
   },
   {
     pageName: PAGE_NAME,

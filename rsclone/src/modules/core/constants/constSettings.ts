@@ -25,7 +25,8 @@ export const selectProps: SettingsSelectType = {
   changeHandler(e: Event): void {
     if (e.target instanceof HTMLSelectElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
-      settingsStore.setSettingsLanguage(gameTranslation);
+      localStorage.setItem('languageValue', e.target.value);
+      settingsStore.setAppLanguage(gameTranslation);
     }
   },
 };
