@@ -1,11 +1,5 @@
 import { LanguageKeys, SettingsConfigType } from './../types/types';
 
-type TranslationType = {
-  [K in LanguageKeys]: Record<string, string>;
-};
-
-const TEXT_NODE = 3;
-
 const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
   volumeValue: '0.5',
@@ -77,32 +71,6 @@ class SettingsStore {
 
   set isTricksReportEnabled(value: boolean) {
     this._isTricksReportEnabled = value;
-  }
-
-  setAppLanguage(translation: TranslationType) {
-    const language = this.languageValue;
-    console.log(language);
-    const translationKeys = Object.keys(translation[language]);
-    translationKeys.forEach((key) => {
-      let element = document.getElementById(key);
-      if (key !== 'gameTitle') {
-        if (element === null) return;
-        if (!(element instanceof HTMLInputElement) && element !== null) {
-          element.textContent = translation[language][key];
-        } else {
-          element = element.parentElement;
-          if (element === null) return;
-          element.childNodes.forEach((node) => {
-            if (node.nodeType === TEXT_NODE && element !== null) {
-              node.textContent = translation[language][key];
-            }
-          });
-        }
-      } else {
-        if (element === null) return;
-        element.style.backgroundImage = `url(${translation[language][key]})`;
-      }
-    });
   }
 }
 
