@@ -25,3 +25,11 @@ export const getTranslationJson = async (url: string) => {
 export const getKeyByValue = (object: Record<string, string>, value: string): string | undefined => {
   return Object.keys(object).find((key) => object[key] === value);
 };
+
+export const transformCamelCaseToKebabCase = (camelCaseString: string): string => {
+  return camelCaseString
+    .replace(/([a-z](?=[A-Z]))/g, '$1 ')
+    .toLowerCase()
+    .split(' ')
+    .join('-');
+};

@@ -5,7 +5,7 @@ const enum PageIds {
   AuthorsPage = 'authors-page',
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
-  CategoriesPage = 'categories-page',
+  LevelsPage = 'levels-page',
 }
 
 const enum ErrorTypes {

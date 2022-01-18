@@ -55,6 +55,19 @@ type ButtonAuthorsOrNames = {
   id?: string;
 }[];
 
+type DescriptionType = {
+  pageName: string;
+  titleProps: TitleType;
+  timeLimitText: string;
+  timeLimitId: string;
+  ratingCount: string;
+  ratingCountId: string;
+  hintText: string;
+  hintId: string;
+  levelDescriptionText: string;
+  levelDescriptionId: string;
+};
+
 export {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -64,4 +77,5 @@ export {
   LanguageKeys,
   ButtonAuthorsOrNames,
   TitleType,
+  DescriptionType,
 };
