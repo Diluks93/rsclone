@@ -7,9 +7,15 @@
   box-sizing: border-box;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   * {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  * {
+    font-size: 10px;
   }
 }
 
@@ -178,4 +184,13 @@ table {
   background: transparent;
   border-radius: 4rem;
   transition: 0.4s;
+}
+
+.basic-hover {
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    background-color: rgba($orange, 0.2);
+  }
 }

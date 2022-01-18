@@ -1,66 +1,94 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixins';
 
-.categories-page {
-  height: 100%;
-  width: 100%;
-  background: $category-bg;
-  display: grid;
-  grid-template: 6.2rem 1fr / 1fr;
+.levels-page {
+  font-family: $title;
+  text-transform: uppercase;
+  font-size: 2rem;
 
-  &__header {
-    grid-row: 1/2;
-    height: 100%;
-    background: $main-color;
-  }
-
-  &__header-wrapper {
-    height: 100%;
-    max-width: 112.5rem;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 1.25rem;
-    display: flex;
-    align-items: center;
-  }
-
-  &__header-image {
-    width: 7.6rem;
-    height: 100%;
-    background-image: url('https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/neighbor_logo.webp');
-    background-repeat: no-repeat;
-    background-position: center center;
-    margin-right: 1.3rem;
-  }
-
-  &__header-title {
-    color: $text;
-    font-size: 2rem;
-    text-transform: uppercase;
-  }
-
-  &__header-title:last-child {
-    margin-left: auto;
+  &__layout {
+    margin-top: 7rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.25rem;
+    padding: 3.25rem;
   }
 
   &__wrapper {
+    padding: 3.75rem;
+    margin: 0;
     display: flex;
-    max-width: 112.5rem;
+    align-items: center;
+
+    &.levels-list {
+      &:last-of-type {
+        grid-row: 2 / 3;
+      }
+    }
+
+    &.description {
+      margin: 0;
+      grid-row: 1/3;
+      grid-column: 2/3;
+    }
+  }
+
+  &__title {
+    color: $white;
+    font-size: 2rem;
+    text-transform: inherit;
+    font-weight: normal;
+  }
+
+  &__preview-box {
+    margin-top: 2rem;
     width: 100%;
-    margin: 0 auto;
-    padding: 0 1.3rem;
+    display: flex;
+    justify-content: space-between;
   }
 
-  &__episode-list {
-    flex: 50%;
-    margin-right: 0.9rem;
+  &__preview {
+    width: 30%;
+    height: 8rem;
+    background-color: $orange;
+
+    &.locked {
+      &::before {
+        width: 100%;
+        height: 100%;
+        content: '';
+        display: block;
+        background-color: $navy;
+        mix-blend-mode: multiply;
+        opacity: 0.7;
+      }
+    }
   }
 
-  &__series-description {
-    flex: 50%;
-    margin-left: 0.9rem;
+  &__levels-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  @media (max-width: 1280px) {
+    &__wrapper {
+      &.levels-list {
+        &:nth-of-type(2) {
+          grid-column: 2 / 3;
+          grid-row: 1 / 2;
+        }
+      }
+
+      &.description {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+      }
+    }
   }
 }
+
 .episode-list {
   padding: 1.4rem 0 1.3rem 0;
   height: 100%;
