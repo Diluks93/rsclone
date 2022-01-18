@@ -1,6 +1,6 @@
-import { backBtnProps } from './../constants/constBackBtn';
-import BackToMainBtn from '../components/BackToMainBtn';
-import { LinkButtonType } from '../types/types';
+import { backButtonProps } from './../constants/constBackButton';
+import { backToMainButton } from '../components/BackToMainButton';
+import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../types/types';
 import { TitleType } from '../types/types';
 
 abstract class Page {
@@ -8,15 +8,13 @@ abstract class Page {
 
   static TextObject = {};
 
+  backToMainButton: HTMLAnchorElement;
+
   constructor(id: string, className: string) {
     this.container = document.createElement('main');
     this.container.id = id;
     this.container.className = className;
-  }
-
-  protected renderBackBtn() {
-    const backToMainBtn = new BackToMainBtn('div', 'back-btn');
-    this.container.append(backToMainBtn.createButton(backBtnProps));
+    this.backToMainButton = backToMainButton.createButton(backButtonProps);
   }
 
   protected createHeaderTitle({ pageName, id, text, tagName, imageUrl }: TitleType): HTMLElement {
@@ -32,16 +30,17 @@ abstract class Page {
     return headerTitle;
   }
 
-  protected createLinkButtons(props: LinkButtonType[]): HTMLAnchorElement[] {
-    const settingsLinkButtons = props.map(({ id, text, href, pageName, className }) => {
-      const link = document.createElement('a');
-      link.classList.add('primary-btn', `${pageName}__btn`, `${pageName}__btn--${className}`, 'basic-hover');
-      link.id = id;
-      link.textContent = text;
-      link.href = href;
-      return link;
-    });
-    return settingsLinkButtons;
+  protected createLinkButton({ id, href, pageName, className }: LinkButtonType): HTMLAnchorElement {
+    const linkButton = document.createElement('a');
+    linkButton.classList.add('primary-button', `${pageName}__button`, 'basic-hover');
+    linkButton.id = id;
+    linkButton.href = href;
+    return linkButton;
+  }
+
+  // todo: check if redefine works
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
+    return;
   }
 
   render(): HTMLElement {
