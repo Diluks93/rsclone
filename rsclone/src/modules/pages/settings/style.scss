@@ -51,7 +51,7 @@
     border-radius: 4rem;
   }
 
-  &__btn {
+  &__button {
     align-self: center;
 
     &::before {
@@ -62,7 +62,7 @@
       padding-left: 1.2rem;
     }
 
-    &--ok {
+    &#saveSettingsButton {
       margin-top: 1.5rem;
 
       &::before {
@@ -72,7 +72,7 @@
     }
   }
 
-  &__toggle-btn {
+  &__toggle-button {
     width: 3rem;
     height: 3rem;
     background-color: transparent;
