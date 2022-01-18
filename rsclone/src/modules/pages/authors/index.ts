@@ -1,54 +1,92 @@
-import { authorLinkButtonsProps, authorsTitleProps } from './../../core/constants/constAuthors';
+import { authorsTitleProps, authorButtonProps } from './../../core/constants/constAuthors';
 import Page from '../../core/templates/Page';
 import './style.scss';
-import { LinkButtonType } from '../../core/types/types';
+import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../../core/types/types';
+
+const PAGE_NAME = 'authors-page';
 
 class AuthorsPage extends Page {
-  static TextObject = {
-    mainTitle: 'Над проектом работали',
-  };
+  authorButtonsWrapper: HTMLDivElement;
 
-  createAuthorButtons(props: LinkButtonType[]): HTMLDivElement[] {
-    const settingsLinkButtons = props.map(({ id, text, href, pageName, className, subTitle }) => {
-      const wrapper = document.createElement('div');
-      wrapper.classList.add(`${pageName}__wrapper`, `${pageName}__wrapper--${text.toLowerCase()}`);
+  authorsTitle: HTMLElement;
 
-      const inner = document.createElement('div');
-      inner.className = `${pageName}__inner`;
+  diluksAuthorButton: HTMLDivElement;
 
-      const subtitle = document.createElement('span');
-      subtitle.className = `${pageName}__subtitle`;
-      if (subTitle !== undefined) {
-        subtitle.textContent = subTitle;
-      }
-      subtitle.id = id;
+  jenyaAuthorButton: HTMLDivElement;
 
-      const link = document.createElement('a');
-      link.classList.add('primary-btn', `${pageName}__btn`, `${pageName}__btn--${className}`, 'basic-hover');
-      link.textContent = text;
-      link.href = href;
+  randomspellsAuthorButton: HTMLDivElement;
 
-      inner.append(link);
-      inner.append(subtitle);
-      wrapper.append(inner);
-
-      return wrapper;
-    });
-    return settingsLinkButtons;
+  constructor(id: string, className: string) {
+    super(id, className);
+    this.authorsTitle = this.createHeaderTitle(authorsTitleProps);
+    this.diluksAuthorButton = this.createAuthorButton(authorButtonProps.diluksAuthorButton);
+    this.jenyaAuthorButton = this.createAuthorButton(authorButtonProps.jenyaAuthorButton);
+    this.randomspellsAuthorButton = this.createAuthorButton(authorButtonProps.randomspellsAuthorButton);
+    this.authorButtonsWrapper = this.createWrapper('wrapper');
   }
 
-  renderWrapper() {
+  createAuthorButton({ id, href, subTitle }: LinkButtonType): HTMLDivElement {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('wrapper');
+    wrapper.classList.add(`${PAGE_NAME}__wrapper`, `${PAGE_NAME}__wrapper--${id.toLowerCase()}`);
 
-    wrapper.append(this.createHeaderTitle(authorsTitleProps));
-    this.createAuthorButtons(authorLinkButtonsProps).forEach((item) => wrapper.append(item));
-    this.container.append(wrapper);
+    const inner = document.createElement('div');
+    inner.className = `${PAGE_NAME}__inner`;
+
+    const subtitle = document.createElement('span');
+    subtitle.className = `${PAGE_NAME}__subtitle`;
+    if (subTitle) {
+      subtitle.textContent = subTitle;
+    }
+    subtitle.id = id;
+
+    const link = document.createElement('a');
+    link.classList.add('primary-button', `${PAGE_NAME}__button`, 'basic-hover');
+    link.textContent = id;
+    link.href = href;
+
+    inner.append(link);
+    inner.append(subtitle);
+    wrapper.append(inner);
+
+    return wrapper;
+  }
+
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+    this.authorsTitle.textContent = translation[lang].authorsTitle;
+
+    const diluksSubtitle = this.diluksAuthorButton.firstElementChild?.lastChild;
+    if (diluksSubtitle instanceof HTMLSpanElement) {
+      diluksSubtitle.textContent = translation[lang].diluksSubtitle;
+    }
+
+    const jenyabSubtitle = this.jenyaAuthorButton.firstElementChild?.lastChild;
+    if (jenyabSubtitle instanceof HTMLSpanElement) {
+      jenyabSubtitle.textContent = translation[lang].jenyaSubtitle;
+    }
+
+    const randomspellsSubtitle = this.randomspellsAuthorButton.firstElementChild?.lastChild;
+    if (randomspellsSubtitle instanceof HTMLSpanElement) {
+      randomspellsSubtitle.textContent = translation[lang].randomspellsSubtitle;
+    }
+
+    this.backToMainButton.textContent = translation[lang].backToMainButton;
+  }
+
+  createWrapper(className: string): HTMLDivElement {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add(className);
+
+    wrapper.append(this.authorsTitle);
+    wrapper.append(this.diluksAuthorButton);
+    wrapper.append(this.jenyaAuthorButton);
+    wrapper.append(this.randomspellsAuthorButton);
+
+    return wrapper;
   }
 
   render() {
-    this.renderBackBtn();
-    this.renderWrapper();
+    this.container.append(this.backToMainButton);
+    this.container.append(this.authorButtonsWrapper);
     return this.container;
   }
 }
