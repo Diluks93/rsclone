@@ -1,48 +1,77 @@
-import { SettingsCheckboxType, SettingsSelectType, SettingsRangeType } from './../../core/types/types';
+import { TEXT_NODE } from './../../core/constants/constSettings';
 import {
-  rangesProps,
-  checkboxesProps,
+  SettingsCheckboxType,
+  SettingsSelectType,
+  SettingsRangeType,
+  LanguageKeys,
+  GameTranslationInterface,
+} from './../../core/types/types';
+import {
+  rangeProps,
+  checkboxProps,
   selectProps,
-  settingsLinkButtonsProps,
+  settingsLinkButtonProps,
   settingsTitleProps,
 } from '../../core/constants/constSettings';
 import Page from '../../core/templates/Page';
-import { settingsStore } from '../../core/stores/settingsStore';
-import gameTranslation from '../../core/data/gameTranslation.json';
 import './style.scss';
 
+const PAGE_NAME = 'settings-page';
+
 class SettingsPage extends Page {
-  createRangeLabels(props: SettingsRangeType[]): HTMLLabelElement[] {
-    const settingsSliders = props.map(({ id, min, max, step, value, inputHandler }) => {
-      const range = document.createElement('input');
-      range.type = 'range';
-      range.id = id;
-      range.min = min;
-      range.max = max;
-      range.step = step;
-      range.value = value;
-      range.classList.add('settings-page__range');
+  settingsWrapper: HTMLDivElement;
 
-      const soundButton = document.createElement('button');
-      soundButton.classList.add('settings-page__toggle-btn');
+  settingsTitle: HTMLElement;
 
-      const label = document.createElement('label');
-      label.classList.add('settings-page__range-label');
-      label.append(soundButton, range);
+  volumeRangeSlider: HTMLLabelElement;
 
-      range.addEventListener('input', inputHandler);
+  languageSelect: HTMLDivElement;
 
-      return label;
-    });
-    return settingsSliders;
+  soundCheckbox: HTMLLabelElement;
+
+  timeLimitCheckbox: HTMLLabelElement;
+
+  saveSettingsButton: HTMLAnchorElement;
+
+  constructor(id: string, className: string) {
+    super(id, className);
+    this.settingsTitle = this.createHeaderTitle(settingsTitleProps);
+    this.volumeRangeSlider = this.createRangeSlider(rangeProps);
+    this.languageSelect = this.createLanguageSelect(selectProps);
+    this.soundCheckbox = this.createCheckbox(checkboxProps.soundCheckbox);
+    this.timeLimitCheckbox = this.createCheckbox(checkboxProps.timeLimitCheckbox);
+    this.saveSettingsButton = this.createLinkButton(settingsLinkButtonProps.saveButton);
+    this.settingsWrapper = this.createWrapper('wrapper');
   }
 
-  createCustomSelect(props: SettingsSelectType): HTMLDivElement {
+  createRangeSlider({ id, min, max, step, value, inputHandler }: SettingsRangeType): HTMLLabelElement {
+    const range = document.createElement('input');
+    range.type = 'range';
+    range.id = id;
+    range.min = min;
+    range.max = max;
+    range.step = step;
+    range.value = value;
+    range.classList.add(`${PAGE_NAME}__range`);
+
+    const soundButton = document.createElement('button');
+    soundButton.classList.add(`${PAGE_NAME}__toggle-button`);
+
+    const label = document.createElement('label');
+    label.classList.add(`${PAGE_NAME}__range-label`);
+    label.append(soundButton, range);
+
+    range.addEventListener('input', inputHandler);
+
+    return label;
+  }
+
+  createLanguageSelect(props: SettingsSelectType): HTMLDivElement {
     const { id, options, changeHandler } = props;
     const customSelect = document.createElement('div');
-    customSelect.classList.add('settings-page__custom-select', 'basic-hover');
+    customSelect.classList.add(`${PAGE_NAME}__custom-select`, 'basic-hover');
     const select = document.createElement('select');
-    select.classList.add('settings-page__select');
+    select.classList.add(`${PAGE_NAME}__select`);
     select.id = id;
 
     options.forEach((option) => {
@@ -52,60 +81,75 @@ class SettingsPage extends Page {
       select.append(optionElement);
     });
 
-    select.addEventListener('change', changeHandler);
+    select.addEventListener('change', (e) => {
+      changeHandler(e, this);
+    });
 
     customSelect.append(select);
 
     return customSelect;
   }
 
-  createCheckboxLabels(props: SettingsCheckboxType[]): HTMLLabelElement[] {
-    const settingsCheckboxes = props.map((checkboxProps) => {
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.classList.add('settings-page__checkbox');
-      checkbox.id = checkboxProps.id;
-      checkbox.checked = checkboxProps.isEnabled;
-      checkbox.onclick = checkboxProps.clickHandler;
+  createCheckbox({ id, isEnabled, text, clickHandler }: SettingsCheckboxType): HTMLLabelElement {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add(`${PAGE_NAME}__checkbox`);
+    checkbox.id = id;
+    checkbox.checked = isEnabled;
+    checkbox.onclick = clickHandler;
 
-      const checkmark = document.createElement('span');
-      checkmark.classList.add('settings-page__checkmark');
+    const checkmark = document.createElement('span');
+    checkmark.classList.add(`${PAGE_NAME}__checkmark`);
 
-      const label = document.createElement('label');
-      label.classList.add('settings-page__checkbox-label');
-      label.htmlFor = checkbox.id;
-      label.textContent = checkboxProps.text;
+    const label = document.createElement('label');
+    label.classList.add(`${PAGE_NAME}__checkbox-label`);
+    label.htmlFor = checkbox.id;
+    label.textContent = text;
 
-      label.prepend(checkbox, checkmark);
-      return label;
-    });
-
-    return settingsCheckboxes;
+    label.prepend(checkbox, checkmark);
+    return label;
   }
 
-  renderWrapper() {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+    this.settingsTitle.textContent = translation[lang].settingsTitle;
+    const selectLabelFirstChild = this.languageSelect.firstElementChild;
+    if (selectLabelFirstChild instanceof HTMLSelectElement) {
+      selectLabelFirstChild.value = lang;
+    }
+
+    const soundLastChild = this.soundCheckbox.lastChild;
+    if (soundLastChild?.nodeType === TEXT_NODE) {
+      soundLastChild.textContent = translation[lang].isSoundEnabledLabel;
+    }
+
+    const timeLimitLastChild = this.timeLimitCheckbox.lastChild;
+    if (timeLimitLastChild?.nodeType === TEXT_NODE) {
+      timeLimitLastChild.textContent = translation[lang].isTimeLimitEnabledLabel;
+    }
+
+    this.saveSettingsButton.textContent = translation[lang].saveSettingsButton;
+    this.backToMainButton.textContent = translation[lang].backToMainButton;
+  }
+
+  createWrapper(className: string): HTMLDivElement {
     const wrapper = document.createElement('div');
-    wrapper.classList.add('wrapper');
+    wrapper.classList.add(className);
 
-    wrapper.append(this.createHeaderTitle(settingsTitleProps));
-    wrapper.append(this.createCustomSelect(selectProps));
-    this.createRangeLabels(rangesProps).forEach((item) => wrapper.append(item));
-    this.createCheckboxLabels(checkboxesProps).forEach((item) => wrapper.append(item));
-    wrapper.append(this.createLinkButtons(settingsLinkButtonsProps)[0]);
+    wrapper.append(this.settingsTitle);
+    wrapper.append(this.languageSelect);
+    wrapper.append(this.volumeRangeSlider);
+    wrapper.append(this.soundCheckbox);
+    wrapper.append(this.timeLimitCheckbox);
+    wrapper.append(this.saveSettingsButton);
 
-    this.container.append(wrapper);
+    return wrapper;
   }
 
   render(): HTMLElement {
-    this.renderBackBtn();
-    this.renderWrapper();
+    this.container.append(this.backToMainButton);
+    this.container.append(this.settingsWrapper);
     return this.container;
   }
 }
-
-// todo: move to app component or events controller
-window.onload = () => {
-  settingsStore.setSettingsLanguage(gameTranslation);
-};
 
 export default SettingsPage;
