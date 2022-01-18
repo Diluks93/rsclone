@@ -32,7 +32,7 @@ class SettingsStore {
     isTimeLimitEnabled,
     isTricksReportEnabled,
   }: SettingsConfigType) {
-    this._languageValue = languageValue;
+    this._languageValue = (localStorage.getItem('languageValue') as LanguageKeys) || languageValue;
     this._volumeValue = volumeValue;
     this._isSoundEnabled = isSoundEnabled;
     this._isTimeLimitEnabled = isTimeLimitEnabled;
@@ -79,10 +79,10 @@ class SettingsStore {
     this._isTricksReportEnabled = value;
   }
 
-  setSettingsLanguage(translation: TranslationType) {
+  setAppLanguage(translation: TranslationType) {
     const language = this.languageValue;
+    console.log(language);
     const translationKeys = Object.keys(translation[language]);
-    console.log(translationKeys);
     translationKeys.forEach((key) => {
       let element = document.getElementById(key);
       if (key !== 'gameTitle') {

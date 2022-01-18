@@ -2,7 +2,7 @@ import MainPage from '../main/index';
 import SettingsPage from '../settings/index';
 import AuthorsPage from '../authors/index';
 import HomePage from '../home/index';
-import CategoriesPage from '../categories/index';
+import LevelsPage from '../levels/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageIds, ErrorTypes } from '../../core/enums/enums';
@@ -35,8 +35,8 @@ class App {
       case PageIds.MainPage:
         page = new MainPage(idPage, PageIds.MainPage);
         break;
-      case PageIds.CategoriesPage:
-        page = new CategoriesPage(idPage, PageIds.CategoriesPage);
+      case PageIds.LevelsPage:
+        page = new LevelsPage(idPage, PageIds.LevelsPage);
         break;
       default:
         page = new ErrorPage(idPage, PageIds.ErrorPage, ErrorTypes.Error_404);
@@ -63,12 +63,11 @@ class App {
 
   start(): void {
     //TODO Что бы постоянно не перещелкивать страницу при разработке передайте аргументом сюда свою страницу.
-    App.renderNewPage(PageIds.AuthorsPage);
+    App.renderNewPage(PageIds.LevelsPage);
     this.enableRouteChange();
-    // App.container.append(this.footer.render());
 
     //TODO И следующую строку закомментируйте.
-    window.location.hash = PageIds.AuthorsPage;
+    window.location.hash = PageIds.LevelsPage;
   }
 }
 
