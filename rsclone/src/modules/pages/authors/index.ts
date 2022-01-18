@@ -43,6 +43,7 @@ class AuthorsPage extends Page {
     link.classList.add('primary-button', `${PAGE_NAME}__button`, 'basic-hover');
     link.textContent = id;
     link.href = href;
+    link.target = '_blank';
 
     inner.append(link);
     inner.append(subtitle);
