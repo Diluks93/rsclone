@@ -1,12 +1,19 @@
-type SettingsButtonType = {
-  text: string;
+import Page from '../templates/Page';
+
+type TitleType = {
+  pageName: string;
+  tagName: string;
   id: string;
+  text?: string;
+  imageUrl?: string;
 };
 
-type SettingsLinkButtonType = {
-  text: string;
+type LinkButtonType = {
+  className?: string;
+  pageName?: string;
   id: string;
   href: string;
+  subTitle?: string;
 };
 
 type SettingsCheckboxType = {
@@ -28,9 +35,8 @@ type SettingsRangeType = {
 
 type SettingsSelectType = {
   id: string;
-  // options: Record<string, string>;
   options: LanguageKeys[];
-  changeHandler(e: Event): void;
+  changeHandler(e: Event, page: Page): void;
 };
 
 type SettingsConfigType = {
@@ -49,12 +55,75 @@ type ButtonAuthorsOrNames = {
   id?: string;
 }[];
 
-export { 
-  SettingsButtonType, 
-  SettingsCheckboxType, 
-  SettingsRangeType, 
-  SettingsLinkButtonType, 
-  SettingsSelectType, 
-  SettingsConfigType, 
-  LanguageKeys, 
-  ButtonAuthorsOrNames };
+type DescriptionType = {
+  timeLimitId: string;
+  ratingCountId: string;
+  hintId: string;
+  levelDescriptionId: string;
+};
+
+interface LinkButtonInterface {
+  startGameButton: LinkButtonType;
+  openSettingsButton: LinkButtonType;
+  openAuthorsButton: LinkButtonType;
+}
+
+interface AuthorButtonInterface {
+  diluksAuthorButton: LinkButtonType;
+  jenyaAuthorButton: LinkButtonType;
+  randomspellsAuthorButton: LinkButtonType;
+}
+
+interface GameTranslationInterface {
+  ru: GameTranslationType;
+  en: GameTranslationType;
+}
+
+type GameTranslationType = {
+  gameTitle: string;
+  startGameButton: string;
+  openSettingsButton: string;
+  openAuthorsButton: string;
+  tutorialTitle: string;
+  seasonOneTitle: string;
+  backToMainButton: string;
+  playLevelButton: string;
+  settingsTitle: string;
+  authorsTitle: string;
+  isSoundEnabledLabel: string;
+  isTimeLimitEnabledLabel: string;
+  saveSettingsButton: string;
+  diluksSubtitle: string;
+  jenyaSubtitle: string;
+  randomspellsSubtitle: string;
+  levelDetailsBlock: Array<LevelDetailsType>;
+};
+
+type LevelDetailsType = {
+  levelTitle: string;
+  hintText: string;
+  levelDescriptionText: string;
+  timeLimit: string;
+};
+
+type LevelPreviewType = {
+  id: string;
+  imageUrl: string;
+  isLocked: boolean;
+};
+
+export {
+  SettingsCheckboxType,
+  SettingsRangeType,
+  LinkButtonType,
+  SettingsSelectType,
+  SettingsConfigType,
+  LanguageKeys,
+  ButtonAuthorsOrNames,
+  TitleType,
+  DescriptionType,
+  LinkButtonInterface,
+  GameTranslationInterface,
+  AuthorButtonInterface,
+  LevelPreviewType,
+};

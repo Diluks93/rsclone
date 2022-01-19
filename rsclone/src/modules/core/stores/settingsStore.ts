@@ -1,8 +1,4 @@
-import { jsonUrl } from './../data/jsonUrls';
-import { SettingsTranslationKeys, StorageKeys } from '../enums/enums';
-import { LanguageKeys, SettingsConfigType } from './../types/settingsTypes';
-
-const TEXT_NODE = 3;
+import { LanguageKeys, SettingsConfigType } from './../types/types';
 
 const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
@@ -30,7 +26,7 @@ class SettingsStore {
     isTimeLimitEnabled,
     isTricksReportEnabled,
   }: SettingsConfigType) {
-    this._languageValue = languageValue;
+    this._languageValue = (localStorage.getItem('languageValue') as LanguageKeys) || languageValue;
     this._volumeValue = volumeValue;
     this._isSoundEnabled = isSoundEnabled;
     this._isTimeLimitEnabled = isTimeLimitEnabled;
@@ -75,37 +71,6 @@ class SettingsStore {
 
   set isTricksReportEnabled(value: boolean) {
     this._isTricksReportEnabled = value;
-  }
-
-  private async getSpecificPhrase(lang: LanguageKeys, key: string) {
-    const data = await fetch(jsonUrl[StorageKeys.SettingsTranslation]);
-    const json = await data.json();
-    return json[lang][key];
-  }
-
-  setSettingsLanguage() {
-    const language = this.languageValue;
-    const translationKeys = Object.values(SettingsTranslationKeys);
-    translationKeys.forEach((key) => {
-      let element = document.getElementById(key);
-      if (!(element instanceof HTMLInputElement)) {
-        this.getSpecificPhrase(language, key).then((value) => {
-          if (element !== null) {
-            element.textContent = value;
-          }
-        });
-      } else {
-        element = element.parentElement;
-        if (element === null) return;
-        element.childNodes.forEach((node) => {
-          if (node.nodeType === TEXT_NODE) {
-            this.getSpecificPhrase(language, key).then((phrase) => {
-              node.textContent = phrase;
-            });
-          }
-        });
-      }
-    });
   }
 }
 

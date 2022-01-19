@@ -1,92 +1,82 @@
-import { PageIds, SettingsTranslationKeys } from '../enums/enums';
+import { PageIds } from '../enums/enums';
+import gameTranslation from '../data/gameTranslation.json';
 import {
   SettingsCheckboxType,
-  SettingsButtonType,
   SettingsRangeType,
-  SettingsLinkButtonType,
+  LinkButtonType,
   SettingsSelectType,
   LanguageKeys,
+  TitleType,
 } from './../types/types';
 import { settingsStore } from './../../core/stores/settingsStore';
+import Page from '../templates/Page';
+
+export const TEXT_NODE = 3;
+const PAGE_NAME = 'settings-page';
+
+export const settingsTitleProps: TitleType = {
+  pageName: PAGE_NAME,
+  id: 'settingsTitle',
+  tagName: 'h1',
+};
 
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
   options: ['ru', 'en'],
-  changeHandler(e: Event): void {
+  changeHandler(e: Event, page: Page): void {
     if (e.target instanceof HTMLSelectElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
-      settingsStore.setSettingsLanguage();
+      localStorage.setItem('languageValue', e.target.value);
+      page.setPageLanguage(gameTranslation, settingsStore.languageValue);
     }
   },
 };
 
-export const rangesProps: SettingsRangeType[] = [
-  {
-    iconUrl:
-      'https://raw.githubusercontent.com/randomspells/source-rsclone/af3870fdc4d1d92e27d7603277d7c09b9710b449/rsclone-source/settings-page/svg/sound.svg',
-    id: 'volume-bar',
-    min: '0',
-    max: '1',
-    step: '0.1',
-    value: settingsStore.volumeValue,
-    inputHandler(e: Event): void {
-      const target = e.target;
-      if (target instanceof HTMLInputElement) {
-        settingsStore.volumeValue = target.value;
+export const rangeProps: SettingsRangeType = {
+  iconUrl: '../../../assets/svg/volume.svg',
+  id: 'volumeBar',
+  min: '0',
+  max: '1',
+  step: '0.1',
+  value: settingsStore.volumeValue,
+  inputHandler(e: Event): void {
+    const target = e.target;
+    if (target instanceof HTMLInputElement) {
+      settingsStore.volumeValue = target.value;
 
-        target.style.backgroundImage = `
+      target.style.backgroundImage = `
           -webkit-gradient(linear, left top, right top, 
-          color-stop(${target.value}, #4CD235), 
-          color-stop(${target.value}, #E9F110))
+          color-stop(${target.value}, #ff6633), 
+          color-stop(${target.value}, #fff))
         `;
-      }
-    },
+    }
   },
-];
+};
 
-export const checkboxesProps: SettingsCheckboxType[] = [
-  {
-    text: 'Sound',
-    id: SettingsTranslationKeys.Sound,
+export const checkboxProps: Record<string, SettingsCheckboxType> = {
+  soundCheckbox: {
+    text: 'SN',
+    id: 'isSoundEnabledLabel',
     isEnabled: settingsStore.isSoundEnabled,
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
     },
   },
-  {
-    text: 'Time Limit',
-    id: SettingsTranslationKeys.TimeLimit,
+
+  timeLimitCheckbox: {
+    text: 'T',
+    id: 'isTimeLimitEnabledLabel',
     isEnabled: settingsStore.isTimeLimitEnabled,
     clickHandler(): void {
       settingsStore.isTimeLimitEnabled = !settingsStore.isTimeLimitEnabled;
     },
   },
-  {
-    text: 'Report',
-    id: SettingsTranslationKeys.TricksReport,
-    isEnabled: settingsStore.isTricksReportEnabled,
-    clickHandler(): void {
-      settingsStore.isTricksReportEnabled = !settingsStore.isTricksReportEnabled;
-    },
-  },
-];
+};
 
-export const buttonsProps: SettingsButtonType[] = [
-  {
-    text: 'Reset',
-    id: SettingsTranslationKeys.Reset,
-  },
-];
-
-export const linkButtonsProps: SettingsLinkButtonType[] = [
-  {
-    text: 'Cancel',
-    id: SettingsTranslationKeys.Cancel,
+export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
+  saveButton: {
+    pageName: PAGE_NAME,
+    id: 'saveSettingsButton',
     href: `#${PageIds.HomePage}`,
   },
-  {
-    text: 'Save',
-    id: SettingsTranslationKeys.Save,
-    href: `#${PageIds.HomePage}`,
-  },
-];
+};

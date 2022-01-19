@@ -1,38 +1,51 @@
-import { ButtonAuthorsOrNames } from '../types/types';
+import { backButtonProps } from './../constants/constBackButton';
+import { backToMainButton } from '../components/BackToMainButton';
+import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../types/types';
+import { TitleType } from '../types/types';
 
 abstract class Page {
   protected container: HTMLElement;
+
   static TextObject = {};
+
+  backToMainButton: HTMLAnchorElement;
 
   constructor(id: string, className: string) {
     this.container = document.createElement('main');
     this.container.id = id;
     this.container.className = className;
-  };
+    this.backToMainButton = backToMainButton.createButton(backButtonProps);
+  }
 
-  protected createHeaderTitle(title: string, tagName: string, className: string): HTMLElement {
+  protected createHeaderTitle({ pageName, id, text, tagName, imageUrl }: TitleType): HTMLElement {
     const headerTitle = document.createElement(tagName);
-    headerTitle.innerText = title;
-    headerTitle.className = className;
+    if (text !== undefined) {
+      headerTitle.innerText = text;
+    }
+    headerTitle.className = `${pageName}__title`;
+    headerTitle.id = id;
+    if (imageUrl !== undefined) {
+      headerTitle.style.backgroundImage = `url(${imageUrl})`;
+    }
     return headerTitle;
-  };
+  }
 
-  protected renderPageButtons(buttons: ButtonAuthorsOrNames) {
-    const pageButtons = document.createElement('div');
-    pageButtons.className = 'btn';
-    buttons.forEach(({text, id, url}) => {
-      const buttonHTML = document.createElement('a');
-      buttonHTML.className = 'btn__item';
-      buttonHTML.href = id ? `#${id}` : `${url}`;
-      buttonHTML.innerText = text;
-      pageButtons.append(buttonHTML);
-    });
-    this.container.append(pageButtons);
-  };
+  protected createLinkButton({ id, href, pageName, className }: LinkButtonType): HTMLAnchorElement {
+    const linkButton = document.createElement('a');
+    linkButton.classList.add('primary-button', `${pageName}__button`, 'basic-hover');
+    linkButton.id = id;
+    linkButton.href = href;
+    return linkButton;
+  }
+
+  // todo: check if redefine works
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
+    return;
+  }
 
   render(): HTMLElement {
     return this.container;
-  };
-};
+  }
+}
 
 export default Page;

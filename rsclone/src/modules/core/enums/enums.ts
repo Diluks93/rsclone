@@ -5,11 +5,11 @@ const enum PageIds {
   AuthorsPage = 'authors-page',
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
-  CategoriesPage = 'categories-page'
-};
+  LevelSelectPage = 'levels-page',
+}
 
 const enum ErrorTypes {
-  Error_404 = '404'
+  Error_404 = '404',
 }
 
 enum StorageKeys {
@@ -19,13 +19,4 @@ enum StorageKeys {
   SettingsTranslation = 'settingsTranslation',
 }
 
-enum SettingsTranslationKeys {
-  Sound = 'isSoundEnabled',
-  Reset = 'resetProgress',
-  TimeLimit = 'isTimeLimitEnabled',
-  TricksReport = 'isTricksReportEnabled',
-  Cancel = 'cancelSettings',
-  Save = 'saveSettings',
-}
-
-export { PageIds, ErrorTypes, StorageKeys, SettingsTranslationKeys };
+export { PageIds, ErrorTypes, StorageKeys };
