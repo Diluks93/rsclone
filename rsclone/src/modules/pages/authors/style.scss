@@ -1,0 +1,134 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.authors-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  font-family: $title;
+  text-transform: uppercase;
+  color: $white;
+
+  &__title {
+    margin-bottom: 5rem;
+    font-size: inherit;
+    font-family: inherit;
+    text-transform: inherit;
+    font-weight: normal;
+    align-self: center;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+
+    &:last-of-type {
+      margin-bottom: 2rem;
+    }
+
+    &::before {
+      content: '';
+      width: 4rem;
+      height: 4rem;
+      display: inline-block;
+      margin-right: 2rem;
+      background-repeat: no-repeat;
+      background-size: 4.666rem;
+      background-position: center;
+      image-rendering: pixelated;
+      align-items: center;
+    }
+
+    &--diluks93 {
+      &::before {
+        background-image: url(../../../assets/image/faces/diluks1.png);
+      }
+      &:hover::before {
+        animation: diluksFace 1s infinite;
+      }
+    }
+
+    &--jenya-b {
+      &::before {
+        background-image: url(../../../assets/image/faces/evgeny1.png);
+      }
+      &:hover::before {
+        animation: jenyaFace 1s infinite;
+      }
+    }
+
+    &--randomspells {
+      &::before {
+        background-image: url(../../../assets/image/faces/june1.png);
+      }
+      &:hover::before {
+        animation: randomspellsFace 1s infinite;
+      }
+    }
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  &__button {
+    display: flex;
+
+    &::after {
+      content: '';
+      margin-left: 2rem;
+      width: 2rem;
+      height: 2rem;
+      display: inline-block;
+      background-image: url(../../../assets/svg/link.svg);
+    }
+  }
+
+  &__subtitle {
+    padding: 0.5rem 1rem;
+    font-family: $text;
+    text-transform: none;
+    font-size: 1.5rem;
+    color: $white;
+  }
+}
+
+@keyframes diluksFace {
+  0% {
+    background-image: url(../../../assets/image/faces/diluks1.png);
+  }
+  55% {
+    background-image: url(../../../assets/image/faces/diluks2.png);
+  }
+}
+
+@keyframes jenyaFace {
+  0% {
+    background-image: url(../../../assets/image/faces/evgeny1.png);
+  }
+  25% {
+    background-image: url(../../../assets/image/faces/evgeny2.png);
+  }
+  60% {
+    background-image: url(../../../assets/image/faces/evgeny1.png);
+  }
+}
+
+@keyframes randomspellsFace {
+  0% {
+    background-image: url(../../../assets/image/faces/june1.png);
+  }
+  25% {
+    background-image: url(../../../assets/image/faces/june1.png);
+  }
+  75% {
+    background-image: url(../../../assets/image/faces/june2.png);
+  }
+}
