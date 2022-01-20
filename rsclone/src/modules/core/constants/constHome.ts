@@ -3,6 +3,8 @@ import { PageIds } from '../enums/enums';
 
 const PAGE_NAME = 'home-page';
 
+export const TEXT_ERROR = 'Out of screen range. Minimum resolution 1024x600.';
+
 export const homeTitleProps: TitleType = {
   pageName: 'home-page',
   id: 'gameTitle',
