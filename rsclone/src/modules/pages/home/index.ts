@@ -1,4 +1,4 @@
-import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR } from './../../core/constants/constHome';
+import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, SCREEN_RESOLUTION } from './../../core/constants/constHome';
 import Page from '../../core/templates/Page';
 import './style.scss';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
@@ -50,7 +50,10 @@ class HomePage extends Page {
   }
 
   render() {
-    if (document.documentElement.clientHeight < 600 || document.documentElement.clientWidth < 1024) {
+    if (
+      document.documentElement.clientHeight < SCREEN_RESOLUTION.minHeight ||
+      document.documentElement.clientWidth < SCREEN_RESOLUTION.minWidth
+    ) {
       this.container.append(this.rangeErrorOutput());
     } else {
       this.container.append(this.gameTitle);
