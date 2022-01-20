@@ -13,3 +13,10 @@
     background-repeat: no-repeat;
   }
 }
+
+@media (max-width: 1280px) {
+  .back-button {
+    top: 1rem;
+    left: 1rem;
+  }
+}
