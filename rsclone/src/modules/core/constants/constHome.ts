@@ -1,7 +1,14 @@
-import { LinkButtonInterface, TitleType } from './../types/types';
+import { LinkButtonInterface, ScreenResolutionType, TitleType } from './../types/types';
 import { PageIds } from '../enums/enums';
 
 const PAGE_NAME = 'home-page';
+
+export const TEXT_ERROR = 'Out of screen range. Minimum resolution 1024x600.';
+
+export const SCREEN_RESOLUTION: ScreenResolutionType = {
+  minHeight: 600,
+  minWidth: 1024,
+};
 
 export const homeTitleProps: TitleType = {
   pageName: 'home-page',

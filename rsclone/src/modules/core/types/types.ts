@@ -112,6 +112,11 @@ type LevelPreviewType = {
   isLocked: boolean;
 };
 
+type ScreenResolutionType = {
+  minHeight: number;
+  minWidth: number;
+};
+
 export {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -126,4 +131,5 @@ export {
   GameTranslationInterface,
   AuthorButtonInterface,
   LevelPreviewType,
+  ScreenResolutionType,
 };

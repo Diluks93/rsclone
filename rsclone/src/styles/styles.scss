@@ -7,27 +7,36 @@
   box-sizing: border-box;
 }
 
+@media (max-width: 1440px) {
+  * {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 1280px) {
   * {
     font-size: 12px;
   }
 }
 
-@media (max-width: 768px) {
-  * {
-    font-size: 10px;
-  }
-}
-
 .page {
+  position: relative;
   background-color: $main-color;
   background-image: url(../assets/image/back.png);
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
-  display: grid;
-  grid-template: 1fr 5rem / 1fr;
   height: 100vh;
+}
+
+.range-error {
+  width: 100%;
+  padding: 0 10px;
+  text-align: center;
+  line-height: 2.3rem;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 }
 
 html,
@@ -162,6 +171,12 @@ table {
   font-size: inherit;
   background-color: rgba($pale-navy, 0.7);
   border-radius: 2rem;
+}
+
+@media (max-width: 1280px) {
+  .wrapper {
+    padding: 5rem 8rem;
+  }
 }
 
 .primary-button {
