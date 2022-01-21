@@ -1,5 +1,5 @@
 import { backButtonProps } from './../constants/constBackButton';
-import { backToMainButton } from '../components/BackToMainButton';
+import { backToMainButton } from '../components/back-to-main-button';
 import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../types/types';
 import { TitleType } from '../types/types';
 
