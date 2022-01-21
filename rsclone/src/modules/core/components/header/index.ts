@@ -18,11 +18,7 @@ const buttons = [
   {
     id: PageIds.SettingsPage,
     text: 'Settings Page',
-  },
-  {
-    id: PageIds.CategoriesPage,
-    text: 'Categories Page',
-  },
+  }
 ];
 
 class Header extends Component {
