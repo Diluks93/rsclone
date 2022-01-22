@@ -14,6 +14,7 @@ type LinkButtonType = {
   id: string;
   href: string;
   subTitle?: string;
+  iconId?: string;
 };
 
 type SettingsCheckboxType = {

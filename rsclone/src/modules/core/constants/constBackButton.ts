@@ -5,4 +5,5 @@ export const backButtonProps: LinkButtonType = {
   className: 'back-button',
   id: 'backToMainButton',
   href: `#${PageIds.HomePage}`,
+  iconId: 'arrow-left',
 };

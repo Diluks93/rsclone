@@ -1,9 +1,9 @@
 class SvgIcon {
   html: string;
 
-  constructor(id: string, className: string) {
+  constructor(id: string) {
     this.html = `
-    <svg class="${className}">
+    <svg class="button-icon">
       <use xlink:href="#${id}"></use>
     </svg>
     `;

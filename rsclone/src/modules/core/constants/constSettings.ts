@@ -78,5 +78,6 @@ export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
     pageName: PAGE_NAME,
     id: 'saveSettingsButton',
     href: `#${PageIds.HomePage}`,
+    iconId: 'check',
   },
 };

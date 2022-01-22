@@ -66,11 +66,11 @@ class App {
 
   start(): void {
     //TODO Что бы постоянно не перещелкивать страницу при разработке передайте аргументом сюда свою страницу.
-    App.renderNewPage(PageIds.HomePage);
+    App.renderNewPage(PageIds.LevelSelectPage);
     this.enableRouteChange();
 
     //TODO И следующую строку закомментируйте.
-    window.location.hash = PageIds.HomePage;
+    window.location.hash = PageIds.LevelSelectPage;
   }
 }
 

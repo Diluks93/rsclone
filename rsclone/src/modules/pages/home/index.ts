@@ -25,7 +25,7 @@ class HomePage extends Page {
 
   setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
     this.gameTitle.style.backgroundImage = `url(${translation[lang].gameTitle})`;
-    this.startGameButton.textContent = translation[lang].startGameButton;
+    this.startGameButton.textContent += translation[lang].startGameButton;
     this.openSettingsButton.textContent = translation[lang].openSettingsButton;
     this.openAuthorsButton.textContent = translation[lang].openAuthorsButton;
   }
@@ -59,6 +59,7 @@ class HomePage extends Page {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
     }
+
     return this.container;
   }
 }
