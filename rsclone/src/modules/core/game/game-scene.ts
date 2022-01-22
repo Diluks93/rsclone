@@ -4,7 +4,7 @@ const GROUND_KEY = 'ground';
 const DUDE_KEY = 'dude';
 
 export default class GameScene extends Phaser.Scene {
-  cursor: any;
+  cursor: ReturnType<<T>() => T>;
   player: any;
 
   constructor () {
@@ -23,7 +23,7 @@ export default class GameScene extends Phaser.Scene {
     this.load.image(GROUND_KEY, 'game/platform.png');
     this.load.image('star', 'game/star.png');
     this.load.image('bomb', 'game/bomb.png');
-    this.load.spritesheet(DUDE_KEY, 'game/voody.png', { frameWidth: 195, frameHeight: 240 });
+    this.load.spritesheet(DUDE_KEY, 'game/old-voody.png', { frameWidth: 195, frameHeight: 240 });
   }
 
   create() {
@@ -37,17 +37,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.cursor.left.isDown) {
+    if ((this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).left.isDown) {
       this.player.setVelocityX(-160);
       this.player.anims.play('left', true);
-    } else if (this.cursor.right.isDown) {
+    } else if ((this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).right.isDown) {
       this.player.setVelocityX(160);
       this.player.anims.play('right', true);
     } else {
       this.player.setVelocityX(0);
       this.player.anims.play('turn');
     }
-    if (this.cursor.up.isDown && this.player.body.touching.down) {
+    if ((this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-530);
     }
   }
