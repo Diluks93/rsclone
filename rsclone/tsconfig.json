@@ -8,8 +8,14 @@
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "sourceMap": true,
   },
-  "files": ["src/index.ts"],
-  "include": ["src/images.d.ts"]
+  "files": [ "src/index.ts" ],
+  "typeRoots": [ "./node_modules/phaser/types" ],
+  "types": [ "Phaser" ],
+  "include": [
+    "**/*.ts",
+    "src/images.d.ts"
+  ]
 }
