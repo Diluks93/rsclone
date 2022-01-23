@@ -54,7 +54,7 @@ class AuthorsPage extends Page {
     return wrapper;
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.authorsTitle.textContent = translation[lang].authorsTitle;
 
     const diluksSubtitle = this.diluksAuthorButton.firstElementChild?.lastChild;

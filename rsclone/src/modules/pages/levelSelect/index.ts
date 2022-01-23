@@ -140,7 +140,7 @@ class LevelSelectPage extends Page {
     return wrapper;
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.backToMainButton.append(translation[lang].backToMainButton);
     this.tutorialTitle.textContent = translation[lang].tutorialTitle;
     this.seasonOneTitle.textContent = translation[lang].seasonOneTitle;

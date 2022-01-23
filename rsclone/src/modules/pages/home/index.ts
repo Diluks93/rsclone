@@ -23,7 +23,7 @@ class HomePage extends Page {
     this.homeButtonsWrapper = this.createWrapper('home-page__wrapper');
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.gameTitle.style.backgroundImage = `url(${translation[lang].gameTitle})`;
     this.startGameButton.textContent += translation[lang].startGameButton;
     this.openSettingsButton.textContent = translation[lang].openSettingsButton;

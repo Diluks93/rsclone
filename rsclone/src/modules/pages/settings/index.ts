@@ -112,7 +112,7 @@ class SettingsPage extends Page {
     return label;
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.settingsTitle.textContent = translation[lang].settingsTitle;
     const selectLabelFirstChild = this.languageSelect.firstElementChild;
     if (selectLabelFirstChild instanceof HTMLSelectElement) {
