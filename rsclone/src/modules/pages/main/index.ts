@@ -1,5 +1,5 @@
-import Demo from '../../core/utils/game'
 import Page from '../../core/templates/Page';
+import { config } from '../../core/game/game'
 import './style.scss';
 
 class MainPage extends Page {
@@ -8,15 +8,9 @@ class MainPage extends Page {
   };
 
   render() {
+    new Phaser.Game(config);
     return this.container;
   }
 }
 
 export default MainPage;
-const config = {
-  type: Phaser .AUTO,
-  backgroundColor: '#125555',
-  width: window.innerWidth,
-  height: window.innerHeight,
-  scene: Demo
-};
