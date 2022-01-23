@@ -12,11 +12,39 @@ const enum ErrorTypes {
   Error_404 = '404',
 }
 
-enum StorageKeys {
+const enum StorageKeys {
   HomeTranslation = 'homeTranslation',
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
   SettingsTranslation = 'settingsTranslation',
 }
 
-export { PageIds, ErrorTypes, StorageKeys };
+const enum Frames {
+  'rearViewStart',
+  'rearView',
+  'rearViewEnd',
+  'rightViewStart',
+  'rightView',
+  'rightViewEnd',
+  'frontViewStart',
+  'frontView',
+  'frontViewEnd',
+  'leftViewStart',
+  'leftView',
+  'leftViewEnd',
+};
+
+const enum Urls {
+  'main' = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
+  'assets' = 'game/map/assets.png',
+  'map' = 'game/map/map.json',
+  'voody' = 'game/voody.png',
+};
+
+const enum GameKeys {
+  'DUDE_KEY' = 'dude',
+  'ASSETS' = 'assets',
+  'MAP' = 'map',
+}
+
+export { PageIds, ErrorTypes, StorageKeys, Frames, Urls, GameKeys };

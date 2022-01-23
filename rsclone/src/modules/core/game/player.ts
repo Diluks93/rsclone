@@ -1,59 +1,58 @@
 import GameScene from './game-scene';
-
-const DUDE_KEY = 'dude';
+import { Frames, GameKeys } from '../enums/enums';
 
 export default class Player {
   scene;
   keys;
   sprite;
 
-  constructor(scene: GameScene, x: Phaser.Types.Tilemaps.TiledObject['x'], y: Phaser.Types.Tilemaps.TiledObject['y']) {
+  constructor(scene?: GameScene, x?: Phaser.Types.Tilemaps.TiledObject['x'], y?: Phaser.Types.Tilemaps.TiledObject['y']) {
     this.scene = scene;
 
-    const anims = scene.anims;
-    anims.create({
+    const anims = scene?.anims;
+    anims?.create({
       key: 'left',
-      frames: anims.generateFrameNumbers(DUDE_KEY, {start: 9, end: 11}),
+      frames: anims.generateFrameNumbers(GameKeys.DUDE_KEY, {start: Frames.leftViewStart, end: Frames.leftViewEnd}),
       frameRate: 10,
       repeat: -1,
     });
 
-    anims.create({
+    anims?.create({
       key: 'turn',
-      frames: [{ key: DUDE_KEY, frame: 7}],
+      frames: [{ key: GameKeys.DUDE_KEY, frame: Frames.frontView}],
       frameRate: 20,
     });
 
-    anims.create({
+    anims?.create({
       key: 'right',
-      frames: anims.generateFrameNumbers(DUDE_KEY, { start: 3, end: 5 }),
+      frames: anims.generateFrameNumbers(GameKeys.DUDE_KEY, { start: Frames.rightViewStart, end: Frames.rightViewEnd }),
       frameRate: 10,
       repeat: -1,
     });
 
-    anims.create({
+    anims?.create({
       key: 'up',
-      frames: anims.generateFrameNumbers(DUDE_KEY, { start: 0, end: 2 }),
+      frames: anims.generateFrameNumbers(GameKeys.DUDE_KEY, { start: Frames.rearViewStart, end: Frames.rearViewEnd }),
       frameRate: 10,
       repeat: -1,
     });
 
-    anims.create({
+    anims?.create({
       key: 'down',
-      frames: anims.generateFrameNumbers(DUDE_KEY, { start: 6, end: 8 }),
+      frames: anims.generateFrameNumbers(GameKeys.DUDE_KEY, { start: Frames.frontViewStart, end: Frames.frontViewEnd }),
       frameRate: 10,
       repeat: -1,
     });
 
-    if (x && y) {
+    if (x && y && scene) {
       this.sprite = scene.physics.add
-        .sprite(x, y, DUDE_KEY, 7)
+        .sprite(x, y, GameKeys.DUDE_KEY, 7)
         .setBounce(0.1)
         .setCollideWorldBounds(true);
     }
 
     const { LEFT, RIGHT, UP, DOWN, SPACE } = Phaser.Input.Keyboard.KeyCodes;
-      this.keys = scene.input.keyboard.addKeys({
+      this.keys = scene?.input.keyboard.addKeys({
         left: LEFT,
         right: RIGHT,
         up: UP,
@@ -62,7 +61,7 @@ export default class Player {
       });
   }
 
-  update() {
+  update(): void {
     const { keys, sprite } = this;
 
     if (sprite) {
