@@ -80,19 +80,9 @@
   }
 
   &__button {
-    &::before {
-      content: '';
-      display: inline-block;
+    & .button-icon {
       width: 2.5rem;
       height: 2.5rem;
-      padding-left: 1.2rem;
-    }
-
-    &#playLevelButton {
-      &::before {
-        background-image: url(../../../assets/svg/play.svg);
-        background-repeat: no-repeat;
-      }
     }
   }
 
@@ -133,33 +123,10 @@
     text-transform: none;
     color: $white;
 
-    &:before {
-      content: '';
-      flex-shrink: 0;
-      display: inline-block;
+    & .button-icon {
       width: 2rem;
       height: 2rem;
       margin-right: 1rem;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    &#timeLimit {
-      &::before {
-        background-image: url(../../../assets/svg/clock.svg);
-      }
-    }
-
-    &#ratingCount {
-      &::before {
-        background-image: url(../../../assets/svg/star.svg);
-      }
-    }
-
-    &#hintText {
-      &::before {
-        background-image: url(../../../assets/svg/wink.svg);
-      }
     }
   }
 

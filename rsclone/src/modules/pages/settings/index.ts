@@ -15,6 +15,7 @@ import {
 } from '../../core/constants/constSettings';
 import Page from '../../core/templates/Page';
 import './style.scss';
+import SvgIcon from '../../core/components/SvgIcon';
 
 const PAGE_NAME = 'settings-page';
 
@@ -56,6 +57,7 @@ class SettingsPage extends Page {
 
     const soundButton = document.createElement('button');
     soundButton.classList.add(`${PAGE_NAME}__toggle-button`);
+    soundButton.append(new SvgIcon('sound').render());
 
     const label = document.createElement('label');
     label.classList.add(`${PAGE_NAME}__range-label`);
@@ -110,7 +112,7 @@ class SettingsPage extends Page {
     return label;
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.settingsTitle.textContent = translation[lang].settingsTitle;
     const selectLabelFirstChild = this.languageSelect.firstElementChild;
     if (selectLabelFirstChild instanceof HTMLSelectElement) {
@@ -127,8 +129,8 @@ class SettingsPage extends Page {
       timeLimitLastChild.textContent = translation[lang].isTimeLimitEnabledLabel;
     }
 
-    this.saveSettingsButton.textContent = translation[lang].saveSettingsButton;
-    this.backToMainButton.textContent = translation[lang].backToMainButton;
+    this.saveSettingsButton.append(translation[lang].saveSettingsButton);
+    this.backToMainButton.append(translation[lang].backToMainButton);
   }
 
   createWrapper(className: string): HTMLDivElement {

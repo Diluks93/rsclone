@@ -54,21 +54,13 @@
   &__button {
     align-self: center;
 
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 2.5rem;
-      height: 2.5rem;
-      padding-left: 1.2rem;
-    }
-
     &#saveSettingsButton {
       margin-top: 1.5rem;
+    }
 
-      &::before {
-        background-image: url(../../../assets/svg/check.svg);
-        background-repeat: no-repeat;
-      }
+    & .button-icon {
+      width: 2.5rem;
+      height: 2.5rem;
     }
   }
 

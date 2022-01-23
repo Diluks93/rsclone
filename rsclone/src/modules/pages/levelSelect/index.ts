@@ -5,6 +5,7 @@ import Page from '../../core/templates/Page';
 
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
 import './style.scss';
+import SvgIcon from '../../core/components/SvgIcon';
 
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';
@@ -45,9 +46,9 @@ class LevelSelectPage extends Page {
     this.tutorialTitle = this.createHeaderTitle(levelPageTitleProps.tutorialTitle);
     this.seasonOneTitle = this.createHeaderTitle(levelPageTitleProps.seasonOneTitle);
     this.levelDetailslTitle = this.createHeaderTitle(levelPageTitleProps.levelDetailsTitle);
-    this.scoreSpan = this.createScoreWrapper(levelDetailsProps.ratingCountId);
-    this.timeLimitSpan = this.createInfoSpan(levelDetailsProps.timeLimitId);
-    this.hintSpan = this.createInfoSpan(levelDetailsProps.hintId);
+    this.scoreSpan = this.createScoreWrapper(levelDetailsProps.ratingCountId, 'star');
+    this.timeLimitSpan = this.createInfoSpan(levelDetailsProps.timeLimitId, 'clock');
+    this.hintSpan = this.createInfoSpan(levelDetailsProps.hintId, 'wink');
     //todo: change to better source of image
     this.previewImage = this.createPreviewImage(levelPreviewProps.tutorialTitle[0].imageUrl);
     this.levelDescriptionText = this.createLevelDescriptionText(levelDetailsProps.levelDescriptionId);
@@ -95,16 +96,19 @@ class LevelSelectPage extends Page {
     return previewImage;
   }
 
-  createInfoSpan(id: string): HTMLParagraphElement {
+  createInfoSpan(id: string, iconId: string): HTMLParagraphElement {
     const span = document.createElement('p');
     span.classList.add(`${LEVEL_DETAILS}__text`);
     span.id = id;
+
+    span.prepend(new SvgIcon(iconId).render());
+
     return span;
   }
 
-  createScoreWrapper(id: string): HTMLParagraphElement {
-    const currentCount = this.createInfoSpan(id);
-    currentCount.textContent = `${CURRENT_SCORE}/${TOTAL_SCORE}`;
+  createScoreWrapper(id: string, iconId: string): HTMLParagraphElement {
+    const currentCount = this.createInfoSpan(id, iconId);
+    currentCount.append(`${CURRENT_SCORE}/${TOTAL_SCORE}`);
     return currentCount;
   }
 
@@ -136,15 +140,15 @@ class LevelSelectPage extends Page {
     return wrapper;
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
-    this.backToMainButton.textContent = translation[lang].backToMainButton;
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
+    this.backToMainButton.append(translation[lang].backToMainButton);
     this.tutorialTitle.textContent = translation[lang].tutorialTitle;
     this.seasonOneTitle.textContent = translation[lang].seasonOneTitle;
     this.levelDetailslTitle.textContent = translation[lang].levelDetailsBlock[CURRENT_LEVEL].levelTitle;
-    this.timeLimitSpan.textContent = translation[lang].levelDetailsBlock[CURRENT_LEVEL].timeLimit;
-    this.hintSpan.textContent = translation[lang].levelDetailsBlock[CURRENT_LEVEL].hintText;
+    this.timeLimitSpan.append(translation[lang].levelDetailsBlock[CURRENT_LEVEL].timeLimit);
+    this.hintSpan.append(translation[lang].levelDetailsBlock[CURRENT_LEVEL].hintText);
     this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[CURRENT_LEVEL].levelDescriptionText;
-    this.playLevelButton.textContent = translation[lang].playLevelButton;
+    this.playLevelButton.append(translation[lang].playLevelButton);
   }
 
   createLevelSelectLayout(): HTMLDivElement {

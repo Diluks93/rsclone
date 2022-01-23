@@ -2,6 +2,7 @@ import { authorsTitleProps, authorButtonProps } from './../../core/constants/con
 import Page from '../../core/templates/Page';
 import './style.scss';
 import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../../core/types/types';
+import SvgIcon from '../../core/components/SvgIcon';
 
 const PAGE_NAME = 'authors-page';
 
@@ -44,6 +45,7 @@ class AuthorsPage extends Page {
     link.textContent = id;
     link.href = href;
     link.target = '_blank';
+    link.append(new SvgIcon('link').render());
 
     inner.append(link);
     inner.append(subtitle);
@@ -52,7 +54,7 @@ class AuthorsPage extends Page {
     return wrapper;
   }
 
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys) {
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.authorsTitle.textContent = translation[lang].authorsTitle;
 
     const diluksSubtitle = this.diluksAuthorButton.firstElementChild?.lastChild;
@@ -70,7 +72,7 @@ class AuthorsPage extends Page {
       randomspellsSubtitle.textContent = translation[lang].randomspellsSubtitle;
     }
 
-    this.backToMainButton.textContent = translation[lang].backToMainButton;
+    this.backToMainButton.append(translation[lang].backToMainButton);
   }
 
   createWrapper(className: string): HTMLDivElement {

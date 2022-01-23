@@ -1,7 +1,8 @@
 import { backButtonProps } from './../constants/constBackButton';
-import { backToMainButton } from '../components/BackToMainButton';
+import { backToMainButton } from '../components/back-to-main-button';
 import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../types/types';
 import { TitleType } from '../types/types';
+import SvgIcon from '../components/SvgIcon';
 
 abstract class Page {
   protected container: HTMLElement;
@@ -30,11 +31,16 @@ abstract class Page {
     return headerTitle;
   }
 
-  protected createLinkButton({ id, href, pageName, className }: LinkButtonType): HTMLAnchorElement {
+  protected createLinkButton({ id, href, pageName, iconId }: LinkButtonType): HTMLAnchorElement {
     const linkButton = document.createElement('a');
     linkButton.classList.add('primary-button', `${pageName}__button`, 'basic-hover');
     linkButton.id = id;
     linkButton.href = href;
+
+    if (iconId) {
+      linkButton.append(new SvgIcon(iconId).render());
+    }
+
     return linkButton;
   }
 

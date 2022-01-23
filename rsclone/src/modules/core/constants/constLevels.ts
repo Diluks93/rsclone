@@ -88,5 +88,6 @@ export const levelLinkButtonProps: Record<string, LinkButtonType> = {
     pageName: 'levels-page',
     id: 'playLevelButton',
     href: '#',
+    iconId: 'play',
   },
 };
