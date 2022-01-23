@@ -6,7 +6,7 @@ class MainPage extends Page {
   static TextObject = {
     mainTitle: 'Main Page',
   };
-
+  
   render() {
     new Phaser.Game(config);
     return this.container;
