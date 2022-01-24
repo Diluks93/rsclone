@@ -1,4 +1,4 @@
-import GameScene from './game-scene';
+import GameScene from './gameScene';
 import { Frames, GameKeys } from '../enums/enums';
 
 export default class Player {
@@ -51,13 +51,14 @@ export default class Player {
         .setCollideWorldBounds(true);
     }
 
-    const { LEFT, RIGHT, UP, DOWN, SPACE } = Phaser.Input.Keyboard.KeyCodes;
+    const { LEFT, RIGHT, UP, DOWN, SPACE, ESC, } = Phaser.Input.Keyboard.KeyCodes;
       this.keys = scene?.input.keyboard.addKeys({
         left: LEFT,
         right: RIGHT,
         up: UP,
         down: DOWN,
         space: SPACE,
+        esc: ESC
       });
   }
 

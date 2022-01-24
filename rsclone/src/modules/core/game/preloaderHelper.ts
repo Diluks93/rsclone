@@ -1,4 +1,4 @@
-import GameScene from './game-scene';
+import GameScene from './gameScene';
 import { GameKeys, Urls } from '../enums/enums';
 
 export default class PreloadHelper {
