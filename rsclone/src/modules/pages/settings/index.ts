@@ -15,7 +15,7 @@ import {
 } from '../../core/constants/constSettings';
 import Page from '../../core/templates/Page';
 import './style.scss';
-import SvgIcon from '../../core/components/svg-icon';
+import SvgIcon from '../../core/components/SvgIcon';
 
 const PAGE_NAME = 'settings-page';
 

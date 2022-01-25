@@ -1,4 +1,4 @@
-import Component from '../../templates/component';
+import Component from '../../templates/Component';
 import '../style.scss';
 
 const buttons = [

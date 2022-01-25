@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import PreloadHelper from './preloaderHelper';
+import PreloadHelper from './preloader-helper';
 import Player from './player';
 import { config } from './game';
 

@@ -1,4 +1,4 @@
-import Component from '../../templates/component';
+import Component from '../../templates/Component';
 import { LinkButtonType } from '../../types/types';
 import '../style.scss';
 import './style.scss';

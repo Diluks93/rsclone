@@ -1,11 +1,11 @@
-import { levelPreviewProps, levelLinkButtonProps } from '../../core/constants/constLevels';
+import { levelPreviewProps, levelLinkButtonProps } from './../../core/constants/constLevels';
 import { levelDetailsProps } from '../../core/constants/constLevels';
 import { levelPageTitleProps } from '../../core/constants/constLevels';
 import Page from '../../core/templates/Page';
 
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
 import './style.scss';
-import SvgIcon from '../../core/components/svg-icon';
+import SvgIcon from '../../core/components/SvgIcon';
 
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';

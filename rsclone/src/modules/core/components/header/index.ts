@@ -1,4 +1,4 @@
-import Component from '../../templates/component';
+import Component from '../../templates/Component';
 import { PageIds } from '../../enums/enums';
 import '../style.scss';
 
