@@ -1,13 +1,13 @@
 import GameScene from './game-scene';
-import { GameKeys, Urls } from '../enums/enums';
+import { GameKeys, UrlsSourcesForGame } from '../enums/enums';
 
 export default class PreloadHelper {
   static preload(scene: GameScene): void {
-    scene.load.setBaseURL(Urls.main);
-    scene.load.image(GameKeys.ASSETS, Urls.assets);
-    scene.load.tilemapTiledJSON(GameKeys.MAP, Urls.map);
+    scene.load.setBaseURL(UrlsSourcesForGame.Main);
+    scene.load.image(GameKeys.Assets, UrlsSourcesForGame.Tileset);
+    scene.load.tilemapTiledJSON(GameKeys.Map, UrlsSourcesForGame.TilemapJson);
     
-    scene.load.spritesheet(GameKeys.DUDE_KEY, Urls.voody, { frameWidth: 190, frameHeight: 257 });
-  }
+    scene.load.spritesheet(GameKeys.Player, UrlsSourcesForGame.Player, { frameWidth: 190, frameHeight: 257 });
+  };
 
 }

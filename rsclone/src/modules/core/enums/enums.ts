@@ -20,31 +20,31 @@ const enum StorageKeys {
 }
 
 const enum Frames {
-  'rearViewStart',
-  'rearView',
-  'rearViewEnd',
-  'rightViewStart',
-  'rightView',
-  'rightViewEnd',
-  'frontViewStart',
-  'frontView',
-  'frontViewEnd',
-  'leftViewStart',
-  'leftView',
-  'leftViewEnd',
+  RearViewStart,
+  RearView,
+  RearViewEnd,
+  RightViewStart,
+  RightView,
+  RightViewEnd,
+  FrontViewStart,
+  FrontView,
+  FrontViewEnd,
+  LeftViewStart,
+  LeftView,
+  LeftViewEnd,
 };
 
-const enum Urls {
-  'main' = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
-  'assets' = 'game/map/assets.png',
-  'map' = 'game/map/map.json',
-  'voody' = 'game/voody.png',
+const enum UrlsSourcesForGame {
+  Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
+  Tileset = 'game/map/assets.png',
+  TilemapJson = 'game/map/map.json',
+  Player = 'game/voody.png',
 };
 
 const enum GameKeys {
-  'DUDE_KEY' = 'dude',
-  'ASSETS' = 'assets',
-  'MAP' = 'map',
+  Player = 'dude',
+  Assets = 'assets',
+  Map = 'map',
 }
 
-export { PageIds, ErrorTypes, StorageKeys, Frames, Urls, GameKeys };
+export { PageIds, ErrorTypes, StorageKeys, Frames, UrlsSourcesForGame, GameKeys };
