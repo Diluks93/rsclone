@@ -9,9 +9,11 @@ const stylesHandler = isProduction
   : "style-loader";
 
 const config = {
-  entry: "./src/index.ts",
+  entry: {
+    main: path.resolve(__dirname, './src/index.ts'),
+  },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[hash].js',
     clean: true
   },
@@ -21,9 +23,9 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: path.resolve(__dirname, './src/index.html'),
       title: "How to annoy neighbor",
-      favicon: "./src/favicon.ico",
+      favicon: path.resolve(__dirname, './src/favicon.ico'),
       minify: true
     }),
   ],
@@ -44,7 +46,7 @@ const config = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
     ],
   },
