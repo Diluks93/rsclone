@@ -129,8 +129,11 @@ class SettingsPage extends Page {
       timeLimitLastChild.textContent = translation[lang].isTimeLimitEnabledLabel;
     }
 
-    this.saveSettingsButton.append(translation[lang].saveSettingsButton);
-    this.backToMainButton.append(translation[lang].backToMainButton);
+    if (this.saveSettingsButton.lastChild) {
+      this.saveSettingsButton.lastChild.textContent = translation[lang].saveSettingsButton;
+    }
+
+    this.backToMainButton.textContent = translation[lang].backToMainButton;
   }
 
   createWrapper(className: string): HTMLDivElement {
