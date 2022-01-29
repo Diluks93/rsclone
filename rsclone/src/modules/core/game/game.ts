@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import GameScene from './game-scene';
+import PreloadScene from './preload-scene';
 
 export const config = {
   type: Phaser.AUTO,
@@ -18,5 +19,5 @@ export const config = {
       debug: true,
     },
   },
-  scene: [GameScene],
+  scene: [PreloadScene, GameScene],
 };
