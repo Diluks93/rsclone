@@ -1,5 +1,7 @@
 import { Frames, GameKeys } from '../enums/enums';
 
+const SPEED = 2000;
+
 export default class Player {
   scene;
 
@@ -85,10 +87,10 @@ export default class Player {
         this.playerSounds?.footsteps.play();
       });
       if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).left.isDown) {
-        sprite.setVelocityX(-160);
+        sprite.setVelocityX(-SPEED);
         sprite.anims.play('left', true);
       } else if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).right.isDown) {
-        sprite.setVelocityX(160);
+        sprite.setVelocityX(SPEED);
         sprite.anims.play('right', true);
       } else if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).up.isDown) {
         sprite.setVelocityX(0);
