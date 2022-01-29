@@ -60,6 +60,8 @@
     border: none;
     outline: none;
     overflow: hidden;
+    background-size: cover;
+    background-position: center;
     cursor: pointer;
 
     &.locked {
@@ -101,13 +103,15 @@
   &__inner {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
-    grid-row-gap: 2rem;
+    grid-row-gap: 1rem;
     justify-content: center;
     margin-bottom: auto;
   }
 
   &__preview-image {
+    width: 100%;
+    height: auto;
+    background-size: contain;
     background-color: $orange;
     border-radius: 1rem;
   }
@@ -127,6 +131,10 @@
       width: 2rem;
       height: 2rem;
       margin-right: 1rem;
+    }
+
+    & span {
+      font-size: inherit;
     }
   }
 
