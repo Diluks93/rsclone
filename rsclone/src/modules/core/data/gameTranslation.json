@@ -63,15 +63,15 @@
         "timeLimit": "5 minutes"
       },
       {
-        "levelTitle": "Onwards and upwards",
+        "levelTitle": "Onwards",
         "hintText": "Woody mustn't get caught!",
-        "levelDescriptionText": "Now that you know the basic controls, you can pay closer attention to the tricks.\n By the way: the neighbor will be joining the fun now, too.\n You get to play the first trick on him. Watch him get angry.\n Why stop now when you're having so much fun?",
+        "levelDescriptionText": "Now that you know the basic controls, you can pay closer attention to the tricks.\n By the way: the neighbor will be joining the fun now, too.\n You get to play the first trick on him. Watch him get angry.",
         "timeLimit": "5 minutes"
       },
       {
         "levelTitle": "Here we go!",
-        "hintText": "Right mouse button = 'sneak'!",
-        "levelDescriptionText": "Joe wants to wrap up this introduction by giving you a brief look at future episodes.\n How can you get past the pets? Where can you hide?\n You will learn all this and more.\n You now have (nearly) all the skills you need to take sweet revenge.",
+        "hintText": "'Sneak' with RMB!",
+        "levelDescriptionText": "Joe wants to wrap up this introduction by giving you a brief look at future episodes.\n You will learn all this and more.\n You now have (nearly) all the skills you need to take sweet revenge.",
         "timeLimit": "5 minutes"
       }
     ]
