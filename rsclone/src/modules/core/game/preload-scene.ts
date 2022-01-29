@@ -1,7 +1,7 @@
 import bricks from '../../../assets/game/bricks.jpg';
 import director from '../../../assets/game/director.png';
 import pen from '../../../assets/game/pen.png';
-import { GameKeys, Urls } from '../enums/enums';
+import { GameKeys, UrlsSourcesForGame } from '../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
