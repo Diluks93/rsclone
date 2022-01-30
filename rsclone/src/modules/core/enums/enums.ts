@@ -32,19 +32,25 @@ const enum Frames {
   LeftViewStart,
   LeftView,
   LeftViewEnd,
-};
+}
 
 const enum UrlsSourcesForGame {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
   TilemapJson = 'game/map/map.json',
   Player = 'game/voody.png',
-};
+  MusicGame = 'audio/game.mp3',
+  SoundFootsteps = 'audio/footsteps.mp3',
+  SoundPrank = 'audio/prank.mp3',
+}
 
 const enum GameKeys {
   Player = 'dude',
   Assets = 'assets',
   Map = 'map',
+  MusicGame = 'music-game',
+  SoundFootsteps = 'sound-footsteps',
+  SoundPrank = 'sound-prank',
 }
 
 export { PageIds, ErrorTypes, StorageKeys, Frames, UrlsSourcesForGame, GameKeys };
