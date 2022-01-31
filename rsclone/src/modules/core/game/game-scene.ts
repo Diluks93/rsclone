@@ -20,7 +20,7 @@ export default class GameScene extends Phaser.Scene {
   sizeWorld = {
     width: 3840,
     height: 1536,
-    heightFloor: 1536 / 2,
+    // heightFloor: 1000,
   };
 
   mapLayer = {
@@ -64,7 +64,6 @@ export default class GameScene extends Phaser.Scene {
     this.physics.world.bounds.width = this.sizeWorld.width;
     this.physics.world.bounds.height = this.sizeWorld.height;
 
-    this.physics.world.setBounds(0, this.sizeWorld.heightFloor, this.sizeWorld.width, this.sizeWorld.heightFloor);
     this.cameras.main.setBounds(0, 0, this.sizeWorld.width, this.sizeWorld.height);
 
     if (this.player.sprite) {
