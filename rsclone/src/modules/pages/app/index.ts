@@ -4,7 +4,7 @@ import MainPage from '../main/index';
 import SettingsPage from '../settings/index';
 import AuthorsPage from '../authors/index';
 import HomePage from '../home/index';
-import LevelSelectPage from '../levelSelect/index';
+import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageIds, ErrorTypes } from '../../core/enums/enums';
@@ -65,10 +65,10 @@ class App {
   }
 
   start(): void {
-    App.renderNewPage(PageIds.MainPage);
+    App.renderNewPage(PageIds.HomePage);
     this.enableRouteChange();
 
-    window.location.hash = PageIds.MainPage;
+    window.location.hash = PageIds.HomePage;
   }
 }
 

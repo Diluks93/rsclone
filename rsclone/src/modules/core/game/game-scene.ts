@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import PreloadHelper from './preloader-helper';
 import Player from './player';
+
 import { config } from './game';
 import { GameKeys } from '../enums/enums';
 
@@ -65,6 +66,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.world.bounds.width = this.sizeWorld.width;
     this.physics.world.bounds.height = this.sizeWorld.height;
 
+    this.physics.world.setBounds(0, this.sizeWorld.heightFloor, this.sizeWorld.width, this.sizeWorld.heightFloor)
     this.cameras.main.setBounds(0, this.sizeWorld.heightFloor, this.sizeWorld.width, this.sizeWorld.heightFloor);
 
     if (this.player.sprite) {
