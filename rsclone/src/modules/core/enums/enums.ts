@@ -51,6 +51,10 @@ const enum GameKeys {
   MusicGame = 'music-game',
   SoundFootsteps = 'sound-footsteps',
   SoundPrank = 'sound-prank',
+  Tileset = 'tileset',
+  Bricks = 'bricks',
+  Director = 'director',
+  Pen = 'pen',
 }
 
 export { PageIds, ErrorTypes, StorageKeys, Frames, UrlsSourcesForGame, GameKeys };
