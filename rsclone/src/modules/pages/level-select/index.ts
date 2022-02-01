@@ -1,4 +1,4 @@
-import { levelPreviewProps, levelLinkButtonProps } from './../../core/constants/constLevels';
+import { levelPreviewProps, levelLinkButtonProps } from '../../core/constants/constLevels';
 import { levelDetailsProps } from '../../core/constants/constLevels';
 import { levelPageTitleProps } from '../../core/constants/constLevels';
 import Page from '../../core/templates/Page';
