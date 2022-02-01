@@ -17,6 +17,8 @@ export default class GameScene extends Phaser.Scene {
 
   height = config.height;
 
+  pen: Phaser.GameObjects.Image | undefined;
+
   sizeWorld = {
     width: 3840,
     height: 1536,
@@ -75,8 +77,17 @@ export default class GameScene extends Phaser.Scene {
       this.physics.add.collider(this.player.sprite, this.platforms);
     }
 
+    if (spawnPoint.x && spawnPoint.y) {
+      this.pen = this.add.image(spawnPoint.x - 1000, spawnPoint.y, GameKeys.Pen);
+      this.physics.add.existing(this.pen);
+      this.physics.add.collider(this.pen, this.platforms);
+    }
+
     this.cursor = this.input.keyboard.createCursorKeys();
     this.scale.on('resize', this.resize, this);
+
+    this.scene.launch('tutorial-scene');
+    this.scene.pause('first-step');
   }
 
   update(): void {
