@@ -19,6 +19,10 @@ class SettingsStore {
 
   private _isTricksReportEnabled: boolean;
 
+  private _windowWidth: number;
+
+  private _windowHeight: number;
+
   constructor({
     languageValue,
     volumeValue,
@@ -31,6 +35,20 @@ class SettingsStore {
     this._isSoundEnabled = isSoundEnabled;
     this._isTimeLimitEnabled = isTimeLimitEnabled;
     this._isTricksReportEnabled = isTricksReportEnabled;
+    this._windowWidth = window.innerWidth;
+    this._windowHeight = window.innerHeight;
+    window.addEventListener('resize', () => {
+      this._windowWidth = window.innerWidth;
+      this._windowHeight = window.innerHeight;
+    });
+  }
+
+  get windowWidth(): number {
+    return this._windowWidth;
+  }
+
+  get windowHeight(): number {
+    return this._windowHeight;
   }
 
   get languageValue(): LanguageKeys {
