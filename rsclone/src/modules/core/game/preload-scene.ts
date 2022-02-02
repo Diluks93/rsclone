@@ -7,6 +7,10 @@ const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
 const PROGRESS_BOX_HEIGHT = 50;
 
+const ORIGIN_CENTER = 0.5;
+const PROGRESS_BOX_WIDTH = 320;
+const PROGRESS_BOX_HEIGHT = 50;
+
 const loaderFontConfig = {
   sizeL: '20px',
   sizeM: '18px',

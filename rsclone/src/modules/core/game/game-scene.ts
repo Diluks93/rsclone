@@ -94,7 +94,7 @@ export default class GameScene extends Phaser.Scene {
     this.player.update();
   }
 
-  resize(gameSize: Record<string, number>) {
+  resize(gameSize: Record<string, number>): void {
     const width = gameSize.width;
     const height = gameSize.height;
 
