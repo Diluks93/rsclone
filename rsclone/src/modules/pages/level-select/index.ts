@@ -6,7 +6,7 @@ import Page from '../../core/templates/Page';
 import gameTranslation from '../../core/data/gameTranslation.json';
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
 import './style.scss';
-import SvgIcon from '../../core/components/SvgIcon';
+import SvgIcon from '../../core/components/svg-icon';
 import levelExample from '../../../assets/image/level/level-example.png';
 
 const PAGE_NAME = 'levels-page';
