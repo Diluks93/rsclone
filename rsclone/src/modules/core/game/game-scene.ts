@@ -13,9 +13,9 @@ export default class GameScene extends Phaser.Scene {
 
   platforms: Phaser.Tilemaps.TilemapLayer | undefined;
 
-  width = config.width;
+  width = config.scale.width;
 
-  height = config.height;
+  height = config.scale.height;
 
   pen: Phaser.GameObjects.Image | undefined;
 

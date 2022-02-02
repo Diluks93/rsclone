@@ -7,10 +7,6 @@ const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
 const PROGRESS_BOX_HEIGHT = 50;
 
-const ORIGIN_CENTER = 0.5;
-const PROGRESS_BOX_WIDTH = 320;
-const PROGRESS_BOX_HEIGHT = 50;
-
 const loaderFontConfig = {
   sizeL: '20px',
   sizeM: '18px',
@@ -113,10 +109,13 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preloadAssets(): void {
-    this.load.setBaseURL(Urls.main);
-    this.load.image(GameKeys.ASSETS, Urls.assets);
-    this.load.tilemapTiledJSON(GameKeys.MAP, Urls.map);
-    this.load.spritesheet(GameKeys.DUDE_KEY, Urls.voody, { frameWidth: 190, frameHeight: 257 });
+    this.load.setBaseURL(UrlsSourcesForGame.Main);
+    this.load.image(GameKeys.Assets, UrlsSourcesForGame.Tileset);
+    this.load.tilemapTiledJSON(GameKeys.Map, UrlsSourcesForGame.TilemapJson);
+    this.load.spritesheet(GameKeys.Player, UrlsSourcesForGame.Player, { frameWidth: 190, frameHeight: 257 });
+    this.load.audio(GameKeys.MusicGame, UrlsSourcesForGame.MusicGame);
+    this.load.audio(GameKeys.SoundFootsteps, UrlsSourcesForGame.SoundFootsteps);
+    this.load.audio(GameKeys.SoundPrank, UrlsSourcesForGame.SoundPrank);
     this.load.image(GameKeys.Bricks, bricks);
     this.load.image(GameKeys.Director, director);
     this.load.image(GameKeys.Pen, pen);
