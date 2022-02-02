@@ -1,7 +1,7 @@
 import { speechConfig, speechFontConfig, hintFontConfig } from '../constants/constInterfaceScene';
 import { settingsStore } from '../stores/settingsStore';
 import Phaser from 'phaser';
-import { GameKeys } from '../enums/enums';
+import { GameKey } from '../enums/enums';
 import gameTranslation from '../data/gameTranslation.json';
 
 type PortraitType = {
@@ -91,7 +91,7 @@ export default class TutorialScene extends Phaser.Scene {
     portraitBox.setInteractive();
     portraitBox.fillStyle(0x000000, 1);
     portraitBox.fillRect(0, 0, portraitSize, portraitSize);
-    const directorImage = this.add.image(0, 0, GameKeys.Director).setOrigin(0, 0);
+    const directorImage = this.add.image(0, 0, GameKey.Director).setOrigin(0, 0);
     return {
       portraitBox,
       directorImage,

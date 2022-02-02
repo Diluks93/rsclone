@@ -1,7 +1,7 @@
 import bricks from '../../../assets/game/bricks.jpg';
 import director from '../../../assets/game/director.png';
 import pen from '../../../assets/game/pen.png';
-import { GameKeys, UrlsSourcesForGame } from '../enums/enums';
+import { GameKey, UrlSourceForGame } from '../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
@@ -109,15 +109,15 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preloadAssets(): void {
-    this.load.setBaseURL(UrlsSourcesForGame.Main);
-    this.load.image(GameKeys.Assets, UrlsSourcesForGame.Tileset);
-    this.load.tilemapTiledJSON(GameKeys.Map, UrlsSourcesForGame.TilemapJson);
-    this.load.spritesheet(GameKeys.Player, UrlsSourcesForGame.Player, { frameWidth: 190, frameHeight: 257 });
-    this.load.audio(GameKeys.MusicGame, UrlsSourcesForGame.MusicGame);
-    this.load.audio(GameKeys.SoundFootsteps, UrlsSourcesForGame.SoundFootsteps);
-    this.load.audio(GameKeys.SoundPrank, UrlsSourcesForGame.SoundPrank);
-    this.load.image(GameKeys.Bricks, bricks);
-    this.load.image(GameKeys.Director, director);
-    this.load.image(GameKeys.Pen, pen);
+    this.load.setBaseURL(UrlSourceForGame.Main);
+    this.load.image(GameKey.Assets, UrlSourceForGame.Tileset);
+    this.load.tilemapTiledJSON(GameKey.Map, UrlSourceForGame.TilemapJson);
+    this.load.spritesheet(GameKey.Player, UrlSourceForGame.Player, { frameWidth: 190, frameHeight: 257 });
+    this.load.audio(GameKey.MusicGame, UrlSourceForGame.MusicGame);
+    this.load.audio(GameKey.SoundFootsteps, UrlSourceForGame.SoundFootsteps);
+    this.load.audio(GameKey.SoundPrank, UrlSourceForGame.SoundPrank);
+    this.load.image(GameKey.Bricks, bricks);
+    this.load.image(GameKey.Director, director);
+    this.load.image(GameKey.Pen, pen);
   }
 }

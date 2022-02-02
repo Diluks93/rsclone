@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import Player from './player';
 
 import { config } from './game';
-import { GameKeys } from '../enums/enums';
+import { GameKey } from '../enums/enums';
 
 export default class GameScene extends Phaser.Scene {
   cursor: ReturnType<<T>() => T>;
@@ -48,10 +48,10 @@ export default class GameScene extends Phaser.Scene {
     // this.add.image(0, 0, 'bricks').setOrigin(0, 0).setScale(1);
     const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     const tileset = map.addTilesetImage('assets', 'assets');
-    this.playerSounds.footsteps = this.sound.add(GameKeys.SoundFootsteps);
-    this.playerSounds.prank = this.sound.add(GameKeys.SoundPrank);
+    this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps);
+    this.playerSounds.prank = this.sound.add(GameKey.SoundPrank);
 
-    this.music = this.sound.add(GameKeys.MusicGame);
+    this.music = this.sound.add(GameKey.MusicGame);
     this.music.play();
 
     this.platforms = map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
@@ -78,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     if (spawnPoint.x && spawnPoint.y) {
-      this.pen = this.add.image(spawnPoint.x - 1000, spawnPoint.y, GameKeys.Pen);
+      this.pen = this.add.image(spawnPoint.x - 1000, spawnPoint.y, GameKey.Pen);
       this.physics.add.existing(this.pen);
       this.physics.add.collider(this.pen, this.platforms);
     }
