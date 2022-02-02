@@ -2,7 +2,7 @@ import { authorsTitleProps, authorButtonProps } from './../../core/constants/con
 import Page from '../../core/templates/Page';
 import './style.scss';
 import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../../core/types/types';
-import SvgIcon from '../../core/components/SvgIcon';
+import SvgIcon from '../../core/components/svg-icon';
 
 const PAGE_NAME = 'authors-page';
 

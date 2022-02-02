@@ -1,4 +1,4 @@
-const enum PageIds {
+const enum PageId {
   MainPage = 'main-page',
   HomePage = 'home-page',
   SettingsPage = 'settings-page',
@@ -8,18 +8,18 @@ const enum PageIds {
   LevelSelectPage = 'levels-page',
 }
 
-const enum ErrorTypes {
+const enum ErrorType {
   Error_404 = '404',
 }
 
-const enum StorageKeys {
+const enum StorageKey {
   HomeTranslation = 'homeTranslation',
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
   SettingsTranslation = 'settingsTranslation',
 }
 
-const enum Frames {
+const enum Frame {
   RearViewStart,
   RearView,
   RearViewEnd,
@@ -34,7 +34,7 @@ const enum Frames {
   LeftViewEnd,
 }
 
-const enum UrlsSourcesForGame {
+const enum UrlSourceForGame {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
   TilemapJson = 'game/map/map.json',
@@ -44,13 +44,17 @@ const enum UrlsSourcesForGame {
   SoundPrank = 'audio/prank.mp3',
 }
 
-const enum GameKeys {
+const enum GameKey {
   Player = 'dude',
   Assets = 'assets',
   Map = 'map',
   MusicGame = 'music-game',
   SoundFootsteps = 'sound-footsteps',
   SoundPrank = 'sound-prank',
+  Tileset = 'tileset',
+  Bricks = 'bricks',
+  Director = 'director',
+  Pen = 'pen',
 }
 
-export { PageIds, ErrorTypes, StorageKeys, Frames, UrlsSourcesForGame, GameKeys };
+export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey };

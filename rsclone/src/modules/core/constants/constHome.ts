@@ -1,5 +1,5 @@
 import { LinkButtonInterface, ScreenResolutionType, TitleType } from './../types/types';
-import { PageIds } from '../enums/enums';
+import { PageId } from '../enums/enums';
 
 const PAGE_NAME = 'home-page';
 
@@ -20,16 +20,16 @@ export const homeLinkButtonProps: LinkButtonInterface = {
   startGameButton: {
     pageName: PAGE_NAME,
     id: 'startGameButton',
-    href: `#${PageIds.LevelSelectPage}`,
+    href: `#${PageId.LevelSelectPage}`,
   },
   openSettingsButton: {
     pageName: PAGE_NAME,
     id: 'openSettingsButton',
-    href: `#${PageIds.SettingsPage}`,
+    href: `#${PageId.SettingsPage}`,
   },
   openAuthorsButton: {
     pageName: PAGE_NAME,
     id: 'openAuthorsButton',
-    href: `#${PageIds.AuthorsPage}`,
+    href: `#${PageId.AuthorsPage}`,
   },
 };

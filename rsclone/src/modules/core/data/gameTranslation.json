@@ -35,7 +35,17 @@
         "levelDescriptionText": "Джо хочет завершить вступление кратким обзором предстоящих эпизодов.\n Как лучше пробраться мимо бдительных питомцев? Где можно спрятаться?\n Ты узнаешь это и многое другое.\n Теперь у тебя есть (почти) все навыки, необходимые для сладкой мести.",
         "timeLimit": "5 минут"
       }
-    ]
+    ],
+
+    "tutorialSpeech": [
+      "Привет, добро пожаловать на обучающий уровень.",
+      "Меня зовут Джо, я являюсь директором этого шоу.",
+      "Сейчас я расскажу, как управлять героем игры, Вуди.",
+      "Стрелками на клавиатуре можно направлять Вуди влево или вправо.",
+      "А клик левой кнопкой мыши позволяет взаимодействовать с предметами и дверьми.",
+      "Попробуй!"
+    ],
+    "tutorialHint": "Нажмите, чтобы продолжить"
   },
 
   "en": {
@@ -63,17 +73,27 @@
         "timeLimit": "5 minutes"
       },
       {
-        "levelTitle": "Onwards and upwards",
+        "levelTitle": "Onwards",
         "hintText": "Woody mustn't get caught!",
-        "levelDescriptionText": "Now that you know the basic controls, you can pay closer attention to the tricks.\n By the way: the neighbor will be joining the fun now, too.\n You get to play the first trick on him. Watch him get angry.\n Why stop now when you're having so much fun?",
+        "levelDescriptionText": "Now that you know the basic controls, you can pay closer attention to the tricks.\n By the way: the neighbor will be joining the fun now, too.\n You get to play the first trick on him. Watch him get angry.",
         "timeLimit": "5 minutes"
       },
       {
         "levelTitle": "Here we go!",
-        "hintText": "Right mouse button = 'sneak'!",
-        "levelDescriptionText": "Joe wants to wrap up this introduction by giving you a brief look at future episodes.\n How can you get past the pets? Where can you hide?\n You will learn all this and more.\n You now have (nearly) all the skills you need to take sweet revenge.",
+        "hintText": "'Sneak' with RMB!",
+        "levelDescriptionText": "Joe wants to wrap up this introduction by giving you a brief look at future episodes.\n You will learn all this and more.\n You now have (nearly) all the skills you need to take sweet revenge.",
         "timeLimit": "5 minutes"
       }
-    ]
+    ],
+
+    "tutorialSpeech": [
+      "Hello and welcome to 'Neighbors from hell' tutorial.",
+      "My name is Andrew, I'm director of the show.",
+      "I wanna show you how to control our hero, Woody.",
+      "Keybord arrows allow you to move Woody to the right or left.",
+      "Left mouse button allow you to interact with items and doors.",
+      "Try it out!"
+    ],
+    "tutorialHint": "Click box to continue"
   }
 }

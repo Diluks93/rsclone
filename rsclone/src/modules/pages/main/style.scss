@@ -1,6 +1,10 @@
-@import "../../../styles/variables";
-@import "../../../styles/mixins";
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
 
 .main-page {
-  
+  &__button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+  }
 }

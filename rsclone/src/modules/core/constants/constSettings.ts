@@ -1,4 +1,4 @@
-import { PageIds } from '../enums/enums';
+import { PageId } from '../enums/enums';
 import gameTranslation from '../data/gameTranslation.json';
 import {
   SettingsCheckboxType,
@@ -77,7 +77,7 @@ export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
   saveButton: {
     pageName: PAGE_NAME,
     id: 'saveSettingsButton',
-    href: `#${PageIds.HomePage}`,
+    href: `#${PageId.HomePage}`,
     iconId: 'check',
   },
 };

@@ -1,11 +1,13 @@
-import { levelPreviewProps, levelLinkButtonProps } from '../../core/constants/constLevels';
+import { settingsStore } from './../../core/stores/settingsStore';
+import { levelPreviewProps, levelLinkButtonProps } from './../../core/constants/constLevels';
 import { levelDetailsProps } from '../../core/constants/constLevels';
 import { levelPageTitleProps } from '../../core/constants/constLevels';
 import Page from '../../core/templates/Page';
-
+import gameTranslation from '../../core/data/gameTranslation.json';
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
 import './style.scss';
-import SvgIcon from '../../core/components/SvgIcon';
+import SvgIcon from '../../core/components/svg-icon';
+import levelExample from '../../../assets/image/level/level-example.png';
 
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';
@@ -53,7 +55,10 @@ class LevelSelectPage extends Page {
     this.previewImage = this.createPreviewImage(levelPreviewProps.tutorialTitle[0].imageUrl);
     this.levelDescriptionText = this.createLevelDescriptionText(levelDetailsProps.levelDescriptionId);
     this.playLevelButton = this.createLinkButton(levelLinkButtonProps.playLevelButton);
-
+    this.playLevelButton.addEventListener('click', () => {
+      const canvasParent = document.getElementById('first-step');
+      canvasParent?.classList.remove('hidden');
+    });
     this.tutorialWrapper = this.createLevelList(this.tutorialTitle);
     this.seasonOneWrapper = this.createLevelList(this.seasonOneTitle);
     this.levelDetailsWrapper = this.createLevelDetails();
@@ -65,8 +70,8 @@ class LevelSelectPage extends Page {
 
     const levelPreviewWrapper = document.createElement('div');
     levelPreviewWrapper.classList.add(`${PAGE_NAME}__preview-box`);
-    const levelPreviewButtons = levelPreviewProps[title.id].map((item) => {
-      return this.createLevelPreviewButton(item);
+    const levelPreviewButtons = levelPreviewProps[title.id].map((item, index) => {
+      return this.createLevelPreviewButton(item, index);
     });
 
     levelListWrapper.append(title);
@@ -75,16 +80,25 @@ class LevelSelectPage extends Page {
     return levelListWrapper;
   }
 
-  createLevelPreviewButton({ id, imageUrl, isLocked }: LevelPreviewType): HTMLButtonElement {
+  createLevelPreviewButton({ id, isLocked }: LevelPreviewType, index: number): HTMLButtonElement {
     const previewButton = document.createElement('button');
     previewButton.classList.add(`${PAGE_NAME}__preview`);
     previewButton.id = id;
-    previewButton.style.backgroundImage = `url(${imageUrl})`;
+    previewButton.style.backgroundImage = `url(${levelExample})`;
+    previewButton.dataset.index = String(index);
 
     if (isLocked) {
       previewButton.classList.add('locked');
       previewButton.disabled = true;
     }
+    previewButton.addEventListener('click', (e) => {
+      if (!e.target) return;
+      if (e.target instanceof HTMLButtonElement) {
+        const levelIndex = Number(e.target.dataset.index);
+        console.log(levelIndex);
+        this.setDescriptionLanguage(gameTranslation, settingsStore.languageValue, levelIndex);
+      }
+    });
 
     return previewButton;
   }
@@ -92,21 +106,23 @@ class LevelSelectPage extends Page {
   createPreviewImage(imageUrl: string): HTMLImageElement {
     const previewImage = document.createElement('img');
     previewImage.classList.add(`${LEVEL_DETAILS}__preview-image`);
-    previewImage.src = imageUrl;
+    previewImage.src = levelExample;
     return previewImage;
   }
 
   createInfoSpan(id: string, iconId: string): HTMLParagraphElement {
-    const span = document.createElement('p');
-    span.classList.add(`${LEVEL_DETAILS}__text`);
-    span.id = id;
+    const paragraph = document.createElement('p');
+    paragraph.id = id;
+    paragraph.classList.add(`${LEVEL_DETAILS}__text`);
 
-    span.prepend(new SvgIcon(iconId).render());
+    paragraph.prepend(new SvgIcon(iconId).render());
 
-    return span;
+    const textSpan = document.createElement('span');
+    paragraph.append(textSpan);
+    return paragraph;
   }
 
-  createScoreWrapper(id: string, iconId: string): HTMLParagraphElement {
+  createScoreWrapper(id: string, iconId: string): HTMLSpanElement {
     const currentCount = this.createInfoSpan(id, iconId);
     currentCount.append(`${CURRENT_SCORE}/${TOTAL_SCORE}`);
     return currentCount;
@@ -128,7 +144,7 @@ class LevelSelectPage extends Page {
   }
 
   createLevelDescriptionText(id: string): HTMLParagraphElement {
-    const levelDescriptionText = document.createElement('div');
+    const levelDescriptionText = document.createElement('p');
     levelDescriptionText.classList.add(`${LEVEL_DETAILS}__description`);
     levelDescriptionText.id = id;
     return levelDescriptionText;
@@ -144,11 +160,19 @@ class LevelSelectPage extends Page {
     this.backToMainButton.append(translation[lang].backToMainButton);
     this.tutorialTitle.textContent = translation[lang].tutorialTitle;
     this.seasonOneTitle.textContent = translation[lang].seasonOneTitle;
-    this.levelDetailslTitle.textContent = translation[lang].levelDetailsBlock[CURRENT_LEVEL].levelTitle;
-    this.timeLimitSpan.append(translation[lang].levelDetailsBlock[CURRENT_LEVEL].timeLimit);
-    this.hintSpan.append(translation[lang].levelDetailsBlock[CURRENT_LEVEL].hintText);
-    this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[CURRENT_LEVEL].levelDescriptionText;
     this.playLevelButton.append(translation[lang].playLevelButton);
+    this.setDescriptionLanguage(translation, lang, CURRENT_LEVEL);
+  }
+
+  setDescriptionLanguage(translation: GameTranslationInterface, lang: LanguageKeys, levelIndex: number): void {
+    const timeSpan = this.timeLimitSpan.querySelector('span');
+    const hintSpan = this.hintSpan.querySelector('span');
+    if (timeSpan && hintSpan) {
+      timeSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].timeLimit;
+      hintSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].hintText;
+    }
+    this.levelDetailslTitle.textContent = translation[lang].levelDetailsBlock[levelIndex].levelTitle;
+    this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[levelIndex].levelDescriptionText;
   }
 
   createLevelSelectLayout(): HTMLDivElement {

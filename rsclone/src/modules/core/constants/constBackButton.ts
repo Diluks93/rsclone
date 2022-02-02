@@ -1,9 +1,9 @@
 import { LinkButtonType } from '../types/types';
-import { PageIds } from '../enums/enums';
+import { PageId } from '../enums/enums';
 
 export const backButtonProps: LinkButtonType = {
   className: 'back-button',
   id: 'backToMainButton',
-  href: `#${PageIds.HomePage}`,
+  href: `#${PageId.HomePage}`,
   iconId: 'arrow-left',
 };

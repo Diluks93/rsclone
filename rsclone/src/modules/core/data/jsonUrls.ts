@@ -1,12 +1,12 @@
-import { StorageKeys } from '../enums/enums';
+import { StorageKey } from '../enums/enums';
 
 export const jsonUrl: Record<string, string> = {
-  [StorageKeys.HomeTranslation]:
+  [StorageKey.HomeTranslation]:
     'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/home.json',
-  [StorageKeys.CategoriesTranslation]:
+  [StorageKey.CategoriesTranslation]:
     'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/categories.json',
-  [StorageKeys.EpisodesTranslation]:
+  [StorageKey.EpisodesTranslation]:
     'https://raw.githubusercontent.com/Diluks93/source-rsclone/new-files/rsclone-source/json/episodes.json',
-  [StorageKeys.SettingsTranslation]:
+  [StorageKey.SettingsTranslation]:
     'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/json/settings.json',
 };

@@ -1,25 +1,18 @@
 import Phaser from 'phaser';
 import GameScene from './game-scene';
+import InterfaceScene from './interface-scene';
+import PreloadScene from './preload-scene';
+import TutorialScene from './tutorial-scene';
 
 export const config = {
   type: Phaser.AUTO,
   parent: 'first-step',
-  width: Math.max(
-    document.body.scrollWidth,
-    document.documentElement.scrollWidth,
-    document.body.offsetWidth,
-    document.documentElement.offsetWidth,
-    document.body.clientWidth,
-    document.documentElement.clientWidth
-  ),
-  height: Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.body.clientHeight,
-    document.documentElement.clientHeight
-  ),
+  scale: {
+    mode: Phaser.Scale.RESIZE,
+    parent: 'first-step',
+    width: '100%',
+    height: '100%',
+  },
   zoom: 1,
   pixelArt: true,
   physics: {
@@ -29,5 +22,5 @@ export const config = {
       debug: true,
     },
   },
-  scene: [GameScene],
+  scene: [PreloadScene, TutorialScene, GameScene, InterfaceScene],
 };

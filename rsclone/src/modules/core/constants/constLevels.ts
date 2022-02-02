@@ -56,12 +56,12 @@ export const levelPreviewProps: LevelPreviewInterface = {
     {
       id: 'owardsAndUpwards',
       imageUrl: '#',
-      isLocked: true,
+      isLocked: false,
     },
     {
       id: 'hereWeGo',
       imageUrl: '#',
-      isLocked: true,
+      isLocked: false,
     },
   ],
   seasonOneTitle: [

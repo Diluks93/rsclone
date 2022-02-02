@@ -7,12 +7,12 @@ import HomePage from '../home/index';
 import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
-import { PageIds, ErrorTypes } from '../../core/enums/enums';
+import { PageId, ErrorType } from '../../core/enums/enums';
 
 class App {
   private static container: HTMLElement = document.body;
 
-  private static defaultPageId: string = PageIds.CurrentPage;
+  private static defaultPageId: string = PageId.CurrentPage;
 
   private initialPage: HomePage;
 
@@ -25,23 +25,23 @@ class App {
     let page: Page | null = null;
 
     switch (idPage) {
-      case PageIds.HomePage:
-        page = new HomePage(idPage, PageIds.HomePage);
+      case PageId.HomePage:
+        page = new HomePage(idPage, PageId.HomePage);
         break;
-      case PageIds.SettingsPage:
-        page = new SettingsPage(idPage, PageIds.SettingsPage);
+      case PageId.SettingsPage:
+        page = new SettingsPage(idPage, PageId.SettingsPage);
         break;
-      case PageIds.AuthorsPage:
-        page = new AuthorsPage(idPage, PageIds.AuthorsPage);
+      case PageId.AuthorsPage:
+        page = new AuthorsPage(idPage, PageId.AuthorsPage);
         break;
-      case PageIds.MainPage:
-        page = new MainPage(idPage, PageIds.MainPage);
+      case PageId.MainPage:
+        page = new MainPage(idPage, PageId.MainPage);
         break;
-      case PageIds.LevelSelectPage:
-        page = new LevelSelectPage(idPage, PageIds.LevelSelectPage);
+      case PageId.LevelSelectPage:
+        page = new LevelSelectPage(idPage, PageId.LevelSelectPage);
         break;
       default:
-        page = new ErrorPage(idPage, PageIds.ErrorPage, ErrorTypes.Error_404);
+        page = new ErrorPage(idPage, PageId.ErrorPage, ErrorType.Error_404);
     }
 
     if (page) {
@@ -61,14 +61,14 @@ class App {
 
   constructor() {
     App.container = document.body;
-    this.initialPage = new HomePage(PageIds.HomePage, PageIds.HomePage);
+    this.initialPage = new HomePage(PageId.HomePage, PageId.HomePage);
   }
 
   start(): void {
-    App.renderNewPage(PageIds.HomePage);
+    App.renderNewPage(PageId.HomePage);
     this.enableRouteChange();
 
-    window.location.hash = PageIds.HomePage;
+    window.location.hash = PageId.HomePage;
   }
 }
 

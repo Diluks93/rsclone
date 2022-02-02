@@ -1,24 +1,24 @@
 import Component from '../../templates/Component';
-import { PageIds } from '../../enums/enums';
+import { PageId } from '../../enums/enums';
 import '../style.scss';
 
 const buttons = [
   {
-    id: PageIds.HomePage,
+    id: PageId.HomePage,
     text: 'Home Page',
   },
   {
-    id: PageIds.MainPage,
+    id: PageId.MainPage,
     text: 'Main Page',
   },
   {
-    id: PageIds.AuthorsPage,
+    id: PageId.AuthorsPage,
     text: 'Authors Page',
   },
   {
-    id: PageIds.SettingsPage,
+    id: PageId.SettingsPage,
     text: 'Settings Page',
-  }
+  },
 ];
 
 class Header extends Component {
