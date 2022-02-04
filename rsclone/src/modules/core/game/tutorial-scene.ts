@@ -77,7 +77,7 @@ export default class TutorialScene extends Phaser.Scene {
     });
   }
 
-  update(time: number, delta: number): void {
+  update(delta: number): void {
     this.timer += delta;
     if (this.timer > 400) {
       console.log(settingsStore.windowWidth);

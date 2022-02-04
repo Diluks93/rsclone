@@ -65,10 +65,10 @@ class App {
   }
 
   start(): void {
-    App.renderNewPage(PageId.HomePage);
+    App.renderNewPage(PageId.MainPage);
     this.enableRouteChange();
 
-    window.location.hash = PageId.HomePage;
+    window.location.hash = PageId.MainPage;
   }
 }
 

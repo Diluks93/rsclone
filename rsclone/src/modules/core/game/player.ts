@@ -1,6 +1,6 @@
 import { Frame, GameKey } from '../enums/enums';
 
-const SPEED = 2000;
+const SPEED = 160;
 
 export default class Player {
   scene;
@@ -26,49 +26,76 @@ export default class Player {
       const anims = scene.anims;
       anims?.create({
         key: 'left',
-        frames: anims.generateFrameNumbers(GameKey.Player, { start: Frame.LeftViewStart, end: Frame.LeftViewEnd }),
+        frames: anims.generateFrameNumbers(
+          GameKey.Player, 
+          { 
+            start: Frame.LeftViewStart, 
+            end: Frame.LeftViewEnd 
+          }),
         frameRate: 10,
         repeat: -1,
       });
 
       anims?.create({
         key: 'turn',
-        frames: [{ key: GameKey.Player, frame: Frame.FrontView }],
+        frames: [{ 
+          key: GameKey.Player, 
+          frame: Frame.FrontView 
+        }],
         frameRate: 20,
       });
 
       anims?.create({
         key: 'right',
-        frames: anims.generateFrameNumbers(GameKey.Player, { start: Frame.RightViewStart, end: Frame.RightViewEnd }),
+        frames: anims.generateFrameNumbers(
+          GameKey.Player, 
+          { 
+            start: Frame.RightViewStart, 
+            end: Frame.RightViewEnd 
+          }),
         frameRate: 10,
         repeat: -1,
       });
 
       anims?.create({
         key: 'up',
-        frames: anims.generateFrameNumbers(GameKey.Player, { start: Frame.RearViewStart, end: Frame.RearViewEnd }),
+        frames: anims.generateFrameNumbers(
+          GameKey.Player, 
+          { 
+            start: Frame.RearViewStart, 
+            end: Frame.RearViewEnd 
+          }),
         frameRate: 10,
         repeat: -1,
       });
 
       anims?.create({
         key: 'down',
-        frames: anims.generateFrameNumbers(GameKey.Player, { start: Frame.FrontViewStart, end: Frame.FrontViewEnd }),
+        frames: anims.generateFrameNumbers(
+          GameKey.Player, 
+          { 
+            start: Frame.FrontViewStart,
+            end: Frame.FrontViewEnd
+          }),
         frameRate: 10,
         repeat: -1,
       });
 
       if (x && y) {
-        this.sprite = scene.physics.add.sprite(x, y, GameKey.Player, 7).setBounce(0.1).setCollideWorldBounds(true);
+        this.sprite = scene.physics.add
+          .sprite(x, y, GameKey.Player, 7)
+          .setBounce(0.1)
+          .setCollideWorldBounds(true);
       }
 
-      const { LEFT, RIGHT, UP, DOWN, SPACE } = Phaser.Input.Keyboard.KeyCodes;
+      const { LEFT, RIGHT, UP, DOWN, SPACE, ESC } = Phaser.Input.Keyboard.KeyCodes;
       this.keys = scene.input.keyboard.addKeys({
         left: LEFT,
         right: RIGHT,
         up: UP,
         down: DOWN,
         space: SPACE,
+        esc: ESC,
       });
 
       scene.input.keyboard.on('keydown-' + 'E', () => {
@@ -82,8 +109,6 @@ export default class Player {
 
     if (sprite) {
       this.playerSounds?.footsteps.on('keyup', () => {
-        console.log(123);
-
         this.playerSounds?.footsteps.play();
       });
       if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).left.isDown) {
