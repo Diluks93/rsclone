@@ -22,7 +22,7 @@ class MainPage extends Page {
 
     linkButton.addEventListener('click', () => {
       const canvasParent = document.getElementById('first-step');
-      canvasParent?.classList.add('hidden');
+      // canvasParent?.classList.add('hidden');
     });
     return linkButton;
   }

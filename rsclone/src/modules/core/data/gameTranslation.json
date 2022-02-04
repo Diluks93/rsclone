@@ -36,7 +36,6 @@
         "timeLimit": "5 минут"
       }
     ],
-
     "tutorialSpeech": [
       "Привет, добро пожаловать на обучающий уровень.",
       "Меня зовут Джо, я являюсь директором этого шоу.",
@@ -85,7 +84,6 @@
         "timeLimit": "5 minutes"
       }
     ],
-
     "tutorialSpeech": [
       "Hello and welcome to 'Neighbors from hell' tutorial.",
       "My name is Andrew, I'm director of the show.",

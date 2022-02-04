@@ -51,7 +51,7 @@ export default class GameScene extends Phaser.Scene {
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps);
     this.playerSounds.prank = this.sound.add(GameKey.SoundPrank);
 
-    this.music = this.sound.add(GameKey.MusicGame);
+    this.music = this.sound.add(GameKey.MusicGame, { volume: 0.1 });
     this.music.play();
 
     this.platforms = map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
