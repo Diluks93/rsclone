@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import Player from './player';
 
 import { config } from './game';
-import { GameKey } from '../enums/enums';
+import { GameKey, SceneKey } from '../enums/enums';
 
 export default class GameScene extends Phaser.Scene {
   cursor: ReturnType<<T>() => T>;
@@ -38,7 +38,7 @@ export default class GameScene extends Phaser.Scene {
   };
 
   constructor() {
-    super('first-step');
+    super({ key: SceneKey.FirstStep });
     this.player = new Player();
     this.music = undefined;
     this.playerSounds = {};
@@ -86,8 +86,9 @@ export default class GameScene extends Phaser.Scene {
     this.cursor = this.input.keyboard.createCursorKeys();
     this.scale.on('resize', this.resize, this);
 
-    this.scene.launch('tutorial-scene');
-    this.scene.pause('first-step');
+    // this.scene.launch(SceneKey.TutorialScene);
+    // this.scene.pause(SceneKey.FirstStep);
+    this.scene.launch(SceneKey.InterfaceScene);
   }
 
   update(): void {

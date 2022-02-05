@@ -1,7 +1,7 @@
 import bricks from '../../../assets/game/bricks.jpg';
 import director from '../../../assets/game/director.png';
 import pen from '../../../assets/game/pen.png';
-import { GameKey, UrlSourceForGame } from '../enums/enums';
+import { GameKey, SceneKey, UrlSourceForGame } from '../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
@@ -19,7 +19,7 @@ export default class PreloadScene extends Phaser.Scene {
   cameraCenterY = 0;
 
   constructor() {
-    super({ key: 'preload-scene' });
+    super({ key: SceneKey.PreloadScene });
   }
 
   preload(): void {

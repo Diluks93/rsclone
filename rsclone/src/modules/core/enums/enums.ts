@@ -37,7 +37,7 @@ const enum Frame {
 const enum UrlSourceForGame {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
-  TilemapJson = 'game/map/map.json',
+  TilemapJson = 'game/map/map-test.json',
   Player = 'game/voody.png',
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
@@ -57,4 +57,11 @@ const enum GameKey {
   Pen = 'pen',
 }
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey };
+const enum SceneKey {
+  InterfaceScene = 'ui-scene',
+  PreloadScene = 'preload-scene',
+  TutorialScene = 'tutorial-scene',
+  FirstStep = 'first-step',
+}
+
+export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey };

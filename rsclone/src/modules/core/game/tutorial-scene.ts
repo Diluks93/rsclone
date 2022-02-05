@@ -1,7 +1,7 @@
 import { speechConfig, speechFontConfig, hintFontConfig } from '../constants/constInterfaceScene';
 import { settingsStore } from '../stores/settingsStore';
 import Phaser from 'phaser';
-import { GameKey } from '../enums/enums';
+import { GameKey, SceneKey } from '../enums/enums';
 import gameTranslation from '../data/gameTranslation.json';
 
 type PortraitType = {
@@ -28,7 +28,7 @@ export default class TutorialScene extends Phaser.Scene {
   speechText: Phaser.GameObjects.Text | undefined;
 
   constructor() {
-    super({ key: 'tutorial-scene' });
+    super({ key: SceneKey.TutorialScene });
   }
 
   create(): void {
@@ -70,9 +70,9 @@ export default class TutorialScene extends Phaser.Scene {
 
       if (this.speechCount >= speech.length && this.speechContainer) {
         // this.speechContainer.setVisible(false);
-        this.scene.sleep('tutorial-scene');
-        this.scene.launch('ui-scene');
-        this.scene.resume('first-step');
+        this.scene.sleep(SceneKey.TutorialScene);
+        this.scene.launch(SceneKey.InterfaceScene);
+        this.scene.resume(SceneKey.FirstStep);
       }
     });
   }
