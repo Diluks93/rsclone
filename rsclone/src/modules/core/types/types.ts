@@ -98,6 +98,9 @@ type GameTranslationType = {
   jenyaSubtitle: string;
   randomspellsSubtitle: string;
   levelDetailsBlock: Array<LevelDetailsType>;
+  tutorialSpeech: string[];
+  tutorialHint: string;
+  exitWarning: string;
 };
 
 type LevelDetailsType = {

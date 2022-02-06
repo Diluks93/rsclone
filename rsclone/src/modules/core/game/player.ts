@@ -1,4 +1,4 @@
-import { actionLabelConfig } from './../constants/gameTextConfig';
+import { actionLabelConfig } from '../constants/gameTextConfig';
 import { Frame, GameKey } from '../enums/enums';
 
 const SPEED = 2000;

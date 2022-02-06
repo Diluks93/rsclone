@@ -44,7 +44,8 @@
       "А клик левой кнопкой мыши позволяет взаимодействовать с предметами и дверьми.",
       "Попробуй!"
     ],
-    "tutorialHint": "Нажмите, чтобы продолжить"
+    "tutorialHint": "Нажмите, чтобы продолжить",
+    "exitWarning": "Вы хотите покинуть игру?"
   },
 
   "en": {
@@ -92,6 +93,7 @@
       "Left mouse button allow you to interact with items and doors.",
       "Try it out!"
     ],
-    "tutorialHint": "Click box to continue"
+    "tutorialHint": "Click box to continue",
+    "exitWarning": "Do you want to exit game?"
   }
 }
