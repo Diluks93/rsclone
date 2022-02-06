@@ -1,8 +1,17 @@
-import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, SCREEN_RESOLUTION } from './../../core/constants/constHome';
+import {
+  homeTitleProps,
+  homeLinkButtonProps,
+  TEXT_ERROR,
+  SCREEN_RESOLUTION,
+  TOOLTIP,
+} from './../../core/constants/constHome';
 import Page from '../../core/templates/Page';
 import './style.scss';
-import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
+import { GameTranslationInterface, LanguageKeys, PopupDisplay } from '../../core/types/types';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { backgroundMusic } from '../../core/constants/constAudio';
 
+let popupDisplay: PopupDisplay = true;
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
 
@@ -49,6 +58,42 @@ class HomePage extends Page {
     return rangeError;
   }
 
+  addTooltip(): HTMLDivElement {
+    const tooltip = document.createElement('div');
+    const tooltipWrap = document.createElement('div');
+    const informationalText = document.createElement('p');
+    const actionText = document.createElement('p');
+
+    tooltip.classList.add('tooltip');
+    tooltipWrap.classList.add('tooltip__wrapper');
+    informationalText.classList.add('tooltip__informational-text');
+    actionText.classList.add('tooltip__action-text');
+
+    informationalText.innerText = TOOLTIP.informationalText;
+    actionText.innerText = TOOLTIP.actionText;
+
+    tooltipWrap.append(informationalText, actionText);
+    tooltip.append(tooltipWrap);
+
+    const toogler = true;
+    const flashing = setInterval(() => {
+      if (toogler) actionText.classList.toggle('active');
+    }, 1000);
+
+    document.addEventListener('click', () => {
+      this.hideTooltip(tooltip);
+      turnOnBackgroundMusic(backgroundMusic);
+      clearInterval(flashing);
+    });
+
+    return tooltip;
+  }
+
+  hideTooltip(element: HTMLDivElement) {
+    element.classList.add('hide');
+    popupDisplay = false;
+  }
+
   render() {
     if (
       document.documentElement.clientHeight < SCREEN_RESOLUTION.minHeight ||
@@ -58,6 +103,7 @@ class HomePage extends Page {
     } else {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
+      if (popupDisplay) this.container.append(this.addTooltip());
     }
 
     return this.container;

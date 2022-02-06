@@ -8,8 +8,7 @@ import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageId, ErrorType } from '../../core/enums/enums';
-import { turnOnBackgroundMusic } from '../../core/utils/utils';
-import { backgroundMusic } from '../../core/constants/constAudio';
+import { toggleFullScreen } from '../../core/utils/utils';
 
 class App {
   private static container: HTMLElement = document.body;
@@ -70,8 +69,9 @@ class App {
     App.renderNewPage(PageId.HomePage);
     this.enableRouteChange();
 
-    document.addEventListener('click', () => turnOnBackgroundMusic(backgroundMusic));
-    // turnOnBackgroundMusic(backgroundMusic);
+    document.addEventListener('keydown', (e) => {
+      if (e.keyCode === 70) toggleFullScreen();
+    });
 
     window.location.hash = PageId.HomePage;
   }

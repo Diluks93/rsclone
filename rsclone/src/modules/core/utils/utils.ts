@@ -50,3 +50,13 @@ export const turnOnBackgroundMusic = (audio: HTMLAudioElement): void => {
 export const adjustVolume = (audio: HTMLAudioElement, value: number): void => {
   audio.volume = value;
 };
+
+export const toggleFullScreen = (): void => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+};
