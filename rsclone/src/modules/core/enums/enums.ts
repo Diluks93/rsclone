@@ -55,6 +55,8 @@ const enum GameKey {
   Bricks = 'bricks',
   Director = 'director',
   Pen = 'pen',
+  Picture = 'picture',
+  TrickedPicture = 'trickedPicture',
 }
 
 const enum SceneKey {
