@@ -54,7 +54,7 @@ class SettingsPage extends Page {
     range.min = min;
     range.max = max;
     range.step = step;
-    range.value = localStorage.getItem(StorageKey.SoundVolume) || value;
+    range.value = storageValue || value;
     range.classList.add(`${PAGE_NAME}__range`);
 
     const soundButton = document.createElement('button');

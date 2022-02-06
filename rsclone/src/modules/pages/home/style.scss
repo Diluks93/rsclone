@@ -101,6 +101,7 @@
   &__action-text {
     text-transform: uppercase;
     margin-top: 2rem;
+    cursor: pointer;
   }
   &__action-text.active {
     color: $orange;
