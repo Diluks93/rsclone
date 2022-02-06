@@ -22,3 +22,8 @@ declare module '*.ttf' {
   const content: string;
   export default content;
 }
+
+interface Window {
+  sizeChanged: () => void;
+  game: Phaser.Game;
+}

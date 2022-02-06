@@ -1,22 +1,35 @@
 import Phaser from 'phaser';
 //import Player from './player';
-import { Player } from './voody';
+import Player from '../../entities/voody';
+import Neighbor from '../../entities/neighbor';
 
-import { config } from './game';
-import { GameKey } from '../enums/enums';
+import { config } from '../../config';
+import { GameKey } from '../../../enums/enums';
+import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
+import { Door } from '../../../types/types'
 
 export default class GameScene extends Phaser.Scene {
-  cursor: ReturnType<<T>() => T>;
+  protected cursor: ReturnType<<T>() => T>;
 
-  private player!: Player;
+  protected player!: Player;
+
+  protected neighbor!: Neighbor;
+
+  protected tile = tile;
+
+  protected mapLayer = mapLayer;
+
+  protected sizeWorld = sizeWorld;
 
   music: Phaser.Sound.BaseSound | undefined;
 
   platforms: Phaser.Tilemaps.TilemapLayer | undefined;
+
   bg: Phaser.Tilemaps.TilemapLayer | undefined;
+
   bgWindow: Phaser.Tilemaps.TilemapLayer | undefined;
+
   bgDoors: Phaser.Tilemaps.TilemapLayer | undefined;
-  doors: any;
 
   width = config.scale?.width;
 
@@ -24,35 +37,12 @@ export default class GameScene extends Phaser.Scene {
 
   pen: Phaser.GameObjects.Image | undefined;
 
-  tile = 32;
-
-  sizeWorld = {
-    width: 3840,
-    height: 1536,
-  };
-
-  mapLayer = {
-    platforms: 'platforms',
-    bg: 'bg',
-    bgWindow: 'bgWindow',
-    bgDoors: 'bgDoors',
-    object: {
-      id: 'object',
-      name: 'spawn-point',
-    },
-    doors: {
-      id: 'doors',
-      name: '',
-    }
-  };
-
   playerSounds: {
     [index: string]: Phaser.Sound.BaseSound;
   };
 
   constructor() {
     super('first-step');
-    // this.player = new Player();
     this.music = undefined;
     this.playerSounds = {};
   }
@@ -78,11 +68,14 @@ export default class GameScene extends Phaser.Scene {
       (obj) => obj.name === this.mapLayer.object.name
       );
     this.player = new Player(this, spawnPoint.x as number, spawnPoint.y as number, /* this.playerSounds */);
-    let fakeObjects = this.physics.add.staticGroup();
+    this.neighbor = new Neighbor(this, 1000, 1000, GameKey.Neighbor, this.player, 7);
+
+    const fakeObjects = this.physics.add.staticGroup();
     const doorObjects = map.getObjectLayer('doors')['objects'];
     
     doorObjects.forEach((doorObject, i, arr) => {
-      let obj = fakeObjects.create(doorObject.x, doorObject.y as number).setOrigin(0, 0);
+      const obj = fakeObjects.create(doorObject.x, doorObject.y, GameKey.Fake).setOrigin(0, 0);
+      fakeObjects.setVisible(false);
       obj.body.width = doorObject.width;
       obj.body.height = doorObject.height;
       for (let j = 0; j < arr.length; j++) {
@@ -97,20 +90,23 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(
       this.player, 
       fakeObjects, 
-      (player, fakeObjects: any) => {
+      (player, fakeObjects) => {
+        (fakeObjects as Door).setVisible(true);
         if ((this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space.isDown) {
-          const setPositionPlayerX = fakeObjects.x + (this.player.width / 2);
-          const setPositionPlayerY = fakeObjects.y + (this.player.height / 2);
+          this.game.events.emit(GameKey.Fake);
+          const setPositionPlayerX = (fakeObjects as Door).x + ((player as Player).width / 2);
+          const setPositionPlayerY = (fakeObjects as Door).y + ((player as Player).height / 2);
   
-          this.player.setPosition(setPositionPlayerX, setPositionPlayerY);
+          (player as Player).setPosition(setPositionPlayerX, setPositionPlayerY);
+          (fakeObjects as Door).setVisible(false);
         }
-      }, 
+        // (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space.onDown
+      },
+      undefined,
+      this
       ) 
-    console.log(this.cursor)
-    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-    this.physics.world.bounds.width = this.sizeWorld.width;
-    this.physics.world.bounds.height = this.sizeWorld.height;
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.cameras.main.setBounds(0, 0, this.sizeWorld.width, this.sizeWorld.height);
 
@@ -119,9 +115,11 @@ export default class GameScene extends Phaser.Scene {
     }
     this.cameras.main.roundPixels = true;
 
-    if (this.player) {
-      this.physics.add.collider(this.player, this.platforms);
-    }
+    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.player, this.neighbor, (player, neighbor) => {
+      (player as Player).getDamage(1);
+    });
+    this.physics.add.collider(this.neighbor, this.platforms);
 
     // if (spawnPoint.x && spawnPoint.y) {
     //   this.pen = this.add.image(spawnPoint.x - 1000, spawnPoint.y, GameKey.Pen);
@@ -133,6 +131,7 @@ export default class GameScene extends Phaser.Scene {
 
     // this.scene.launch('tutorial-scene');
     // this.scene.pause('first-step');
+    this.scene.launch('ui-scene');
   }
 
   update(): void {
@@ -148,11 +147,4 @@ export default class GameScene extends Phaser.Scene {
     this.platforms?.setSize(width, height);
   }
 
-  // colliderDoor(player: any, fakeObjects: any): void {
-
-  //   const setPositionPlayerX = fakeObjects.x + (player.width / 2);
-  //   const setPositionPlayerY = fakeObjects.y + (player.height / 2);
-
-  //   player.setPosition(setPositionPlayerX, setPositionPlayerY);
-  // }
 }

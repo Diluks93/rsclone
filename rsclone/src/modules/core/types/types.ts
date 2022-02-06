@@ -118,6 +118,12 @@ type ScreenResolutionType = {
   minWidth: number;
 };
 
+interface Door extends Phaser.Types.Physics.Arcade.GameObjectWithBody {
+  x: number;
+  y: number;
+  setVisible(visible: boolean): void;
+}
+
 export {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -133,4 +139,5 @@ export {
   AuthorButtonInterface,
   LevelPreviewType,
   ScreenResolutionType,
+  Door
 };

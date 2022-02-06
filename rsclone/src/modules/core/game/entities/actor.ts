@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { Frame, GameKey } from '../enums/enums';
+import { Frame, GameKey } from '../../enums/enums';
 
-export class Actor extends Phaser.Physics.Arcade.Sprite {
+export default class Actor extends Phaser.Physics.Arcade.Sprite {
   protected hp = 1;
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame);

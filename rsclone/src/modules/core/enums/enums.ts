@@ -39,6 +39,7 @@ const enum UrlSourceForGame {
   Tileset = 'game/map/assets.png',
   TilemapJson = 'game/map/map.json',
   Player = 'game/voody.png',
+  Neighbor = 'game/neighbor.png',
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
   SoundPrank = 'audio/prank.mp3',
@@ -46,6 +47,7 @@ const enum UrlSourceForGame {
 
 const enum GameKey {
   Player = 'dude',
+  Neighbor = 'neighbor',
   Assets = 'assets',
   Map = 'map',
   MusicGame = 'music-game',
@@ -55,6 +57,22 @@ const enum GameKey {
   Bricks = 'bricks',
   Director = 'director',
   Pen = 'pen',
+  Fake = 'fake-door',
 }
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey };
+const enum ScoreOperations {
+  Increase,
+  Decrease,
+  SetValue
+}
+
+const enum GameStatus {
+  Win,
+  Lose
+}
+
+const enum Event {
+  GameEnd = 'game-end',
+}
+
+export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, ScoreOperations, GameStatus, Event };

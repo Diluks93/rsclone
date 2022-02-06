@@ -1,4 +1,4 @@
-import { Frame, GameKey } from '../enums/enums';
+import { Frame, GameKey } from '../../enums/enums';
 
 const SPEED = 160;
 

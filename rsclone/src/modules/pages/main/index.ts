@@ -1,5 +1,5 @@
 import Page from '../../core/templates/Page';
-import { config } from '../../core/game/game';
+import { config } from '../../core/game/config';
 import './style.scss';
 
 class MainPage extends Page {
@@ -28,7 +28,7 @@ class MainPage extends Page {
   }
 
   render() {
-    new Phaser.Game(config);
+    window.game = new Phaser.Game(config);
     this.container.append(this.closeGameButton);
     return this.container;
   }
