@@ -161,8 +161,8 @@ class SettingsPage extends Page {
   }
 
   updateSettings(): void {
-    const soundCheckedStorage = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
-    const soundTimeLimitStorage = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
+    const soundCheckedStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    const soundTimeLimitStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
 
     if (soundCheckedStorage !== null) {
       (this.soundCheckbox.firstChild as HTMLInputElement).checked = soundCheckedStorage;
