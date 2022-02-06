@@ -10,7 +10,7 @@ import {
 } from './../types/types';
 import { settingsStore } from './../../core/stores/settingsStore';
 import Page from '../templates/Page';
-import { adjustVolume } from '../utils/utils';
+import { adjustVolume, turnOnBackgroundMusic } from '../utils/utils';
 import { backgroundMusic } from './constAudio';
 
 export const TEXT_NODE = 3;
@@ -65,6 +65,7 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
       localStorage.setItem(StorageKey.SoundCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
+      turnOnBackgroundMusic(backgroundMusic);
     },
   },
 

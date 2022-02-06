@@ -1,6 +1,8 @@
 import Page from '../../core/templates/Page';
 import { config } from '../../core/game/game';
 import './style.scss';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { backgroundMusic } from '../../core/constants/constAudio';
 
 class MainPage extends Page {
   closeGameButton: HTMLElement;
@@ -17,10 +19,12 @@ class MainPage extends Page {
   private createCloseGameButton(): HTMLElement {
     const linkButton = document.createElement('a');
     linkButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
+    linkButton.id = 'exit-level';
     linkButton.href = '#home-page';
     linkButton.textContent = 'x';
 
-    linkButton.addEventListener('click', () => {
+    linkButton.addEventListener('click', (e) => {
+      turnOnBackgroundMusic(backgroundMusic, e);
       const canvasParent = document.getElementById('first-step');
       canvasParent?.classList.add('hidden');
     });

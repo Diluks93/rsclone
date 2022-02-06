@@ -7,7 +7,7 @@ export const TEXT_ERROR = 'Out of screen range. Minimum resolution 1024x600.';
 
 export const TOOLTIP = {
   informationalText: 'To switch to full screen mode, press "F"',
-  actionText: '[click anywhere with the mouse]',
+  actionText: '[click here]',
 };
 
 export const SCREEN_RESOLUTION: ScreenResolutionType = {

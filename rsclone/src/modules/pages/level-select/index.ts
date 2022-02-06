@@ -8,6 +8,8 @@ import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../
 import './style.scss';
 import SvgIcon from '../../core/components/svg-icon';
 import levelExample from '../../../assets/image/level/level-example.png';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { backgroundMusic } from '../../core/constants/constAudio';
 
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';
@@ -55,7 +57,8 @@ class LevelSelectPage extends Page {
     this.previewImage = this.createPreviewImage(levelPreviewProps.tutorialTitle[0].imageUrl);
     this.levelDescriptionText = this.createLevelDescriptionText(levelDetailsProps.levelDescriptionId);
     this.playLevelButton = this.createLinkButton(levelLinkButtonProps.playLevelButton);
-    this.playLevelButton.addEventListener('click', () => {
+    this.playLevelButton.addEventListener('click', (e) => {
+      turnOnBackgroundMusic(backgroundMusic, e);
       const canvasParent = document.getElementById('first-step');
       canvasParent?.classList.remove('hidden');
     });

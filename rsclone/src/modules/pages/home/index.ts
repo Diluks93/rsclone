@@ -80,7 +80,7 @@ class HomePage extends Page {
       if (toogler) actionText.classList.toggle('active');
     }, 1000);
 
-    document.addEventListener('click', () => {
+    actionText.addEventListener('click', () => {
       this.hideTooltip(tooltip);
       turnOnBackgroundMusic(backgroundMusic);
       clearInterval(flashing);
@@ -89,7 +89,7 @@ class HomePage extends Page {
     return tooltip;
   }
 
-  hideTooltip(element: HTMLDivElement) {
+  hideTooltip(element: HTMLDivElement): void {
     element.classList.add('hide');
     popupDisplay = false;
   }

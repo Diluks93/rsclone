@@ -34,14 +34,13 @@ export const transformCamelCaseToKebabCase = (camelCaseString: string): string =
     .join('-');
 };
 
-export const turnOnBackgroundMusic = (audio: HTMLAudioElement): void => {
+export const turnOnBackgroundMusic = (audio: HTMLAudioElement, event?: MouseEvent): void => {
   const soundResolution: boolean = JSON.parse(localStorage.getItem('soundCheckbox') as string);
+  const button = event?.target as HTMLElement;
 
-  if (audio.paused && soundResolution) {
+  if ((audio.paused && soundResolution) || soundResolution === null || (button && button.id === 'exit-level')) {
     audio.play();
-  } else if (soundResolution === null) {
-    audio.play();
-  } else if (!soundResolution) {
+  } else if (!soundResolution || (button && button.id === 'playLevelButton')) {
     audio.pause();
     audio.currentTime = 0;
   }
