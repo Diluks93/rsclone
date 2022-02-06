@@ -165,14 +165,10 @@ class SettingsPage extends Page {
     const soundTimeLimitStorage = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
 
     if (soundCheckedStorage !== null) {
-      (this.soundCheckbox.firstChild as HTMLInputElement).checked = JSON.parse(
-        localStorage.getItem(StorageKey.SoundCheckbox) as string
-      );
+      (this.soundCheckbox.firstChild as HTMLInputElement).checked = soundCheckedStorage;
     }
     if (soundTimeLimitStorage !== null) {
-      (this.timeLimitCheckbox.firstChild as HTMLInputElement).checked = JSON.parse(
-        localStorage.getItem(StorageKey.TimeLimitCheckbox) as string
-      );
+      (this.timeLimitCheckbox.firstChild as HTMLInputElement).checked = soundTimeLimitStorage;
     }
   }
 
