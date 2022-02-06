@@ -38,7 +38,11 @@ export const turnOnBackgroundMusic = (audio: HTMLAudioElement, event?: MouseEven
   const soundResolution: boolean = JSON.parse(localStorage.getItem('soundCheckbox') as string);
   const button = event?.target as HTMLElement;
 
-  if ((audio.paused && soundResolution) || soundResolution === null || (button && button.id === 'exit-level')) {
+  if (
+    (audio.paused && soundResolution) ||
+    soundResolution === null ||
+    (button && button.id === 'exit-level' && soundResolution)
+  ) {
     audio.play();
   } else if (!soundResolution || (button && button.id === 'playLevelButton')) {
     audio.pause();
