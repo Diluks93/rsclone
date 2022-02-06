@@ -1,6 +1,8 @@
 import bricks from '../../../assets/game/bricks.jpg';
 import director from '../../../assets/game/director.png';
 import pen from '../../../assets/game/pen.png';
+import picture from '../../../assets/game/picture-1.png';
+import trickedPicture from '../../../assets/game/picture-2.png';
 import { GameKey, SceneKey, UrlSourceForGame } from '../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
@@ -119,5 +121,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image(GameKey.Bricks, bricks);
     this.load.image(GameKey.Director, director);
     this.load.image(GameKey.Pen, pen);
+    this.load.image(GameKey.Picture, picture);
+    this.load.image(GameKey.TrickedPicture, trickedPicture);
   }
 }
