@@ -1,3 +1,4 @@
+import { actionLabelConfig } from './../constants/gameTextConfig';
 import { Frame, GameKey } from '../enums/enums';
 
 const SPEED = 2000;
@@ -11,15 +12,23 @@ export default class Player {
 
   playerSounds;
 
+  inventory: string[] = [];
+
+  actionLabel;
+
+  isPerformTrick = false;
+
   constructor(
-    scene?: Phaser.Scene,
-    x?: Phaser.Types.Tilemaps.TiledObject['x'],
-    y?: Phaser.Types.Tilemaps.TiledObject['y'],
-    playerSounds?: {
+    scene: Phaser.Scene,
+    x: Phaser.Types.Tilemaps.TiledObject['x'],
+    y: Phaser.Types.Tilemaps.TiledObject['y'],
+    playerSounds: {
       [index: string]: Phaser.Sound.BaseSound;
     }
   ) {
     if (scene && x && y) {
+      this.actionLabel = scene.add.text(x - 10, y - 50, 'E', actionLabelConfig);
+      this.actionLabel.setShadow(2, 2, 'rgba(0,0,0,0.5)', 0);
       this.scene = scene;
       this.playerSounds = playerSounds;
 
@@ -72,13 +81,20 @@ export default class Player {
       });
 
       scene.input.keyboard.on('keydown-' + 'E', () => {
-        this.playerSounds?.prank.play();
+        // this.playerSounds?.prank.play();
       });
     }
   }
 
   update(): void {
     const { keys, sprite } = this;
+
+    // trick action disable input
+    if (this.isPerformTrick) {
+      sprite!.setVelocityX(0);
+      sprite!.anims.play('up', true);
+      return;
+    }
 
     if (sprite) {
       this.playerSounds?.footsteps.on('keyup', () => {
@@ -112,5 +128,17 @@ export default class Player {
         this.playerSounds?.footsteps.play();
       }
     }
+
+    this.actionLabel?.setX(this.sprite!.x - 10);
+  }
+
+  addItem(itemKey: string) {
+    this.inventory.push(itemKey);
+    this.scene!.events.emit('additem', itemKey);
+  }
+
+  removeItem(itemKey: string) {
+    this.inventory = this.inventory.filter((item) => item !== itemKey);
+    this.scene!.events.emit('removeitem', itemKey);
   }
 }
