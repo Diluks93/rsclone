@@ -1,4 +1,4 @@
-import { PageId } from '../enums/enums';
+import { PageId, StorageKey } from '../enums/enums';
 import gameTranslation from '../data/gameTranslation.json';
 import {
   SettingsCheckboxType,
@@ -10,6 +10,8 @@ import {
 } from './../types/types';
 import { settingsStore } from './../../core/stores/settingsStore';
 import Page from '../templates/Page';
+import { adjustVolume } from '../utils/utils';
+import { backgroundMusic } from './constAudio';
 
 export const TEXT_NODE = 3;
 const PAGE_NAME = 'settings-page';
@@ -26,7 +28,7 @@ export const selectProps: SettingsSelectType = {
   changeHandler(e: Event, page: Page): void {
     if (e.target instanceof HTMLSelectElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
-      localStorage.setItem('languageValue', e.target.value);
+      localStorage.setItem(StorageKey.LanguageValue, e.target.value);
       page.setPageLanguage(gameTranslation, settingsStore.languageValue);
     }
   },
@@ -43,10 +45,12 @@ export const rangeProps: SettingsRangeType = {
     const target = e.target;
     if (target instanceof HTMLInputElement) {
       settingsStore.volumeValue = target.value;
+      adjustVolume(backgroundMusic, +target.value);
+      localStorage.setItem(StorageKey.SoundVolume, target.value);
 
       target.style.backgroundImage = `
-          -webkit-gradient(linear, left top, right top, 
-          color-stop(${target.value}, #ff6633), 
+          -webkit-gradient(linear, left top, right top,
+          color-stop(${target.value}, #ff6633),
           color-stop(${target.value}, #fff))
         `;
     }
@@ -60,6 +64,7 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     isEnabled: settingsStore.isSoundEnabled,
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
+      localStorage.setItem(StorageKey.SoundCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
     },
   },
 
@@ -69,6 +74,7 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     isEnabled: settingsStore.isTimeLimitEnabled,
     clickHandler(): void {
       settingsStore.isTimeLimitEnabled = !settingsStore.isTimeLimitEnabled;
+      localStorage.setItem(StorageKey.TimeLimitCheckbox, JSON.stringify(settingsStore.isTimeLimitEnabled));
     },
   },
 };

@@ -17,6 +17,10 @@ const enum StorageKey {
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
   SettingsTranslation = 'settingsTranslation',
+  LanguageValue = 'languageValue',
+  SoundVolume = 'soundVolume',
+  SoundCheckbox = 'soundCheckbox',
+  TimeLimitCheckbox = 'timeLimitCheckbox',
 }
 
 const enum Frame {

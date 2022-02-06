@@ -16,6 +16,7 @@ import {
 import Page from '../../core/templates/Page';
 import './style.scss';
 import SvgIcon from '../../core/components/svg-icon';
+import { StorageKey } from '../../core/enums/enums';
 
 const PAGE_NAME = 'settings-page';
 
@@ -47,12 +48,13 @@ class SettingsPage extends Page {
 
   createRangeSlider({ id, min, max, step, value, inputHandler }: SettingsRangeType): HTMLLabelElement {
     const range = document.createElement('input');
+    const storageValue = localStorage.getItem(StorageKey.SoundVolume);
     range.type = 'range';
     range.id = id;
     range.min = min;
     range.max = max;
     range.step = step;
-    range.value = value;
+    range.value = localStorage.getItem(StorageKey.SoundVolume) || value;
     range.classList.add(`${PAGE_NAME}__range`);
 
     const soundButton = document.createElement('button');
@@ -62,6 +64,14 @@ class SettingsPage extends Page {
     const label = document.createElement('label');
     label.classList.add(`${PAGE_NAME}__range-label`);
     label.append(soundButton, range);
+
+    if (storageValue) {
+      range.style.backgroundImage = `
+			-webkit-gradient(linear, left top, right top,
+			color-stop(${storageValue}, #ff6633),
+			color-stop(${storageValue}, #fff))
+		`;
+    }
 
     range.addEventListener('input', inputHandler);
 
@@ -150,9 +160,26 @@ class SettingsPage extends Page {
     return wrapper;
   }
 
+  updateSettings(): void {
+    const soundCheckedStorage = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    const soundTimeLimitStorage = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
+
+    if (soundCheckedStorage !== null) {
+      (this.soundCheckbox.firstChild as HTMLInputElement).checked = JSON.parse(
+        localStorage.getItem(StorageKey.SoundCheckbox) as string
+      );
+    }
+    if (soundTimeLimitStorage !== null) {
+      (this.timeLimitCheckbox.firstChild as HTMLInputElement).checked = JSON.parse(
+        localStorage.getItem(StorageKey.TimeLimitCheckbox) as string
+      );
+    }
+  }
+
   render(): HTMLElement {
     this.container.append(this.backToMainButton);
     this.container.append(this.settingsWrapper);
+    this.updateSettings();
     return this.container;
   }
 }

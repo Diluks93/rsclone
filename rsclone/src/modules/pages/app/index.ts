@@ -8,6 +8,8 @@ import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageId, ErrorType } from '../../core/enums/enums';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { backgroundMusic } from '../../core/constants/constAudio';
 
 class App {
   private static container: HTMLElement = document.body;
@@ -67,6 +69,9 @@ class App {
   start(): void {
     App.renderNewPage(PageId.HomePage);
     this.enableRouteChange();
+
+    document.addEventListener('click', () => turnOnBackgroundMusic(backgroundMusic));
+    // turnOnBackgroundMusic(backgroundMusic);
 
     window.location.hash = PageId.HomePage;
   }

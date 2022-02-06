@@ -33,3 +33,20 @@ export const transformCamelCaseToKebabCase = (camelCaseString: string): string =
     .split(' ')
     .join('-');
 };
+
+export const turnOnBackgroundMusic = (audio: HTMLAudioElement): void => {
+  const soundResolution: boolean = JSON.parse(localStorage.getItem('soundCheckbox') as string);
+
+  if (audio.paused && soundResolution) {
+    audio.play();
+  } else if (soundResolution === null) {
+    audio.play();
+  } else if (!soundResolution) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+};
+
+export const adjustVolume = (audio: HTMLAudioElement, value: number): void => {
+  audio.volume = value;
+};
