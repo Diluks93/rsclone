@@ -6,6 +6,7 @@ import { GameKey, SceneKey } from '../enums/enums';
 import TrickSourceItem from './trick-source-item';
 import TrickTargetItem from './trick-target-item';
 import { TargetItemConfigType } from '../types/types';
+import { settingsStore } from '../stores/settingsStore';
 
 export default class GameScene extends Phaser.Scene {
   cursor: ReturnType<<T>() => T>;
@@ -56,10 +57,12 @@ export default class GameScene extends Phaser.Scene {
 
     const map = this.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
     const tileset = map.addTilesetImage('assets', 'assets');
-    this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps);
-    this.playerSounds.prank = this.sound.add(GameKey.SoundPrank);
 
-    this.music = this.sound.add(GameKey.MusicGame, { volume: 0.1 });
+    const soundConfig = { volume: Number(settingsStore.volumeValue) };
+    this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
+    this.playerSounds.prank = this.sound.add(GameKey.SoundPrank, soundConfig);
+
+    this.music = this.sound.add(GameKey.MusicGame, soundConfig);
     this.music.play();
 
     this.platforms = map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
