@@ -1,3 +1,4 @@
+import { loaderFontConfig } from './../constants/gameTextConfig';
 import bricks from '../../../assets/game/bricks.jpg';
 import director from '../../../assets/game/director.png';
 import pen from '../../../assets/game/pen.png';
@@ -8,12 +9,6 @@ import { GameKey, SceneKey, UrlSourceForGame } from '../enums/enums';
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
 const PROGRESS_BOX_HEIGHT = 50;
-
-const loaderFontConfig = {
-  sizeL: '20px',
-  sizeM: '18px',
-  family: '"Open Sans", sans-serif',
-};
 
 export default class PreloadScene extends Phaser.Scene {
   cameraCenterX = 0;

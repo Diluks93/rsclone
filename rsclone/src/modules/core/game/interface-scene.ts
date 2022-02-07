@@ -51,11 +51,11 @@ export default class InterfaceScene extends Phaser.Scene {
     }
   }
 
-  updateInventoryCells() {
-    const cellsAmount = 10;
+  updateInventoryCells(): void {
     this.inventoryCells.forEach((cell) => {
       cell.destroy();
     });
+    const cellsAmount = 10;
     for (let i = 0; i < cellsAmount; i++) {
       this.inventoryCells.push(
         this.add.rectangle(
@@ -70,11 +70,11 @@ export default class InterfaceScene extends Phaser.Scene {
     }
   }
 
-  updateInventoryItems() {
-    const inventoryCopy = [...this.inventoryItems];
+  updateInventoryItems(): void {
     this.inventoryItems.forEach((item: Phaser.GameObjects.Image) => {
       item.destroy();
     });
+    const inventoryCopy = [...this.inventoryItems];
     this.inventoryItems = [];
     inventoryCopy.forEach((item: Phaser.GameObjects.Image, i: number) => {
       this.inventoryItems.push(

@@ -1,4 +1,4 @@
-import { actionLabelConfig } from '../constants/gameTextConfig';
+import { actionLabelFontConfig } from '../constants/gameTextConfig';
 import { Frame, GameKey } from '../enums/enums';
 
 const SPEED = 2000;
@@ -27,7 +27,7 @@ export default class Player {
     }
   ) {
     if (scene && x && y) {
-      this.actionLabel = scene.add.text(x - 10, y - 50, 'E', actionLabelConfig);
+      this.actionLabel = scene.add.text(x - 10, y - 50, 'E', actionLabelFontConfig);
       this.actionLabel.setShadow(2, 2, 'rgba(0,0,0,0.5)', 0);
       this.scene = scene;
       this.playerSounds = playerSounds;
@@ -78,10 +78,6 @@ export default class Player {
         up: UP,
         down: DOWN,
         space: SPACE,
-      });
-
-      scene.input.keyboard.on('keydown-' + 'E', () => {
-        // this.playerSounds?.prank.play();
       });
     }
   }
