@@ -113,31 +113,28 @@ export default class GameScene extends Phaser.Scene {
     this.player.update();
 
     // "E" label toggle process
-    if (
-      this.isPlayerOverlapItems(this.trickSourceItems) ||
-      (this.isPlayerOverlapItems(this.trickTargetItems) && this.isActionAvailable)
-    ) {
+    if (this.isPlayerOverlapActiveItems()) {
       this.player.actionLabel?.setVisible(true);
     } else {
       this.player.actionLabel?.setVisible(false);
     }
   }
 
-  resize(gameSize: Record<string, number>): void {
+  private resize(gameSize: Record<string, number>): void {
     const width = gameSize.width;
     const height = gameSize.height;
     this.cameras.resize(width, height);
     this.platforms?.setSize(width, height);
   }
 
-  createTrickTargetItem(itemConfig: TargetItemConfigType): TrickTargetItem {
+  private createTrickTargetItem(itemConfig: TargetItemConfigType): TrickTargetItem {
     const { x, y, originalItemKey, trickedItemKey, actionItemKey } = itemConfig;
     const originalItem = this.add.image(0, 0, originalItemKey);
     const trickedItem = this.add.image(0, 0, trickedItemKey);
     return new TrickTargetItem(this, x, y, [originalItem, trickedItem], actionItemKey);
   }
 
-  isPlayerOverlapItems(items: TrickSourceItem[] | TrickTargetItem[]): boolean {
+  private isPlayerOverlapItems(items: TrickSourceItem[] | TrickTargetItem[]): boolean {
     const playerBounds = this.player.sprite!.getBounds();
     const itemsBounds = items.map((item) => item.getBounds());
     return itemsBounds.some((itemBound) => {
@@ -145,21 +142,21 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
-  applyItem(targetItem: TrickTargetItem) {
+  private applyItem(targetItem: TrickTargetItem): void {
     this.player.removeItem(targetItem.keyItemId);
     targetItem.trickedItem.setVisible(true);
     targetItem.isTricked = true;
     this.player.isPerformTrick = false;
   }
 
-  pickUpItem(sourceItem: Phaser.GameObjects.Image) {
+  private pickUpItem(sourceItem: Phaser.GameObjects.Image): void {
     this.player.addItem(sourceItem.texture.key);
     this.trickSourceItems = this.trickSourceItems.filter((filteredItem) => filteredItem !== sourceItem);
     sourceItem!.destroy();
     this.player.actionLabel?.setVisible(false);
   }
 
-  addOverlapActionToItems() {
+  private addOverlapActionToItems(): void {
     this.trickSourceItems.forEach((sourceItem) => {
       this.physics.add.collider(sourceItem, this.platforms!);
       this.physics.add.overlap(this.player.sprite!, sourceItem, () => {
@@ -188,5 +185,12 @@ export default class GameScene extends Phaser.Scene {
         }
       });
     });
+  }
+
+  private isPlayerOverlapActiveItems(): boolean {
+    return (
+      this.isPlayerOverlapItems(this.trickSourceItems) ||
+      (this.isPlayerOverlapItems(this.trickTargetItems) && this.isActionAvailable)
+    );
   }
 }
