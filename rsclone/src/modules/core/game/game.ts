@@ -6,7 +6,6 @@ import TutorialScene from './tutorial-scene';
 
 export const config = {
   type: Phaser.AUTO,
-  parent: 'first-step',
   scale: {
     mode: Phaser.Scale.RESIZE,
     parent: 'first-step',
@@ -22,5 +21,5 @@ export const config = {
       debug: true,
     },
   },
-  scene: [PreloadScene, TutorialScene, GameScene, InterfaceScene],
+  scene: [PreloadScene, GameScene, TutorialScene, InterfaceScene],
 };

@@ -3,9 +3,10 @@ import { config } from '../../core/game/game';
 import './style.scss';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
+import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 
 class MainPage extends Page {
-  closeGameButton: HTMLElement;
+  exitModal: HTMLElement;
 
   static TextObject = {
     mainTitle: 'Main Page',
@@ -13,27 +14,63 @@ class MainPage extends Page {
 
   constructor(id: string, className: string) {
     super(id, className);
-    this.closeGameButton = this.createCloseGameButton();
+    this.exitModal = this.createExitGameModal();
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        this.exitModal.classList.toggle('hidden');
+      }
+    });
   }
 
-  private createCloseGameButton(): HTMLElement {
-    const linkButton = document.createElement('a');
-    linkButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
-    linkButton.id = 'exit-level';
-    linkButton.href = '#home-page';
-    linkButton.textContent = 'x';
+  private createExitGameButton(): HTMLElement {
+    const exitButton = document.createElement('a');
+    exitButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
+    exitButton.href = '#levels-page';
+    exitButton.textContent = 'V';
 
-    linkButton.addEventListener('click', (e: MouseEvent) => {
+    exitButton.addEventListener('click', (e: MouseEvent) => {
       turnOnBackgroundMusic(backgroundMusic, e);
       const canvasParent = document.getElementById('first-step');
       canvasParent?.classList.add('hidden');
     });
-    return linkButton;
+    return exitButton;
+  }
+
+  private createCancelButton(): HTMLElement {
+    const cancelButton = document.createElement('button');
+    cancelButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
+    cancelButton.textContent = 'X';
+
+    cancelButton.addEventListener('click', () => {
+      this.exitModal.classList.add('hidden');
+    });
+
+    return cancelButton;
+  }
+
+  private createExitGameModal(): HTMLElement {
+    const modalWrapper = document.createElement('div');
+    modalWrapper.classList.add('modal__wrapper', 'hidden');
+    const modalWarning = document.createElement('span');
+    modalWarning.classList.add('modal__warning');
+    modalWarning.textContent = 'Желаете покинуть игру?';
+    const modalInner = document.createElement('div');
+    modalInner.classList.add('modal__inner');
+    const closeButton = this.createExitGameButton();
+    const cancelButton = this.createCancelButton();
+    modalInner.append(closeButton, cancelButton);
+    modalWrapper.append(modalWarning, modalInner);
+    return modalWrapper;
+  }
+
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
+    const modalWarning = this.exitModal.querySelector('span');
+    modalWarning!.textContent = translation[lang].exitWarning;
   }
 
   render() {
     new Phaser.Game(config);
-    this.container.append(this.closeGameButton);
+    this.container.append(this.exitModal);
     return this.container;
   }
 }

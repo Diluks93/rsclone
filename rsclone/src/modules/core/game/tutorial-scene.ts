@@ -1,7 +1,8 @@
-import { speechConfig, speechFontConfig, hintFontConfig } from '../constants/constInterfaceScene';
-import { settingsStore } from '../stores/settingsStore';
 import Phaser from 'phaser';
-import { GameKey } from '../enums/enums';
+import { tutorialSpeechFontConfig, tutorialHintFontConfig } from './../constants/gameTextConfig';
+import { speechConfig } from '../constants/constInterfaceScene';
+import { settingsStore } from '../stores/settingsStore';
+import { GameKey, SceneKey } from '../enums/enums';
 import gameTranslation from '../data/gameTranslation.json';
 
 type PortraitType = {
@@ -28,22 +29,20 @@ export default class TutorialScene extends Phaser.Scene {
   speechText: Phaser.GameObjects.Text | undefined;
 
   constructor() {
-    super({ key: 'tutorial-scene' });
+    super({ key: SceneKey.TutorialScene });
   }
 
   create(): void {
     const { screenWidth, screenHeight, portraitSize, offset } = speechConfig;
-    const { windowHeight, windowWidth } = settingsStore;
-    console.log(windowHeight, windowWidth);
 
     const { portraitBox, directorImage } = this.createPortrait(portraitSize);
     this.portraitBox = portraitBox;
     this.directorImage = directorImage;
 
-    this.speechText = this.add.text(portraitSize, 0, speech[this.speechCount], speechFontConfig);
+    this.speechText = this.add.text(portraitSize, 0, speech[this.speechCount], tutorialSpeechFontConfig);
     this.speechText.setInteractive();
 
-    const hintText = this.add.text(screenWidth / 2 - 100, portraitSize - offset, hint, hintFontConfig);
+    const hintText = this.add.text(screenWidth / 2 - 100, portraitSize - offset, hint, tutorialHintFontConfig);
     this.tweens.add({
       targets: hintText,
       alpha: 0,
@@ -69,10 +68,10 @@ export default class TutorialScene extends Phaser.Scene {
       this.speechText.setText(speech[++this.speechCount]);
 
       if (this.speechCount >= speech.length && this.speechContainer) {
-        // this.speechContainer.setVisible(false);
-        this.scene.sleep('tutorial-scene');
-        this.scene.launch('ui-scene');
-        this.scene.resume('first-step');
+        this.speechContainer.setVisible(false);
+        this.scene.sleep(SceneKey.TutorialScene);
+        this.scene.launch(SceneKey.InterfaceScene);
+        this.scene.resume(SceneKey.FirstStep);
       }
     });
   }
