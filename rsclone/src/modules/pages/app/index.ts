@@ -69,7 +69,7 @@ class App {
     App.renderNewPage(PageId.HomePage);
     this.enableRouteChange();
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.keyCode === 70) toggleFullScreen();
     });
 

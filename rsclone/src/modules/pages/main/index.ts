@@ -23,7 +23,7 @@ class MainPage extends Page {
     linkButton.href = '#home-page';
     linkButton.textContent = 'x';
 
-    linkButton.addEventListener('click', (e) => {
+    linkButton.addEventListener('click', (e: MouseEvent) => {
       turnOnBackgroundMusic(backgroundMusic, e);
       const canvasParent = document.getElementById('first-step');
       canvasParent?.classList.add('hidden');

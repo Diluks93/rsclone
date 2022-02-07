@@ -118,8 +118,6 @@ type ScreenResolutionType = {
   minWidth: number;
 };
 
-type PopupDisplay = true | false;
-
 export {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -135,5 +133,4 @@ export {
   AuthorButtonInterface,
   LevelPreviewType,
   ScreenResolutionType,
-  PopupDisplay,
 };

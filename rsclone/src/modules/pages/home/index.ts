@@ -2,16 +2,16 @@ import {
   homeTitleProps,
   homeLinkButtonProps,
   TEXT_ERROR,
-  SCREEN_RESOLUTION,
-  TOOLTIP,
+  screenResolution,
+  fullscreenModeTooltip,
 } from './../../core/constants/constHome';
 import Page from '../../core/templates/Page';
 import './style.scss';
-import { GameTranslationInterface, LanguageKeys, PopupDisplay } from '../../core/types/types';
+import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 
-let popupDisplay: PopupDisplay = true;
+let isPopupDisplay = true;
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
 
@@ -69,8 +69,8 @@ class HomePage extends Page {
     informationalText.classList.add('tooltip__informational-text');
     actionText.classList.add('tooltip__action-text');
 
-    informationalText.innerText = TOOLTIP.informationalText;
-    actionText.innerText = TOOLTIP.actionText;
+    informationalText.innerText = fullscreenModeTooltip.informationText;
+    actionText.innerText = fullscreenModeTooltip.actionText;
 
     tooltipWrap.append(informationalText, actionText);
     tooltip.append(tooltipWrap);
@@ -91,19 +91,19 @@ class HomePage extends Page {
 
   hideTooltip(element: HTMLDivElement): void {
     element.classList.add('hide');
-    popupDisplay = false;
+    isPopupDisplay = false;
   }
 
   render() {
     if (
-      document.documentElement.clientHeight < SCREEN_RESOLUTION.minHeight ||
-      document.documentElement.clientWidth < SCREEN_RESOLUTION.minWidth
+      document.documentElement.clientHeight < screenResolution.minHeight ||
+      document.documentElement.clientWidth < screenResolution.minWidth
     ) {
       this.container.append(this.rangeErrorOutput());
     } else {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
-      if (popupDisplay) this.container.append(this.addTooltip());
+      if (isPopupDisplay) this.container.append(this.addTooltip());
     }
 
     return this.container;

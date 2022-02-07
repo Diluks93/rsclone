@@ -42,16 +42,15 @@ export const rangeProps: SettingsRangeType = {
   step: '0.1',
   value: settingsStore.volumeValue,
   inputHandler(e: Event): void {
-    const target = e.target;
-    if (target instanceof HTMLInputElement) {
-      settingsStore.volumeValue = target.value;
-      adjustVolume(backgroundMusic, +target.value);
-      localStorage.setItem(StorageKey.SoundVolume, target.value);
+    if (e.target instanceof HTMLInputElement) {
+      settingsStore.volumeValue = e.target.value;
+      adjustVolume(backgroundMusic, +e.target.value);
+      localStorage.setItem(StorageKey.SoundVolume, e.target.value);
 
-      target.style.backgroundImage = `
+      e.target.style.backgroundImage = `
           -webkit-gradient(linear, left top, right top,
-          color-stop(${target.value}, #ff6633),
-          color-stop(${target.value}, #fff))
+          color-stop(${e.target.value}, #ff6633),
+          color-stop(${e.target.value}, #fff))
         `;
     }
   },

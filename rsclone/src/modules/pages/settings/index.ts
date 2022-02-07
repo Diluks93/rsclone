@@ -48,13 +48,13 @@ class SettingsPage extends Page {
 
   createRangeSlider({ id, min, max, step, value, inputHandler }: SettingsRangeType): HTMLLabelElement {
     const range = document.createElement('input');
-    const storageValue = localStorage.getItem(StorageKey.SoundVolume);
+    const musicVolume = localStorage.getItem(StorageKey.SoundVolume);
     range.type = 'range';
     range.id = id;
     range.min = min;
     range.max = max;
     range.step = step;
-    range.value = storageValue || value;
+    range.value = musicVolume || value;
     range.classList.add(`${PAGE_NAME}__range`);
 
     const soundButton = document.createElement('button');
@@ -65,12 +65,12 @@ class SettingsPage extends Page {
     label.classList.add(`${PAGE_NAME}__range-label`);
     label.append(soundButton, range);
 
-    if (storageValue) {
+    if (musicVolume) {
       range.style.backgroundImage = `
-			-webkit-gradient(linear, left top, right top,
-			color-stop(${storageValue}, #ff6633),
-			color-stop(${storageValue}, #fff))
-		`;
+				-webkit-gradient(linear, left top, right top,
+				color-stop(${musicVolume}, #ff6633),
+				color-stop(${musicVolume}, #fff))
+			`;
     }
 
     range.addEventListener('input', inputHandler);
@@ -119,6 +119,7 @@ class SettingsPage extends Page {
     label.textContent = text;
 
     label.prepend(checkbox, checkmark);
+
     return label;
   }
 
@@ -176,6 +177,7 @@ class SettingsPage extends Page {
     this.container.append(this.backToMainButton);
     this.container.append(this.settingsWrapper);
     this.updateSettings();
+
     return this.container;
   }
 }
