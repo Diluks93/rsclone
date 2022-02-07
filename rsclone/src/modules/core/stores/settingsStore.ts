@@ -33,7 +33,9 @@ class SettingsStore {
   }: SettingsConfigType) {
     this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
     this._volumeValue = localStorage.getItem(StorageKey.SoundVolume) || volumeValue;
-    this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) && isSoundEnabled;
+    if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null)
+      this._isSoundEnabled = isSoundEnabled;
+    else this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
     this._isTimeLimitEnabled =
       JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string) || isTimeLimitEnabled;
     this._isTricksReportEnabled = isTricksReportEnabled;
