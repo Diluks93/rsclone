@@ -12,7 +12,7 @@ class MainPage extends Page {
 
   constructor(id: string, className: string) {
     super(id, className);
-    this.exitModal = this.createExitModal();
+    this.exitModal = this.createExitGameModal();
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape') {
         this.exitModal.classList.toggle('hidden');
@@ -20,20 +20,20 @@ class MainPage extends Page {
     });
   }
 
-  private createCloseGameButton(): HTMLElement {
-    const closeButton = document.createElement('a');
-    closeButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
-    closeButton.href = '#levels-page';
-    closeButton.textContent = 'V';
+  private createExitGameButton(): HTMLElement {
+    const exitButton = document.createElement('a');
+    exitButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
+    exitButton.href = '#levels-page';
+    exitButton.textContent = 'V';
 
-    closeButton.addEventListener('click', () => {
+    exitButton.addEventListener('click', () => {
       const canvasParent = document.getElementById('first-step');
       canvasParent?.classList.add('hidden');
     });
-    return closeButton;
+    return exitButton;
   }
 
-  private createExitCancelButton(): HTMLElement {
+  private createCancelButton(): HTMLElement {
     const cancelButton = document.createElement('button');
     cancelButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
     cancelButton.textContent = 'X';
@@ -45,7 +45,7 @@ class MainPage extends Page {
     return cancelButton;
   }
 
-  private createExitModal(): HTMLElement {
+  private createExitGameModal(): HTMLElement {
     const modalWrapper = document.createElement('div');
     modalWrapper.classList.add('modal__wrapper', 'hidden');
     const modalWarning = document.createElement('span');
@@ -53,8 +53,8 @@ class MainPage extends Page {
     modalWarning.textContent = 'Желаете покинуть игру?';
     const modalInner = document.createElement('div');
     modalInner.classList.add('modal__inner');
-    const closeButton = this.createCloseGameButton();
-    const cancelButton = this.createExitCancelButton();
+    const closeButton = this.createExitGameButton();
+    const cancelButton = this.createCancelButton();
     modalInner.append(closeButton, cancelButton);
     modalWrapper.append(modalWarning, modalInner);
     return modalWrapper;
