@@ -1,7 +1,7 @@
+import Phaser from 'phaser';
 import { tutorialSpeechFontConfig, tutorialHintFontConfig } from './../constants/gameTextConfig';
 import { speechConfig } from '../constants/constInterfaceScene';
 import { settingsStore } from '../stores/settingsStore';
-import Phaser from 'phaser';
 import { GameKey, SceneKey } from '../enums/enums';
 import gameTranslation from '../data/gameTranslation.json';
 
@@ -68,7 +68,7 @@ export default class TutorialScene extends Phaser.Scene {
       this.speechText.setText(speech[++this.speechCount]);
 
       if (this.speechCount >= speech.length && this.speechContainer) {
-        // this.speechContainer.setVisible(false);
+        this.speechContainer.setVisible(false);
         this.scene.sleep(SceneKey.TutorialScene);
         this.scene.launch(SceneKey.InterfaceScene);
         this.scene.resume(SceneKey.FirstStep);
