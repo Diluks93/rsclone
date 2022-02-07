@@ -98,6 +98,9 @@ type GameTranslationType = {
   jenyaSubtitle: string;
   randomspellsSubtitle: string;
   levelDetailsBlock: Array<LevelDetailsType>;
+  tutorialSpeech: string[];
+  tutorialHint: string;
+  exitWarning: string;
 };
 
 type LevelDetailsType = {
@@ -118,6 +121,14 @@ type ScreenResolutionType = {
   minWidth: number;
 };
 
+type TargetItemConfigType = {
+  x: number;
+  y: number;
+  originalItemKey: string;
+  trickedItemKey: string;
+  actionItemKey: string;
+};
+
 export {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -133,4 +144,5 @@ export {
   AuthorButtonInterface,
   LevelPreviewType,
   ScreenResolutionType,
+  TargetItemConfigType,
 };

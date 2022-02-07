@@ -2,9 +2,45 @@
 @import '../../../styles/mixins';
 
 .main-page {
+  // &__button {
+  //   position: fixed;
+  //   top: 20px;
+  //   left: 20px;
+  // }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &__button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+    border: transparent;
+    font-size: 4rem;
+  }
+}
+
+.modal {
+  &__wrapper {
+    background-color: rgba($navy, 0.5);
+    padding: 4rem;
+    border-radius: 2rem;
+  }
+  &__warning {
+    display: block;
+    width: 30rem;
+    font-family: $title;
+    font-size: 2rem;
+    line-height: 2;
+    color: $white;
+    text-align: center;
+  }
+  &__inner {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
   }
 }
