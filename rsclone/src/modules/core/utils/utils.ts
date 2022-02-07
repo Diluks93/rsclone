@@ -1,3 +1,5 @@
+import { StorageKey } from '../enums/enums';
+
 export const saveFetchedJsonToStorage = async (localKey: string, url: string): Promise<void> => {
   try {
     fetch(url)
@@ -32,4 +34,34 @@ export const transformCamelCaseToKebabCase = (camelCaseString: string): string =
     .toLowerCase()
     .split(' ')
     .join('-');
+};
+
+export const turnOnBackgroundMusic = (audio: HTMLAudioElement, event?: MouseEvent): void => {
+  const hasSoundResolution: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+  const button = event?.target as HTMLElement;
+
+  if (
+    (audio.paused && hasSoundResolution) ||
+    hasSoundResolution === null ||
+    (button && button.id === 'exit-level' && hasSoundResolution)
+  ) {
+    audio.play();
+  } else if (!hasSoundResolution || (button && button.id === 'playLevelButton')) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+};
+
+export const adjustVolume = (audio: HTMLAudioElement, value: number): void => {
+  audio.volume = value;
+};
+
+export const toggleFullScreen = (): void => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
 };

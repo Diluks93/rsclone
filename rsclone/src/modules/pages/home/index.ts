@@ -1,8 +1,17 @@
-import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, SCREEN_RESOLUTION } from './../../core/constants/constHome';
+import {
+  homeTitleProps,
+  homeLinkButtonProps,
+  TEXT_ERROR,
+  screenResolution,
+  fullscreenModeTooltip,
+} from './../../core/constants/constHome';
 import Page from '../../core/templates/Page';
 import './style.scss';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { backgroundMusic } from '../../core/constants/constAudio';
 
+let isPopupDisplay = true;
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
 
@@ -49,15 +58,52 @@ class HomePage extends Page {
     return rangeError;
   }
 
+  addTooltip(): HTMLDivElement {
+    const tooltip = document.createElement('div');
+    const tooltipWrap = document.createElement('div');
+    const informationalText = document.createElement('p');
+    const actionText = document.createElement('p');
+
+    tooltip.classList.add('tooltip');
+    tooltipWrap.classList.add('tooltip__wrapper');
+    informationalText.classList.add('tooltip__informational-text');
+    actionText.classList.add('tooltip__action-text');
+
+    informationalText.innerText = fullscreenModeTooltip.informationText;
+    actionText.innerText = fullscreenModeTooltip.actionText;
+
+    tooltipWrap.append(informationalText, actionText);
+    tooltip.append(tooltipWrap);
+
+    const toogler = true;
+    const flashing = setInterval(() => {
+      if (toogler) actionText.classList.toggle('active');
+    }, 1000);
+
+    actionText.addEventListener('click', () => {
+      this.hideTooltip(tooltip);
+      turnOnBackgroundMusic(backgroundMusic);
+      clearInterval(flashing);
+    });
+
+    return tooltip;
+  }
+
+  hideTooltip(element: HTMLDivElement): void {
+    element.classList.add('hide');
+    isPopupDisplay = false;
+  }
+
   render() {
     if (
-      document.documentElement.clientHeight < SCREEN_RESOLUTION.minHeight ||
-      document.documentElement.clientWidth < SCREEN_RESOLUTION.minWidth
+      document.documentElement.clientHeight < screenResolution.minHeight ||
+      document.documentElement.clientWidth < screenResolution.minWidth
     ) {
       this.container.append(this.rangeErrorOutput());
     } else {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
+      if (isPopupDisplay) this.container.append(this.addTooltip());
     }
 
     return this.container;

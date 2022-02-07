@@ -1,6 +1,8 @@
 import Page from '../../core/templates/Page';
 import { config } from '../../core/game/game';
 import './style.scss';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 
 class MainPage extends Page {
@@ -26,7 +28,8 @@ class MainPage extends Page {
     exitButton.href = '#levels-page';
     exitButton.textContent = 'V';
 
-    exitButton.addEventListener('click', () => {
+    exitButton.addEventListener('click', (e: MouseEvent) => {
+      turnOnBackgroundMusic(backgroundMusic, e);
       const canvasParent = document.getElementById('first-step');
       canvasParent?.classList.add('hidden');
     });

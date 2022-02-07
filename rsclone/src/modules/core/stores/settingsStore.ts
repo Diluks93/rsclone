@@ -1,3 +1,4 @@
+import { StorageKey } from '../enums/enums';
 import { LanguageKeys, SettingsConfigType } from './../types/types';
 
 const defaultConfig: SettingsConfigType = {
@@ -30,10 +31,13 @@ class SettingsStore {
     isTimeLimitEnabled,
     isTricksReportEnabled,
   }: SettingsConfigType) {
-    this._languageValue = (localStorage.getItem('languageValue') as LanguageKeys) || languageValue;
-    this._volumeValue = volumeValue;
-    this._isSoundEnabled = isSoundEnabled;
-    this._isTimeLimitEnabled = isTimeLimitEnabled;
+    this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
+    this._volumeValue = localStorage.getItem(StorageKey.SoundVolume) || volumeValue;
+    if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null)
+      this._isSoundEnabled = isSoundEnabled;
+    else this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    this._isTimeLimitEnabled =
+      JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string) || isTimeLimitEnabled;
     this._isTricksReportEnabled = isTricksReportEnabled;
     this._windowWidth = window.innerWidth;
     this._windowHeight = window.innerHeight;

@@ -16,6 +16,7 @@ import {
 import Page from '../../core/templates/Page';
 import './style.scss';
 import SvgIcon from '../../core/components/svg-icon';
+import { StorageKey } from '../../core/enums/enums';
 
 const PAGE_NAME = 'settings-page';
 
@@ -47,12 +48,13 @@ class SettingsPage extends Page {
 
   createRangeSlider({ id, min, max, step, value, inputHandler }: SettingsRangeType): HTMLLabelElement {
     const range = document.createElement('input');
+    const musicVolume = localStorage.getItem(StorageKey.SoundVolume);
     range.type = 'range';
     range.id = id;
     range.min = min;
     range.max = max;
     range.step = step;
-    range.value = value;
+    range.value = musicVolume || value;
     range.classList.add(`${PAGE_NAME}__range`);
 
     const soundButton = document.createElement('button');
@@ -62,6 +64,14 @@ class SettingsPage extends Page {
     const label = document.createElement('label');
     label.classList.add(`${PAGE_NAME}__range-label`);
     label.append(soundButton, range);
+
+    if (musicVolume) {
+      range.style.backgroundImage = `
+				-webkit-gradient(linear, left top, right top,
+				color-stop(${musicVolume}, #ff6633),
+				color-stop(${musicVolume}, #fff))
+			`;
+    }
 
     range.addEventListener('input', inputHandler);
 
@@ -109,6 +119,7 @@ class SettingsPage extends Page {
     label.textContent = text;
 
     label.prepend(checkbox, checkmark);
+
     return label;
   }
 
@@ -150,9 +161,23 @@ class SettingsPage extends Page {
     return wrapper;
   }
 
+  updateSettings(): void {
+    const soundCheckedStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    const soundTimeLimitStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
+
+    if (soundCheckedStorage !== null) {
+      (this.soundCheckbox.firstChild as HTMLInputElement).checked = soundCheckedStorage;
+    }
+    if (soundTimeLimitStorage !== null) {
+      (this.timeLimitCheckbox.firstChild as HTMLInputElement).checked = soundTimeLimitStorage;
+    }
+  }
+
   render(): HTMLElement {
     this.container.append(this.backToMainButton);
     this.container.append(this.settingsWrapper);
+    this.updateSettings();
+
     return this.container;
   }
 }

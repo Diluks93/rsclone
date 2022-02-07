@@ -5,7 +5,12 @@ const PAGE_NAME = 'home-page';
 
 export const TEXT_ERROR = 'Out of screen range. Minimum resolution 1024x600.';
 
-export const SCREEN_RESOLUTION: ScreenResolutionType = {
+export const fullscreenModeTooltip = {
+  informationText: 'To switch to full screen mode, press "F"',
+  actionText: '[click here]',
+};
+
+export const screenResolution: ScreenResolutionType = {
   minHeight: 600,
   minWidth: 1024,
 };
