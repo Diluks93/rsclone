@@ -22,6 +22,7 @@ const enum StorageKey {
   SoundCheckbox = 'soundCheckbox',
   TimeLimitCheckbox = 'timeLimitCheckbox',
   isFullScreenModalShown = 'isFullScreenModalShown',
+  CurrentLevel = 'currentLevel',
 }
 
 const enum Frame {
@@ -50,6 +51,7 @@ const enum UrlSourceForGame {
 }
 
 const enum GameKey {
+  CanvasParent = 'first-step',
   Player = 'dude',
   Assets = 'assets',
   Map = 'map',
@@ -68,7 +70,8 @@ const enum SceneKey {
   InterfaceScene = 'ui-scene',
   PreloadScene = 'preload-scene',
   TutorialScene = 'tutorial-scene',
-  FirstStep = 'first-step',
+  FirstSteps = 'first-steps',
+  ManagerScene = 'manager-scene',
 }
 
 export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey };

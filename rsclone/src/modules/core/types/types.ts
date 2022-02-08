@@ -47,6 +47,7 @@ type SettingsConfigType = {
   isSoundEnabled: boolean;
   isTimeLimitEnabled: boolean;
   isTricksReportEnabled: boolean;
+  currentLevel: number;
 };
 
 type LanguageKeys = 'ru' | 'en';
@@ -114,7 +115,7 @@ type LevelDetailsType = {
 };
 
 type LevelPreviewType = {
-  id: string;
+  id: number;
   imageUrl: string;
   isLocked: boolean;
 };

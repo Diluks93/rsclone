@@ -10,7 +10,7 @@ export const actionLabelFontConfig = {
 
 export const tutorialSpeechFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
   backgroundColor: 'rgba(0,0,0,0.5)',
-  fixedWidth: speechConfig.screenWidth / 2,
+  fixedWidth: 800,
   padding: 20 as Phaser.Types.GameObjects.Text.TextPadding,
   fixedHeight: speechConfig.portraitSize,
   color: '#fff',

@@ -42,7 +42,7 @@ export default class TutorialScene extends Phaser.Scene {
     this.speechText = this.add.text(portraitSize, 0, speech[this.speechCount], tutorialSpeechFontConfig);
     this.speechText.setInteractive();
 
-    const hintText = this.add.text(screenWidth / 2 - 100, portraitSize - offset, hint, tutorialHintFontConfig);
+    const hintText = this.add.text(screenWidth / 2 + offset, portraitSize - offset, hint, tutorialHintFontConfig);
     this.tweens.add({
       targets: hintText,
       alpha: 0,
@@ -71,7 +71,7 @@ export default class TutorialScene extends Phaser.Scene {
         this.speechContainer.setVisible(false);
         this.scene.sleep(SceneKey.TutorialScene);
         this.scene.launch(SceneKey.InterfaceScene);
-        this.scene.resume(SceneKey.FirstStep);
+        this.scene.resume(SceneKey.FirstSteps);
       }
     });
   }
