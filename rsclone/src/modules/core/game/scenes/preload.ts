@@ -1,26 +1,22 @@
-import bricks from '../../../../assets/game/bricks.jpg';
 import director from '../../../../assets/game/director.png';
 import pen from '../../../../assets/game/pen.png';
 import fake from '../../../../assets/game/fake-door.png';
-import { GameKey, UrlSourceForGame } from '../../enums/enums';
+import trickedPicture from '../../../../assets/game/picture-2.png';
+import picture from '../../../../assets/game/picture-1.png'
+
+import { GameKey, UrlSourceForGame, SceneKey } from '../../enums/enums';
+import { loaderFontConfig } from './../../constants/gameTextConfig';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
 const PROGRESS_BOX_HEIGHT = 50;
 
-const loaderFontConfig = {
-  sizeL: '20px',
-  sizeM: '18px',
-  family: '"Open Sans", sans-serif',
-};
-
 export default class PreloadScene extends Phaser.Scene {
   cameraCenterX = 0;
-
   cameraCenterY = 0;
 
   constructor() {
-    super({ key: 'preload-scene' });
+    super({ key: SceneKey.PreloadScene });
   }
 
   preload(): void {
@@ -93,6 +89,7 @@ export default class PreloadScene extends Phaser.Scene {
       PROGRESS_BOX_WIDTH,
       PROGRESS_BOX_HEIGHT
     );
+
     return progressBox;
   }
 
@@ -118,9 +115,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio(GameKey.MusicGame, UrlSourceForGame.MusicGame);
     this.load.audio(GameKey.SoundFootsteps, UrlSourceForGame.SoundFootsteps);
     this.load.audio(GameKey.SoundPrank, UrlSourceForGame.SoundPrank);
-    this.load.image(GameKey.Bricks, bricks);
     this.load.image(GameKey.Director, director);
     this.load.image(GameKey.Pen, pen);
     this.load.image(GameKey.Fake, fake);
+    this.load.image(GameKey.Picture, picture);
+    this.load.image(GameKey.TrickedPicture, trickedPicture);
   }
-}
+};

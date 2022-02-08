@@ -63,22 +63,13 @@ type DescriptionType = {
   levelDescriptionId: string;
 };
 
-interface LinkButtonInterface {
-  startGameButton: LinkButtonType;
-  openSettingsButton: LinkButtonType;
-  openAuthorsButton: LinkButtonType;
-}
-
-interface AuthorButtonInterface {
-  diluksAuthorButton: LinkButtonType;
-  jenyaAuthorButton: LinkButtonType;
-  randomspellsAuthorButton: LinkButtonType;
-}
-
-interface GameTranslationInterface {
-  ru: GameTranslationType;
-  en: GameTranslationType;
-}
+type TargetItemConfigType = {
+  x: number;
+  y: number;
+  originalItemKey: string;
+  trickedItemKey: string;
+  actionItemKey: string;
+};
 
 type GameTranslationType = {
   gameTitle: string;
@@ -98,6 +89,9 @@ type GameTranslationType = {
   jenyaSubtitle: string;
   randomspellsSubtitle: string;
   levelDetailsBlock: Array<LevelDetailsType>;
+  tutorialSpeech: string[];
+  tutorialHint: string;
+  exitWarning: string;
 };
 
 type LevelDetailsType = {
@@ -122,7 +116,34 @@ interface Door extends Phaser.Types.Physics.Arcade.GameObjectWithBody {
   x: number;
   y: number;
   setVisible(visible: boolean): void;
-}
+};
+
+interface LinkButtonInterface {
+  startGameButton: LinkButtonType;
+  openSettingsButton: LinkButtonType;
+  openAuthorsButton: LinkButtonType;
+};
+
+interface AuthorButtonInterface {
+  diluksAuthorButton: LinkButtonType;
+  jenyaAuthorButton: LinkButtonType;
+  randomspellsAuthorButton: LinkButtonType;
+};
+
+interface GameTranslationInterface {
+  ru: GameTranslationType;
+  en: GameTranslationType;
+};
+
+interface LevelTitleInterface {
+  tutorialTitle: TitleType;
+  seasonOneTitle: TitleType;
+  levelDetailsTitle: TitleType;
+};
+
+interface LevelPreviewInterface {
+  [key: string]: LevelPreviewType[];
+};
 
 export {
   SettingsCheckboxType,
@@ -139,5 +160,8 @@ export {
   AuthorButtonInterface,
   LevelPreviewType,
   ScreenResolutionType,
-  Door
+  Door,
+  TargetItemConfigType,
+  LevelTitleInterface,
+  LevelPreviewInterface,
 };

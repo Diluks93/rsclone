@@ -6,18 +6,22 @@ const enum PageId {
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
   LevelSelectPage = 'levels-page',
-}
+};
 
 const enum ErrorType {
   Error_404 = '404',
-}
+};
 
 const enum StorageKey {
   HomeTranslation = 'homeTranslation',
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
   SettingsTranslation = 'settingsTranslation',
-}
+  LanguageValue = 'languageValue',
+  SoundVolume = 'soundVolume',
+  SoundCheckbox = 'soundCheckbox',
+  TimeLimitCheckbox = 'timeLimitCheckbox',
+};
 
 const enum Frame {
   RearViewStart,
@@ -32,7 +36,7 @@ const enum Frame {
   LeftViewStart,
   LeftView,
   LeftViewEnd,
-}
+};
 
 const enum UrlSourceForGame {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
@@ -43,7 +47,7 @@ const enum UrlSourceForGame {
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
   SoundPrank = 'audio/prank.mp3',
-}
+};
 
 const enum GameKey {
   Player = 'dude',
@@ -58,21 +62,41 @@ const enum GameKey {
   Director = 'director',
   Pen = 'pen',
   Fake = 'fake-door',
-}
+  Picture = 'picture',
+  TrickedPicture = 'trickedPicture',
+};
+  
+const enum SceneKey {
+  InterfaceScene = 'ui-scene',
+  PreloadScene = 'preload-scene',
+  TutorialScene = 'tutorial-scene',
+  FirstStep = 'first-step',
+};
 
 const enum ScoreOperations {
   Increase,
   Decrease,
-  SetValue
-}
+  SetValue,
+};
 
 const enum GameStatus {
   Win,
-  Lose
-}
+  Lose,
+};
 
 const enum Event {
   GameEnd = 'game-end',
-}
+};
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, ScoreOperations, GameStatus, Event };
+export {
+  PageId,
+  ErrorType,
+  StorageKey,
+  Frame,
+  UrlSourceForGame,
+  GameKey,
+  ScoreOperations,
+  GameStatus,
+  Event,
+  SceneKey,
+};

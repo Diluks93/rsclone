@@ -1,11 +1,11 @@
-const tile = 32;
+export const tile = 32;
 
-const sizeWorld = {
+export const sizeWorld = {
   width: 3840,
   height: 1536,
 };
 
-const mapLayer = {
+export const mapLayer = {
   platforms: 'platforms',
   bg: 'bg',
   bgWindow: 'bgWindow',
@@ -15,5 +15,3 @@ const mapLayer = {
     name: 'spawn-point',
   },
 };
-
-export { tile, sizeWorld, mapLayer }

@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
 import Actor from './actor';
-import Player from './voody';
+import Player from './player';
 
 export default class Neighbor extends Actor {
   private target: Player;
-
   private AGGRESSOR_RADIUS = 100;
 
   constructor(
@@ -39,4 +38,4 @@ export default class Neighbor extends Actor {
   public setTarget(target: Player): void {
     this.target = target;
   }
-}
+};

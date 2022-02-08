@@ -1,141 +1,79 @@
-import { Frame, GameKey } from '../../enums/enums';
+import Actor from './actor';
 
-const SPEED = 160;
+import { GameKey, GameStatus, Event } from '../../enums/enums';
+import { Text } from '../helpers/text'
 
-export default class Player {
-  scene;
-
-  keys;
-
-  sprite;
-
+export default class Player extends Actor {
+  private keyA: Phaser.Input.Keyboard.Key;
+  private keyD: Phaser.Input.Keyboard.Key;
+  private keySpace: Phaser.Input.Keyboard.Key;
+  private SPEED: number = 500;
+  public actionLabel: Text;
   playerSounds;
+  inventory: string[] = [];
+  isPerformTrick = false;
 
-  constructor(
-    scene?: Phaser.Scene,
-    x?: Phaser.Types.Tilemaps.TiledObject['x'],
-    y?: Phaser.Types.Tilemaps.TiledObject['y'],
-    playerSounds?: {
+  constructor(scene: Phaser.Scene, x: number, y: number, playerSounds: {
       [index: string]: Phaser.Sound.BaseSound;
-    }
-  ) {
-    if (scene && x && y) {
-      this.scene = scene;
-      this.playerSounds = playerSounds;
-
-      const anims = scene.anims;
-      anims?.create({
-        key: 'left',
-        frames: anims.generateFrameNumbers(
-          GameKey.Player, 
-          { 
-            start: Frame.LeftViewStart, 
-            end: Frame.LeftViewEnd 
-          }),
-        frameRate: 10,
-        repeat: -1,
-      });
-
-      anims?.create({
-        key: 'turn',
-        frames: [{ 
-          key: GameKey.Player, 
-          frame: Frame.FrontView 
-        }],
-        frameRate: 20,
-      });
-
-      anims?.create({
-        key: 'right',
-        frames: anims.generateFrameNumbers(
-          GameKey.Player, 
-          { 
-            start: Frame.RightViewStart, 
-            end: Frame.RightViewEnd 
-          }),
-        frameRate: 10,
-        repeat: -1,
-      });
-
-      anims?.create({
-        key: 'up',
-        frames: anims.generateFrameNumbers(
-          GameKey.Player, 
-          { 
-            start: Frame.RearViewStart, 
-            end: Frame.RearViewEnd 
-          }),
-        frameRate: 10,
-        repeat: -1,
-      });
-
-      anims?.create({
-        key: 'down',
-        frames: anims.generateFrameNumbers(
-          GameKey.Player, 
-          { 
-            start: Frame.FrontViewStart,
-            end: Frame.FrontViewEnd
-          }),
-        frameRate: 10,
-        repeat: -1,
-      });
-
-      if (x && y) {
-        this.sprite = scene.physics.add
-          .sprite(x, y, GameKey.Player, 7)
-          .setBounce(0.1)
-          .setCollideWorldBounds(true);
-      }
-
-      const { LEFT, RIGHT, UP, DOWN, SPACE, ESC } = Phaser.Input.Keyboard.KeyCodes;
-      this.keys = scene.input.keyboard.addKeys({
-        left: LEFT,
-        right: RIGHT,
-        up: UP,
-        down: DOWN,
-        space: SPACE,
-        esc: ESC,
-      });
-
-      scene.input.keyboard.on('keydown-' + 'E', () => {
-        this.playerSounds?.prank.play();
-      });
-    }
+    }) {
+    super(scene, x, y, GameKey.Player, 7);
+    this.keyA = this.scene.input.keyboard.addKey('A');
+    this.keyD = this.scene.input.keyboard.addKey('D');
+    this.keySpace = this.scene.input.keyboard.addKey(32);
+    this.keySpace.on('down', (event: KeyboardEvent) => {
+      this.anims.play('up', true);
+    });
+    this.getBody().setSize(190, 250);
+    this.getBody().setOffset(0, 0);
+    this.playerSounds = playerSounds;
+    this.actionLabel = new Text(this.scene, this.x, this.y - this.height, 'E')
+      .setFontSize(20)
+      .setOrigin(0.8,0.5)
   }
 
   update(): void {
-    const { keys, sprite } = this;
+    if (this.isPerformTrick) {
+      this.getBody().setVelocityX(0);
+      this.anims.play('up', true);
 
-    if (sprite) {
-      this.playerSounds?.footsteps.on('keyup', () => {
+      return;
+    }
+    this.playerSounds?.footsteps.on('keyup', () => {
         this.playerSounds?.footsteps.play();
-      });
-      if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).left.isDown) {
-        sprite.setVelocityX(-SPEED);
-        sprite.anims.play('left', true);
-      } else if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).right.isDown) {
-        sprite.setVelocityX(SPEED);
-        sprite.anims.play('right', true);
-      } else if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).up.isDown) {
-        sprite.setVelocityX(0);
-        sprite.anims.play('up', true);
-      } else if ((keys as Phaser.Types.Input.Keyboard.CursorKeys).down.isDown) {
-        sprite.setVelocityX(0);
-        sprite.anims.play('down', true);
-      } else {
-        sprite.setVelocityX(0);
-        sprite.anims.play('turn');
-      }
+    });
+    this.getBody().setVelocity(0);
+    if (this.keyA.isDown) {
+      this.body.velocity.x = -this.SPEED;
+      this.anims.play('left', true);
+    } else if (this.keyD.isDown) {
+      this.body.velocity.x = this.SPEED;
+      this.anims.play('right', true);
+    } else {
+      this.anims.play('turn', true);
+    }
 
-      if (
-        (keys as Phaser.Types.Input.Keyboard.CursorKeys).left.isUp &&
-        (keys as Phaser.Types.Input.Keyboard.CursorKeys).right.isUp &&
-        (keys as Phaser.Types.Input.Keyboard.CursorKeys).up.isUp &&
-        (keys as Phaser.Types.Input.Keyboard.CursorKeys).down.isUp
-      ) {
-        this.playerSounds?.footsteps.play();
-      }
+    if (this.keyA.isUp && this.keyD.isUp) {
+      this.playerSounds.footsteps.play();
+    }
+
+    this.actionLabel.setPosition(this.x + 10, this.y - this.height * 0.4);
+    this.actionLabel.setOrigin(0.8, 0.5);
+  }
+
+  public getDamage(value: number): void {
+    super.getDamage(value);
+    if (this.hp <= 0) {
+      this.scene.game.events.emit(Event.GameEnd, GameStatus.Lose)
     }
   }
-}
+
+  addItem(itemKey: string) {
+    this.inventory.push(itemKey);
+    this.scene!.events.emit('additem', itemKey);
+  }
+
+  removeItem(itemKey: string) {
+    this.inventory = this.inventory.filter((item) => item !== itemKey);
+    this.scene!.events.emit('removeitem', itemKey);
+  }
+};

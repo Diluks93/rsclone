@@ -1,19 +1,19 @@
-import { settingsStore } from './../../core/stores/settingsStore';
-import gameTranslation from '../../core/data/gameTranslation.json';
+import Page from '../../core/templates/Page';
 import MainPage from '../main/index';
 import SettingsPage from '../settings/index';
 import AuthorsPage from '../authors/index';
 import HomePage from '../home/index';
 import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
-import Page from '../../core/templates/Page';
+import gameTranslation from '../../core/data/gameTranslation.json';
+
+import { settingsStore } from './../../core/stores/settingsStore';
 import { PageId, ErrorType } from '../../core/enums/enums';
+import { toggleFullScreen } from '../../core/utils/utils';
 
 class App {
   private static container: HTMLElement = document.body;
-
   private static defaultPageId: string = PageId.CurrentPage;
-
   private initialPage: HomePage;
 
   static renderNewPage(idPage: string) {
@@ -68,8 +68,12 @@ class App {
     App.renderNewPage(PageId.HomePage);
     this.enableRouteChange();
 
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.keyCode === 70) toggleFullScreen();
+    });
+
     window.location.hash = PageId.HomePage;
   }
-}
+};
 
 export default App;

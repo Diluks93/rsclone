@@ -6,9 +6,9 @@ import UIScene from './scenes/ui';
 
 export const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
-  parent: 'current-page',
   scale: {
     mode: Phaser.Scale.RESIZE,
+    parent: 'game',
     width: window.innerWidth,
     height: window.innerHeight,
   },
@@ -29,9 +29,9 @@ export const config: Phaser.Types.Core.GameConfig = {
   },
   autoFocus: true,
   audio: {
-    disableWebAudio: false,
+    disableWebAudio: true,
   },
-  scene: [PreloadScene, GameScene, UIScene, /* TutorialScene, */],
+  scene: [PreloadScene, GameScene, UIScene, TutorialScene,],
 };
 
 window.sizeChanged = () => {

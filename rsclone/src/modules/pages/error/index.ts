@@ -13,7 +13,7 @@ class ErrorPage extends Page {
     this.errorType = errorType;
   }
 
-  render() {
+  render(): HTMLElement {
     return this.container;
   }
 }

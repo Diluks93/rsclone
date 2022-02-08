@@ -6,15 +6,16 @@ abstract class Component {
     this.container.className = className;
   }
 
-  renderPageButtons() {
+  renderPageButtons(): void {
     const pageButtons = document.createElement('a');
     this.container.append(pageButtons);
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderPageButtons();
+
     return this.container;
   }
-}
+};
 
 export default Component;

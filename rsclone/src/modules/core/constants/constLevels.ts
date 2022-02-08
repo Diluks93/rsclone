@@ -1,4 +1,4 @@
-import { DescriptionType, LevelPreviewType, LinkButtonType, TitleType } from '../types/types';
+import { DescriptionType, LevelPreviewInterface, LinkButtonType, LevelTitleInterface } from '../types/types';
 
 const NUMBER_SERIES_SECTIONS = 2;
 const PREPARATORY_LEVEL_NUMBER = 3;
@@ -9,12 +9,6 @@ export const numericConstants = {
   PREPARATORY_LEVEL_NUMBER,
   MAIN_LEVEL_NUMBER,
 };
-
-interface LevelTitleInterface {
-  tutorialTitle: TitleType;
-  seasonOneTitle: TitleType;
-  levelDetailsTitle: TitleType;
-}
 
 export const levelPageTitleProps: LevelTitleInterface = {
   tutorialTitle: {
@@ -41,10 +35,6 @@ export const levelDetailsProps: DescriptionType = {
   hintId: 'hintText',
   levelDescriptionId: 'levelDescriptionText',
 };
-
-interface LevelPreviewInterface {
-  [key: string]: LevelPreviewType[];
-}
 
 export const levelPreviewProps: LevelPreviewInterface = {
   tutorialTitle: [

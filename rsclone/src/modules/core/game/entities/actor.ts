@@ -95,4 +95,4 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
       repeat: -1,
     });
   }
-}
+};

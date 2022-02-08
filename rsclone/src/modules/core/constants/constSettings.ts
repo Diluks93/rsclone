@@ -1,5 +1,10 @@
-import { PageId } from '../enums/enums';
+import Page from '../templates/Page';
 import gameTranslation from '../data/gameTranslation.json';
+
+import { PageId, StorageKey } from '../enums/enums';
+import { settingsStore } from './../../core/stores/settingsStore';
+import { adjustVolume, turnOnBackgroundMusic } from '../utils/utils';
+import { backgroundMusic } from './constAudio';
 import {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -8,12 +13,10 @@ import {
   LanguageKeys,
   TitleType,
 } from './../types/types';
-import { settingsStore } from './../../core/stores/settingsStore';
-import Page from '../templates/Page';
 
 export const TEXT_NODE = 3;
-const PAGE_NAME = 'settings-page';
 
+const PAGE_NAME = 'settings-page';
 export const settingsTitleProps: TitleType = {
   pageName: PAGE_NAME,
   id: 'settingsTitle',
@@ -26,7 +29,7 @@ export const selectProps: SettingsSelectType = {
   changeHandler(e: Event, page: Page): void {
     if (e.target instanceof HTMLSelectElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
-      localStorage.setItem('languageValue', e.target.value);
+      localStorage.setItem(StorageKey.LanguageValue, e.target.value);
       page.setPageLanguage(gameTranslation, settingsStore.languageValue);
     }
   },
@@ -40,14 +43,15 @@ export const rangeProps: SettingsRangeType = {
   step: '0.1',
   value: settingsStore.volumeValue,
   inputHandler(e: Event): void {
-    const target = e.target;
-    if (target instanceof HTMLInputElement) {
-      settingsStore.volumeValue = target.value;
+    if (e.target instanceof HTMLInputElement) {
+      settingsStore.volumeValue = e.target.value;
+      adjustVolume(backgroundMusic, +e.target.value);
+      localStorage.setItem(StorageKey.SoundVolume, e.target.value);
 
-      target.style.backgroundImage = `
-          -webkit-gradient(linear, left top, right top, 
-          color-stop(${target.value}, #ff6633), 
-          color-stop(${target.value}, #fff))
+      e.target.style.backgroundImage = `
+          -webkit-gradient(linear, left top, right top,
+          color-stop(${e.target.value}, #ff6633),
+          color-stop(${e.target.value}, #fff))
         `;
     }
   },
@@ -60,6 +64,8 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     isEnabled: settingsStore.isSoundEnabled,
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
+      localStorage.setItem(StorageKey.SoundCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
+      turnOnBackgroundMusic(backgroundMusic);
     },
   },
 
@@ -69,6 +75,7 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     isEnabled: settingsStore.isTimeLimitEnabled,
     clickHandler(): void {
       settingsStore.isTimeLimitEnabled = !settingsStore.isTimeLimitEnabled;
+      localStorage.setItem(StorageKey.TimeLimitCheckbox, JSON.stringify(settingsStore.isTimeLimitEnabled));
     },
   },
 };
