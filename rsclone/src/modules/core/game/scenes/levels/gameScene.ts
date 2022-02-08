@@ -11,7 +11,6 @@ import { settingsStore } from '../../../stores/settingsStore';
 
 export default abstract class GameScene extends Phaser.Scene {
   private tile = tile;
-  private mapLayer = mapLayer;
   private sizeWorld = sizeWorld;
   private actionKeyE: Phaser.Input.Keyboard.Key | undefined;
   private music: Phaser.Sound.BaseSound | undefined;
@@ -26,10 +25,12 @@ export default abstract class GameScene extends Phaser.Scene {
   };
   protected cursor: ReturnType<<T>() => T>;
   protected player!: Player;
+  protected map: Phaser.Tilemaps.Tilemap | undefined;
   protected trickSourceItems: TrickSourceItem[] = [];
   protected trickTargetItems: TrickTargetItem[] = [];
   protected floor: Phaser.Tilemaps.TilemapLayer | undefined;
-
+  protected mapLayer = mapLayer;
+  
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
     this.playerSounds = {};
@@ -38,8 +39,8 @@ export default abstract class GameScene extends Phaser.Scene {
   public create(): void {
     this.actionKeyE = this.input.keyboard.addKey('E');
 
-    const map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
-    const tileset = map.addTilesetImage('assets', 'assets');
+    this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
+    const tileset = this.map.addTilesetImage('assets', 'assets');
     const soundConfig = { volume: Number(settingsStore.volumeValue) };
 
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
@@ -47,19 +48,18 @@ export default abstract class GameScene extends Phaser.Scene {
     this.music = this.sound.add(GameKey.MusicGame, soundConfig);
     this.music.play();
     
-    this.floor = map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
-    this.bg = map.createLayer(this.mapLayer.bg, tileset, 0, 0);
-    this.bgDoors = map.createLayer(this.mapLayer.bgDoors, tileset, 0, 0);
-    this.bgWindow = map.createLayer(this.mapLayer.bgWindow, tileset, 0, 0);
+    this.floor = this.map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
+    this.bg = this.map.createLayer(this.mapLayer.bg, tileset, 0, 0);
+    this.bgDoors = this.map.createLayer(this.mapLayer.bgDoors, tileset, 0, 0);
+    this.bgWindow = this.map.createLayer(this.mapLayer.bgWindow, tileset, 0, 0);
     
     this.floor.setCollisionByExclusion([-1], true);
 
-    const spawnPoint = map.findObject(this.mapLayer.object.id, (obj) => obj.name === this.mapLayer.object.name);
-
+    const spawnPoint = this.map.findObject(this.mapLayer.object.id.object, (obj) => obj.name === this.mapLayer.object.name.spawnPlayer);
     this.player = new Player(this, spawnPoint.x as number, spawnPoint.y as number, this.playerSounds);
 
     const fakeObjects = this.physics.add.staticGroup();
-    const doorObjects = map.getObjectLayer('doors')['objects'];
+    const doorObjects = this.map.getObjectLayer('doors')['objects'];
     this.establishObjectOfDoor(doorObjects, fakeObjects);
 
     this.cursor = this.input.keyboard.createCursorKeys();
@@ -85,7 +85,7 @@ export default abstract class GameScene extends Phaser.Scene {
         this
         ) 
 
-    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
     this.cameras.main.setBounds(0, 0, this.sizeWorld.width, this.sizeWorld.height);
     if (this.player) 
@@ -98,7 +98,7 @@ export default abstract class GameScene extends Phaser.Scene {
 
     this.scene.launch(SceneKey.TutorialScene);
     this.scene.launch(SceneKey.InterfaceScene);
-    this.scene.pause(SceneKey.FirstStep);
+    this.scene.pause(/* SceneKey.FirstStep */ SceneKey.Forward);
   }
 
   update(): void {

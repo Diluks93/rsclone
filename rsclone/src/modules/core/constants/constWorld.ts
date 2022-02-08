@@ -11,7 +11,16 @@ export const mapLayer = {
   bgWindow: 'bgWindow',
   bgDoors: 'bgDoors',
   object: {
-    id: 'object',
-    name: 'spawn-point',
+    id: { 
+      object: 'object', 
+      things: 'things',
+      neighbor: 'neighbor',
+    },
+    name: {
+      spawnPlayer: 'spawn-point',
+      spawnPen: 'pen',
+      spawnPicture: 'picture',
+      spawnNeighbor: 'spawn-neighbor',
+    },
   },
 };

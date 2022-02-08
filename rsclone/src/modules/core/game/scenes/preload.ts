@@ -75,7 +75,7 @@ export default class PreloadScene extends Phaser.Scene {
       progressBar.destroy();
       persentText.destroy();
       assetText.destroy();
-      this.scene.start(SceneKey.FirstStep);
+      this.scene.start(/* SceneKey.FirstStep */ SceneKey.Forward);
     });
   }
 

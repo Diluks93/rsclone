@@ -4,7 +4,7 @@ import Player from './player';
 
 export default class Neighbor extends Actor {
   private target: Player;
-  private AGGRESSOR_RADIUS = 100;
+  private AGGRESSOR_RADIUS = 200;
 
   constructor(
     scene: Phaser.Scene,

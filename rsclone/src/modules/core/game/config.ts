@@ -32,7 +32,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
   audio: {
     disableWebAudio: true,
   },
-  scene: [PreloadScene, FirstStep, UIScene, TutorialScene,],
+  scene: [PreloadScene, /* FirstStep */ Forward, UIScene, TutorialScene,],
 };
 
 window.sizeChanged = () => {
