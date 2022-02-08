@@ -25,8 +25,9 @@ export const settingsTitleProps: TitleType = {
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
   options: ['ru', 'en'],
+  iconId: 'chevron-up',
   changeHandler(e: Event, page: Page): void {
-    if (e.target instanceof HTMLSelectElement) {
+    if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
       localStorage.setItem(StorageKey.LanguageValue, e.target.value);
       page.setPageLanguage(gameTranslation, settingsStore.languageValue);

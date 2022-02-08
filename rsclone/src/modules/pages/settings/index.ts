@@ -1,3 +1,4 @@
+import { settingsStore } from './../../core/stores/settingsStore';
 import { TEXT_NODE } from './../../core/constants/constSettings';
 import {
   SettingsCheckboxType,
@@ -79,27 +80,53 @@ class SettingsPage extends Page {
   }
 
   createLanguageSelect(props: SettingsSelectType): HTMLDivElement {
-    const { id, options, changeHandler } = props;
-    const customSelect = document.createElement('div');
-    customSelect.classList.add(`${PAGE_NAME}__custom-select`, 'basic-hover');
-    const select = document.createElement('select');
-    select.classList.add(`${PAGE_NAME}__select`);
-    select.id = id;
+    const { id, options, iconId, changeHandler } = props;
+    const currentLanguage = settingsStore.languageValue;
 
+    const selectWrapper = document.createElement('div');
+    selectWrapper.classList.add(`${PAGE_NAME}__custom-select`);
+
+    const selectCurrentWrapper = document.createElement('div');
+    selectCurrentWrapper.classList.add(`${PAGE_NAME}__current-wrapper`, 'basic-hover');
+    const selectCurrentOption = document.createElement('span');
+
+    selectCurrentOption.textContent = currentLanguage;
+    selectCurrentWrapper.append(selectCurrentOption);
+    selectCurrentWrapper.append(new SvgIcon(iconId).render());
+
+    const selectOptionsWrapper = document.createElement('div');
+    selectOptionsWrapper.classList.add(`${PAGE_NAME}__options-wrapper`, 'hidden');
     options.forEach((option) => {
-      const optionElement = document.createElement('option');
-      optionElement.value = option;
-      optionElement.textContent = option;
-      select.append(optionElement);
+      const radioWrapper = document.createElement('div');
+      radioWrapper.classList.add('basic-hover');
+      const radioButton = document.createElement('input');
+      if (currentLanguage === option) {
+        radioButton.checked = true;
+      }
+      radioButton.type = 'radio';
+      radioButton.name = 'lang';
+      radioButton.value = option;
+      radioButton.id = option;
+      radioButton.addEventListener('click', (e) => {
+        selectOptionsWrapper.classList.add('hidden');
+        selectCurrentWrapper.classList.remove('expanded');
+        changeHandler(e, this);
+      });
+      const radioLabel = document.createElement('label');
+      radioLabel.textContent = option;
+      radioLabel.htmlFor = option;
+      radioWrapper.append(radioLabel, radioButton);
+      selectOptionsWrapper.append(radioWrapper);
     });
 
-    select.addEventListener('change', (e) => {
-      changeHandler(e, this);
+    selectCurrentWrapper.addEventListener('click', () => {
+      selectCurrentWrapper.classList.toggle('expanded');
+      selectOptionsWrapper.classList.toggle('hidden');
     });
 
-    customSelect.append(select);
+    selectWrapper.append(selectCurrentWrapper, selectOptionsWrapper);
 
-    return customSelect;
+    return selectWrapper;
   }
 
   createCheckbox({ id, isEnabled, text, clickHandler }: SettingsCheckboxType): HTMLLabelElement {
@@ -125,9 +152,9 @@ class SettingsPage extends Page {
 
   setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     this.settingsTitle.textContent = translation[lang].settingsTitle;
-    const selectLabelFirstChild = this.languageSelect.firstElementChild;
-    if (selectLabelFirstChild instanceof HTMLSelectElement) {
-      selectLabelFirstChild.value = lang;
+    const selectCurrentOption = this.languageSelect.firstElementChild?.firstElementChild;
+    if (selectCurrentOption instanceof HTMLSpanElement) {
+      selectCurrentOption.textContent = lang;
     }
 
     const soundLastChild = this.soundCheckbox.lastChild;
