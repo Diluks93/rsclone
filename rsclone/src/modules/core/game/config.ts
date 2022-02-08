@@ -5,7 +5,9 @@ import UIScene from './scenes/ui';
 import FirstStep from './scenes/levels/firstStep';
 import Forward from './scenes/levels/forward';
 
-export const gameConfig: Phaser.Types.Core.GameConfig = {
+import { GameConfigExtended } from '../types/types';
+
+export const gameConfig: GameConfigExtended = {
   type: Phaser.AUTO,
   scale: {
     mode: Phaser.Scale.RESIZE,
@@ -33,6 +35,7 @@ export const gameConfig: Phaser.Types.Core.GameConfig = {
     disableWebAudio: true,
   },
   scene: [PreloadScene, /* FirstStep */ Forward, UIScene, TutorialScene,],
+  winScore: 70,
 };
 
 window.sizeChanged = () => {

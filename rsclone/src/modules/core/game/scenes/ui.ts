@@ -1,7 +1,9 @@
 import Phaser from 'phaser';
 import Score from '../helpers/score';
+
 import { Text } from '../helpers/text';
 import { GameKey, ScoreOperations, Event, GameStatus, SceneKey } from '../../enums/enums';
+import { gameConfig } from '../config'
 
 export default class UIScene extends Phaser.Scene {
   private score!: Score;
@@ -19,8 +21,12 @@ export default class UIScene extends Phaser.Scene {
   constructor() {
     super({ key: SceneKey.InterfaceScene });
     this.doorHandler = () => {
-      this.score.changeValue(ScoreOperations.Increase, 25)
-    }
+      this.score.changeValue(ScoreOperations.Increase, 25);
+      if (this.score.getValue() === gameConfig.winScore) {
+        this.game.events.emit(Event.GameEnd, GameStatus.Win)
+      }
+    };
+
     this.gameEndHandler = (status) => {
       this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6');
       this.game.scene.pause(/* SceneKey.FirstStep */ SceneKey.Forward);
@@ -33,16 +39,23 @@ export default class UIScene extends Phaser.Scene {
           ? `YOU DIED!\nCLICK TO RESTART`
           : `YOU WIN!\nCLICK TO RESTART`,
       ).setAlign('center')
-      .setColor(status === GameStatus.Lose ? '#ff0000' : '#ffffff');
-    this.gameEndPhrase.setPosition(
-      this.game.scale.width / 2 - this.gameEndPhrase.width / 2,
-      this.game.scale.height * 0.4,
-      )
-    }
+       .setColor(status === GameStatus.Lose ? '#ff0000' : '#ffffff');
+      this.gameEndPhrase.setPosition(
+        this.game.scale.width / 2 - this.gameEndPhrase.width / 2,
+        this.game.scale.height * 0.4,
+        );
+
+      this.input.on('pointerdown', () => {
+        this.game.events.off(GameKey.Fake, this.doorHandler);
+        this.game.events.off(Event.GameEnd, this.gameEndHandler);
+        this.scene.get(/*SceneKey.FirstStep*/ SceneKey.Forward).scene.restart();
+        this.scene.restart();
+      });
+    };
   }
 
   create(): void {
-    this.score = new Score(this, 50, 50);
+    this.score = new Score(this, 50, 50, 0);
     this.initListeners();
     this.scene.get(/* SceneKey.FirstStep */ SceneKey.Forward).events.on('additem', (item: string) => {
       const i = this.inventoryItems.length;

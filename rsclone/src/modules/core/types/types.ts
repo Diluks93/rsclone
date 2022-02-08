@@ -112,6 +112,10 @@ type ScreenResolutionType = {
   minWidth: number;
 };
 
+type GameConfigExtended = Phaser.Types.Core.GameConfig & {
+  winScore: number;
+};
+
 interface Door extends Phaser.Types.Physics.Arcade.GameObjectWithBody {
   x: number;
   y: number;
@@ -164,4 +168,5 @@ export {
   TargetItemConfigType,
   LevelTitleInterface,
   LevelPreviewInterface,
+  GameConfigExtended,
 };
