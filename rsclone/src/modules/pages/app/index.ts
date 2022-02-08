@@ -9,6 +9,10 @@ import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageId, ErrorType } from '../../core/enums/enums';
 import { toggleFullScreen } from '../../core/utils/utils';
+import faceSprite from '../../../assets/image/faces/face-sprite.png';
+
+// faces spritesheet preload
+new Image().src = faceSprite;
 
 class App {
   private static container: HTMLElement = document.body;
