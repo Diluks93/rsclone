@@ -65,14 +65,14 @@ class App {
   }
 
   start(): void {
-    App.renderNewPage(PageId.HomePage);
+    App.renderNewPage(PageId.MainPage);
     this.enableRouteChange();
 
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.keyCode === 70) toggleFullScreen();
     });
 
-    window.location.hash = PageId.HomePage;
+    window.location.hash = PageId.MainPage;
   }
 };
 

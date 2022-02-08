@@ -42,7 +42,7 @@ export default class UIScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.score = new Score(this, 50, 100);
+    this.score = new Score(this, 50, 50);
     this.initListeners();
     this.scene.get(SceneKey.FirstStep).events.on('additem', (item: string) => {
       const i = this.inventoryItems.length;

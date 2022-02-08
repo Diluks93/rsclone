@@ -48,9 +48,9 @@ export default class Player extends Actor {
     } else if (this.keyD.isDown) {
       this.body.velocity.x = this.SPEED;
       this.anims.play('right', true);
-    } else {
+    } /* else {
       this.anims.play('turn', true);
-    }
+    } */
 
     if (this.keyA.isUp && this.keyD.isUp) {
       this.playerSounds.footsteps.play();

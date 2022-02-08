@@ -71,6 +71,7 @@ const enum SceneKey {
   PreloadScene = 'preload-scene',
   TutorialScene = 'tutorial-scene',
   FirstStep = 'first-step',
+  Forward = 'forward',
 };
 
 const enum ScoreOperations {

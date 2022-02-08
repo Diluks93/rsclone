@@ -1,5 +1,5 @@
 import Page from '../../core/templates/Page';
-import { config } from '../../core/game/config';
+import { gameConfig } from '../../core/game/config';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
@@ -70,7 +70,7 @@ class MainPage extends Page {
   }
 
   render(): HTMLElement {
-    window.game = new Phaser.Game(config);
+    window.game = new Phaser.Game(gameConfig);
     this.container.append(this.exitModal);
 
     return this.container;

@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
 import PreloadScene from './scenes/preload';
-import GameScene from './scenes/levels/firstStep';
 import TutorialScene from './scenes/tutorial';
 import UIScene from './scenes/ui';
+import FirstStep from './scenes/levels/firstStep';
+import Forward from './scenes/levels/forward';
 
-export const config: Phaser.Types.Core.GameConfig = {
+export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   scale: {
     mode: Phaser.Scale.RESIZE,
@@ -31,7 +32,7 @@ export const config: Phaser.Types.Core.GameConfig = {
   audio: {
     disableWebAudio: true,
   },
-  scene: [PreloadScene, GameScene, UIScene, TutorialScene,],
+  scene: [PreloadScene, FirstStep, UIScene, TutorialScene,],
 };
 
 window.sizeChanged = () => {
