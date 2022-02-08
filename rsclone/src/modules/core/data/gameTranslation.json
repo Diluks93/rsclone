@@ -45,7 +45,9 @@
       "Попробуй!"
     ],
     "tutorialHint": "Нажмите, чтобы продолжить",
-    "exitWarning": "Вы хотите покинуть игру?"
+    "exitWarning": "Вы хотите покинуть игру?",
+    "fullScreenWarningText": "Нажмите 'F' для входа \nв полноэкранный режим",
+    "fullScreenActionText": "[Продолжить]"
   },
 
   "en": {
@@ -94,6 +96,8 @@
       "Try it out!"
     ],
     "tutorialHint": "Click box to continue",
-    "exitWarning": "Do you want to exit game?"
+    "exitWarning": "Do you want to exit game?",
+    "fullScreenWarningText": "To switch to full screen mode, press 'F'",
+    "fullScreenActionText": "[Continue]"
   }
 }

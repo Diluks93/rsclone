@@ -102,6 +102,8 @@ type GameTranslationType = {
   tutorialSpeech: string[];
   tutorialHint: string;
   exitWarning: string;
+  fullScreenWarningText: string;
+  fullScreenActionText: string;
 };
 
 type LevelDetailsType = {
