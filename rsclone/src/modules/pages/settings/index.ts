@@ -80,7 +80,7 @@ class SettingsPage extends Page {
   }
 
   createLanguageSelect(props: SettingsSelectType): HTMLDivElement {
-    const { id, options, iconId, changeHandler } = props;
+    const { options, iconId, changeHandler } = props;
     const currentLanguage = settingsStore.languageValue;
 
     const selectWrapper = document.createElement('div');
