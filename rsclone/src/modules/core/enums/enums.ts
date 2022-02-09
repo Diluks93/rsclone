@@ -21,7 +21,7 @@ const enum StorageKey {
   SoundVolume = 'soundVolume',
   SoundCheckbox = 'soundCheckbox',
   TimeLimitCheckbox = 'timeLimitCheckbox',
-  isFullScreenModalShown = 'isFullScreenModalShown',
+  IsFullScreenModalShown = 'isFullScreenModalShown',
   CurrentLevel = 'currentLevel',
 }
 

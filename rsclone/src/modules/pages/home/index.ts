@@ -64,7 +64,7 @@ class HomePage extends Page {
 
     modalActionText.addEventListener('click', () => {
       fullScreenModal.classList.add('hidden');
-      localStorage.setItem(StorageKey.isFullScreenModalShown, JSON.stringify(true));
+      localStorage.setItem(StorageKey.IsFullScreenModalShown, JSON.stringify(true));
       turnOnBackgroundMusic(backgroundMusic);
     });
 
@@ -95,7 +95,7 @@ class HomePage extends Page {
 
       try {
         const isFullScreenModalShown: boolean = JSON.parse(
-          localStorage.getItem(StorageKey.isFullScreenModalShown) as string
+          localStorage.getItem(StorageKey.IsFullScreenModalShown) as string
         );
         if (!isFullScreenModalShown) {
           this.container.append(this.fullScreenModal);
