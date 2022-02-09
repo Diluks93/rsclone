@@ -1,14 +1,13 @@
 import Page from '../../core/templates/Page';
-import { config } from '../../core/game/game';
-import './style.scss';
+import { gameConfig } from '../../core/game/config';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { GameKey, PageId } from '../../core/enums/enums';
+import './style.scss';
 
 class MainPage extends Page {
   exitModal: HTMLElement;
-
   game: Phaser.Game | undefined;
 
   static TextObject = {
@@ -40,6 +39,7 @@ class MainPage extends Page {
       turnOnBackgroundMusic(backgroundMusic, e);
       this.closeGame();
     });
+
     return exitButton;
   }
 
@@ -77,6 +77,7 @@ class MainPage extends Page {
     const cancelButton = this.createCancelButton();
     modalInner.append(closeButton, cancelButton);
     modalWrapper.append(modalWarning, modalInner);
+
     return modalWrapper;
   }
 
@@ -85,11 +86,12 @@ class MainPage extends Page {
     modalWarning!.textContent = translation[lang].exitWarning;
   }
 
-  render() {
-    this.game = new Phaser.Game(config);
+  render(): HTMLElement {
+    this.game = new Phaser.Game(gameConfig);
     this.container.append(this.exitModal);
+
     return this.container;
   }
-}
+};
 
 export default MainPage;

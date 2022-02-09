@@ -1,16 +1,15 @@
-import { settingsStore } from './../../core/stores/settingsStore';
-import { levelPreviewProps, levelLinkButtonProps } from './../../core/constants/constLevels';
-import { levelDetailsProps } from '../../core/constants/constLevels';
-import { levelPageTitleProps } from '../../core/constants/constLevels';
 import Page from '../../core/templates/Page';
-import gameTranslation from '../../core/data/gameTranslation.json';
-import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
-import './style.scss';
 import SvgIcon from '../../core/components/svg-icon';
+import gameTranslation from '../../core/data/gameTranslation.json';
 import levelExample from '../../../assets/image/level/level-example.png';
+
+import { settingsStore } from './../../core/stores/settingsStore';
+import { levelPreviewProps, levelLinkButtonProps, levelDetailsProps, levelPageTitleProps } from './../../core/constants/constLevels';
+import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameKey } from '../../core/enums/enums';
+import './style.scss';
 
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';
@@ -20,29 +19,17 @@ const TOTAL_SCORE = 5;
 
 class LevelSelectPage extends Page {
   levelSelectLayout: HTMLDivElement;
-
   tutorialWrapper: HTMLDivElement;
-
   seasonOneWrapper: HTMLDivElement;
-
   levelDetailsWrapper: HTMLDivElement;
-
   tutorialTitle: HTMLElement;
-
   seasonOneTitle: HTMLElement;
-
   levelDetailslTitle: HTMLElement;
-
   scoreSpan: HTMLSpanElement;
-
   timeLimitSpan: HTMLSpanElement;
-
   hintSpan: HTMLSpanElement;
-
   previewImage: HTMLImageElement;
-
   levelDescriptionText: HTMLParagraphElement;
-
   playLevelButton: HTMLAnchorElement;
 
   constructor(id: string, className: string) {
@@ -103,7 +90,7 @@ class LevelSelectPage extends Page {
       const targetButton = e.target as HTMLButtonElement;
       const targetButtonId = Number(targetButton.id);
       settingsStore.currentLevel = targetButtonId;
-      this.setDescriptionLanguage(gameTranslation, settingsStore.languageValue, targetButtonId);
+      this.setDescriptionLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue, targetButtonId);
 
       const previouslySelectedButton = document.querySelector('.selected');
       if (previouslySelectedButton) {
@@ -132,12 +119,14 @@ class LevelSelectPage extends Page {
 
     const textSpan = document.createElement('span');
     paragraph.append(textSpan);
+
     return paragraph;
   }
 
   createScoreWrapper(id: string, iconId: string): HTMLSpanElement {
     const currentCount = this.createInfoSpan(id, iconId);
     currentCount.append(`${CURRENT_SCORE}/${TOTAL_SCORE}`);
+
     return currentCount;
   }
 
@@ -153,6 +142,7 @@ class LevelSelectPage extends Page {
     infoWrapper.append(this.timeLimitSpan, this.scoreSpan, this.hintSpan);
     innerBlock.append(this.previewImage, infoWrapper, this.levelDescriptionText);
     wrapper.append(this.levelDetailslTitle, innerBlock, this.playLevelButton);
+
     return wrapper;
   }
 
@@ -166,6 +156,7 @@ class LevelSelectPage extends Page {
   createWrapper(className: string): HTMLDivElement {
     const wrapper = document.createElement('div');
     wrapper.classList.add('wrapper', 'levels-page__wrapper', `${className}`);
+
     return wrapper;
   }
 
@@ -197,10 +188,10 @@ class LevelSelectPage extends Page {
     return layout;
   }
 
-  render() {
+  render(): HTMLElement {
     this.container.append(this.backToMainButton, this.levelSelectLayout);
     return this.container;
   }
-}
+};
 
 export default LevelSelectPage;

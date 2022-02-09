@@ -1,7 +1,8 @@
+import { PageId } from '../enums/enums';
 import { AuthorButtonInterface, TitleType } from '../types/types';
 
 export const authorsTitleProps: TitleType = {
-  pageName: 'authors-page',
+  pageName: PageId.AuthorsPage,
   id: 'authorsTitle',
   tagName: 'h1',
 };

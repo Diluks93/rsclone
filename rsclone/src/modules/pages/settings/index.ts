@@ -1,5 +1,9 @@
+import Page from '../../core/templates/Page';
+import SvgIcon from '../../core/components/svg-icon';
+
 import { settingsStore } from './../../core/stores/settingsStore';
 import { TEXT_NODE } from './../../core/constants/constSettings';
+import { PageId, StorageKey } from '../../core/enums/enums';
 import {
   SettingsCheckboxType,
   SettingsSelectType,
@@ -14,26 +18,17 @@ import {
   settingsLinkButtonProps,
   settingsTitleProps,
 } from '../../core/constants/constSettings';
-import Page from '../../core/templates/Page';
 import './style.scss';
-import SvgIcon from '../../core/components/svg-icon';
-import { StorageKey } from '../../core/enums/enums';
 
-const PAGE_NAME = 'settings-page';
+const PAGE_NAME = PageId.SettingsPage;
 
 class SettingsPage extends Page {
   settingsWrapper: HTMLDivElement;
-
   settingsTitle: HTMLElement;
-
   volumeRangeSlider: HTMLLabelElement;
-
   languageSelect: HTMLDivElement;
-
   soundCheckbox: HTMLLabelElement;
-
   timeLimitCheckbox: HTMLLabelElement;
-
   saveSettingsButton: HTMLAnchorElement;
 
   constructor(id: string, className: string) {
@@ -207,6 +202,6 @@ class SettingsPage extends Page {
 
     return this.container;
   }
-}
+};
 
 export default SettingsPage;

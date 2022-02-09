@@ -1,14 +1,13 @@
+import SvgIcon from '../components/svg-icon';
+
 import { backButtonProps } from './../constants/constBackButton';
 import { backToMainButton } from '../components/back-to-main-button';
 import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../types/types';
 import { TitleType } from '../types/types';
-import SvgIcon from '../components/svg-icon';
 
 abstract class Page {
   protected container: HTMLElement;
-
   static TextObject = {};
-
   backToMainButton: HTMLAnchorElement;
 
   constructor(id: string, className: string) {
@@ -28,6 +27,7 @@ abstract class Page {
     if (imageUrl !== undefined) {
       headerTitle.style.backgroundImage = `url(${imageUrl})`;
     }
+
     return headerTitle;
   }
 
@@ -52,6 +52,6 @@ abstract class Page {
   render(): HTMLElement {
     return this.container;
   }
-}
+};
 
 export default Page;

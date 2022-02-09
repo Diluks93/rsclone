@@ -1,20 +1,21 @@
-import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, screenResolution } from './../../core/constants/constHome';
 import Page from '../../core/templates/Page';
-import './style.scss';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { StorageKey } from '../../core/enums/enums';
+import {
+  homeTitleProps,
+  homeLinkButtonProps,
+  TEXT_ERROR,
+  screenResolution,
+} from './../../core/constants/constHome';
+import './style.scss';
 
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
-
   gameTitle: HTMLElement;
-
   startGameButton: HTMLAnchorElement;
-
   openSettingsButton: HTMLAnchorElement;
-
   openAuthorsButton: HTMLAnchorElement;
 
   fullScreenModal: HTMLDivElement;
@@ -83,7 +84,7 @@ class HomePage extends Page {
     actionText.textContent = translation[lang].fullScreenActionText;
   }
 
-  render() {
+  render(): HTMLElement {
     if (
       document.documentElement.clientHeight < screenResolution.minHeight ||
       document.documentElement.clientWidth < screenResolution.minWidth
@@ -107,6 +108,6 @@ class HomePage extends Page {
     turnOnBackgroundMusic(backgroundMusic);
     return this.container;
   }
-}
+};
 
 export default HomePage;

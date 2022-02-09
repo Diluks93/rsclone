@@ -1,8 +1,6 @@
 import { LinkButtonInterface, ScreenResolutionType, TitleType } from './../types/types';
 import { PageId } from '../enums/enums';
 
-const PAGE_NAME = 'home-page';
-
 export const TEXT_ERROR = 'Out of screen range. Minimum resolution 1024x600.';
 
 export const screenResolution: ScreenResolutionType = {
@@ -16,6 +14,7 @@ export const homeTitleProps: TitleType = {
   tagName: 'div',
 };
 
+const PAGE_NAME = PageId.HomePage;
 export const homeLinkButtonProps: LinkButtonInterface = {
   startGameButton: {
     pageName: PAGE_NAME,

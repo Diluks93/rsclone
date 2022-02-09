@@ -16,6 +16,6 @@
   "types": [ "Phaser" ],
   "include": [
     "**/*.ts",
-    "src/images.d.ts"
+    "src/modules.d.ts"
   ]
 }

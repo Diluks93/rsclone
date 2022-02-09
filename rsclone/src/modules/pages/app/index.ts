@@ -1,24 +1,24 @@
-import { settingsStore } from './../../core/stores/settingsStore';
-import gameTranslation from '../../core/data/gameTranslation.json';
+import Page from '../../core/templates/Page';
 import MainPage from '../main/index';
 import SettingsPage from '../settings/index';
 import AuthorsPage from '../authors/index';
 import HomePage from '../home/index';
 import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
-import Page from '../../core/templates/Page';
+import gameTranslation from '../../core/data/gameTranslation.json';
+import faceSprite from '../../../assets/image/faces/face-sprite.png';
+
+import { settingsStore } from './../../core/stores/settingsStore';
 import { PageId, ErrorType } from '../../core/enums/enums';
 import { toggleFullScreen } from '../../core/utils/utils';
-import faceSprite from '../../../assets/image/faces/face-sprite.png';
+import { GameTranslationInterface } from '../../core/types/types';
 
 // faces spritesheet preload
 new Image().src = faceSprite;
 
 class App {
   private static container: HTMLElement = document.body;
-
   private static defaultPageId: string = PageId.CurrentPage;
-
   private initialPage: HomePage;
 
   static renderNewPage(idPage: string) {
@@ -50,7 +50,7 @@ class App {
     }
 
     if (page) {
-      page.setPageLanguage(gameTranslation, settingsStore.languageValue);
+      page.setPageLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue);
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
       App.container.append(pageHTML);
@@ -70,15 +70,15 @@ class App {
   }
 
   start(): void {
-    App.renderNewPage(PageId.MainPage);
+    App.renderNewPage(PageId.HomePage);
     this.enableRouteChange();
 
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.keyCode === 70) toggleFullScreen();
     });
 
-    window.location.hash = PageId.MainPage;
+    window.location.hash = PageId.HomePage;
   }
-}
+};
 
 export default App;

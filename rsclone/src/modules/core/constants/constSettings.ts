@@ -1,5 +1,10 @@
-import { PageId, StorageKey } from '../enums/enums';
+import Page from '../templates/Page';
 import gameTranslation from '../data/gameTranslation.json';
+
+import { PageId, StorageKey } from '../enums/enums';
+import { settingsStore } from './../../core/stores/settingsStore';
+import { adjustVolume, turnOnBackgroundMusic } from '../utils/utils';
+import { backgroundMusic } from './constAudio';
 import {
   SettingsCheckboxType,
   SettingsRangeType,
@@ -7,15 +12,12 @@ import {
   SettingsSelectType,
   LanguageKeys,
   TitleType,
+  GameTranslationInterface,
 } from './../types/types';
-import { settingsStore } from './../../core/stores/settingsStore';
-import Page from '../templates/Page';
-import { adjustVolume, turnOnBackgroundMusic } from '../utils/utils';
-import { backgroundMusic } from './constAudio';
 
 export const TEXT_NODE = 3;
-const PAGE_NAME = 'settings-page';
 
+const PAGE_NAME = PageId.SettingsPage;
 export const settingsTitleProps: TitleType = {
   pageName: PAGE_NAME,
   id: 'settingsTitle',
@@ -30,7 +32,7 @@ export const selectProps: SettingsSelectType = {
     if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
       localStorage.setItem(StorageKey.LanguageValue, e.target.value);
-      page.setPageLanguage(gameTranslation, settingsStore.languageValue);
+      page.setPageLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue);
     }
   },
 };

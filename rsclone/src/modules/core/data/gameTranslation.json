@@ -40,8 +40,9 @@
       "Привет, добро пожаловать на обучающий уровень.",
       "Меня зовут Джо, я являюсь директором этого шоу.",
       "Сейчас я расскажу, как управлять героем игры, Вуди.",
-      "Стрелками на клавиатуре можно направлять Вуди влево или вправо.",
-      "А клик левой кнопкой мыши позволяет взаимодействовать с предметами и дверьми.",
+      "Используй А и D на клавиатуре можно направлять Вуди влево или вправо.",
+      "А нажатие Е позволяет взаимодействовать с предметами,",
+      "Жми пробел рядом с дверью, чтобы пройти в другую комнату",
       "Попробуй!"
     ],
     "tutorialHint": "Нажмите, чтобы продолжить",
@@ -89,10 +90,11 @@
     ],
     "tutorialSpeech": [
       "Hello and welcome to 'Neighbors from hell' tutorial.",
-      "My name is Andrew, I'm director of the show.",
+      "My name is Djo, I'm director of the show.",
       "I wanna show you how to control our hero, Woody.",
-      "Keybord arrows allow you to move Woody to the right or left.",
-      "Left mouse button allow you to interact with items and doors.",
+      "Keybord A and D allow you to move Woody to the right or left.",
+      "Keyboard E allow you to interact with items",
+      "Use keyboard Space front of door, that go next room",
       "Try it out!"
     ],
     "tutorialHint": "Click box to continue",

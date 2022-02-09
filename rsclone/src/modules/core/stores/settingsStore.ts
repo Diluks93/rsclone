@@ -108,6 +108,6 @@ class SettingsStore {
   set isTricksReportEnabled(value: boolean) {
     this._isTricksReportEnabled = value;
   }
-}
+};
 
 export const settingsStore = new SettingsStore(defaultConfig);

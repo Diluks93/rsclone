@@ -1,20 +1,16 @@
-import { authorsTitleProps, authorButtonProps } from './../../core/constants/constAuthors';
 import Page from '../../core/templates/Page';
-import './style.scss';
-import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../../core/types/types';
 import SvgIcon from '../../core/components/svg-icon';
+import { authorsTitleProps, authorButtonProps } from './../../core/constants/constAuthors';
+import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../../core/types/types';
+import './style.scss';
 
 const PAGE_NAME = 'authors-page';
 
 class AuthorsPage extends Page {
   authorButtonsWrapper: HTMLDivElement;
-
   authorsTitle: HTMLElement;
-
   diluksAuthorButton: HTMLDivElement;
-
   jenyaAuthorButton: HTMLDivElement;
-
   randomspellsAuthorButton: HTMLDivElement;
 
   constructor(id: string, className: string) {
@@ -87,11 +83,12 @@ class AuthorsPage extends Page {
     return wrapper;
   }
 
-  render() {
+  render(): HTMLElement {
     this.container.append(this.backToMainButton);
     this.container.append(this.authorButtonsWrapper);
+
     return this.container;
   }
-}
+};
 
 export default AuthorsPage;

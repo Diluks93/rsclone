@@ -6,11 +6,11 @@ const enum PageId {
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
   LevelSelectPage = 'levels-page',
-}
+};
 
 const enum ErrorType {
   Error_404 = '404',
-}
+};
 
 const enum StorageKey {
   HomeTranslation = 'homeTranslation',
@@ -38,21 +38,23 @@ const enum Frame {
   LeftViewStart,
   LeftView,
   LeftViewEnd,
-}
+};
 
 const enum UrlSourceForGame {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
-  TilemapJson = 'game/map/map-test.json',
+  TilemapJson = 'game/map/map.json',
   Player = 'game/voody.png',
+  Neighbor = 'game/neighbor.png',
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
   SoundPrank = 'audio/prank.mp3',
-}
+};
 
 const enum GameKey {
-  CanvasParent = 'first-step',
+  CanvasParent = 'game',
   Player = 'dude',
+  Neighbor = 'neighbor',
   Assets = 'assets',
   Map = 'map',
   MusicGame = 'music-game',
@@ -62,17 +64,34 @@ const enum GameKey {
   Bricks = 'bricks',
   Director = 'director',
   Pen = 'pen',
+  Fake = 'fake-door',
   Picture = 'picture',
   TrickedPicture = 'trickedPicture',
-}
-
+};
+  
 const enum SceneKey {
   InterfaceScene = 'ui-scene',
   PreloadScene = 'preload-scene',
   TutorialScene = 'tutorial-scene',
+  Onwards = 'forward',
   FirstSteps = 'first-steps',
   ManagerScene = 'manager-scene',
-}
+};
+
+const enum ScoreOperations {
+  Increase,
+  Decrease,
+  SetValue,
+};
+
+const enum GameStatus {
+  Win,
+  Lose,
+};
+
+const enum Event {
+  GameEnd = 'game-end',
+};
 
 const enum LevelNameEnum {
   FirstSteps,
@@ -86,4 +105,17 @@ const enum GameFontSize {
   SmallFont = '16px',
 }
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey, LevelNameEnum, GameFontSize };
+export {
+  PageId,
+  ErrorType,
+  StorageKey,
+  Frame,
+  UrlSourceForGame,
+  GameKey,
+  ScoreOperations,
+  GameStatus,
+  Event,
+  SceneKey,
+  GameFontSize,
+  LevelNameEnum,
+}
