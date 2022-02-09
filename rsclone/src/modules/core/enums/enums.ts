@@ -80,4 +80,10 @@ const enum LevelNameEnum {
   HereWeGo,
 }
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey, LevelNameEnum };
+const enum GameFontSize {
+  LargeFont = '32px',
+  MediumFont = '24px',
+  SmallFont = '16px',
+}
+
+export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey, LevelNameEnum, GameFontSize };

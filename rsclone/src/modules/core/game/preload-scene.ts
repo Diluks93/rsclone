@@ -31,7 +31,7 @@ export default class PreloadScene extends Phaser.Scene {
       text: 'Loading...',
       style: {
         fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeL,
+        fontSize: loaderFontConfig.sizeM,
       },
     });
     loadingText.setOrigin(ORIGIN_CENTER);
@@ -42,7 +42,7 @@ export default class PreloadScene extends Phaser.Scene {
       text: '0%',
       style: {
         fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeM,
+        fontSize: loaderFontConfig.sizeS,
       },
     });
     persentText.setOrigin(ORIGIN_CENTER);
@@ -53,7 +53,7 @@ export default class PreloadScene extends Phaser.Scene {
       text: '',
       style: {
         fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeM,
+        fontSize: loaderFontConfig.sizeS,
       },
     });
     assetText.setOrigin(ORIGIN_CENTER);
