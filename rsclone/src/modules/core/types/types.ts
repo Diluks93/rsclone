@@ -37,6 +37,7 @@ type SettingsRangeType = {
 type SettingsSelectType = {
   id: string;
   options: LanguageKeys[];
+  iconId: string;
   changeHandler(e: Event, page: Page): void;
 };
 
@@ -101,6 +102,8 @@ type GameTranslationType = {
   tutorialSpeech: string[];
   tutorialHint: string;
   exitWarning: string;
+  fullScreenWarningText: string;
+  fullScreenActionText: string;
 };
 
 type LevelDetailsType = {

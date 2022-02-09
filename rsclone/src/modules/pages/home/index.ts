@@ -1,17 +1,11 @@
-import {
-  homeTitleProps,
-  homeLinkButtonProps,
-  TEXT_ERROR,
-  screenResolution,
-  fullscreenModeTooltip,
-} from './../../core/constants/constHome';
+import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, screenResolution } from './../../core/constants/constHome';
 import Page from '../../core/templates/Page';
 import './style.scss';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
+import { StorageKey } from '../../core/enums/enums';
 
-let isPopupDisplay = true;
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
 
@@ -23,6 +17,8 @@ class HomePage extends Page {
 
   openAuthorsButton: HTMLAnchorElement;
 
+  fullScreenModal: HTMLDivElement;
+
   constructor(id: string, className: string) {
     super(id, className);
     this.gameTitle = this.createHeaderTitle(homeTitleProps);
@@ -30,13 +26,7 @@ class HomePage extends Page {
     this.openSettingsButton = this.createLinkButton(homeLinkButtonProps.openSettingsButton);
     this.openAuthorsButton = this.createLinkButton(homeLinkButtonProps.openAuthorsButton);
     this.homeButtonsWrapper = this.createWrapper('home-page__wrapper');
-  }
-
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
-    this.gameTitle.style.backgroundImage = `url(${translation[lang].gameTitle})`;
-    this.startGameButton.textContent += translation[lang].startGameButton;
-    this.openSettingsButton.textContent = translation[lang].openSettingsButton;
-    this.openAuthorsButton.textContent = translation[lang].openAuthorsButton;
+    this.fullScreenModal = this.createFullScreenModal();
   }
 
   createWrapper(className: string): HTMLDivElement {
@@ -58,40 +48,38 @@ class HomePage extends Page {
     return rangeError;
   }
 
-  addTooltip(): HTMLDivElement {
-    const tooltip = document.createElement('div');
-    const tooltipWrap = document.createElement('div');
-    const informationalText = document.createElement('p');
-    const actionText = document.createElement('p');
+  createFullScreenModal(): HTMLDivElement {
+    const fullScreenModal = document.createElement('div');
+    const modalWrapper = document.createElement('div');
+    const modalWarningText = document.createElement('p');
+    const modalActionText = document.createElement('p');
+    const baseClass = 'fullscreen-modal';
+    fullScreenModal.classList.add(baseClass);
+    modalWrapper.classList.add(`${baseClass}__wrapper`);
+    modalWarningText.classList.add(`${baseClass}__warning-text`);
+    modalActionText.classList.add(`${baseClass}__action-text`);
 
-    tooltip.classList.add('tooltip');
-    tooltipWrap.classList.add('tooltip__wrapper');
-    informationalText.classList.add('tooltip__informational-text');
-    actionText.classList.add('tooltip__action-text');
+    modalWrapper.append(modalWarningText, modalActionText);
+    fullScreenModal.append(modalWrapper);
 
-    informationalText.innerText = fullscreenModeTooltip.informationText;
-    actionText.innerText = fullscreenModeTooltip.actionText;
-
-    tooltipWrap.append(informationalText, actionText);
-    tooltip.append(tooltipWrap);
-
-    const toogler = true;
-    const flashing = setInterval(() => {
-      if (toogler) actionText.classList.toggle('active');
-    }, 1000);
-
-    actionText.addEventListener('click', () => {
-      this.hideTooltip(tooltip);
-      turnOnBackgroundMusic(backgroundMusic);
-      clearInterval(flashing);
+    modalActionText.addEventListener('click', () => {
+      fullScreenModal.classList.add('hidden');
+      localStorage.setItem(StorageKey.isFullScreenModalShown, JSON.stringify(true));
     });
 
-    return tooltip;
+    return fullScreenModal;
   }
 
-  hideTooltip(element: HTMLDivElement): void {
-    element.classList.add('hide');
-    isPopupDisplay = false;
+  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
+    this.gameTitle.style.backgroundImage = `url(${translation[lang].gameTitle})`;
+    this.startGameButton.textContent += translation[lang].startGameButton;
+    this.openSettingsButton.textContent = translation[lang].openSettingsButton;
+    this.openAuthorsButton.textContent = translation[lang].openAuthorsButton;
+
+    const warningText = this.fullScreenModal.firstElementChild?.firstElementChild as HTMLParagraphElement;
+    const actionText = this.fullScreenModal.firstElementChild?.lastElementChild as HTMLParagraphElement;
+    warningText.textContent = translation[lang].fullScreenWarningText;
+    actionText.textContent = translation[lang].fullScreenActionText;
   }
 
   render() {
@@ -103,7 +91,12 @@ class HomePage extends Page {
     } else {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
-      if (isPopupDisplay) this.container.append(this.addTooltip());
+
+      const isFullScreenModalShown: boolean = JSON.parse(
+        localStorage.getItem(StorageKey.isFullScreenModalShown) as string
+      );
+      if (!isFullScreenModalShown) this.container.append(this.fullScreenModal);
+      turnOnBackgroundMusic(backgroundMusic);
     }
 
     return this.container;
