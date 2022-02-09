@@ -57,22 +57,36 @@
     background-color: $orange;
     align-self: center;
     border-radius: 0.5rem;
-    border: none;
+    border: 0.2rem solid $navy;
     outline: none;
     overflow: hidden;
     background-size: cover;
     background-position: center;
     cursor: pointer;
 
+    &::before {
+      position: relative;
+      top: -50%;
+      left: -50%;
+      width: 300%;
+      height: 300%;
+      content: '';
+      display: block;
+    }
+
+    &:hover {
+      &::before {
+        background-color: $orange;
+        opacity: 0.2;
+      }
+    }
+
+    &.selected {
+      border: 0.2rem solid $orange;
+    }
+
     &.locked {
       &::before {
-        position: relative;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        content: '';
-        display: block;
         background-color: $navy;
         mix-blend-mode: multiply;
         opacity: 0.9;

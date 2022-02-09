@@ -4,9 +4,12 @@ import './style.scss';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
+import { GameKey, PageId } from '../../core/enums/enums';
 
 class MainPage extends Page {
   exitModal: HTMLElement;
+
+  game: Phaser.Game | undefined;
 
   static TextObject = {
     mainTitle: 'Main Page',
@@ -20,6 +23,11 @@ class MainPage extends Page {
         this.exitModal.classList.toggle('hidden');
       }
     });
+    window.addEventListener('hashchange', (e: HashChangeEvent) => {
+      if (e.oldURL.includes(PageId.MainPage)) {
+        this.closeGame();
+      }
+    });
   }
 
   private createExitGameButton(): HTMLElement {
@@ -30,10 +38,19 @@ class MainPage extends Page {
 
     exitButton.addEventListener('click', (e: MouseEvent) => {
       turnOnBackgroundMusic(backgroundMusic, e);
-      const canvasParent = document.getElementById('first-step');
-      canvasParent?.classList.add('hidden');
+      this.closeGame();
     });
     return exitButton;
+  }
+
+  private closeGame(): void {
+    const canvasParent = document.getElementById(GameKey.CanvasParent);
+    if (canvasParent) {
+      canvasParent.classList.add('hidden');
+      if (this.game) {
+        this.game.destroy(true, false);
+      }
+    }
   }
 
   private createCancelButton(): HTMLElement {
@@ -69,7 +86,7 @@ class MainPage extends Page {
   }
 
   render() {
-    new Phaser.Game(config);
+    this.game = new Phaser.Game(config);
     this.container.append(this.exitModal);
     return this.container;
   }

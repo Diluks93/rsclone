@@ -10,6 +10,7 @@ import SvgIcon from '../../core/components/svg-icon';
 import levelExample from '../../../assets/image/level/level-example.png';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
+import { GameKey } from '../../core/enums/enums';
 
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';
@@ -59,7 +60,7 @@ class LevelSelectPage extends Page {
     this.playLevelButton = this.createLinkButton(levelLinkButtonProps.playLevelButton);
     this.playLevelButton.addEventListener('click', (e: MouseEvent) => {
       turnOnBackgroundMusic(backgroundMusic, e);
-      const canvasParent = document.getElementById('first-step');
+      const canvasParent = document.getElementById(GameKey.CanvasParent);
       canvasParent?.classList.remove('hidden');
     });
     this.tutorialWrapper = this.createLevelList(this.tutorialTitle);
@@ -73,8 +74,8 @@ class LevelSelectPage extends Page {
 
     const levelPreviewWrapper = document.createElement('div');
     levelPreviewWrapper.classList.add(`${PAGE_NAME}__preview-box`);
-    const levelPreviewButtons = levelPreviewProps[title.id].map((item, index) => {
-      return this.createLevelPreviewButton(item, index);
+    const levelPreviewButtons = levelPreviewProps[title.id].map((item) => {
+      return this.createLevelPreviewButton(item);
     });
 
     levelListWrapper.append(title);
@@ -83,24 +84,33 @@ class LevelSelectPage extends Page {
     return levelListWrapper;
   }
 
-  createLevelPreviewButton({ id, isLocked }: LevelPreviewType, index: number): HTMLButtonElement {
+  createLevelPreviewButton({ id, isLocked }: LevelPreviewType): HTMLButtonElement {
     const previewButton = document.createElement('button');
+    const { currentLevel } = settingsStore;
     previewButton.classList.add(`${PAGE_NAME}__preview`);
-    previewButton.id = id;
+    previewButton.id = String(id);
     previewButton.style.backgroundImage = `url(${levelExample})`;
-    previewButton.dataset.index = String(index);
+
+    if (currentLevel === Number(id)) {
+      previewButton.classList.add('selected');
+    }
 
     if (isLocked) {
       previewButton.classList.add('locked');
       previewButton.disabled = true;
     }
     previewButton.addEventListener('click', (e) => {
-      if (!e.target) return;
-      if (e.target instanceof HTMLButtonElement) {
-        const levelIndex = Number(e.target.dataset.index);
-        console.log(levelIndex);
-        this.setDescriptionLanguage(gameTranslation, settingsStore.languageValue, levelIndex);
+      const targetButton = e.target as HTMLButtonElement;
+      const targetButtonId = Number(targetButton.id);
+      settingsStore.currentLevel = targetButtonId;
+      this.setDescriptionLanguage(gameTranslation, settingsStore.languageValue, targetButtonId);
+
+      const previouslySelectedButton = document.querySelector('.selected');
+      if (previouslySelectedButton) {
+        previouslySelectedButton.classList.remove('selected');
       }
+
+      targetButton.classList.add('selected');
     });
 
     return previewButton;

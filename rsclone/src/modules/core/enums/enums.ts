@@ -21,7 +21,8 @@ const enum StorageKey {
   SoundVolume = 'soundVolume',
   SoundCheckbox = 'soundCheckbox',
   TimeLimitCheckbox = 'timeLimitCheckbox',
-  isFullScreenModalShown = 'isFullScreenModalShown',
+  IsFullScreenModalShown = 'isFullScreenModalShown',
+  CurrentLevel = 'currentLevel',
 }
 
 const enum Frame {
@@ -50,6 +51,7 @@ const enum UrlSourceForGame {
 }
 
 const enum GameKey {
+  CanvasParent = 'first-step',
   Player = 'dude',
   Assets = 'assets',
   Map = 'map',
@@ -68,7 +70,20 @@ const enum SceneKey {
   InterfaceScene = 'ui-scene',
   PreloadScene = 'preload-scene',
   TutorialScene = 'tutorial-scene',
-  FirstStep = 'first-step',
+  FirstSteps = 'first-steps',
+  ManagerScene = 'manager-scene',
 }
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey };
+const enum LevelNameEnum {
+  FirstSteps,
+  Onwards,
+  HereWeGo,
+}
+
+const enum GameFontSize {
+  LargeFont = '32px',
+  MediumFont = '24px',
+  SmallFont = '16px',
+}
+
+export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey, LevelNameEnum, GameFontSize };

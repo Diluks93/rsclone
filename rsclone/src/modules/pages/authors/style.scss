@@ -33,41 +33,43 @@
 
     &::before {
       content: '';
-      width: 4rem;
+      width: 4.666rem;
       height: 4rem;
       display: inline-block;
       margin-right: 2rem;
-      background-repeat: no-repeat;
-      background-size: 4.666rem;
-      background-position: center;
       image-rendering: pixelated;
       align-items: center;
+      background-size: 200%;
     }
 
     &--diluks93 {
       &::before {
-        background-image: url(../../../assets/image/faces/diluks1.png);
+        background-image: url(../../../assets/image/faces/face-sprite.png);
+        background-position: 0 0;
       }
+
       &:hover::before {
-        animation: diluksFace 1s infinite;
+        animation: diluksFace 1s steps(1) infinite alternate;
       }
     }
 
     &--jenya-b {
       &::before {
-        background-image: url(../../../assets/image/faces/evgeny1.png);
+        background-image: url(../../../assets/image/faces/face-sprite.png);
+        background-position: 0 -4rem;
       }
       &:hover::before {
-        animation: jenyaFace 1s infinite;
+        animation: jenyaFace 1s steps(1) infinite alternate;
       }
     }
 
     &--randomspells {
       &::before {
-        background-image: url(../../../assets/image/faces/june1.png);
+        background-image: url(../../../assets/image/faces/face-sprite.png);
+        background-position: 0 -8rem;
       }
       &:hover::before {
-        animation: randomspellsFace 1s infinite;
+        animation: randomspellsFace 1s steps(1) infinite alternate;
       }
     }
   }
@@ -99,33 +101,41 @@
 
 @keyframes diluksFace {
   0% {
-    background-image: url(../../../assets/image/faces/diluks1.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: 0 0;
   }
   55% {
-    background-image: url(../../../assets/image/faces/diluks2.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: -4.666rem 0;
   }
 }
 
 @keyframes jenyaFace {
   0% {
-    background-image: url(../../../assets/image/faces/evgeny1.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: -4.666rem -4rem;
   }
   25% {
-    background-image: url(../../../assets/image/faces/evgeny2.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: 0 -4rem;
   }
   60% {
-    background-image: url(../../../assets/image/faces/evgeny1.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: -4.666rem -4rem;
   }
 }
 
 @keyframes randomspellsFace {
   0% {
-    background-image: url(../../../assets/image/faces/june1.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: 0 -8rem;
   }
   25% {
-    background-image: url(../../../assets/image/faces/june1.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: -4.666rem -8rem;
   }
   75% {
-    background-image: url(../../../assets/image/faces/june2.png);
+    background-image: url(../../../assets/image/faces/face-sprite.png);
+    background-position: 0 -8rem;
   }
 }

@@ -70,6 +70,10 @@
   align-items: center;
   justify-content: center;
 
+  &.hidden {
+    display: none;
+  }
+
   &__wrapper {
     padding: 4rem 2rem;
     position: absolute;
@@ -82,7 +86,6 @@
     font-size: 1.8rem;
     line-height: 2;
     text-transform: uppercase;
-    // white-space: pre-line;
   }
 
   &__action-text {

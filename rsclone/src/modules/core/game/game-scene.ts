@@ -47,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
   };
 
   constructor() {
-    super({ key: SceneKey.FirstStep });
+    super({ key: SceneKey.FirstSteps });
     this.playerSounds = {};
     this.player = new Player(this, 0, 0, this.playerSounds);
   }
@@ -109,7 +109,7 @@ export default class GameScene extends Phaser.Scene {
     this.scale.on('resize', this.resize, this);
 
     this.scene.launch(SceneKey.TutorialScene);
-    this.scene.pause(SceneKey.FirstStep);
+    this.scene.pause(SceneKey.FirstSteps);
   }
 
   update(): void {

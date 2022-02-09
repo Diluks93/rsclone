@@ -9,6 +9,10 @@ import ErrorPage from '../error/index';
 import Page from '../../core/templates/Page';
 import { PageId, ErrorType } from '../../core/enums/enums';
 import { toggleFullScreen } from '../../core/utils/utils';
+import faceSprite from '../../../assets/image/faces/face-sprite.png';
+
+// faces spritesheet preload
+new Image().src = faceSprite;
 
 class App {
   private static container: HTMLElement = document.body;
@@ -66,14 +70,14 @@ class App {
   }
 
   start(): void {
-    App.renderNewPage(PageId.HomePage);
+    App.renderNewPage(PageId.MainPage);
     this.enableRouteChange();
 
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.keyCode === 70) toggleFullScreen();
     });
 
-    window.location.hash = PageId.HomePage;
+    window.location.hash = PageId.MainPage;
   }
 }
 

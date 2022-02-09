@@ -64,7 +64,8 @@ class HomePage extends Page {
 
     modalActionText.addEventListener('click', () => {
       fullScreenModal.classList.add('hidden');
-      localStorage.setItem(StorageKey.isFullScreenModalShown, JSON.stringify(true));
+      localStorage.setItem(StorageKey.IsFullScreenModalShown, JSON.stringify(true));
+      turnOnBackgroundMusic(backgroundMusic);
     });
 
     return fullScreenModal;
@@ -92,13 +93,18 @@ class HomePage extends Page {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
 
-      const isFullScreenModalShown: boolean = JSON.parse(
-        localStorage.getItem(StorageKey.isFullScreenModalShown) as string
-      );
-      if (!isFullScreenModalShown) this.container.append(this.fullScreenModal);
-      turnOnBackgroundMusic(backgroundMusic);
+      try {
+        const isFullScreenModalShown: boolean = JSON.parse(
+          localStorage.getItem(StorageKey.IsFullScreenModalShown) as string
+        );
+        if (!isFullScreenModalShown) {
+          this.container.append(this.fullScreenModal);
+        }
+      } catch (e) {
+        console.error(e);
+      }
     }
-
+    turnOnBackgroundMusic(backgroundMusic);
     return this.container;
   }
 }

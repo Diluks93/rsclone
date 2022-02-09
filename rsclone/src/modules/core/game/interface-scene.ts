@@ -20,7 +20,7 @@ export default class InterfaceScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.scene.get(SceneKey.FirstStep).events.on('additem', (item: string) => {
+    this.scene.get(SceneKey.FirstSteps).events.on('additem', (item: string) => {
       const i = this.inventoryItems.length;
       const inventoryItem = this.add.image(
         this.inventoryX + this.cellSize * i + this.offset * i,
@@ -30,7 +30,7 @@ export default class InterfaceScene extends Phaser.Scene {
       this.inventoryItems.push(inventoryItem);
     });
 
-    this.scene.get(SceneKey.FirstStep).events.on('removeitem', (itemKey: string) => {
+    this.scene.get(SceneKey.FirstSteps).events.on('removeitem', (itemKey: string) => {
       this.inventoryItems.forEach((inventoryItem) => {
         if (inventoryItem.texture.key === itemKey) {
           inventoryItem.destroy();

@@ -81,7 +81,6 @@ class SettingsPage extends Page {
 
   createLanguageSelect(props: SettingsSelectType): HTMLDivElement {
     const { options, iconId, changeHandler } = props;
-    const currentLanguage = settingsStore.languageValue;
 
     const selectWrapper = document.createElement('div');
     selectWrapper.classList.add(`${PAGE_NAME}__custom-select`);
@@ -90,6 +89,7 @@ class SettingsPage extends Page {
     selectCurrentWrapper.classList.add(`${PAGE_NAME}__current-wrapper`, 'basic-hover');
     const selectCurrentOption = document.createElement('span');
 
+    const currentLanguage = settingsStore.languageValue;
     selectCurrentOption.textContent = currentLanguage;
     selectCurrentWrapper.append(selectCurrentOption);
     selectCurrentWrapper.append(new SvgIcon(iconId).render());

@@ -28,12 +28,14 @@ export default class TutorialScene extends Phaser.Scene {
 
   speechText: Phaser.GameObjects.Text | undefined;
 
+  hintText: Phaser.GameObjects.Text | undefined;
+
   constructor() {
     super({ key: SceneKey.TutorialScene });
   }
 
   create(): void {
-    const { screenWidth, screenHeight, portraitSize, offset } = speechConfig;
+    const { portraitSize, offset, hintTextWidth } = speechConfig;
 
     const { portraitBox, directorImage } = this.createPortrait(portraitSize);
     this.portraitBox = portraitBox;
@@ -42,9 +44,10 @@ export default class TutorialScene extends Phaser.Scene {
     this.speechText = this.add.text(portraitSize, 0, speech[this.speechCount], tutorialSpeechFontConfig);
     this.speechText.setInteractive();
 
-    const hintText = this.add.text(screenWidth / 2 - 100, portraitSize - offset, hint, tutorialHintFontConfig);
+    const { windowWidth, windowHeight } = settingsStore;
+    this.hintText = this.add.text(windowWidth - hintTextWidth, portraitSize - offset, hint, tutorialHintFontConfig);
     this.tweens.add({
-      targets: hintText,
+      targets: this.hintText,
       alpha: 0,
       duration: 1000,
       yoyo: true,
@@ -52,13 +55,12 @@ export default class TutorialScene extends Phaser.Scene {
     });
 
     if (this.portraitBox && this.directorImage) {
-      this.speechContainer = this.add.container(0, screenHeight - portraitSize, [
+      this.speechContainer = this.add.container(0, windowHeight - portraitSize, [
         this.portraitBox,
         this.directorImage,
         this.speechText,
-        hintText,
+        this.hintText,
       ]);
-      this.speechContainer.setInteractive();
       this.speechContainer.visible = true;
     }
 
@@ -71,16 +73,22 @@ export default class TutorialScene extends Phaser.Scene {
         this.speechContainer.setVisible(false);
         this.scene.sleep(SceneKey.TutorialScene);
         this.scene.launch(SceneKey.InterfaceScene);
-        this.scene.resume(SceneKey.FirstStep);
+        this.scene.resume(SceneKey.FirstSteps);
       }
     });
   }
 
   update(time: number, delta: number): void {
     this.timer += delta;
+    const { windowWidth, windowHeight } = settingsStore;
+    const { portraitSize, offset, hintTextWidth } = speechConfig;
     if (this.timer > 400) {
-      console.log(settingsStore.windowWidth);
-      this.speechContainer?.setPosition(0, settingsStore.windowHeight - 208);
+      this.speechContainer?.setPosition(0, windowHeight - 208);
+      this.speechText?.setStyle({
+        fixedWidth: windowWidth - portraitSize,
+        wordWrap: { width: windowWidth - portraitSize - offset },
+      });
+      this.hintText?.setPosition(windowWidth - hintTextWidth, portraitSize - offset);
       this.timer = 0;
     }
   }
