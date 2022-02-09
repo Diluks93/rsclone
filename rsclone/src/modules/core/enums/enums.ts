@@ -74,4 +74,10 @@ const enum SceneKey {
   ManagerScene = 'manager-scene',
 }
 
-export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey };
+const enum LevelNameEnum {
+  FirstSteps,
+  Onwards,
+  HereWeGo,
+}
+
+export { PageId, ErrorType, StorageKey, Frame, UrlSourceForGame, GameKey, SceneKey, LevelNameEnum };

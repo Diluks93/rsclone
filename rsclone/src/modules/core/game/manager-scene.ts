@@ -1,12 +1,6 @@
 import Phaser from 'phaser';
-import { SceneKey } from '../enums/enums';
+import { LevelNameEnum, SceneKey } from '../enums/enums';
 import { settingsStore } from '../stores/settingsStore';
-
-enum LevelNameEnum {
-  FirstSteps,
-  Onwards,
-  HereWeGo,
-}
 
 export default class ManagerScene extends Phaser.Scene {
   constructor() {
