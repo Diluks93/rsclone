@@ -29,7 +29,7 @@ export default class UIScene extends Phaser.Scene {
 
     this.gameEndHandler = (status) => {
       this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6');
-      this.game.scene.pause(/* SceneKey.FirstStep */ SceneKey.Forward);
+      this.game.scene.pause(SceneKey.ManagerScene);
 
       this.gameEndPhrase  = new Text(
         this,
@@ -48,7 +48,7 @@ export default class UIScene extends Phaser.Scene {
       this.input.on('pointerdown', () => {
         this.game.events.off(GameKey.Fake, this.doorHandler);
         this.game.events.off(Event.GameEnd, this.gameEndHandler);
-        this.scene.get(/*SceneKey.FirstStep*/ SceneKey.Forward).scene.restart();
+        this.scene.get(SceneKey.ManagerScene).scene.restart();
         this.scene.restart();
       });
     };
@@ -57,7 +57,7 @@ export default class UIScene extends Phaser.Scene {
   create(): void {
     this.score = new Score(this, 50, 50, 0);
     this.initListeners();
-    this.scene.get(/* SceneKey.FirstStep */ SceneKey.Forward).events.on('additem', (item: string) => {
+    this.scene.get(SceneKey.ManagerScene).events.on('additem', (item: string) => {
       const i = this.inventoryItems.length;
       const inventoryItem = this.add.image(
         this.inventoryX + this.cellSize * i + this.offset * i,
@@ -67,7 +67,7 @@ export default class UIScene extends Phaser.Scene {
       this.inventoryItems.push(inventoryItem);
     });
 
-    this.scene.get(/* SceneKey.FirstStep */ SceneKey.Forward).events.on('removeitem', (itemKey: string) => {
+    this.scene.get(SceneKey.ManagerScene).events.on('removeitem', (itemKey: string) => {
       this.inventoryItems.forEach((inventoryItem) => {
         if (inventoryItem.texture.key === itemKey) {
           inventoryItem.destroy();

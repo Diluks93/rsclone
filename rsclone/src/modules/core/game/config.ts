@@ -1,17 +1,19 @@
 import Phaser from 'phaser';
 import PreloadScene from './scenes/preload';
 import TutorialScene from './scenes/tutorial';
+import ManagerScene from './scenes/managerScene';
 import UIScene from './scenes/ui';
 import FirstStep from './scenes/levels/firstStep';
-import Forward from './scenes/levels/forward';
+import Onwards from './scenes/levels/forward';
 
 import { GameConfigExtended } from '../types/types';
+import { GameKey } from '../enums/enums';
 
 export const gameConfig: GameConfigExtended = {
   type: Phaser.AUTO,
   scale: {
     mode: Phaser.Scale.RESIZE,
-    parent: 'game',
+    parent: GameKey.CanvasParent,
     width: window.innerWidth,
     height: window.innerHeight,
   },
@@ -34,7 +36,7 @@ export const gameConfig: GameConfigExtended = {
   audio: {
     disableWebAudio: true,
   },
-  scene: [PreloadScene, /* FirstStep */ Forward, UIScene, TutorialScene,],
+  scene: [PreloadScene, ManagerScene, FirstStep, Onwards, UIScene, TutorialScene,],
   winScore: 70,
 };
 

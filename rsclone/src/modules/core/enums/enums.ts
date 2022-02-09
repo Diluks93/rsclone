@@ -21,7 +21,9 @@ const enum StorageKey {
   SoundVolume = 'soundVolume',
   SoundCheckbox = 'soundCheckbox',
   TimeLimitCheckbox = 'timeLimitCheckbox',
-};
+  IsFullScreenModalShown = 'isFullScreenModalShown',
+  CurrentLevel = 'currentLevel',
+}
 
 const enum Frame {
   RearViewStart,
@@ -50,6 +52,7 @@ const enum UrlSourceForGame {
 };
 
 const enum GameKey {
+  CanvasParent = 'game',
   Player = 'dude',
   Neighbor = 'neighbor',
   Assets = 'assets',
@@ -70,8 +73,9 @@ const enum SceneKey {
   InterfaceScene = 'ui-scene',
   PreloadScene = 'preload-scene',
   TutorialScene = 'tutorial-scene',
-  FirstStep = 'first-step',
-  Forward = 'forward',
+  Onwards = 'forward',
+  FirstSteps = 'first-steps',
+  ManagerScene = 'manager-scene',
 };
 
 const enum ScoreOperations {
@@ -89,6 +93,18 @@ const enum Event {
   GameEnd = 'game-end',
 };
 
+const enum LevelNameEnum {
+  FirstSteps,
+  Onwards,
+  HereWeGo,
+}
+
+const enum GameFontSize {
+  LargeFont = '32px',
+  MediumFont = '24px',
+  SmallFont = '16px',
+}
+
 export {
   PageId,
   ErrorType,
@@ -100,4 +116,6 @@ export {
   GameStatus,
   Event,
   SceneKey,
-};
+  GameFontSize,
+  LevelNameEnum,
+}

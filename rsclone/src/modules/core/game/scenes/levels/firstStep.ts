@@ -3,6 +3,6 @@ import { SceneKey } from '../../../enums/enums';
 
 export default class FirstStep extends GameScene {
   constructor() {
-    super({ key: SceneKey.FirstStep})
+    super({ key: SceneKey.FirstSteps})
   }
 }

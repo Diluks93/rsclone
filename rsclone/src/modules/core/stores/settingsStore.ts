@@ -7,6 +7,7 @@ const defaultConfig: SettingsConfigType = {
   isSoundEnabled: true,
   isTimeLimitEnabled: false,
   isTricksReportEnabled: false,
+  currentLevel: 0,
 };
 
 class SettingsStore {
@@ -24,13 +25,17 @@ class SettingsStore {
 
   private _windowHeight: number;
 
+  private _currentLevel: number;
+
   constructor({
     languageValue,
     volumeValue,
     isSoundEnabled,
     isTimeLimitEnabled,
     isTricksReportEnabled,
+    currentLevel,
   }: SettingsConfigType) {
+    this._currentLevel = JSON.parse(localStorage.getItem(StorageKey.CurrentLevel) as string) || currentLevel;
     this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
     this._volumeValue = localStorage.getItem(StorageKey.SoundVolume) || volumeValue;
     if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null)
@@ -53,6 +58,15 @@ class SettingsStore {
 
   get windowHeight(): number {
     return this._windowHeight;
+  }
+
+  get currentLevel(): number {
+    return this._currentLevel;
+  }
+
+  set currentLevel(value: number) {
+    localStorage.setItem(StorageKey.CurrentLevel, JSON.stringify(value));
+    this._currentLevel = value;
   }
 
   get languageValue(): LanguageKeys {

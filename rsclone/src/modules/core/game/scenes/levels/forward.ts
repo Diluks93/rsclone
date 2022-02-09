@@ -6,12 +6,12 @@ import { GameKey, SceneKey } from '../../../enums/enums';
 import Player from '../../entities/player';
 
 
-export default class Forward extends GameScene {
+export default class Onwards extends GameScene {
   protected neighbor!: Neighbor;
   pen: Phaser.GameObjects.Image | undefined;
 
   constructor() {
-    super({ key: SceneKey.Forward });
+    super({ key: SceneKey.Onwards });
   }
 
   create() {

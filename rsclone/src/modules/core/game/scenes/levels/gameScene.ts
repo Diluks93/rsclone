@@ -70,9 +70,7 @@ export default abstract class GameScene extends Phaser.Scene {
         (player, fakeObjects) => {
           (fakeObjects as Door).setVisible(true);
           (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space?.on('down', (event: KeyboardEvent) => {
-            //!
             this.game.events.emit(GameKey.Fake);
-            //!
             const setPositionPlayerX = (fakeObjects as Door).x + ((player as Player).width / 2);
             const setPositionPlayerY = (fakeObjects as Door).y + ((player as Player).height / 2);
 
@@ -98,12 +96,13 @@ export default abstract class GameScene extends Phaser.Scene {
 
     this.scene.launch(SceneKey.TutorialScene);
     this.scene.launch(SceneKey.InterfaceScene);
-    this.scene.pause(/* SceneKey.FirstStep */ SceneKey.Forward);
+    this.scene.pause(SceneKey.FirstSteps);
   }
 
   update(): void {
     this.player.update();
 
+    // "E" label toggle process
     if (this.isPlayerOverlapActiveItems()) {
       this.player.actionLabel?.setVisible(true);
     } else {

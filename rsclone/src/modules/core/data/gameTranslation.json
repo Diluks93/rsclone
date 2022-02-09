@@ -24,7 +24,7 @@
         "timeLimit": "5 минут"
       },
       {
-        "levelTitle": "Вперед и только вперед",
+        "levelTitle": "Только вперед",
         "hintText": "Сосед не должен увидеть Вуди!",
         "levelDescriptionText": "Теперь, когда ты освоил управление, пришло время уделить внимание пакостям.\n Кстати, здесь сосед наконец-то становится частью нашего шоу.\n У тебя есть возможность ему насолить и понаблюдать, как он бесится.\n Дальше будет только веселее, не так ли?",
         "timeLimit": "5 минут"
@@ -46,7 +46,9 @@
       "Попробуй!"
     ],
     "tutorialHint": "Нажмите, чтобы продолжить",
-    "exitWarning": "Вы хотите покинуть игру?"
+    "exitWarning": "Вы хотите покинуть игру?",
+    "fullScreenWarningText": "Нажмите 'F' для входа \nв полноэкранный режим",
+    "fullScreenActionText": "[Продолжить]"
   },
 
   "en": {
@@ -96,6 +98,8 @@
       "Try it out!"
     ],
     "tutorialHint": "Click box to continue",
-    "exitWarning": "Do you want to exit game?"
+    "exitWarning": "Do you want to exit game?",
+    "fullScreenWarningText": "To switch to full screen mode, press 'F'",
+    "fullScreenActionText": "[Continue]"
   }
 }

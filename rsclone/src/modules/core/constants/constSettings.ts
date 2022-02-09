@@ -12,11 +12,12 @@ import {
   SettingsSelectType,
   LanguageKeys,
   TitleType,
+  GameTranslationInterface,
 } from './../types/types';
 
 export const TEXT_NODE = 3;
 
-const PAGE_NAME = 'settings-page';
+const PAGE_NAME = PageId.SettingsPage;
 export const settingsTitleProps: TitleType = {
   pageName: PAGE_NAME,
   id: 'settingsTitle',
@@ -26,11 +27,12 @@ export const settingsTitleProps: TitleType = {
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
   options: ['ru', 'en'],
+  iconId: 'chevron-up',
   changeHandler(e: Event, page: Page): void {
-    if (e.target instanceof HTMLSelectElement) {
+    if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
       localStorage.setItem(StorageKey.LanguageValue, e.target.value);
-      page.setPageLanguage(gameTranslation, settingsStore.languageValue);
+      page.setPageLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue);
     }
   },
 };

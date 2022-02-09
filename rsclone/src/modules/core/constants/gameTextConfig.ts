@@ -1,7 +1,9 @@
+import { GameFontSize } from '../enums/enums';
+import { settingsStore } from '../stores/settingsStore';
 import { speechConfig } from './constInterfaceScene';
 
 export const actionLabelFontConfig = {
-  fontSize: '3rem',
+  fontSize: GameFontSize.LargeFont,
   fontFamily: 'sans-serif',
   backgroundColor: 'rgba(0,0,0,0.5)',
   fixedWidth: 30,
@@ -10,24 +12,23 @@ export const actionLabelFontConfig = {
 
 export const tutorialSpeechFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
   backgroundColor: 'rgba(0,0,0,0.5)',
-  fixedWidth: speechConfig.screenWidth / 2,
+  fixedWidth: settingsStore.windowWidth - speechConfig.portraitSize,
   padding: 20 as Phaser.Types.GameObjects.Text.TextPadding,
   fixedHeight: speechConfig.portraitSize,
   color: '#fff',
-  fontSize: '2rem',
+  fontSize: GameFontSize.MediumFont,
   fontFamily: 'Open sans',
-  wordWrap: { width: speechConfig.screenWidth / 2 - speechConfig.offset },
+  wordWrap: { width: settingsStore.windowWidth - speechConfig.portraitSize - speechConfig.offset },
 };
 
 export const tutorialHintFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
-  fontSize: '1.5rem',
+  fontSize: GameFontSize.SmallFont,
   fontFamily: 'Open sans',
-  fixedWidth: 300,
   align: 'right',
 };
 
 export const loaderFontConfig = {
-  sizeL: '2.5rem',
-  sizeM: '1.5rem',
+  sizeM: GameFontSize.MediumFont,
+  sizeS: GameFontSize.SmallFont,
   family: '"Open Sans", sans-serif',
 };

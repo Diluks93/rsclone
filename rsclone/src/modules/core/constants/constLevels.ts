@@ -1,3 +1,4 @@
+import { PageId } from '../enums/enums';
 import { DescriptionType, LevelPreviewInterface, LinkButtonType, LevelTitleInterface } from '../types/types';
 
 const NUMBER_SERIES_SECTIONS = 2;
@@ -39,34 +40,34 @@ export const levelDetailsProps: DescriptionType = {
 export const levelPreviewProps: LevelPreviewInterface = {
   tutorialTitle: [
     {
-      id: 'firstSteps',
+      id: 0,
       imageUrl: '#',
       isLocked: false,
     },
     {
-      id: 'owardsAndUpwards',
+      id: 1,
       imageUrl: '#',
       isLocked: false,
     },
     {
-      id: 'hereWeGo',
+      id: 2,
       imageUrl: '#',
       isLocked: false,
     },
   ],
   seasonOneTitle: [
     {
-      id: '4',
+      id: 3,
       imageUrl: '#',
       isLocked: true,
     },
     {
-      id: '5',
+      id: 4,
       imageUrl: '#',
       isLocked: true,
     },
     {
-      id: '6',
+      id: 5,
       imageUrl: '#',
       isLocked: true,
     },
@@ -75,9 +76,9 @@ export const levelPreviewProps: LevelPreviewInterface = {
 
 export const levelLinkButtonProps: Record<string, LinkButtonType> = {
   playLevelButton: {
-    pageName: 'levels-page',
+    pageName: PageId.LevelSelectPage,
     id: 'playLevelButton',
-    href: '#main-page',
+    href: `#${PageId.MainPage}`,
     iconId: 'play',
   },
 };

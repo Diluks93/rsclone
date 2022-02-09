@@ -37,6 +37,7 @@ type SettingsRangeType = {
 type SettingsSelectType = {
   id: string;
   options: LanguageKeys[];
+  iconId: string;
   changeHandler(e: Event, page: Page): void;
 };
 
@@ -46,6 +47,7 @@ type SettingsConfigType = {
   isSoundEnabled: boolean;
   isTimeLimitEnabled: boolean;
   isTricksReportEnabled: boolean;
+  currentLevel: number;
 };
 
 type LanguageKeys = 'ru' | 'en';
@@ -92,6 +94,8 @@ type GameTranslationType = {
   tutorialSpeech: string[];
   tutorialHint: string;
   exitWarning: string;
+  fullScreenWarningText: string;
+  fullScreenActionText: string;
 };
 
 type LevelDetailsType = {
@@ -102,7 +106,7 @@ type LevelDetailsType = {
 };
 
 type LevelPreviewType = {
-  id: string;
+  id: number;
   imageUrl: string;
   isLocked: boolean;
 };
