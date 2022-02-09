@@ -86,7 +86,7 @@ export default class TutorialScene extends Phaser.Scene {
       this.speechContainer?.setPosition(0, windowHeight - 208);
       this.speechText?.setStyle({
         fixedWidth: windowWidth - portraitSize,
-        wordWrap: { width: windowWidth - portraitSize },
+        wordWrap: { width: windowWidth - portraitSize - offset },
       });
       this.hintText?.setPosition(windowWidth - hintTextWidth, portraitSize - offset);
       this.timer = 0;

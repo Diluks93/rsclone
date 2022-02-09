@@ -18,7 +18,7 @@ export const tutorialSpeechFontConfig: Phaser.Types.GameObjects.Text.TextStyle =
   color: '#fff',
   fontSize: GameFontSize.MediumFont,
   fontFamily: 'Open sans',
-  wordWrap: { width: settingsStore.windowWidth - speechConfig.portraitSize },
+  wordWrap: { width: settingsStore.windowWidth - speechConfig.portraitSize - speechConfig.offset },
 };
 
 export const tutorialHintFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
