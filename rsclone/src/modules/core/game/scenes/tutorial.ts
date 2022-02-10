@@ -91,9 +91,11 @@ export default class TutorialScene extends Phaser.Scene {
         this.speechContainer.setVisible(false);
         this.scene.resume(this.currentScene);
         this.scene.sleep(SceneKey.TutorialScene);
-        if (this.currentLevel! > 0) {
-          this.scene.launch(SceneKey.InterfaceScene, { currentScene: this.currentScene });
-        }
+
+        this.scene.launch(SceneKey.InterfaceScene, {
+          currentLevel: this.currentLevel,
+          currentScene: this.currentScene,
+        });
       }
     });
   }

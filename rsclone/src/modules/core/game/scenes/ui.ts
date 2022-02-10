@@ -19,6 +19,7 @@ export default class UIScene extends Phaser.Scene {
   inventoryX = this.cellSize / 2 + this.offset;
   timer = 0;
   currentScene: Phaser.Scene | undefined;
+  currentLevel: number | undefined;
 
   constructor() {
     super({ key: SceneKey.InterfaceScene });
@@ -57,6 +58,7 @@ export default class UIScene extends Phaser.Scene {
   }
 
   init(data: SceneDataType) {
+    this.currentLevel = data.currentLevel;
     this.currentScene = data.currentScene;
   }
 
@@ -88,8 +90,10 @@ export default class UIScene extends Phaser.Scene {
 
     if (this.timer > 300) {
       this.inventoryY = window.innerHeight - this.cellSize / 1.5;
-      this.updateInventoryCells();
-      this.updateInventoryItems();
+      if (this.currentLevel! > 0) {
+        this.updateInventoryCells();
+        this.updateInventoryItems();
+      }
       this.timer = 0;
     }
   }
