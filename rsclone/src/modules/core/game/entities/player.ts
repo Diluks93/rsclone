@@ -25,10 +25,12 @@ export default class Player extends Actor {
     });
     this.getBody().setSize(190, 250);
     this.getBody().setOffset(0, 0);
+    this.setDepth(1);
     this.playerSounds = playerSounds;
     this.actionLabel = new Text(this.scene, this.x, this.y - this.height, 'E')
       .setFontSize(20)
       .setOrigin(0.8,0.5)
+      .setDepth(1)
   }
 
   update(): void {
@@ -48,9 +50,9 @@ export default class Player extends Actor {
     } else if (this.keyD.isDown) {
       this.body.velocity.x = this.SPEED;
       this.anims.play('right', true);
-    } /* else {
+    } else {
       this.anims.play('turn', true);
-    } */
+    }
 
     if (this.keyA.isUp && this.keyD.isUp) {
       this.playerSounds.footsteps.play();
