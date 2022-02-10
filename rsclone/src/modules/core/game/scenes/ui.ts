@@ -1,3 +1,4 @@
+import { SceneDataType } from './../../types/types';
 import Phaser from 'phaser';
 import Score from '../helpers/score';
 
@@ -17,6 +18,7 @@ export default class UIScene extends Phaser.Scene {
   inventoryY = window.innerHeight - this.cellSize / 1.5;
   inventoryX = this.cellSize / 2 + this.offset;
   timer = 0;
+  currentScene: Phaser.Scene | undefined;
 
   constructor() {
     super({ key: SceneKey.InterfaceScene });
@@ -54,10 +56,14 @@ export default class UIScene extends Phaser.Scene {
     };
   }
 
+  init(data: SceneDataType) {
+    this.currentScene = data.currentScene;
+  }
+
   create(): void {
     this.score = new Score(this, 50, 50, 0);
     this.initListeners();
-    this.scene.get(SceneKey.ManagerScene).events.on('additem', (item: string) => {
+    this.scene.get(this.currentScene!).events.on('additem', (item: string) => {
       const i = this.inventoryItems.length;
       const inventoryItem = this.add.image(
         this.inventoryX + this.cellSize * i + this.offset * i,
@@ -67,7 +73,7 @@ export default class UIScene extends Phaser.Scene {
       this.inventoryItems.push(inventoryItem);
     });
 
-    this.scene.get(SceneKey.ManagerScene).events.on('removeitem', (itemKey: string) => {
+    this.scene.get(this.currentScene!).events.on('removeitem', (itemKey: string) => {
       this.inventoryItems.forEach((inventoryItem) => {
         if (inventoryItem.texture.key === itemKey) {
           inventoryItem.destroy();
