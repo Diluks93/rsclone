@@ -8,6 +8,7 @@ import { EventName, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
+import DoorWay from '../../helpers/doorWay';
 
 export default abstract class GameScene extends Phaser.Scene {
   private tile = tile;
@@ -78,19 +79,19 @@ export default abstract class GameScene extends Phaser.Scene {
     );
     this.player = new Player(this, spawnPoint.x as number, spawnPoint.y as number, this.playerSounds);
 
-    const doorWays = this.physics.add.staticGroup();
-    const doorMapObjects = this.map.getObjectLayer('doors').objects;
-    this.establishObjectOfDoor(doorMapObjects, doorWays);
+    const mapDoorsLayer = this.map.getObjectLayer('doors').objects;
+    const doorWaysGroup = this.physics.add.staticGroup();
+    this.createDoorWays(mapDoorsLayer, doorWaysGroup);
 
     this.cursor = this.input.keyboard.createCursorKeys();
     if (this.player)
       this.physics.add.overlap(
         this.player,
-        doorWays,
+        doorWaysGroup,
         (actor, object) => {
           const currentDoorWay = object as DoorWayInterface;
           const { nextDoorWayId } = currentDoorWay;
-          const nextDoorWay = this.getNextDoorWay(doorWays, nextDoorWayId) as DoorWayInterface;
+          const nextDoorWay = this.getNextDoorWay(doorWaysGroup, nextDoorWayId) as DoorWayInterface;
           nextDoorWay.setVisible(true);
 
           const spaceKey = (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space;
@@ -103,12 +104,12 @@ export default abstract class GameScene extends Phaser.Scene {
               delay: 300,
               callback: () => {
                 player.moveToDoor(nextDoorWay, false);
-                nextDoorWay.setVisible(false);
+                doorWaysGroup.setVisible(false);
 
-                if (!currentDoorWay.isChecked) {
+                if (!currentDoorWay.isScored) {
                   this.game.events.emit(EventName.IncreaseScore);
-                  currentDoorWay.isChecked = true;
-                  nextDoorWay.isChecked = true;
+                  currentDoorWay.isScored = true;
+                  nextDoorWay.isScored = true;
                 }
               },
             });
@@ -140,22 +141,15 @@ export default abstract class GameScene extends Phaser.Scene {
     }
   }
 
-  private establishObjectOfDoor(
+  private createDoorWays(
     doorObjects: Phaser.Types.Tilemaps.TiledObject[],
-    fakeDoorObjects: Phaser.Physics.Arcade.StaticGroup
-  ) {
-    doorObjects.forEach((doorObject) => {
-      const fakeDoorObject = fakeDoorObjects.create(doorObject.x, doorObject.y, GameKey.FakeDoor).setOrigin(0, 0);
-
-      fakeDoorObject.nextDoorWayId = doorObject.properties[0].value;
-      fakeDoorObject.id = doorObject.id;
-      fakeDoorObject.isChecked = false;
-
-      fakeDoorObject.setVisible(false);
-      fakeDoorObject.body.width = doorObject.width;
-      fakeDoorObject.body.height = doorObject.height;
-      fakeDoorObject.body.x = doorObject.x;
-      fakeDoorObject.body.y = doorObject.y;
+    doorWaysGroup: Phaser.Physics.Arcade.StaticGroup
+  ): void {
+    doorObjects.forEach((doorObject: Phaser.Types.Tilemaps.TiledObject) => {
+      const { x, y, id } = doorObject;
+      const nextDoorId = doorObject.properties[0].value;
+      const fakeDoorObject = new DoorWay(this, x!, y!, GameKey.FakeDoor, nextDoorId, id);
+      doorWaysGroup.add(fakeDoorObject);
     });
   }
 
