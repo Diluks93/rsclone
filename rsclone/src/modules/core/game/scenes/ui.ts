@@ -4,21 +4,33 @@ import Score from '../helpers/score';
 
 import { Text } from '../helpers/text';
 import { GameKey, ScoreOperations, Event, GameStatus, SceneKey } from '../../enums/enums';
-import { gameConfig } from '../config'
+import { gameConfig } from '../config';
 
 export default class UIScene extends Phaser.Scene {
   private score!: Score;
-  private gameEndPhrase !: Text;
+
+  private gameEndPhrase!: Text;
+
   private doorHandler: () => void;
+
   private gameEndHandler: (status: GameStatus) => void;
+
   inventoryItems: Phaser.GameObjects.Image[] = [];
+
   inventoryCells: Phaser.GameObjects.Rectangle[] = [];
+
   cellSize = 64;
+
   offset = 10;
+
   inventoryY = window.innerHeight - this.cellSize / 1.5;
+
   inventoryX = this.cellSize / 2 + this.offset;
+
   timer = 0;
+
   currentScene: Phaser.Scene | undefined;
+
   currentLevel: number | undefined;
 
   constructor() {
@@ -26,7 +38,7 @@ export default class UIScene extends Phaser.Scene {
     this.doorHandler = () => {
       this.score.changeValue(ScoreOperations.Increase, 25);
       if (this.score.getValue() === gameConfig.winScore) {
-        this.game.events.emit(Event.GameEnd, GameStatus.Win)
+        this.game.events.emit(Event.GameEnd, GameStatus.Win);
       }
     };
 
@@ -34,19 +46,18 @@ export default class UIScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6');
       this.game.scene.pause(SceneKey.ManagerScene);
 
-      this.gameEndPhrase  = new Text(
+      this.gameEndPhrase = new Text(
         this,
         this.game.scale.width / 2,
         this.game.scale.height * 0.4,
-        status === GameStatus.Lose 
-          ? `YOU DIED!\nCLICK TO RESTART`
-          : `YOU WIN!\nCLICK TO RESTART`,
-      ).setAlign('center')
-       .setColor(status === GameStatus.Lose ? '#ff0000' : '#ffffff');
+        status === GameStatus.Lose ? 'YOU DIED!\nCLICK TO RESTART' : 'YOU WIN!\nCLICK TO RESTART'
+      )
+        .setAlign('center')
+        .setColor(status === GameStatus.Lose ? '#ff0000' : '#ffffff');
       this.gameEndPhrase.setPosition(
         this.game.scale.width / 2 - this.gameEndPhrase.width / 2,
-        this.game.scale.height * 0.4,
-        );
+        this.game.scale.height * 0.4
+      );
 
       this.input.on('pointerdown', () => {
         this.game.events.off(GameKey.Fake, this.doorHandler);
@@ -88,17 +99,15 @@ export default class UIScene extends Phaser.Scene {
   update(time: number, delta: number): void {
     this.timer += delta;
 
-    if (this.timer > 300) {
-      this.inventoryY = window.innerHeight - this.cellSize / 1.5;
-      if (this.currentLevel! > 0) {
-        this.updateInventoryCells();
-        this.updateInventoryItems();
-      }
+    if (this.timer > 300 && this.currentLevel) {
+      this.updateInventoryCells();
+      this.updateInventoryItems();
       this.timer = 0;
     }
   }
 
   updateInventoryCells(): void {
+    this.inventoryY = window.innerHeight - this.cellSize / 1.5;
     this.inventoryCells.forEach((cell) => {
       cell.destroy();
     });
@@ -134,4 +143,4 @@ export default class UIScene extends Phaser.Scene {
     this.game.events.on(GameKey.Fake, this.doorHandler, this);
     this.game.events.once(Event.GameEnd, this.gameEndHandler, this);
   }
-};
+}

@@ -31,6 +31,7 @@ export default class Player extends Actor {
       .setFontSize(20)
       .setOrigin(0.8,0.5)
       .setDepth(1)
+      .setVisible(false)
   }
 
   update(): void {
