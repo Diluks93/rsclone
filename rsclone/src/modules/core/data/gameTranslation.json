@@ -37,18 +37,40 @@
       }
     ],
     "tutorialSpeech": [
-      "Привет, добро пожаловать на обучающий уровень.",
-      "Меня зовут Джо, я являюсь директором этого шоу.",
-      "Сейчас я расскажу, как управлять героем игры, Вуди.",
-      "Используй А и D на клавиатуре можно направлять Вуди влево или вправо.",
-      "А нажатие Е позволяет взаимодействовать с предметами,",
-      "Жми пробел рядом с дверью, чтобы пройти в другую комнату",
-      "Попробуй!"
+      [
+        "Привет, добро пожаловать на обучающий уровень.",
+        "Меня зовут Джо, я режиссер этого шоу.",
+        "Сейчас я расскажу, как управлять героем игры, Вуди.",
+        "Используй кнопки 'Ф' и 'В', чтобы Вуди шел влево или вправо.",
+        "Чтобы пройти через дверь, нажми на 'Пробел'.",
+        "Попробуй добраться до выхода на первом этаже, чтобы закончить уровень!"
+      ],
+      [
+        "Привет, это снова Джо! Пора показать тебе, что еще умеет Вуди.",
+        "В любом эпизоде Вуди может подбирать и применять предметы.",
+        "Для этого нужно подойти к предмету и нажать кнопку 'У'.",
+        "Видишь маркер? Подбери его и используй, только не попадись соседу!",
+        "Отыщи все предметы и разозли соседушку посильнее, а потом беги к выходу!"
+      ],
+      [
+        "Привет! А вот и последняя часть вступительного экзамена.",
+        "Сегодня ты узнаешь, как пройти мимо бдительных питомцев соседа.",
+        "Чтобы не попасться, тебе нужно красться, используя кнопку 'Ч'.",
+        "Если питомец поднял тревогу, есть шанс избежать кары, спрятавшись в шкафу.",
+        "Задачи те же: найти и использовать все предметы, потом покинуть уровень.",
+        "Удачи!"
+      ]
     ],
-    "tutorialHint": "Нажмите, чтобы продолжить",
-    "exitWarning": "Вы хотите покинуть игру?",
+    "continueText": "Нажми, чтобы продолжить",
+    "exitWarning": "Ты хочешь покинуть игру?",
     "fullScreenWarningText": "Нажмите 'F' для входа \nв полноэкранный режим",
-    "fullScreenActionText": "[Продолжить]"
+    "fullScreenActionText": "[Продолжить]",
+    "preloaderText": "Загрузка...",
+    "scoreText": "Счет: ",
+    "loseText": "Ты погиб",
+    "winText": "Ты победил",
+    "spaceText": "Пробел",
+    "eKeyText": "У"
   },
 
   "en": {
@@ -89,17 +111,39 @@
       }
     ],
     "tutorialSpeech": [
-      "Hello and welcome to 'Neighbors from hell' tutorial.",
-      "My name is Djo, I'm director of the show.",
-      "I wanna show you how to control our hero, Woody.",
-      "Keybord A and D allow you to move Woody to the right or left.",
-      "Keyboard E allow you to interact with items",
-      "Use keyboard Space front of door, that go next room",
-      "Try it out!"
+      [
+        "Hello and welcome to 'Neighbors from hell' tutorial.",
+        "My name is Joe, I'm director of the show.",
+        "I wanna show you how to control our hero, Woody.",
+        "Keybord A and D allow you to move Woody to the right or left.",
+        "Use 'Space' key near doors to go to the next room.",
+        "Try to get to the exit on the 1st floor to complete level!"
+      ],
+      [
+        "Hi, it's Joe again! It's time to show you more of Woody's skills.",
+        "In any episode Woody can pick up or use items.",
+        "For that you need to go to the item and press 'E'.",
+        "Do you see the pen? Pick it up and use, and don't get caught!",
+        "Find all items and piss off the neighbor, then find the exit!"
+      ],
+      [
+        "Hi there! Here the last part of our tutorial.",
+        "Today you will know how to get pass neighbor's pets.",
+        "You need to sneak near them, using 'X' key.",
+        "If pet raised the alarm, you could hide in closet.",
+        "Main goal is the same: find and use all items then leave level.",
+        "Good luck!"
+      ]
     ],
-    "tutorialHint": "Click box to continue",
+    "continueText": "Click to continue",
     "exitWarning": "Do you want to exit game?",
     "fullScreenWarningText": "To switch to full screen mode, press 'F'",
-    "fullScreenActionText": "[Continue]"
+    "fullScreenActionText": "[Continue]",
+    "preloaderText": "Loading...",
+    "scoreText": "Score: ",
+    "loseText": "You died",
+    "winText": "You won",
+    "spaceText": "Space",
+    "eKeyText": "E"
   }
 }

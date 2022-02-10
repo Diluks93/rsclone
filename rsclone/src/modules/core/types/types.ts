@@ -1,6 +1,6 @@
 import Page from '../templates/Page';
 
-type TitleType = {
+export type TitleType = {
   pageName: string;
   tagName: string;
   id: string;
@@ -8,7 +8,7 @@ type TitleType = {
   imageUrl?: string;
 };
 
-type LinkButtonType = {
+export type LinkButtonType = {
   className?: string;
   pageName?: string;
   id: string;
@@ -17,14 +17,14 @@ type LinkButtonType = {
   iconId?: string;
 };
 
-type SettingsCheckboxType = {
+export type SettingsCheckboxType = {
   text: string;
   id: string;
   isEnabled: boolean;
   clickHandler(): void;
 };
 
-type SettingsRangeType = {
+export type SettingsRangeType = {
   iconUrl: string;
   id: string;
   min: string;
@@ -34,14 +34,14 @@ type SettingsRangeType = {
   inputHandler(e: Event): void;
 };
 
-type SettingsSelectType = {
+export type SettingsSelectType = {
   id: string;
   options: LanguageKeys[];
   iconId: string;
   changeHandler(e: Event, page: Page): void;
 };
 
-type SettingsConfigType = {
+export type SettingsConfigType = {
   languageValue: LanguageKeys;
   volumeValue: string;
   isSoundEnabled: boolean;
@@ -50,22 +50,22 @@ type SettingsConfigType = {
   currentLevel: number;
 };
 
-type LanguageKeys = 'ru' | 'en';
+export type LanguageKeys = 'ru' | 'en';
 
-type ButtonAuthorsOrNames = {
+export type ButtonAuthorsOrNames = {
   text: string;
   url?: string;
   id?: string;
 }[];
 
-type DescriptionType = {
+export type DescriptionType = {
   timeLimitId: string;
   ratingCountId: string;
   hintId: string;
   levelDescriptionId: string;
 };
 
-type TargetItemConfigType = {
+export type TargetItemConfigType = {
   x: number;
   y: number;
   originalItemKey: string;
@@ -73,7 +73,7 @@ type TargetItemConfigType = {
   actionItemKey: string;
 };
 
-type GameTranslationType = {
+export type GameTranslationType = {
   gameTitle: string;
   startGameButton: string;
   openSettingsButton: string;
@@ -91,86 +91,80 @@ type GameTranslationType = {
   jenyaSubtitle: string;
   randomspellsSubtitle: string;
   levelDetailsBlock: Array<LevelDetailsType>;
-  tutorialSpeech: string[];
-  tutorialHint: string;
+  tutorialSpeech: string[][];
+  continueText: string;
   exitWarning: string;
   fullScreenWarningText: string;
   fullScreenActionText: string;
+  preloaderText: string;
+  scoreText: string;
+  loseText: string;
+  winText: string;
+  spaceText: string;
+  eKeyText: string;
 };
 
-type LevelDetailsType = {
+export type LevelDetailsType = {
   levelTitle: string;
   hintText: string;
   levelDescriptionText: string;
   timeLimit: string;
 };
 
-type LevelPreviewType = {
+export type LevelPreviewType = {
   id: number;
   imageUrl: string;
   isLocked: boolean;
 };
 
-type ScreenResolutionType = {
+export type ScreenResolutionType = {
   minHeight: number;
   minWidth: number;
 };
 
-type GameConfigExtended = Phaser.Types.Core.GameConfig & {
+export type GameConfigExtended = Phaser.Types.Core.GameConfig & {
   winScore: number;
 };
 
-interface Door extends Phaser.Types.Physics.Arcade.GameObjectWithBody {
-  x: number;
-  y: number;
-  setVisible(visible: boolean): void;
-};
+export interface DoorWayInterface extends Phaser.GameObjects.Image {
+  id: number;
+  nextDoorWayId: number;
+  isScored: boolean;
+}
 
-interface LinkButtonInterface {
+export interface LinkButtonInterface {
   startGameButton: LinkButtonType;
   openSettingsButton: LinkButtonType;
   openAuthorsButton: LinkButtonType;
-};
+}
 
-interface AuthorButtonInterface {
+export interface AuthorButtonInterface {
   diluksAuthorButton: LinkButtonType;
   jenyaAuthorButton: LinkButtonType;
   randomspellsAuthorButton: LinkButtonType;
-};
+}
 
-interface GameTranslationInterface {
+export interface GameTranslationInterface {
   ru: GameTranslationType;
   en: GameTranslationType;
-};
+}
 
-interface LevelTitleInterface {
+export interface LevelTitleInterface {
   tutorialTitle: TitleType;
   seasonOneTitle: TitleType;
   levelDetailsTitle: TitleType;
-};
+}
 
-interface LevelPreviewInterface {
+export interface LevelPreviewInterface {
   [key: string]: LevelPreviewType[];
+}
+
+export type PortraitType = {
+  portraitBox: Phaser.GameObjects.Graphics;
+  directorImage: Phaser.GameObjects.Image;
 };
 
-export {
-  SettingsCheckboxType,
-  SettingsRangeType,
-  LinkButtonType,
-  SettingsSelectType,
-  SettingsConfigType,
-  LanguageKeys,
-  ButtonAuthorsOrNames,
-  TitleType,
-  DescriptionType,
-  LinkButtonInterface,
-  GameTranslationInterface,
-  AuthorButtonInterface,
-  LevelPreviewType,
-  ScreenResolutionType,
-  Door,
-  TargetItemConfigType,
-  LevelTitleInterface,
-  LevelPreviewInterface,
-  GameConfigExtended,
+export type SceneDataType = {
+  currentLevel: number;
+  currentScene: Phaser.Scene;
 };

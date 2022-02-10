@@ -1,34 +1,39 @@
-import { GameFontSize } from '../enums/enums';
+import { GameFont } from '../enums/enums';
 import { settingsStore } from '../stores/settingsStore';
-import { speechConfig } from './constInterfaceScene';
+import { tutorialSpeechConfig } from './constInterfaceScene';
 
 export const actionLabelFontConfig = {
-  fontSize: GameFontSize.LargeFont,
-  fontFamily: 'sans-serif',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  fixedWidth: 30,
-  align: 'center',
+  fontSize: GameFont.MediumSize,
+  fontFamily: GameFont.PressStartFamily,
 };
 
 export const tutorialSpeechFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  fixedWidth: settingsStore.windowWidth - speechConfig.portraitSize,
+  backgroundColor: GameFont.TransparentBlackColor,
+  fixedWidth: settingsStore.windowWidth - tutorialSpeechConfig.portraitSize,
   padding: 20 as Phaser.Types.GameObjects.Text.TextPadding,
-  fixedHeight: speechConfig.portraitSize,
-  color: '#fff',
-  fontSize: GameFontSize.MediumFont,
-  fontFamily: 'Open sans',
-  wordWrap: { width: settingsStore.windowWidth - speechConfig.portraitSize - speechConfig.offset },
+  fixedHeight: tutorialSpeechConfig.portraitSize,
+  color: GameFont.WhiteColor,
+  fontSize: GameFont.MediumSize,
+  fontFamily: GameFont.PressStartFamily,
+  wordWrap: { width: settingsStore.windowWidth - tutorialSpeechConfig.portraitSize - tutorialSpeechConfig.offset },
 };
 
-export const tutorialHintFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
-  fontSize: GameFontSize.SmallFont,
-  fontFamily: 'Open sans',
-  align: 'right',
+export const continueTextFontConfig: Phaser.Types.GameObjects.Text.TextStyle = {
+  fontSize: GameFont.SmallSize,
+  fontFamily: GameFont.PressStartFamily,
+  align: GameFont.RightAlign,
 };
 
 export const loaderFontConfig = {
-  sizeM: GameFontSize.MediumFont,
-  sizeS: GameFontSize.SmallFont,
-  family: '"Open Sans", sans-serif',
+  sizeM: GameFont.MediumSize,
+  sizeS: GameFont.SmallSize,
+  family: GameFont.PressStartFamily,
+};
+
+export const scoreFontConfig = {
+  fontSise: GameFont.LargeSize,
+  fontFamily: GameFont.PressStartFamily,
+};
+export const endGameFontConfig = {
+  fontFamily: GameFont.PressStartFamily,
 };
