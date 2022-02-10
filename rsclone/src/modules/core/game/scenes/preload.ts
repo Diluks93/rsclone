@@ -32,7 +32,7 @@ export default class PreloadScene extends Phaser.Scene {
       y: this.cameraCenterY - PROGRESS_BOX_HEIGHT,
       text: gameTranslation[settingsStore.languageValue].preloaderText,
       style: {
-        fontFamily: 'Open sans',
+        fontFamily: GameFont.OpenSansFamily,
         fontSize: GameFont.MediumSize,
       },
     });

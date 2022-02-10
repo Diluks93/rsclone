@@ -130,7 +130,6 @@ export interface DoorWayInterface extends Phaser.GameObjects.Image {
   id: number;
   nextDoorWayId: number;
   isScored: boolean;
-  // setVisible(visible: boolean): void;
 }
 
 export interface LinkButtonInterface {

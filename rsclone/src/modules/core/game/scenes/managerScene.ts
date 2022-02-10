@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { LevelName, SceneKey } from '../../enums/enums';
 import { settingsStore } from '../../stores/settingsStore';
 
+const TUTORIAL_LEVELS_AMOUNT = 3;
+
 export default class ManagerScene extends Phaser.Scene {
   constructor() {
     super({ key: SceneKey.ManagerScene });
@@ -23,7 +25,7 @@ export default class ManagerScene extends Phaser.Scene {
         break;
       }
     }
-    if (settingsStore.currentLevel < 3) {
+    if (settingsStore.currentLevel < TUTORIAL_LEVELS_AMOUNT) {
       this.scene.start(SceneKey.TutorialScene, { currentLevel: settingsStore.currentLevel, currentScene });
     }
   }

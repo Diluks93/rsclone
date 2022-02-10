@@ -76,45 +76,47 @@ export default abstract class GameScene extends Phaser.Scene {
     this.createDoorWays(mapDoorsLayer, this.doorWaysGroup);
 
     this.cursor = this.input.keyboard.createCursorKeys();
-    if (this.player)
-      this.physics.add.overlap(
-        this.player,
-        this.doorWaysGroup,
-        (actor, object) => {
-          const currentDoorWay = object as DoorWayInterface;
-          const { nextDoorWayId } = currentDoorWay;
-          const nextDoorWay = this.getNextDoorWay(this.doorWaysGroup!, nextDoorWayId) as DoorWayInterface;
-          nextDoorWay.setVisible(true);
 
-          const spaceKey = (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space;
+    this.physics.add.overlap(
+      this.player,
+      this.doorWaysGroup,
+      (actor, object) => {
+        const currentDoorWay = object as DoorWayInterface;
+        const { nextDoorWayId } = currentDoorWay;
+        const nextDoorWay = this.getNextDoorWay(this.doorWaysGroup!, nextDoorWayId) as DoorWayInterface;
+        nextDoorWay.setVisible(true);
 
-          if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
-            const player = actor as Player;
-            player.moveToDoor(currentDoorWay, true);
+        const spaceKey = (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space;
 
-            this.time.addEvent({
-              delay: 300,
-              callback: () => {
-                player.moveToDoor(nextDoorWay, false);
-                this.doorWaysGroup!.setVisible(false);
+        if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
+          const player = actor as Player;
+          player.moveToDoor(currentDoorWay, true);
 
-                if (!currentDoorWay.isScored) {
-                  this.game.events.emit(EventName.IncreaseScore);
-                  currentDoorWay.isScored = true;
-                  nextDoorWay.isScored = true;
-                }
-              },
-            });
-          }
-        },
-        undefined,
-        this
-      );
+          this.time.addEvent({
+            delay: 300,
+            callback: () => {
+              player.moveToDoor(nextDoorWay, false);
+              this.doorWaysGroup!.setVisible(false);
+
+              if (!currentDoorWay.isScored) {
+                this.game.events.emit(EventName.IncreaseScore);
+                currentDoorWay.isScored = true;
+                nextDoorWay.isScored = true;
+              }
+            },
+          });
+        }
+      },
+      undefined,
+      this
+    );
 
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
     this.cameras.main.setBounds(0, 0, this.sizeWorld.width, this.sizeWorld.height);
-    if (this.player) this.cameras.main.startFollow(this.player);
+    if (this.player) {
+      this.cameras.main.startFollow(this.player);
+    }
     this.cameras.main.roundPixels = true;
 
     this.physics.add.collider(this.player, this.floor);
