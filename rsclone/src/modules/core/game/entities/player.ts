@@ -1,22 +1,36 @@
+import { DoorWayInterface } from './../../types/types';
 import Actor from './actor';
 
 import { GameKey, GameStatus, Event } from '../../enums/enums';
-import { Text } from '../helpers/text'
+import { Text } from '../helpers/text';
 
 export default class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
+
   private keyD: Phaser.Input.Keyboard.Key;
+
   private keySpace: Phaser.Input.Keyboard.Key;
-  private SPEED: number = 500;
+
+  private SPEED = 500;
+
   public actionLabel: Text;
+
   playerSounds;
+
   inventory: string[] = [];
+
   isPerformTrick = false;
+
   isWalkThroughDoor = false;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, playerSounds: {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    playerSounds: {
       [index: string]: Phaser.Sound.BaseSound;
-    }) {
+    }
+  ) {
     super(scene, x, y, GameKey.Player, 7);
     this.keyA = this.scene.input.keyboard.addKey('A');
     this.keyD = this.scene.input.keyboard.addKey('D');
@@ -30,9 +44,9 @@ export default class Player extends Actor {
     this.playerSounds = playerSounds;
     this.actionLabel = new Text(this.scene, this.x, this.y - this.height, 'E')
       .setFontSize(20)
-      .setOrigin(0.8,0.5)
+      .setOrigin(0.8, 0.5)
       .setDepth(1)
-      .setVisible(false)
+      .setVisible(false);
   }
 
   update(): void {
@@ -71,17 +85,31 @@ export default class Player extends Actor {
   public getDamage(value: number): void {
     super.getDamage(value);
     if (this.hp <= 0) {
-      this.scene.game.events.emit(Event.GameEnd, GameStatus.Lose)
+      this.scene.game.events.emit(Event.GameEnd, GameStatus.Lose);
     }
   }
 
-  addItem(itemKey: string) {
+  public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit('additem', itemKey);
+    this.actionLabel.setVisible(false);
   }
 
-  removeItem(itemKey: string) {
+  public removeItem(itemKey: string): void {
     this.inventory = this.inventory.filter((item) => item !== itemKey);
     this.scene!.events.emit('removeitem', itemKey);
+    this.isPerformTrick = false;
   }
-};
+
+  public startTrick(): void {
+    this.isPerformTrick = true;
+    this.playerSounds.trick.play();
+  }
+
+  public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
+    const oldPlayerPositionX = doorWay.x + this.width / 2;
+    const oldPlayerPositionY = doorWay.y + this.height / 2;
+    this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
+    this.isWalkThroughDoor = isWalk;
+  }
+}

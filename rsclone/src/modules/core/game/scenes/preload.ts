@@ -13,6 +13,7 @@ const PROGRESS_BOX_HEIGHT = 50;
 
 export default class PreloadScene extends Phaser.Scene {
   cameraCenterX = 0;
+
   cameraCenterY = 0;
 
   constructor() {
@@ -114,11 +115,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet(GameKey.Neighbor, UrlSourceForGame.Neighbor, { frameWidth: 190, frameHeight: 257 });
     this.load.audio(GameKey.MusicGame, UrlSourceForGame.MusicGame);
     this.load.audio(GameKey.SoundFootsteps, UrlSourceForGame.SoundFootsteps);
-    this.load.audio(GameKey.SoundPrank, UrlSourceForGame.SoundPrank);
+    this.load.audio(GameKey.SoundTrick, UrlSourceForGame.SoundTrick);
     this.load.image(GameKey.Director, director);
     this.load.image(GameKey.Pen, pen);
     this.load.image(GameKey.FakeDoor, fakeDoor);
     this.load.image(GameKey.Picture, picture);
     this.load.image(GameKey.TrickedPicture, trickedPicture);
   }
-};
+}

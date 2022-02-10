@@ -48,7 +48,7 @@ export const enum UrlSourceForGame {
   Neighbor = 'game/neighbor.png',
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
-  SoundPrank = 'audio/prank.mp3',
+  SoundTrick = 'audio/prank.mp3',
 }
 
 export const enum EventName {
@@ -64,7 +64,7 @@ export const enum GameKey {
   Map = 'map',
   MusicGame = 'music-game',
   SoundFootsteps = 'sound-footsteps',
-  SoundPrank = 'sound-prank',
+  SoundTrick = 'sound-prank',
   Tileset = 'tileset',
   Bricks = 'bricks',
   Director = 'director',

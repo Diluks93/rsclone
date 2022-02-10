@@ -61,7 +61,7 @@ export default abstract class GameScene extends Phaser.Scene {
     const soundConfig = { volume: Number(settingsStore.volumeValue) };
 
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
-    this.playerSounds.prank = this.sound.add(GameKey.SoundPrank, soundConfig);
+    this.playerSounds.trick = this.sound.add(GameKey.SoundTrick, soundConfig);
     this.music = this.sound.add(GameKey.MusicGame, soundConfig);
     this.music.play();
 
@@ -97,19 +97,13 @@ export default abstract class GameScene extends Phaser.Scene {
 
           if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
             const player = actor as Player;
-            const oldPlayerPositionX = currentDoorWay.x + player.width / 2;
-            const oldPlayerPositionY = currentDoorWay.y + player.height / 2;
-            player.setPosition(oldPlayerPositionX, oldPlayerPositionY);
-            player.isWalkThroughDoor = true;
+            player.moveToDoor(currentDoorWay, true);
 
             this.time.addEvent({
               delay: 300,
               callback: () => {
-                const newPlayerPositionX = nextDoorWay.x + player.width / 2;
-                const newPlayerPositionY = nextDoorWay.y + player.height / 2;
-                player.setPosition(newPlayerPositionX, newPlayerPositionY);
+                player.moveToDoor(nextDoorWay, false);
                 nextDoorWay.setVisible(false);
-                player.isWalkThroughDoor = false;
 
                 if (!currentDoorWay.isChecked) {
                   this.game.events.emit(EventName.IncreaseScore);
@@ -196,18 +190,16 @@ export default abstract class GameScene extends Phaser.Scene {
     });
   }
 
-  protected applyItem(targetItem: TrickTargetItem): void {
+  protected finishTrick(targetItem: TrickTargetItem): void {
     this.player.removeItem(targetItem.keyItemId);
     targetItem.trickedItem.setVisible(true);
     targetItem.isTricked = true;
-    this.player.isPerformTrick = false;
   }
 
   protected pickUpItem(sourceItem: Phaser.GameObjects.Image): void {
     this.player.addItem(sourceItem.texture.key);
     this.trickSourceItems = this.trickSourceItems.filter((filteredItem) => filteredItem !== sourceItem);
     sourceItem!.destroy();
-    this.player.actionLabel?.setVisible(false);
   }
 
   protected addOverlapActionToItems(): void {
@@ -228,12 +220,11 @@ export default abstract class GameScene extends Phaser.Scene {
           if (Phaser.Input.Keyboard.JustDown(this.actionKeyE!)) {
             this.game.events.emit(EventName.IncreaseScore);
           }
-          this.player.isPerformTrick = true;
-          this.player.playerSounds?.prank.play();
+          this.player.startTrick();
           this.time.addEvent({
             delay: 1000,
             callback: () => {
-              this.applyItem(targetItem);
+              this.finishTrick(targetItem);
             },
           });
         }
