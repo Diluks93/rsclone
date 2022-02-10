@@ -1,3 +1,4 @@
+import { PortraitType, SceneDataType } from './../../types/types';
 import Phaser from 'phaser';
 import gameTranslation from '../../data/gameTranslation.json';
 
@@ -6,26 +7,44 @@ import { speechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
 import { GameKey, SceneKey } from '../../enums/enums';
 
-type PortraitType = {
-  portraitBox: Phaser.GameObjects.Graphics;
-  directorImage: Phaser.GameObjects.Image;
-};
-
-const speech = gameTranslation[settingsStore.languageValue].tutorialSpeech;
-const hint = gameTranslation[settingsStore.languageValue].tutorialHint;
-
 export default class TutorialScene extends Phaser.Scene {
   speechCount = 0;
+
   timer = 0;
+
   isSpeechVisible = true;
+
   speechContainer: Phaser.GameObjects.Container | undefined;
+
   portraitBox: Phaser.GameObjects.Graphics | undefined;
+
   directorImage: Phaser.GameObjects.Image | undefined;
+
   speechText: Phaser.GameObjects.Text | undefined;
+
   hintText: Phaser.GameObjects.Text | undefined;
+
+  sceneData: SceneDataType | undefined;
+
+  tutorialSpeech: string[] | undefined;
+
+  tutorialHint: string;
+
+  currentLevel: number | undefined;
+
+  currentScene: Phaser.Scene | undefined;
 
   constructor() {
     super({ key: SceneKey.TutorialScene });
+    this.tutorialHint = gameTranslation[settingsStore.languageValue].tutorialHint;
+  }
+
+  init(data: SceneDataType) {
+    this.sceneData = data;
+    const { currentLevel, currentScene } = this.sceneData;
+    this.currentLevel = currentLevel;
+    this.currentScene = currentScene;
+    this.tutorialSpeech = gameTranslation[settingsStore.languageValue].tutorialSpeech[currentLevel];
   }
 
   create(): void {
@@ -35,11 +54,16 @@ export default class TutorialScene extends Phaser.Scene {
     this.portraitBox = portraitBox;
     this.directorImage = directorImage;
 
-    this.speechText = this.add.text(portraitSize, 0, speech[this.speechCount], tutorialSpeechFontConfig);
+    this.speechText = this.add.text(portraitSize, 0, this.tutorialSpeech![this.speechCount], tutorialSpeechFontConfig);
     this.speechText.setInteractive();
 
     const { windowWidth, windowHeight } = settingsStore;
-    this.hintText = this.add.text(windowWidth - hintTextWidth, portraitSize - offset, hint, tutorialHintFontConfig);
+    this.hintText = this.add.text(
+      windowWidth - hintTextWidth,
+      portraitSize - offset,
+      this.tutorialHint,
+      tutorialHintFontConfig
+    );
     this.tweens.add({
       targets: this.hintText,
       alpha: 0,
@@ -61,13 +85,15 @@ export default class TutorialScene extends Phaser.Scene {
     this.speechText.on('pointerdown', () => {
       if (!this.speechText) return;
 
-      this.speechText.setText(speech[++this.speechCount]);
+      this.speechText.setText(this.tutorialSpeech![++this.speechCount]);
 
-      if (this.speechCount >= speech.length && this.speechContainer) {
+      if (this.speechCount >= this.tutorialSpeech!.length && this.speechContainer) {
         this.speechContainer.setVisible(false);
+        this.scene.resume(this.currentScene);
         this.scene.sleep(SceneKey.TutorialScene);
-        this.scene.launch(SceneKey.InterfaceScene);
-        this.scene.resume(SceneKey.FirstSteps);
+        if (this.currentLevel! > 0) {
+          this.scene.launch(SceneKey.InterfaceScene, { currentScene: this.currentScene });
+        }
       }
     });
   }
@@ -93,7 +119,7 @@ export default class TutorialScene extends Phaser.Scene {
     portraitBox.fillStyle(0x000000, 1);
     portraitBox.fillRect(0, 0, portraitSize, portraitSize);
     const directorImage = this.add.image(0, 0, GameKey.Director).setOrigin(0, 0);
-    
+
     return {
       portraitBox,
       directorImage,
