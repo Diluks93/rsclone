@@ -8,17 +8,29 @@ export default class ManagerScene extends Phaser.Scene {
   }
 
   create(): void {
+    let currentScene;
     switch (settingsStore.currentLevel) {
       case LevelNameEnum.FirstSteps: {
-        this.scene.start(SceneKey.FirstSteps);
-        this.scene.start(SceneKey.TutorialScene);
+        currentScene = this.createSceneAndGetKey(SceneKey.FirstSteps);
+        break;
       }
       case LevelNameEnum.Onwards: {
-        this.scene.start(SceneKey.Onwards);
+        currentScene = this.createSceneAndGetKey(SceneKey.Onwards);
+        break;
       }
       case LevelNameEnum.HereWeGo: {
         // todo: add third level scene and so on
+        break;
       }
     }
+    if (settingsStore.currentLevel < 3) {
+      this.scene.start(SceneKey.TutorialScene, { currentLevel: settingsStore.currentLevel, currentScene });
+    }
+  }
+
+  createSceneAndGetKey(key: SceneKey): SceneKey {
+    this.scene.start(key);
+    this.scene.pause(key);
+    return key;
   }
 }
