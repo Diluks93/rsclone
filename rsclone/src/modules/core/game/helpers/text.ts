@@ -1,14 +1,17 @@
 import Phaser from 'phaser';
+import { GameFont } from '../../enums/enums';
 
-export class Text extends Phaser.GameObjects.Text {
-  constructor(scene: Phaser.Scene, x: number, y: number, text: string) {
-    super(scene, x, y, text, {
-      fontSize:'calc(100vw / 90)',
-      color: '#fff',
-      stroke: '#000',
-      strokeThickness: 4,
-    });
+export class GameText extends Phaser.GameObjects.Text {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    text: string,
+    fontConfig: Phaser.Types.GameObjects.Text.TextStyle
+  ) {
+    super(scene, x, y, text, fontConfig);
     this.setOrigin(0, 0);
     scene.add.existing(this);
+    this.setStroke(GameFont.TransparentBlackColor, 8);
   }
-};
+}

@@ -1,11 +1,14 @@
+import { scoreFontConfig } from './../../constants/gameTextConfig';
 import { ScoreOperations } from '../../enums/enums';
-import { Text } from './text';
+import { GameText } from './text';
 
-export default class Score extends Text {
+export default class Score extends GameText {
   private scoreValue: number;
+
   constructor(scene: Phaser.Scene, x: number, y: number, initScore = 0) {
-    super(scene, x, y, `Score: ${initScore}`);
+    super(scene, x, y, `Score: ${initScore}`, scoreFontConfig);
     scene.add.existing(this);
+    this.setStyle(scoreFontConfig);
     this.scoreValue = initScore;
   }
 
@@ -15,10 +18,10 @@ export default class Score extends Text {
         this.scoreValue += value;
         break;
       case ScoreOperations.Decrease:
-        this.scoreValue -= value
-        break
+        this.scoreValue -= value;
+        break;
       case ScoreOperations.SetValue:
-        this.scoreValue = value
+        this.scoreValue = value;
         break;
       default:
         break;
@@ -29,4 +32,4 @@ export default class Score extends Text {
   public getValue(): number {
     return this.scoreValue;
   }
-};
+}

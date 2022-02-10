@@ -96,16 +96,24 @@ export const enum GameStatus {
 
 export const enum Event {
   GameEnd = 'game-end',
+  AddItem = 'additem',
+  RemoveItem = 'removeitem',
 }
 
-export const enum LevelNameEnum {
+export const enum LevelName {
   FirstSteps,
   Onwards,
   HereWeGo,
 }
 
-export const enum GameFontSize {
-  LargeFont = '32px',
-  MediumFont = '24px',
-  SmallFont = '16px',
+export const enum GameFont {
+  LargeSize = '32px',
+  MediumSize = '24px',
+  SmallSize = '16px',
+  PressStartFamily = 'PressStart2P',
+  OpenSansFamily = 'Open sans',
+  TransparentBlackColor = 'rgba(0,0,0,0.5)',
+  WhiteColor = '#fff',
+  CenterAlign = 'center',
+  RightAlign = 'right',
 }

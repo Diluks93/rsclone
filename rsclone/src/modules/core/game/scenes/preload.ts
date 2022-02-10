@@ -1,11 +1,12 @@
+import { settingsStore } from './../../stores/settingsStore';
 import director from '../../../../assets/game/director.png';
 import pen from '../../../../assets/game/pen.png';
 import fakeDoor from '../../../../assets/game/fake-door.png';
 import trickedPicture from '../../../../assets/game/picture-2.png';
 import picture from '../../../../assets/game/picture-1.png';
+import gameTranslation from '../../data/gameTranslation.json';
 
-import { GameKey, UrlSourceForGame, SceneKey } from '../../enums/enums';
-import { loaderFontConfig } from './../../constants/gameTextConfig';
+import { GameKey, UrlSourceForGame, SceneKey, GameFont } from '../../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
@@ -29,10 +30,10 @@ export default class PreloadScene extends Phaser.Scene {
     const loadingText = this.make.text({
       x: this.cameraCenterX,
       y: this.cameraCenterY - PROGRESS_BOX_HEIGHT,
-      text: 'Loading...',
+      text: gameTranslation[settingsStore.languageValue].preloaderText,
       style: {
-        fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeM,
+        fontFamily: 'Open sans',
+        fontSize: GameFont.MediumSize,
       },
     });
     loadingText.setOrigin(ORIGIN_CENTER);
@@ -42,8 +43,8 @@ export default class PreloadScene extends Phaser.Scene {
       y: this.cameraCenterY,
       text: '0%',
       style: {
-        fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeS,
+        fontFamily: GameFont.OpenSansFamily,
+        fontSize: GameFont.SmallSize,
       },
     });
     persentText.setOrigin(ORIGIN_CENTER);
@@ -53,8 +54,8 @@ export default class PreloadScene extends Phaser.Scene {
       y: this.cameraCenterY + PROGRESS_BOX_HEIGHT,
       text: '',
       style: {
-        fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeS,
+        fontFamily: GameFont.PressStartFamily,
+        fontSize: GameFont.SmallSize,
       },
     });
     assetText.setOrigin(ORIGIN_CENTER);
@@ -68,7 +69,7 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     this.load.on('fileprogress', (file: Phaser.Loader.File) => {
-      assetText.setText('Loading asset: ' + file.key);
+      assetText.setText(file.key);
     });
 
     this.load.on('complete', () => {

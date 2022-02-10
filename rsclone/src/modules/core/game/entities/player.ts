@@ -1,8 +1,9 @@
+import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { DoorWayInterface } from './../../types/types';
 import Actor from './actor';
 
 import { GameKey, GameStatus, Event } from '../../enums/enums';
-import { Text } from '../helpers/text';
+import { GameText } from '../helpers/text';
 
 export default class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
@@ -13,7 +14,7 @@ export default class Player extends Actor {
 
   private SPEED = 500;
 
-  public actionLabel: Text;
+  public actionLabel: GameText;
 
   playerSounds;
 
@@ -42,14 +43,14 @@ export default class Player extends Actor {
     this.getBody().setOffset(0, 0);
     this.setDepth(1);
     this.playerSounds = playerSounds;
-    this.actionLabel = new Text(this.scene, this.x, this.y - this.height, 'E')
-      .setFontSize(20)
-      .setOrigin(0.8, 0.5)
+    this.actionLabel = new GameText(this.scene, this.x, this.y - this.height, 'E', actionLabelFontConfig)
       .setDepth(1)
       .setVisible(false);
   }
 
   update(): void {
+    this.actionLabel.setPosition(this.x, this.y - this.height / 2);
+    this.actionLabel.setOrigin(0.5);
     if (this.isPerformTrick) {
       this.getBody().setVelocityX(0);
       this.anims.play('up', true);
@@ -77,9 +78,6 @@ export default class Player extends Actor {
     if (this.keyA.isUp && this.keyD.isUp) {
       this.playerSounds.footsteps.play();
     }
-
-    this.actionLabel.setPosition(this.x + 10, this.y - this.height * 0.4);
-    this.actionLabel.setOrigin(0.8, 0.5);
   }
 
   public getDamage(value: number): void {
@@ -91,13 +89,13 @@ export default class Player extends Actor {
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
-    this.scene!.events.emit('additem', itemKey);
+    this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
   }
 
   public removeItem(itemKey: string): void {
     this.inventory = this.inventory.filter((item) => item !== itemKey);
-    this.scene!.events.emit('removeitem', itemKey);
+    this.scene!.events.emit(Event.RemoveItem, itemKey);
     this.isPerformTrick = false;
   }
 

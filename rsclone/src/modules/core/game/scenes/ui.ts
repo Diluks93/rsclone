@@ -1,15 +1,16 @@
+import { endGameFontConfig } from './../../constants/gameTextConfig';
 import { SceneDataType } from './../../types/types';
 import Phaser from 'phaser';
 import Score from '../helpers/score';
 
-import { Text } from '../helpers/text';
+import { GameText } from '../helpers/text';
 import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
 import { gameConfig } from '../config';
 
 export default class UIScene extends Phaser.Scene {
   private score!: Score;
 
-  private gameEndPhrase!: Text;
+  private gameEndPhrase!: GameText;
 
   private doorHandler: () => void;
 
@@ -43,14 +44,15 @@ export default class UIScene extends Phaser.Scene {
     };
 
     this.gameEndHandler = (status) => {
-      this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6');
-      this.game.scene.pause(SceneKey.ManagerScene);
+      this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6)');
+      this.scene.pause(this.currentScene!);
 
-      this.gameEndPhrase = new Text(
+      this.gameEndPhrase = new GameText(
         this,
         this.game.scale.width / 2,
         this.game.scale.height * 0.4,
-        status === GameStatus.Lose ? 'YOU DIED!\nCLICK TO RESTART' : 'YOU WIN!\nCLICK TO RESTART'
+        status === GameStatus.Lose ? 'YOU DIED!\nCLICK TO RESTART' : 'YOU WIN!\nCLICK TO RESTART',
+        endGameFontConfig
       )
         .setAlign('center')
         .setColor(status === GameStatus.Lose ? '#ff0000' : '#ffffff');
@@ -62,8 +64,7 @@ export default class UIScene extends Phaser.Scene {
       this.input.on('pointerdown', () => {
         this.game.events.off(EventName.IncreaseScore, this.doorHandler);
         this.game.events.off(Event.GameEnd, this.gameEndHandler);
-        this.scene.get(SceneKey.ManagerScene).scene.restart();
-        this.scene.restart();
+        this.scene.restart(this.currentScene!);
       });
     };
   }
@@ -74,9 +75,9 @@ export default class UIScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.score = new Score(this, 50, 50, 0);
+    this.score = new Score(this, 20, 20, 0);
     this.initListeners();
-    this.scene.get(this.currentScene!).events.on('additem', (item: string) => {
+    this.scene.get(this.currentScene!).events.on(Event.AddItem, (item: string) => {
       const i = this.inventoryItems.length;
       const inventoryItem = this.add.image(
         this.inventoryX + this.cellSize * i + this.offset * i,
@@ -86,7 +87,7 @@ export default class UIScene extends Phaser.Scene {
       this.inventoryItems.push(inventoryItem);
     });
 
-    this.scene.get(this.currentScene!).events.on('removeitem', (itemKey: string) => {
+    this.scene.get(this.currentScene!).events.on(Event.RemoveItem, (itemKey: string) => {
       this.inventoryItems.forEach((inventoryItem) => {
         if (inventoryItem.texture.key === itemKey) {
           inventoryItem.destroy();

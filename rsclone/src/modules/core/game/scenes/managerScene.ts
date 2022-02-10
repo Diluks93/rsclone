@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { LevelNameEnum, SceneKey } from '../../enums/enums';
+import { LevelName, SceneKey } from '../../enums/enums';
 import { settingsStore } from '../../stores/settingsStore';
 
 export default class ManagerScene extends Phaser.Scene {
@@ -10,15 +10,15 @@ export default class ManagerScene extends Phaser.Scene {
   create(): void {
     let currentScene;
     switch (settingsStore.currentLevel) {
-      case LevelNameEnum.FirstSteps: {
+      case LevelName.FirstSteps: {
         currentScene = this.createSceneAndGetKey(SceneKey.FirstSteps);
         break;
       }
-      case LevelNameEnum.Onwards: {
+      case LevelName.Onwards: {
         currentScene = this.createSceneAndGetKey(SceneKey.Onwards);
         break;
       }
-      case LevelNameEnum.HereWeGo: {
+      case LevelName.HereWeGo: {
         // todo: add third level scene and so on
         break;
       }

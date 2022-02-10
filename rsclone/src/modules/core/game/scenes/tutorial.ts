@@ -1,3 +1,4 @@
+import { GameText } from './../helpers/text';
 import { PortraitType, SceneDataType } from './../../types/types';
 import Phaser from 'phaser';
 import gameTranslation from '../../data/gameTranslation.json';
@@ -54,11 +55,18 @@ export default class TutorialScene extends Phaser.Scene {
     this.portraitBox = portraitBox;
     this.directorImage = directorImage;
 
-    this.speechText = this.add.text(portraitSize, 0, this.tutorialSpeech![this.speechCount], tutorialSpeechFontConfig);
+    this.speechText = new GameText(
+      this,
+      portraitSize,
+      0,
+      this.tutorialSpeech![this.speechCount],
+      tutorialSpeechFontConfig
+    );
     this.speechText.setInteractive();
 
     const { windowWidth, windowHeight } = settingsStore;
-    this.hintText = this.add.text(
+    this.hintText = new GameText(
+      this,
       windowWidth - hintTextWidth,
       portraitSize - offset,
       this.tutorialHint,
