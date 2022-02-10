@@ -1,10 +1,10 @@
-import { GameText } from './../helpers/text';
+import { GameText } from '../helpers/gameText';
 import { PortraitType, SceneDataType } from './../../types/types';
 import Phaser from 'phaser';
 import gameTranslation from '../../data/gameTranslation.json';
 
-import { tutorialSpeechFontConfig, tutorialHintFontConfig } from '../../constants/gameTextConfig';
-import { speechConfig } from '../../constants/constInterfaceScene';
+import { tutorialSpeechFontConfig, continueTextFontConfig } from '../../constants/gameTextConfig';
+import { tutorialSpeechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
 import { GameKey, SceneKey } from '../../enums/enums';
 
@@ -29,7 +29,7 @@ export default class TutorialScene extends Phaser.Scene {
 
   tutorialSpeech: string[] | undefined;
 
-  tutorialHint: string;
+  continueText: string;
 
   currentLevel: number | undefined;
 
@@ -37,7 +37,7 @@ export default class TutorialScene extends Phaser.Scene {
 
   constructor() {
     super({ key: SceneKey.TutorialScene });
-    this.tutorialHint = gameTranslation[settingsStore.languageValue].tutorialHint;
+    this.continueText = gameTranslation[settingsStore.languageValue].continueText;
   }
 
   init(data: SceneDataType) {
@@ -49,7 +49,7 @@ export default class TutorialScene extends Phaser.Scene {
   }
 
   create(): void {
-    const { portraitSize, offset, hintTextWidth } = speechConfig;
+    const { portraitSize, offset, hintTextWidth } = tutorialSpeechConfig;
 
     const { portraitBox, directorImage } = this.createPortrait(portraitSize);
     this.portraitBox = portraitBox;
@@ -69,8 +69,8 @@ export default class TutorialScene extends Phaser.Scene {
       this,
       windowWidth - hintTextWidth,
       portraitSize - offset,
-      this.tutorialHint,
-      tutorialHintFontConfig
+      this.continueText,
+      continueTextFontConfig
     );
     this.tweens.add({
       targets: this.hintText,
@@ -111,7 +111,7 @@ export default class TutorialScene extends Phaser.Scene {
   update(time: number, delta: number): void {
     this.timer += delta;
     const { windowWidth, windowHeight } = settingsStore;
-    const { portraitSize, offset, hintTextWidth } = speechConfig;
+    const { portraitSize, offset, hintTextWidth } = tutorialSpeechConfig;
     if (this.timer > 400) {
       this.speechContainer?.setPosition(0, windowHeight - 208);
       this.speechText?.setStyle({

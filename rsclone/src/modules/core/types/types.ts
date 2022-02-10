@@ -92,11 +92,16 @@ export type GameTranslationType = {
   randomspellsSubtitle: string;
   levelDetailsBlock: Array<LevelDetailsType>;
   tutorialSpeech: string[][];
-  tutorialHint: string;
+  continueText: string;
   exitWarning: string;
   fullScreenWarningText: string;
   fullScreenActionText: string;
   preloaderText: string;
+  scoreText: string;
+  loseText: string;
+  winText: string;
+  spaceText: string;
+  eKeyText: string;
 };
 
 export type LevelDetailsType = {

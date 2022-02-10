@@ -7,6 +7,7 @@ import { EventName, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
+import gameTranslation from '../../../data/gameTranslation.json';
 import DoorWay from '../../helpers/doorWay';
 
 export default abstract class GameScene extends Phaser.Scene {
@@ -124,12 +125,14 @@ export default abstract class GameScene extends Phaser.Scene {
   update(): void {
     this.player.update();
 
+    const { spaceText } = gameTranslation[settingsStore.languageValue];
+    const { eKeyText } = gameTranslation[settingsStore.languageValue];
     if (this.isPlayerOverlapDoors(this.doorWaysGroup!)) {
       this.player.actionLabel?.setVisible(true);
-      this.player.actionLabel.setText('Space');
+      this.player.actionLabel.setText(spaceText);
     } else if (this.isPlayerOverlapActiveItems()) {
       this.player.actionLabel?.setVisible(true);
-      this.player.actionLabel.setText('E');
+      this.player.actionLabel.setText(eKeyText);
     } else {
       this.player.actionLabel?.setVisible(false);
     }

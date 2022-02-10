@@ -1,9 +1,9 @@
+import { settingsStore } from './../../stores/settingsStore';
+import Actor from './actor';
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { DoorWayInterface } from './../../types/types';
-import Actor from './actor';
-
 import { GameKey, GameStatus, Event } from '../../enums/enums';
-import { GameText } from '../helpers/text';
+import { GameText } from '../helpers/gameText';
 
 export default class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
@@ -43,7 +43,7 @@ export default class Player extends Actor {
     this.getBody().setOffset(0, 0);
     this.setDepth(1);
     this.playerSounds = playerSounds;
-    this.actionLabel = new GameText(this.scene, this.x, this.y - this.height, 'E', actionLabelFontConfig)
+    this.actionLabel = new GameText(this.scene, this.x, this.y - this.height, '', actionLabelFontConfig)
       .setDepth(1)
       .setVisible(false);
   }

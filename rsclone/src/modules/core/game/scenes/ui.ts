@@ -1,14 +1,15 @@
-import { endGameFontConfig } from './../../constants/gameTextConfig';
-import { SceneDataType } from './../../types/types';
+import { settingsStore } from './../../stores/settingsStore';
 import Phaser from 'phaser';
-import Score from '../helpers/score';
-
-import { GameText } from '../helpers/text';
-import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
 import { gameConfig } from '../config';
+import { SceneDataType } from './../../types/types';
+import GameScore from '../helpers/gameScore';
+import { GameText } from '../helpers/gameText';
+import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
+import { endGameFontConfig } from './../../constants/gameTextConfig';
+import gameTranslation from '../../data/gameTranslation.json';
 
 export default class UIScene extends Phaser.Scene {
-  private score!: Score;
+  private score!: GameScore;
 
   private gameEndPhrase!: GameText;
 
@@ -47,11 +48,13 @@ export default class UIScene extends Phaser.Scene {
       this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6)');
       this.scene.pause(this.currentScene!);
 
+      const { loseText, winText, continueText } = gameTranslation[settingsStore.languageValue];
+      const statusText = status === GameStatus.Lose ? loseText : winText;
       this.gameEndPhrase = new GameText(
         this,
         this.game.scale.width / 2,
         this.game.scale.height * 0.4,
-        status === GameStatus.Lose ? 'YOU DIED!\nCLICK TO RESTART' : 'YOU WIN!\nCLICK TO RESTART',
+        `${statusText}!\n${continueText}`.toUpperCase(),
         endGameFontConfig
       )
         .setAlign('center')
@@ -75,7 +78,7 @@ export default class UIScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.score = new Score(this, 20, 20, 0);
+    this.score = new GameScore(this, 20, 20, 0);
     this.initListeners();
     this.scene.get(this.currentScene!).events.on(Event.AddItem, (item: string) => {
       const i = this.inventoryItems.length;
