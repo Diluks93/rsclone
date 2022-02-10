@@ -4,9 +4,9 @@ import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
 
 import { gameConfig } from '../../config';
-import { GameKey } from '../../../enums/enums';
+import { EventName, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
-import { Door, TargetItemConfigType } from '../../../types/types';
+import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
 
 export default abstract class GameScene extends Phaser.Scene {
@@ -34,7 +34,7 @@ export default abstract class GameScene extends Phaser.Scene {
     [index: string]: Phaser.Sound.BaseSound;
   };
 
-  protected cursor: ReturnType<<T>() => T>;
+  protected cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
 
   protected player!: Player;
 
@@ -78,26 +78,47 @@ export default abstract class GameScene extends Phaser.Scene {
     );
     this.player = new Player(this, spawnPoint.x as number, spawnPoint.y as number, this.playerSounds);
 
-    const fakeObjects = this.physics.add.staticGroup();
-    const doorObjects = this.map.getObjectLayer('doors').objects;
-    this.establishObjectOfDoor(doorObjects, fakeObjects);
+    const doorWays = this.physics.add.staticGroup();
+    const doorMapObjects = this.map.getObjectLayer('doors').objects;
+    this.establishObjectOfDoor(doorMapObjects, doorWays);
 
     this.cursor = this.input.keyboard.createCursorKeys();
     if (this.player)
       this.physics.add.overlap(
         this.player,
-        fakeObjects,
-        (player, fakeObjects) => {
-          (fakeObjects as Door).setVisible(true);
-          (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space?.on('down', (event: KeyboardEvent) => {
-            this.game.events.emit(GameKey.Fake);
-            const setPositionPlayerX = (fakeObjects as Door).x + (player as Player).width / 2;
-            const setPositionPlayerY = (fakeObjects as Door).y + (player as Player).height / 2;
+        doorWays,
+        (actor, object) => {
+          const currentDoorWay = object as DoorWayInterface;
+          const { nextDoorWayId } = currentDoorWay;
+          const nextDoorWay = this.getNextDoorWay(doorWays, nextDoorWayId) as DoorWayInterface;
+          nextDoorWay.setVisible(true);
 
-            (player as Player).setPosition(setPositionPlayerX, setPositionPlayerY);
-            (player as Player).anims.play('down', true);
-            (fakeObjects as Door).setVisible(false);
-          });
+          const spaceKey = (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space;
+
+          if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
+            const player = actor as Player;
+            const oldPlayerPositionX = currentDoorWay.x + player.width / 2;
+            const oldPlayerPositionY = currentDoorWay.y + player.height / 2;
+            player.setPosition(oldPlayerPositionX, oldPlayerPositionY);
+            player.isWalkThroughDoor = true;
+
+            this.time.addEvent({
+              delay: 300,
+              callback: () => {
+                const newPlayerPositionX = nextDoorWay.x + player.width / 2;
+                const newPlayerPositionY = nextDoorWay.y + player.height / 2;
+                player.setPosition(newPlayerPositionX, newPlayerPositionY);
+                nextDoorWay.setVisible(false);
+                player.isWalkThroughDoor = false;
+
+                if (!currentDoorWay.isChecked) {
+                  this.game.events.emit(EventName.IncreaseScore);
+                  currentDoorWay.isChecked = true;
+                  nextDoorWay.isChecked = true;
+                }
+              },
+            });
+          }
         },
         undefined,
         this
@@ -127,19 +148,20 @@ export default abstract class GameScene extends Phaser.Scene {
 
   private establishObjectOfDoor(
     doorObjects: Phaser.Types.Tilemaps.TiledObject[],
-    fakeObjects: Phaser.Physics.Arcade.StaticGroup
+    fakeDoorObjects: Phaser.Physics.Arcade.StaticGroup
   ) {
-    doorObjects.forEach((doorObject, i, arr) => {
-      const obj = fakeObjects.create(doorObject.x, doorObject.y, GameKey.Fake).setOrigin(0, 0);
-      fakeObjects.setVisible(false);
-      obj.body.width = doorObject.width;
-      obj.body.height = doorObject.height;
-      for (let j = 0; j < arr.length; j++) {
-        if (doorObject.id === arr[j].properties[0].value) {
-          obj.body.x = arr[j].x;
-          obj.body.y = arr[j].y;
-        }
-      }
+    doorObjects.forEach((doorObject) => {
+      const fakeDoorObject = fakeDoorObjects.create(doorObject.x, doorObject.y, GameKey.FakeDoor).setOrigin(0, 0);
+
+      fakeDoorObject.nextDoorWayId = doorObject.properties[0].value;
+      fakeDoorObject.id = doorObject.id;
+      fakeDoorObject.isChecked = false;
+
+      fakeDoorObject.setVisible(false);
+      fakeDoorObject.body.width = doorObject.width;
+      fakeDoorObject.body.height = doorObject.height;
+      fakeDoorObject.body.x = doorObject.x;
+      fakeDoorObject.body.y = doorObject.y;
     });
   }
 
@@ -203,6 +225,9 @@ export default abstract class GameScene extends Phaser.Scene {
       this.physics.add.overlap(this.player, targetItem.originalItem, () => {
         this.isActionAvailable = this.player.inventory.includes(targetItem.keyItemId);
         if (this.isActionAvailable && this.actionKeyE!.isDown) {
+          if (Phaser.Input.Keyboard.JustDown(this.actionKeyE!)) {
+            this.game.events.emit(EventName.IncreaseScore);
+          }
           this.player.isPerformTrick = true;
           this.player.playerSounds?.prank.play();
           this.time.addEvent({
@@ -217,5 +242,12 @@ export default abstract class GameScene extends Phaser.Scene {
         }
       });
     });
+  }
+
+  protected getNextDoorWay(
+    doorWays: Phaser.Physics.Arcade.StaticGroup,
+    nextDoorWayId: number
+  ): Phaser.GameObjects.GameObject {
+    return doorWays.children.getArray().filter((doorWay) => (doorWay as DoorWayInterface).id === nextDoorWayId)[0];
   }
 }

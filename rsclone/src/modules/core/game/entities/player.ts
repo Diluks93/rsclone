@@ -12,6 +12,7 @@ export default class Player extends Actor {
   playerSounds;
   inventory: string[] = [];
   isPerformTrick = false;
+  isWalkThroughDoor = false;
 
   constructor(scene: Phaser.Scene, x: number, y: number, playerSounds: {
       [index: string]: Phaser.Sound.BaseSound;
@@ -38,11 +39,15 @@ export default class Player extends Actor {
     if (this.isPerformTrick) {
       this.getBody().setVelocityX(0);
       this.anims.play('up', true);
-
+      return;
+    }
+    if (this.isWalkThroughDoor) {
+      this.getBody().setVelocityX(0);
+      this.anims.play('up', true);
       return;
     }
     this.playerSounds?.footsteps.on('keyup', () => {
-        this.playerSounds?.footsteps.play();
+      this.playerSounds?.footsteps.play();
     });
     this.getBody().setVelocity(0);
     if (this.keyA.isDown) {

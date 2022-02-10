@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import Score from '../helpers/score';
 
 import { Text } from '../helpers/text';
-import { GameKey, ScoreOperations, Event, GameStatus, SceneKey } from '../../enums/enums';
+import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
 import { gameConfig } from '../config';
 
 export default class UIScene extends Phaser.Scene {
@@ -60,7 +60,7 @@ export default class UIScene extends Phaser.Scene {
       );
 
       this.input.on('pointerdown', () => {
-        this.game.events.off(GameKey.Fake, this.doorHandler);
+        this.game.events.off(EventName.IncreaseScore, this.doorHandler);
         this.game.events.off(Event.GameEnd, this.gameEndHandler);
         this.scene.get(SceneKey.ManagerScene).scene.restart();
         this.scene.restart();
@@ -140,7 +140,7 @@ export default class UIScene extends Phaser.Scene {
   }
 
   private initListeners(): void {
-    this.game.events.on(GameKey.Fake, this.doorHandler, this);
+    this.game.events.on(EventName.IncreaseScore, this.doorHandler, this);
     this.game.events.once(Event.GameEnd, this.gameEndHandler, this);
   }
 }

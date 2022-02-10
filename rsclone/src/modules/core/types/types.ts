@@ -121,9 +121,12 @@ export type GameConfigExtended = Phaser.Types.Core.GameConfig & {
   winScore: number;
 };
 
-export interface Door extends Phaser.Types.Physics.Arcade.GameObjectWithBody {
+export interface DoorWayInterface extends Phaser.Types.Physics.Arcade.GameObjectWithBody {
   x: number;
   y: number;
+  id: number;
+  nextDoorWayId: number;
+  isChecked: boolean;
   setVisible(visible: boolean): void;
 }
 

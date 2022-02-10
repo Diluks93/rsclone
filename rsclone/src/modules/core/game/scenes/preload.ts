@@ -1,8 +1,8 @@
 import director from '../../../../assets/game/director.png';
 import pen from '../../../../assets/game/pen.png';
-import fake from '../../../../assets/game/fake-door.png';
+import fakeDoor from '../../../../assets/game/fake-door.png';
 import trickedPicture from '../../../../assets/game/picture-2.png';
-import picture from '../../../../assets/game/picture-1.png'
+import picture from '../../../../assets/game/picture-1.png';
 
 import { GameKey, UrlSourceForGame, SceneKey } from '../../enums/enums';
 import { loaderFontConfig } from './../../constants/gameTextConfig';
@@ -117,7 +117,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio(GameKey.SoundPrank, UrlSourceForGame.SoundPrank);
     this.load.image(GameKey.Director, director);
     this.load.image(GameKey.Pen, pen);
-    this.load.image(GameKey.Fake, fake);
+    this.load.image(GameKey.FakeDoor, fakeDoor);
     this.load.image(GameKey.Picture, picture);
     this.load.image(GameKey.TrickedPicture, trickedPicture);
   }

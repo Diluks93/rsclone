@@ -1,4 +1,4 @@
-const enum PageId {
+export const enum PageId {
   MainPage = 'main-page',
   HomePage = 'home-page',
   SettingsPage = 'settings-page',
@@ -6,13 +6,13 @@ const enum PageId {
   ErrorPage = 'error-page',
   CurrentPage = 'current-page',
   LevelSelectPage = 'levels-page',
-};
+}
 
-const enum ErrorType {
+export const enum ErrorType {
   Error_404 = '404',
-};
+}
 
-const enum StorageKey {
+export const enum StorageKey {
   HomeTranslation = 'homeTranslation',
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
@@ -25,7 +25,7 @@ const enum StorageKey {
   CurrentLevel = 'currentLevel',
 }
 
-const enum Frame {
+export const enum Frame {
   RearViewStart,
   RearView,
   RearViewEnd,
@@ -38,9 +38,9 @@ const enum Frame {
   LeftViewStart,
   LeftView,
   LeftViewEnd,
-};
+}
 
-const enum UrlSourceForGame {
+export const enum UrlSourceForGame {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
   TilemapJson = 'game/map/map.json',
@@ -49,9 +49,14 @@ const enum UrlSourceForGame {
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
   SoundPrank = 'audio/prank.mp3',
-};
+}
 
-const enum GameKey {
+export const enum EventName {
+  IncreaseScore = 'increasescore',
+  GoThroughDoor = 'fake-door',
+}
+
+export const enum GameKey {
   CanvasParent = 'game',
   Player = 'dude',
   Neighbor = 'neighbor',
@@ -64,58 +69,43 @@ const enum GameKey {
   Bricks = 'bricks',
   Director = 'director',
   Pen = 'pen',
-  Fake = 'fake-door',
+  FakeDoor = 'fake-door',
   Picture = 'picture',
   TrickedPicture = 'trickedPicture',
-};
-  
-const enum SceneKey {
+}
+
+export const enum SceneKey {
   InterfaceScene = 'ui-scene',
   PreloadScene = 'preload-scene',
   TutorialScene = 'tutorial-scene',
   Onwards = 'forward',
   FirstSteps = 'first-steps',
   ManagerScene = 'manager-scene',
-};
+}
 
-const enum ScoreOperations {
+export const enum ScoreOperations {
   Increase,
   Decrease,
   SetValue,
-};
+}
 
-const enum GameStatus {
+export const enum GameStatus {
   Win,
   Lose,
-};
+}
 
-const enum Event {
+export const enum Event {
   GameEnd = 'game-end',
-};
+}
 
-const enum LevelNameEnum {
+export const enum LevelNameEnum {
   FirstSteps,
   Onwards,
   HereWeGo,
 }
 
-const enum GameFontSize {
+export const enum GameFontSize {
   LargeFont = '32px',
   MediumFont = '24px',
   SmallFont = '16px',
-}
-
-export {
-  PageId,
-  ErrorType,
-  StorageKey,
-  Frame,
-  UrlSourceForGame,
-  GameKey,
-  ScoreOperations,
-  GameStatus,
-  Event,
-  SceneKey,
-  GameFontSize,
-  LevelNameEnum,
 }
