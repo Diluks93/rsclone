@@ -4,33 +4,50 @@ import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
 
 import { gameConfig } from '../../config';
-import { GameKey, SceneKey } from '../../../enums/enums';
+import { GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { Door, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
 
 export default abstract class GameScene extends Phaser.Scene {
   private tile = tile;
+
   private sizeWorld = sizeWorld;
+
   private actionKeyE: Phaser.Input.Keyboard.Key | undefined;
+
   private music: Phaser.Sound.BaseSound | undefined;
+
   private bg: Phaser.Tilemaps.TilemapLayer | undefined;
+
   private bgWindow: Phaser.Tilemaps.TilemapLayer | undefined;
+
   private bgDoors: Phaser.Tilemaps.TilemapLayer | undefined;
+
   private width = gameConfig.scale?.width;
+
   private height = gameConfig.scale?.height;
+
   private isActionAvailable = false;
+
   private playerSounds: {
     [index: string]: Phaser.Sound.BaseSound;
   };
+
   protected cursor: ReturnType<<T>() => T>;
+
   protected player!: Player;
+
   protected map: Phaser.Tilemaps.Tilemap | undefined;
+
   protected trickSourceItems: TrickSourceItem[] = [];
+
   protected trickTargetItems: TrickTargetItem[] = [];
+
   protected floor: Phaser.Tilemaps.TilemapLayer | undefined;
+
   protected mapLayer = mapLayer;
-  
+
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
     this.playerSounds = {};
@@ -47,56 +64,54 @@ export default abstract class GameScene extends Phaser.Scene {
     this.playerSounds.prank = this.sound.add(GameKey.SoundPrank, soundConfig);
     this.music = this.sound.add(GameKey.MusicGame, soundConfig);
     this.music.play();
-    
+
     this.floor = this.map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
     this.bg = this.map.createLayer(this.mapLayer.bg, tileset, 0, 0);
     this.bgDoors = this.map.createLayer(this.mapLayer.bgDoors, tileset, 0, 0);
     this.bgWindow = this.map.createLayer(this.mapLayer.bgWindow, tileset, 0, 0);
-    
+
     this.floor.setCollisionByExclusion([-1], true);
 
-    const spawnPoint = this.map.findObject(this.mapLayer.object.id.object, (obj) => obj.name === this.mapLayer.object.name.spawnPlayer);
+    const spawnPoint = this.map.findObject(
+      this.mapLayer.object.id.object,
+      (obj) => obj.name === this.mapLayer.object.name.spawnPlayer
+    );
     this.player = new Player(this, spawnPoint.x as number, spawnPoint.y as number, this.playerSounds);
 
     const fakeObjects = this.physics.add.staticGroup();
-    const doorObjects = this.map.getObjectLayer('doors')['objects'];
+    const doorObjects = this.map.getObjectLayer('doors').objects;
     this.establishObjectOfDoor(doorObjects, fakeObjects);
 
     this.cursor = this.input.keyboard.createCursorKeys();
     if (this.player)
       this.physics.add.overlap(
-        this.player, 
-        fakeObjects, 
+        this.player,
+        fakeObjects,
         (player, fakeObjects) => {
           (fakeObjects as Door).setVisible(true);
           (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space?.on('down', (event: KeyboardEvent) => {
             this.game.events.emit(GameKey.Fake);
-            const setPositionPlayerX = (fakeObjects as Door).x + ((player as Player).width / 2);
-            const setPositionPlayerY = (fakeObjects as Door).y + ((player as Player).height / 2);
+            const setPositionPlayerX = (fakeObjects as Door).x + (player as Player).width / 2;
+            const setPositionPlayerY = (fakeObjects as Door).y + (player as Player).height / 2;
 
             (player as Player).setPosition(setPositionPlayerX, setPositionPlayerY);
             (player as Player).anims.play('down', true);
             (fakeObjects as Door).setVisible(false);
-          })
+          });
         },
         undefined,
         this
-        ) 
+      );
 
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
     this.cameras.main.setBounds(0, 0, this.sizeWorld.width, this.sizeWorld.height);
-    if (this.player) 
-      this.cameras.main.startFollow(this.player);
+    if (this.player) this.cameras.main.startFollow(this.player);
     this.cameras.main.roundPixels = true;
 
     this.physics.add.collider(this.player, this.floor);
     this.addOverlapActionToItems();
     this.scale.on('resize', this.resize, this);
-
-    this.scene.launch(SceneKey.TutorialScene);
-    this.scene.launch(SceneKey.InterfaceScene);
-    this.scene.pause(SceneKey.FirstSteps);
   }
 
   update(): void {
@@ -110,7 +125,10 @@ export default abstract class GameScene extends Phaser.Scene {
     }
   }
 
-  private establishObjectOfDoor(doorObjects: Phaser.Types.Tilemaps.TiledObject[], fakeObjects: Phaser.Physics.Arcade.StaticGroup) {
+  private establishObjectOfDoor(
+    doorObjects: Phaser.Types.Tilemaps.TiledObject[],
+    fakeObjects: Phaser.Physics.Arcade.StaticGroup
+  ) {
     doorObjects.forEach((doorObject, i, arr) => {
       const obj = fakeObjects.create(doorObject.x, doorObject.y, GameKey.Fake).setOrigin(0, 0);
       fakeObjects.setVisible(false);
@@ -133,7 +151,6 @@ export default abstract class GameScene extends Phaser.Scene {
   }
 
   private isPlayerOverlapActiveItems(): boolean {
-    
     return (
       this.isPlayerOverlapItems(this.trickSourceItems) ||
       (this.isPlayerOverlapItems(this.trickTargetItems) && this.isActionAvailable)
@@ -180,7 +197,7 @@ export default abstract class GameScene extends Phaser.Scene {
         }
       });
     });
-  
+
     this.trickTargetItems.forEach((targetItem) => {
       this.physics.add.existing(targetItem, true);
       this.physics.add.overlap(this.player, targetItem.originalItem, () => {
@@ -201,5 +218,4 @@ export default abstract class GameScene extends Phaser.Scene {
       });
     });
   }
-
-};
+}
