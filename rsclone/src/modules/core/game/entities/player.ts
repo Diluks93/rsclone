@@ -25,6 +25,8 @@ export default class Player extends Actor {
 
   isWalkThroughDoor = false;
 
+  isAware = false;
+
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -72,6 +74,8 @@ export default class Player extends Actor {
       this.flipX = false;
       this.body.velocity.x = this.SPEED;
       this.anims.play(AnimationKey.WoodySide, true);
+    } else if (this.isAware) {
+      this.anims.play(AnimationKey.WoodyAware);
     } else {
       this.anims.play(AnimationKey.WoodyIdle, true);
     }
@@ -94,20 +98,20 @@ export default class Player extends Actor {
     });
 
     this.scene.anims.create({
-      key: AnimationKey.WoodySide,
+      key: AnimationKey.WoodyUp,
       frames: this.scene.anims.generateFrameNumbers(GameKey.Player, {
-        start: FrameKey.WoodySideStart,
-        end: FrameKey.WoodySideEnd,
+        start: FrameKey.WoodyBackStart,
+        end: FrameKey.WoodyBackEnd,
       }),
       frameRate: 10,
       repeat: -1,
     });
 
     this.scene.anims.create({
-      key: AnimationKey.WoodyUp,
+      key: AnimationKey.WoodySide,
       frames: this.scene.anims.generateFrameNumbers(GameKey.Player, {
-        start: FrameKey.WoodyBackStart,
-        end: FrameKey.WoodyBackEnd,
+        start: FrameKey.WoodySideStart,
+        end: FrameKey.WoodySideEnd,
       }),
       frameRate: 10,
       repeat: -1,
@@ -138,11 +142,21 @@ export default class Player extends Actor {
       frames: [
         {
           key: GameKey.Player,
-          frame: FrameKey.WoodyPickItem,
+          frame: FrameKey.WoodyPick,
         },
       ],
-      frameRate: 10,
-      repeat: -1,
+      frameRate: 20,
+    });
+
+    this.scene.anims.create({
+      key: AnimationKey.WoodyAware,
+      frames: [
+        {
+          key: GameKey.Player,
+          frame: FrameKey.WoodyAware,
+        },
+      ],
+      frameRate: 20,
     });
   }
 

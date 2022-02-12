@@ -11,7 +11,6 @@ export default class Neighbor extends Actor {
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, target: Player, frame?: number) {
     super(scene, x, y, texture, frame);
     this.target = target;
-
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.getBody().setOffset(0, 0);
@@ -20,7 +19,7 @@ export default class Neighbor extends Actor {
 
   update(): void {
     if (this.getDistanceFromTarget() > this.agressionRange) {
-      this.anims.play(AnimationKey.NeighborIdle);
+      this.stopMove();
     } else if (this.getDistanceFromTarget() < this.target.width * this.scale) {
       this.attackTarget();
     } else {
@@ -97,14 +96,20 @@ export default class Neighbor extends Actor {
       this.flipX = true;
     }
     this.anims.play(AnimationKey.NeighborSide, true);
+    this.target.isAware = true;
   }
 
-  public setTarget(target: Player): void {
-    this.target = target;
+  private stopMove() {
+    this.anims.play(AnimationKey.NeighborIdle);
+    this.target.isAware = false;
   }
 
   private attackTarget() {
     this.anims.play(AnimationKey.NeighborAnger, true);
     this.disableBody(true, false);
+  }
+
+  public setTarget(target: Player): void {
+    this.target = target;
   }
 }
