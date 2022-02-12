@@ -1,4 +1,3 @@
-import { settingsStore } from './../../../stores/settingsStore';
 import GameScene from './gameScene';
 import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
@@ -13,7 +12,7 @@ export default class Onwards extends GameScene {
 
   constructor() {
     super({ key: SceneKey.Onwards });
-    this.winScore = settingsStore.maxScore[MaxScore.Onwards];
+    this.winScore = MaxScore.Onwards;
   }
 
   create() {
