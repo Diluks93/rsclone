@@ -25,9 +25,9 @@ class LevelSelectPage extends Page {
   tutorialTitle: HTMLElement;
   seasonOneTitle: HTMLElement;
   levelDetailslTitle: HTMLElement;
-  scoreSpan: HTMLSpanElement;
-  timeLimitSpan: HTMLSpanElement;
-  hintSpan: HTMLSpanElement;
+  scoreParagraph: HTMLParagraphElement;
+  timeLimitParagraph: HTMLParagraphElement;
+  hintParagraph: HTMLParagraphElement;
   previewImage: HTMLImageElement;
   levelDescriptionText: HTMLParagraphElement;
   playLevelButton: HTMLAnchorElement;
@@ -38,9 +38,9 @@ class LevelSelectPage extends Page {
     this.tutorialTitle = this.createHeaderTitle(levelPageTitleProps.tutorialTitle);
     this.seasonOneTitle = this.createHeaderTitle(levelPageTitleProps.seasonOneTitle);
     this.levelDetailslTitle = this.createHeaderTitle(levelPageTitleProps.levelDetailsTitle);
-    this.scoreSpan = this.createScoreWrapper(levelDetailsProps.ratingCountId, 'star');
-    this.timeLimitSpan = this.createInfoSpan(levelDetailsProps.timeLimitId, 'clock');
-    this.hintSpan = this.createInfoSpan(levelDetailsProps.hintId, 'wink');
+    this.scoreParagraph = this.createScoreWrapper(levelDetailsProps.ratingCountId, 'star');
+    this.timeLimitParagraph = this.createInfoParagraph(levelDetailsProps.timeLimitId, 'clock');
+    this.hintParagraph = this.createInfoParagraph(levelDetailsProps.hintId, 'wink');
     //todo: change to better source of image
     this.previewImage = this.createPreviewImage(levelPreviewProps.tutorialTitle[0].imageUrl);
     this.levelDescriptionText = this.createLevelDescriptionText(levelDetailsProps.levelDescriptionId);
@@ -110,7 +110,7 @@ class LevelSelectPage extends Page {
     return previewImage;
   }
 
-  createInfoSpan(id: string, iconId: string): HTMLParagraphElement {
+  createInfoParagraph(id: string, iconId: string): HTMLParagraphElement {
     const paragraph = document.createElement('p');
     paragraph.id = id;
     paragraph.classList.add(`${LEVEL_DETAILS}__text`);
@@ -123,9 +123,8 @@ class LevelSelectPage extends Page {
     return paragraph;
   }
 
-  createScoreWrapper(id: string, iconId: string): HTMLSpanElement {
-    const currentCount = this.createInfoSpan(id, iconId);
-    currentCount.append(`${CURRENT_SCORE}/${TOTAL_SCORE}`);
+  createScoreWrapper(id: string, iconId: string): HTMLParagraphElement {
+    const currentCount = this.createInfoParagraph(id, iconId);
 
     return currentCount;
   }
@@ -139,7 +138,7 @@ class LevelSelectPage extends Page {
     const infoWrapper = document.createElement('div');
     infoWrapper.classList.add(`${LEVEL_DETAILS}__info`);
 
-    infoWrapper.append(this.timeLimitSpan, this.scoreSpan, this.hintSpan);
+    infoWrapper.append(this.timeLimitParagraph, this.scoreParagraph, this.hintParagraph);
     innerBlock.append(this.previewImage, infoWrapper, this.levelDescriptionText);
     wrapper.append(this.levelDetailslTitle, innerBlock, this.playLevelButton);
 
@@ -165,15 +164,17 @@ class LevelSelectPage extends Page {
     this.tutorialTitle.textContent = translation[lang].tutorialTitle;
     this.seasonOneTitle.textContent = translation[lang].seasonOneTitle;
     this.playLevelButton.append(translation[lang].playLevelButton);
-    this.setDescriptionLanguage(translation, lang, CURRENT_LEVEL);
+    this.setDescriptionLanguage(translation, lang, settingsStore.currentLevel);
   }
 
   setDescriptionLanguage(translation: GameTranslationInterface, lang: LanguageKeys, levelIndex: number): void {
-    const timeSpan = this.timeLimitSpan.querySelector('span');
-    const hintSpan = this.hintSpan.querySelector('span');
-    if (timeSpan && hintSpan) {
+    const timeSpan = this.timeLimitParagraph.querySelector('span');
+    const hintSpan = this.hintParagraph.querySelector('span');
+    const scoreSpan = this.scoreParagraph.querySelector('span');
+    if (timeSpan && hintSpan && scoreSpan) {
       timeSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].timeLimit;
       hintSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].hintText;
+      scoreSpan.textContent = `${settingsStore.playerScore[levelIndex] || 0}/${settingsStore.maxScore[levelIndex]}`
     }
     this.levelDetailslTitle.textContent = translation[lang].levelDetailsBlock[levelIndex].levelTitle;
     this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[levelIndex].levelDescriptionText;

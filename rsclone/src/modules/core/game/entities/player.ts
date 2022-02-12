@@ -162,8 +162,8 @@ export default class Player extends Actor {
 
   public getDamage(value: number): void {
     super.getDamage(value);
-    if (this.hp <= 0) {
-      this.scene.game.events.emit(Event.GameEnd, GameStatus.Lose);
+    if (this.maxHealth <= 0) {
+      this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
   }
 

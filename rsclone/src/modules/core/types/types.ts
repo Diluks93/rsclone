@@ -166,5 +166,7 @@ export type PortraitType = {
 
 export type SceneDataType = {
   currentLevel: number;
-  currentScene: Phaser.Scene;
+  gameStatus: number;
+  currentScene?: Phaser.Scene;
+  currentScore?: number;
 };

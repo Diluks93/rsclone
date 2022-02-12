@@ -1,10 +1,9 @@
 import Phaser from 'phaser';
 
 const SCALE = 8;
-const HEALTH = 1;
 
 export default class Actor extends Phaser.Physics.Arcade.Sprite {
-  protected hp = HEALTH;
+  protected maxHealth = 1;
 
   protected initAnimations(): void {}
 
@@ -26,7 +25,7 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
       alpha: 0.5,
       onStart: () => {
         if (value) {
-          this.hp = this.hp - value;
+          this.maxHealth = this.maxHealth - value;
           this.setTint(0xff0000);
         }
       },
@@ -38,7 +37,7 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
   }
 
   public getHPValue(): number {
-    return this.hp;
+    return this.maxHealth;
   }
 
   protected getBody(): Phaser.Physics.Arcade.Body {

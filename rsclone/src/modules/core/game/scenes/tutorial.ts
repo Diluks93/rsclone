@@ -38,7 +38,7 @@ export default class TutorialScene extends Phaser.Scene {
   currentScene: Phaser.Scene | undefined;
 
   constructor() {
-    super({ key: SceneKey.TutorialScene });
+    super({ key: SceneKey.Tutorial });
     this.continueText = gameTranslation[settingsStore.languageValue].continueText;
   }
 
@@ -100,9 +100,9 @@ export default class TutorialScene extends Phaser.Scene {
       if (this.speechCount >= this.tutorialSpeech!.length && this.speechContainer) {
         this.speechContainer.setVisible(false);
         this.scene.resume(this.currentScene);
-        this.scene.sleep(SceneKey.TutorialScene);
+        this.scene.sleep(SceneKey.Tutorial);
 
-        this.scene.launch(SceneKey.InterfaceScene, {
+        this.scene.launch(SceneKey.Interface, {
           currentLevel: this.currentLevel,
           currentScene: this.currentScene,
         });

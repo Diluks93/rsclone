@@ -12,6 +12,7 @@ export default class Onwards extends GameScene {
 
   constructor() {
     super({ key: SceneKey.Onwards });
+    this.winScore = 0;
   }
 
   create() {

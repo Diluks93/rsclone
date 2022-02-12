@@ -1,21 +1,16 @@
-import { settingsStore } from './../../stores/settingsStore';
+import { gameConfig } from './../config';
+import { settingsStore } from '../../stores/settingsStore';
 import Phaser from 'phaser';
-import { gameConfig } from '../config';
-import { SceneDataType } from './../../types/types';
+import { SceneDataType } from '../../types/types';
 import GameScore from '../helpers/gameScore';
 import { GameText } from '../helpers/gameText';
 import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
-import { endGameFontConfig } from './../../constants/gameTextConfig';
+import { endgameFontConfig } from '../../constants/gameTextConfig';
 import gameTranslation from '../../data/gameTranslation.json';
+import GameScene from './levels/gameScene';
 
-export default class UIScene extends Phaser.Scene {
-  private score!: GameScore;
-
-  private gameEndPhrase!: GameText;
-
-  private doorHandler: () => void;
-
-  private gameEndHandler: (status: GameStatus) => void;
+export default class InterfaceScene extends Phaser.Scene {
+  public score!: GameScore;
 
   inventoryItems: Phaser.GameObjects.Image[] = [];
 
@@ -36,40 +31,7 @@ export default class UIScene extends Phaser.Scene {
   currentLevel: number | undefined;
 
   constructor() {
-    super({ key: SceneKey.InterfaceScene });
-    this.doorHandler = () => {
-      this.score.changeValue(ScoreOperations.Increase, 25);
-      if (this.score.getValue() === gameConfig.winScore) {
-        this.game.events.emit(Event.GameEnd, GameStatus.Win);
-      }
-    };
-
-    this.gameEndHandler = (status) => {
-      this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6)');
-      this.scene.pause(this.currentScene!);
-
-      const { loseText, winText, continueText } = gameTranslation[settingsStore.languageValue];
-      const statusText = status === GameStatus.Lose ? loseText : winText;
-      this.gameEndPhrase = new GameText(
-        this,
-        this.game.scale.width / 2,
-        this.game.scale.height * 0.4,
-        `${statusText}!\n${continueText}`.toUpperCase(),
-        endGameFontConfig
-      )
-        .setAlign('center')
-        .setColor(status === GameStatus.Lose ? '#ff0000' : '#ffffff');
-      this.gameEndPhrase.setPosition(
-        this.game.scale.width / 2 - this.gameEndPhrase.width / 2,
-        this.game.scale.height * 0.4
-      );
-
-      this.input.on('pointerdown', () => {
-        this.game.events.off(EventName.IncreaseScore, this.doorHandler);
-        this.game.events.off(Event.GameEnd, this.gameEndHandler);
-        this.scene.restart(this.currentScene!);
-      });
-    };
+    super({ key: SceneKey.Interface });
   }
 
   init(data: SceneDataType) {
@@ -110,6 +72,19 @@ export default class UIScene extends Phaser.Scene {
     }
   }
 
+  updateInventoryItems(): void {
+    this.inventoryItems.forEach((item: Phaser.GameObjects.Image) => {
+      item.destroy();
+    });
+    const inventoryCopy = [...this.inventoryItems];
+    this.inventoryItems = [];
+    inventoryCopy.forEach((item: Phaser.GameObjects.Image, i: number) => {
+      this.inventoryItems.push(
+        this.add.image(this.inventoryX + this.cellSize * i + this.offset * i, this.inventoryY, item.texture.key)
+      );
+    });
+  }
+
   updateInventoryCells(): void {
     this.inventoryY = window.innerHeight - this.cellSize / 1.5;
     this.inventoryCells.forEach((cell) => {
@@ -130,21 +105,29 @@ export default class UIScene extends Phaser.Scene {
     }
   }
 
-  updateInventoryItems(): void {
-    this.inventoryItems.forEach((item: Phaser.GameObjects.Image) => {
-      item.destroy();
+  doorHandler(): void {
+    this.score.changeValue(ScoreOperations.Increase, 25);
+    const { winScore } = this.scene.get(this.currentScene!) as GameScene;
+    if (this.score.getValue() >= winScore) {
+      this.game.events.emit(Event.Endgame, GameStatus.Win);
+    }
+  }
+
+  endGameHandler(gameStatus: GameStatus): void {
+    console.log(this.score.scoreValue);
+    this.scene.pause(this.currentScene);
+    this.scene.launch(SceneKey.Endgame, {
+      currentLevel: this.currentLevel,
+      currentScene: this.currentScene,
+      gameStatus,
+      currentScore: this.score.scoreValue,
     });
-    const inventoryCopy = [...this.inventoryItems];
-    this.inventoryItems = [];
-    inventoryCopy.forEach((item: Phaser.GameObjects.Image, i: number) => {
-      this.inventoryItems.push(
-        this.add.image(this.inventoryX + this.cellSize * i + this.offset * i, this.inventoryY, item.texture.key)
-      );
-    });
+    this.game.events.off(EventName.IncreaseScore, this.doorHandler);
+    this.game.events.off(Event.Endgame, this.endGameHandler);
   }
 
   private initListeners(): void {
     this.game.events.on(EventName.IncreaseScore, this.doorHandler, this);
-    this.game.events.once(Event.GameEnd, this.gameEndHandler, this);
+    this.game.events.once(Event.Endgame, this.endGameHandler, this);
   }
 }

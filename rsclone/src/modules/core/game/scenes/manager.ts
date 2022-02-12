@@ -6,7 +6,7 @@ const TUTORIAL_LEVELS_AMOUNT = 3;
 
 export default class ManagerScene extends Phaser.Scene {
   constructor() {
-    super({ key: SceneKey.ManagerScene });
+    super({ key: SceneKey.Manager });
   }
 
   create(): void {
@@ -26,7 +26,7 @@ export default class ManagerScene extends Phaser.Scene {
       }
     }
     if (settingsStore.currentLevel < TUTORIAL_LEVELS_AMOUNT) {
-      this.scene.start(SceneKey.TutorialScene, { currentLevel: settingsStore.currentLevel, currentScene });
+      this.scene.start(SceneKey.Tutorial, { currentLevel: settingsStore.currentLevel, currentScene });
     }
   }
 

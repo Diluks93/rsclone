@@ -23,6 +23,7 @@ export const enum StorageKey {
   TimeLimitCheckbox = 'timeLimitCheckbox',
   IsFullScreenModalShown = 'isFullScreenModalShown',
   CurrentLevel = 'currentLevel',
+  PlayerScore = 'playerScore',
 }
 
 export const enum FrameKey {
@@ -101,12 +102,13 @@ export const enum GameKey {
 }
 
 export const enum SceneKey {
-  InterfaceScene = 'ui-scene',
-  PreloadScene = 'preload-scene',
-  TutorialScene = 'tutorial-scene',
+  Interface = 'ui-scene',
+  Preload = 'preload-scene',
+  Tutorial = 'tutorial-scene',
   Onwards = 'onwards',
   FirstSteps = 'first-steps',
-  ManagerScene = 'manager-scene',
+  Manager = 'manager-scene',
+  Endgame = 'endgame-scene',
 }
 
 export const enum ScoreOperations {
@@ -121,7 +123,7 @@ export const enum GameStatus {
 }
 
 export const enum Event {
-  GameEnd = 'game-end',
+  Endgame = 'endgame',
   AddItem = 'additem',
   RemoveItem = 'removeitem',
 }
@@ -130,6 +132,12 @@ export const enum LevelName {
   FirstSteps,
   Onwards,
   HereWeGo,
+}
+
+export const enum MaxScore {
+  FirstSteps = 75,
+  Onwards = 100,
+  HereWeGo = 150,
 }
 
 export const enum GameFont {

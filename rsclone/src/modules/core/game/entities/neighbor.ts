@@ -13,7 +13,6 @@ export default class Neighbor extends Actor {
     this.target = target;
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    this.getBody().setOffset(0, 0);
     this.setImmovable(true);
   }
 
