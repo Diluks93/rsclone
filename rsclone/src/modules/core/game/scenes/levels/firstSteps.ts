@@ -1,9 +1,10 @@
+import { settingsStore } from './../../../stores/settingsStore';
 import GameScene from './gameScene';
-import { SceneKey } from '../../../enums/enums';
+import { MaxScore, SceneKey } from '../../../enums/enums';
 
 export default class FirstSteps extends GameScene {
   constructor() {
     super({ key: SceneKey.FirstSteps });
-    this.winScore = 75;
+    this.winScore = settingsStore.maxScore[MaxScore.FirstSteps];
   }
 }

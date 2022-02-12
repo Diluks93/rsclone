@@ -1,8 +1,9 @@
+import { settingsStore } from './../../../stores/settingsStore';
 import GameScene from './gameScene';
 import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 
-import { FrameKey, GameKey, SceneKey } from '../../../enums/enums';
+import { FrameKey, GameKey, MaxScore, SceneKey } from '../../../enums/enums';
 import Player from '../../entities/player';
 
 export default class Onwards extends GameScene {
@@ -12,7 +13,7 @@ export default class Onwards extends GameScene {
 
   constructor() {
     super({ key: SceneKey.Onwards });
-    this.winScore = 0;
+    this.winScore = settingsStore.maxScore[MaxScore.Onwards];
   }
 
   create() {
