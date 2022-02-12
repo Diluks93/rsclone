@@ -11,8 +11,8 @@ export const mapLayer = {
   bgWindow: 'bgWindow',
   bgDoors: 'bgDoors',
   object: {
-    id: { 
-      object: 'object', 
+    id: {
+      object: 'object',
       things: 'things',
       neighbor: 'neighbor',
     },

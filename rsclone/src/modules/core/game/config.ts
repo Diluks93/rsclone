@@ -3,8 +3,8 @@ import PreloadScene from './scenes/preload';
 import TutorialScene from './scenes/tutorial';
 import ManagerScene from './scenes/managerScene';
 import UIScene from './scenes/ui';
-import FirstStep from './scenes/levels/firstStep';
-import Onwards from './scenes/levels/forward';
+import FirstSteps from './scenes/levels/firstSteps';
+import Onwards from './scenes/levels/onwards';
 
 import { GameConfigExtended } from '../types/types';
 import { GameKey } from '../enums/enums';
@@ -36,7 +36,7 @@ export const gameConfig: GameConfigExtended = {
   audio: {
     disableWebAudio: true,
   },
-  scene: [PreloadScene, ManagerScene, FirstStep, Onwards, UIScene, TutorialScene,],
+  scene: [PreloadScene, ManagerScene, FirstSteps, Onwards, UIScene, TutorialScene],
   winScore: 70,
 };
 
@@ -47,7 +47,7 @@ window.sizeChanged = () => {
 
       window.game.canvas.setAttribute(
         'style',
-        `display: block; width: ${window.innerWidth}px; height: ${window.innerHeight}px;`,
+        `display: block; width: ${window.innerWidth}px; height: ${window.innerHeight}px;`
       );
     }, 100);
   }
