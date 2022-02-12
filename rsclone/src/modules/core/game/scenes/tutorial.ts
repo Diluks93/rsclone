@@ -8,6 +8,8 @@ import { tutorialSpeechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
 import { GameKey, SceneKey } from '../../enums/enums';
 
+const UPDATE_TIME = 400;
+
 export default class TutorialScene extends Phaser.Scene {
   speechCount = 0;
 
@@ -108,12 +110,12 @@ export default class TutorialScene extends Phaser.Scene {
     });
   }
 
-  update(time: number, delta: number): void {
+  update(delta: number): void {
     this.timer += delta;
     const { windowWidth, windowHeight } = settingsStore;
     const { portraitSize, offset, hintTextWidth } = tutorialSpeechConfig;
-    if (this.timer > 400) {
-      this.speechContainer?.setPosition(0, windowHeight - 208);
+    if (this.timer > UPDATE_TIME) {
+      this.speechContainer?.setPosition(0, windowHeight - portraitSize);
       this.speechText?.setStyle({
         fixedWidth: windowWidth - portraitSize,
         wordWrap: { width: windowWidth - portraitSize - offset },

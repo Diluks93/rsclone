@@ -6,7 +6,7 @@ import trickedPicture from '../../../../assets/game/picture-2.png';
 import picture from '../../../../assets/game/picture-1.png';
 import gameTranslation from '../../data/gameTranslation.json';
 
-import { GameKey, UrlSourceForGame, SceneKey, GameFont } from '../../enums/enums';
+import { GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
@@ -109,14 +109,24 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preloadAssets(): void {
-    this.load.setBaseURL(UrlSourceForGame.Main);
-    this.load.image(GameKey.Assets, UrlSourceForGame.Tileset);
-    this.load.tilemapTiledJSON(GameKey.Map, UrlSourceForGame.TilemapJson);
-    this.load.spritesheet(GameKey.Player, UrlSourceForGame.Player, { frameWidth: 190, frameHeight: 257 });
-    this.load.spritesheet(GameKey.Neighbor, UrlSourceForGame.Neighbor, { frameWidth: 190, frameHeight: 257 });
-    this.load.audio(GameKey.MusicGame, UrlSourceForGame.MusicGame);
-    this.load.audio(GameKey.SoundFootsteps, UrlSourceForGame.SoundFootsteps);
-    this.load.audio(GameKey.SoundTrick, UrlSourceForGame.SoundTrick);
+    this.load.setBaseURL(AssetUrl.Main);
+    this.load.image(GameKey.Assets, AssetUrl.Tileset);
+    this.load.tilemapTiledJSON(GameKey.Map, AssetUrl.TilemapJson);
+    this.load.spritesheet(GameKey.Player, AssetUrl.Actors, {
+      frameWidth: 19,
+      frameHeight: 27,
+      startFrame: 14,
+      endFrame: 24,
+    });
+    this.load.spritesheet(GameKey.Neighbor, AssetUrl.Actors, {
+      frameHeight: 27,
+      frameWidth: 19,
+      startFrame: 14,
+      endFrame: 24,
+    });
+    this.load.audio(GameKey.MusicGame, AssetUrl.MusicGame);
+    this.load.audio(GameKey.SoundFootsteps, AssetUrl.SoundFootsteps);
+    this.load.audio(GameKey.SoundTrick, AssetUrl.SoundTrick);
     this.load.image(GameKey.Director, director);
     this.load.image(GameKey.Pen, pen);
     this.load.image(GameKey.FakeDoor, fakeDoor);

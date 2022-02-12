@@ -100,7 +100,7 @@ export default class UIScene extends Phaser.Scene {
     });
   }
 
-  update(time: number, delta: number): void {
+  update(delta: number): void {
     this.timer += delta;
 
     if (this.timer > 300 && this.currentLevel) {

@@ -44,7 +44,6 @@ abstract class Page {
     return linkButton;
   }
 
-  // todo: check if redefine works
   setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
     return;
   }

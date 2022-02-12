@@ -3,12 +3,13 @@ import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
 
-import { EventName, GameKey } from '../../../enums/enums';
+import { AnimationKey, EventName, FrameKey, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
 import gameTranslation from '../../../data/gameTranslation.json';
 import DoorWay from '../../helpers/doorWay';
+import Neighbor from '../../entities/neighbor';
 
 export default abstract class GameScene extends Phaser.Scene {
   private tile = tile;
@@ -28,6 +29,8 @@ export default abstract class GameScene extends Phaser.Scene {
   protected cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
 
   protected player!: Player;
+
+  protected neighbor?: Neighbor;
 
   protected map: Phaser.Tilemaps.Tilemap | undefined;
 
@@ -69,7 +72,14 @@ export default abstract class GameScene extends Phaser.Scene {
       this.mapLayer.object.id.object,
       (obj) => obj.name === this.mapLayer.object.name.spawnPlayer
     );
-    this.player = new Player(this, spawnPoint.x as number, spawnPoint.y as number, this.playerSounds);
+    this.player = new Player(
+      this,
+      spawnPoint.x as number,
+      spawnPoint.y as number,
+      GameKey.Player,
+      this.playerSounds,
+      FrameKey.WoodyFrontMiddle
+    );
 
     const mapDoorsLayer = this.map.getObjectLayer('doors').objects;
     this.doorWaysGroup = this.physics.add.staticGroup();
@@ -126,6 +136,9 @@ export default abstract class GameScene extends Phaser.Scene {
 
   update(): void {
     this.player.update();
+    if (this.neighbor) {
+      this.neighbor.update();
+    }
 
     const { spaceText } = gameTranslation[settingsStore.languageValue];
     const { eKeyText } = gameTranslation[settingsStore.languageValue];
@@ -199,6 +212,7 @@ export default abstract class GameScene extends Phaser.Scene {
   }
 
   protected pickUpItem(sourceItem: Phaser.GameObjects.Image): void {
+    this.player.anims.play(AnimationKey.WoodyPick);
     this.player.addItem(sourceItem.texture.key);
     this.trickSourceItems = this.trickSourceItems.filter((filteredItem) => filteredItem !== sourceItem);
     sourceItem!.destroy();
