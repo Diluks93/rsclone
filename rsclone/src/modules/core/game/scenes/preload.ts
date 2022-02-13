@@ -18,7 +18,7 @@ export default class PreloadScene extends Phaser.Scene {
   cameraCenterY = 0;
 
   constructor() {
-    super({ key: SceneKey.PreloadScene });
+    super({ key: SceneKey.Preload });
   }
 
   preload(): void {
@@ -77,7 +77,7 @@ export default class PreloadScene extends Phaser.Scene {
       progressBar.destroy();
       persentText.destroy();
       assetText.destroy();
-      this.scene.start(SceneKey.ManagerScene);
+      this.scene.start(SceneKey.Manager);
     });
   }
 
@@ -119,8 +119,8 @@ export default class PreloadScene extends Phaser.Scene {
       endFrame: 24,
     });
     this.load.spritesheet(GameKey.Neighbor, AssetUrl.Actors, {
-      frameHeight: 27,
       frameWidth: 19,
+      frameHeight: 27,
       startFrame: 14,
       endFrame: 24,
     });

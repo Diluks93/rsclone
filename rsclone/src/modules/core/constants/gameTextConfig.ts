@@ -34,6 +34,7 @@ export const scoreFontConfig = {
   fontSise: GameFont.LargeSize,
   fontFamily: GameFont.PressStartFamily,
 };
-export const endGameFontConfig = {
+export const endgameFontConfig = {
+  fontSise: GameFont.LargeSize,
   fontFamily: GameFont.PressStartFamily,
 };

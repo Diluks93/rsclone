@@ -44,6 +44,8 @@ export default abstract class GameScene extends Phaser.Scene {
 
   protected doorWaysGroup: Phaser.Physics.Arcade.StaticGroup | undefined;
 
+  public winScore = 0;
+
   constructor(config: string | Phaser.Types.Scenes.SettingsConfig) {
     super(config);
     this.playerSounds = {};

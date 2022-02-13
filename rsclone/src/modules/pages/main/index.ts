@@ -3,11 +3,12 @@ import { gameConfig } from '../../core/game/config';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
-import { GameKey, PageId } from '../../core/enums/enums';
+import { GameKey, PageId, SceneKey } from '../../core/enums/enums';
 import './style.scss';
 
 class MainPage extends Page {
   exitModal: HTMLElement;
+
   game: Phaser.Game | undefined;
 
   static TextObject = {
@@ -32,7 +33,7 @@ class MainPage extends Page {
   private createExitGameButton(): HTMLElement {
     const exitButton = document.createElement('a');
     exitButton.classList.add('primary-button', 'main-page__button', 'basic-hover');
-    exitButton.href = '#levels-page';
+    exitButton.href = `#${PageId.LevelSelectPage}`;
     exitButton.textContent = 'V';
 
     exitButton.addEventListener('click', (e: MouseEvent) => {
@@ -89,9 +90,8 @@ class MainPage extends Page {
   render(): HTMLElement {
     this.game = new Phaser.Game(gameConfig);
     this.container.append(this.exitModal);
-
     return this.container;
   }
-};
+}
 
 export default MainPage;

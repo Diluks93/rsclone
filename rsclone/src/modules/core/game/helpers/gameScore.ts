@@ -5,7 +5,7 @@ import { GameText } from './gameText';
 import gameTranslation from '../../data/gameTranslation.json';
 
 export default class GameScore extends GameText {
-  private scoreValue: number;
+  public scoreValue: number;
 
   private scoreText: string;
 
