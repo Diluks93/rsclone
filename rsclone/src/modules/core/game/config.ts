@@ -6,11 +6,10 @@ import InterfaceScene from './scenes/interface';
 import FirstSteps from './scenes/levels/firstSteps';
 import Onwards from './scenes/levels/onwards';
 
-import { GameConfigExtended } from '../types/types';
 import { GameKey } from '../enums/enums';
 import EndgameScene from './scenes/endgame';
 
-export const gameConfig: GameConfigExtended = {
+export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   scale: {
     mode: Phaser.Scale.RESIZE,
@@ -38,7 +37,6 @@ export const gameConfig: GameConfigExtended = {
     disableWebAudio: true,
   },
   scene: [PreloadScene, ManagerScene, FirstSteps, Onwards, InterfaceScene, TutorialScene, EndgameScene],
-  winScore: 100,
 };
 
 window.sizeChanged = () => {

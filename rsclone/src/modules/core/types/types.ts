@@ -122,10 +122,6 @@ export type ScreenResolutionType = {
   minWidth: number;
 };
 
-export type GameConfigExtended = Phaser.Types.Core.GameConfig & {
-  winScore: number;
-};
-
 export interface DoorWayInterface extends Phaser.GameObjects.Image {
   id: number;
   nextDoorWayId: number;
