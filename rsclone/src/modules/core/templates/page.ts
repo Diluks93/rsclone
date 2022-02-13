@@ -7,8 +7,12 @@ import { TitleType } from '../types/types';
 
 abstract class Page {
   protected container: HTMLElement;
+
   static TextObject = {};
+
   backToMainButton: HTMLAnchorElement;
+
+  public setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {}
 
   constructor(id: string, className: string) {
     this.container = document.createElement('main');
@@ -44,14 +48,9 @@ abstract class Page {
     return linkButton;
   }
 
-  // todo: check if redefine works
-  setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
-    return;
-  }
-
   render(): HTMLElement {
     return this.container;
   }
-};
+}
 
 export default Page;

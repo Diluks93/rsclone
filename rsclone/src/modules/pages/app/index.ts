@@ -18,7 +18,9 @@ new Image().src = faceSprite;
 
 class App {
   private static container: HTMLElement = document.body;
+
   private static defaultPageId: string = PageId.CurrentPage;
+
   private initialPage: HomePage;
 
   static renderNewPage(idPage: string) {
@@ -50,7 +52,7 @@ class App {
     }
 
     if (page) {
-      page.setPageLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue);
+      page.setPageLanguage(gameTranslation as GameTranslationInterface, settingsStore.languageValue);
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
       App.container.append(pageHTML);
@@ -79,6 +81,6 @@ class App {
 
     window.location.hash = PageId.HomePage;
   }
-};
+}
 
 export default App;

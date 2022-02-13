@@ -1,14 +1,19 @@
 import Phaser from 'phaser';
-import { Frame, GameKey } from '../../enums/enums';
+
+const SCALE = 8;
 
 export default class Actor extends Phaser.Physics.Arcade.Sprite {
-  protected hp = 1;
+  protected maxHealth = 1;
+
+  protected initAnimations(): void {}
+
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
     super(scene, x, y, texture, frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.getBody().setCollideWorldBounds(true);
-    this.initAnimations()
+    this.setScale(SCALE);
+    this.initAnimations();
   }
 
   public getDamage(value?: number): void {
@@ -20,79 +25,22 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
       alpha: 0.5,
       onStart: () => {
         if (value) {
-          this.hp = this.hp - value;
+          this.maxHealth = this.maxHealth - value;
+          this.setTint(0xff0000);
         }
       },
       onComplete: () => {
-        this.setAlpha(1)
+        this.setAlpha(1);
+        this.clearTint();
       },
     });
   }
 
   public getHPValue(): number {
-    return this.hp;
+    return this.maxHealth;
   }
 
   protected getBody(): Phaser.Physics.Arcade.Body {
     return this.body as Phaser.Physics.Arcade.Body;
   }
-
-  private initAnimations(): void {
-    this.scene.anims.create({
-      key: 'left',
-      frames: this.scene.anims.generateFrameNumbers(
-        GameKey.Player, 
-        { 
-          start: Frame.LeftViewEnd, 
-          end: Frame.LeftViewStart 
-        }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.scene.anims.create({
-      key: 'turn',
-      frames: [{ 
-        key: GameKey.Player, 
-        frame: Frame.FrontView 
-      }],
-      frameRate: 20,
-    });
-
-    this.scene.anims.create({
-      key: 'right',
-      frames: this.scene.anims.generateFrameNumbers(
-        GameKey.Player, 
-        { 
-          start: Frame.RightViewStart, 
-          end: Frame.RightViewEnd 
-        }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.scene.anims.create({
-      key: 'up',
-      frames: this.scene.anims.generateFrameNumbers(
-        GameKey.Player, 
-        { 
-          start: Frame.RearViewStart, 
-          end: Frame.RearViewEnd 
-        }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.scene.anims.create({
-      key: 'down',
-      frames: this.scene.anims.generateFrameNumbers(
-        GameKey.Player, 
-        { 
-          start: Frame.FrontViewStart,
-          end: Frame.FrontViewEnd
-        }),
-      frameRate: 10,
-      repeat: -1,
-    });
-  }
-};
+}

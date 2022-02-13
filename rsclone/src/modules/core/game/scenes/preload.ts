@@ -1,11 +1,12 @@
 import director from '../../../../assets/game/director.png';
 import pen from '../../../../assets/game/pen.png';
-import fake from '../../../../assets/game/fake-door.png';
+import fakeDoor from '../../../../assets/game/fake-door.png';
 import trickedPicture from '../../../../assets/game/picture-2.png';
-import picture from '../../../../assets/game/picture-1.png'
+import picture from '../../../../assets/game/picture-1.png';
+import gameTranslation from '../../data/gameTranslation.json';
 
-import { GameKey, UrlSourceForGame, SceneKey } from '../../enums/enums';
-import { loaderFontConfig } from './../../constants/gameTextConfig';
+import { settingsStore } from './../../stores/settingsStore';
+import { GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
@@ -13,10 +14,11 @@ const PROGRESS_BOX_HEIGHT = 50;
 
 export default class PreloadScene extends Phaser.Scene {
   cameraCenterX = 0;
+
   cameraCenterY = 0;
 
   constructor() {
-    super({ key: SceneKey.PreloadScene });
+    super({ key: SceneKey.Preload });
   }
 
   preload(): void {
@@ -28,32 +30,32 @@ export default class PreloadScene extends Phaser.Scene {
     const loadingText = this.make.text({
       x: this.cameraCenterX,
       y: this.cameraCenterY - PROGRESS_BOX_HEIGHT,
-      text: 'Loading...',
+      text: gameTranslation[settingsStore.languageValue].preloaderText,
       style: {
-        fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeM,
+        fontFamily: GameFont.OpenSansFamily,
+        fontSize: GameFont.MediumSize,
       },
     });
     loadingText.setOrigin(ORIGIN_CENTER);
 
-    const persentText = this.make.text({
+    const percentText = this.make.text({
       x: this.cameraCenterX,
       y: this.cameraCenterY,
       text: '0%',
       style: {
-        fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeS,
+        fontFamily: GameFont.OpenSansFamily,
+        fontSize: GameFont.SmallSize,
       },
     });
-    persentText.setOrigin(ORIGIN_CENTER);
+    percentText.setOrigin(ORIGIN_CENTER);
 
     const assetText = this.make.text({
       x: this.cameraCenterX,
       y: this.cameraCenterY + PROGRESS_BOX_HEIGHT,
       text: '',
       style: {
-        fontFamily: loaderFontConfig.family,
-        fontSize: loaderFontConfig.sizeS,
+        fontFamily: GameFont.PressStartFamily,
+        fontSize: GameFont.SmallSize,
       },
     });
     assetText.setOrigin(ORIGIN_CENTER);
@@ -63,19 +65,19 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.on('progress', (value: number) => {
       this.fillProgressBar(progressBar, value);
-      persentText.setText(Math.round(value * 100) + '%');
+      percentText.setText(Math.round(value * 100) + '%');
     });
 
     this.load.on('fileprogress', (file: Phaser.Loader.File) => {
-      assetText.setText('Loading asset: ' + file.key);
+      assetText.setText(file.key);
     });
 
     this.load.on('complete', () => {
       progressBox.destroy();
       progressBar.destroy();
-      persentText.destroy();
+      percentText.destroy();
       assetText.destroy();
-      this.scene.start(SceneKey.ManagerScene);
+      this.scene.start(SceneKey.Manager);
     });
   }
 
@@ -107,18 +109,28 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preloadAssets(): void {
-    this.load.setBaseURL(UrlSourceForGame.Main);
-    this.load.image(GameKey.Assets, UrlSourceForGame.Tileset);
-    this.load.tilemapTiledJSON(GameKey.Map, UrlSourceForGame.TilemapJson);
-    this.load.spritesheet(GameKey.Player, UrlSourceForGame.Player, { frameWidth: 190, frameHeight: 257 });
-    this.load.spritesheet(GameKey.Neighbor, UrlSourceForGame.Neighbor, { frameWidth: 190, frameHeight: 257 });
-    this.load.audio(GameKey.MusicGame, UrlSourceForGame.MusicGame);
-    this.load.audio(GameKey.SoundFootsteps, UrlSourceForGame.SoundFootsteps);
-    this.load.audio(GameKey.SoundPrank, UrlSourceForGame.SoundPrank);
+    this.load.setBaseURL(AssetUrl.Main);
+    this.load.image(GameKey.Assets, AssetUrl.Tileset);
+    this.load.tilemapTiledJSON(GameKey.Map, AssetUrl.TilemapJson);
+    this.load.spritesheet(GameKey.Player, AssetUrl.Actors, {
+      frameWidth: 19,
+      frameHeight: 27,
+      startFrame: 14,
+      endFrame: 24,
+    });
+    this.load.spritesheet(GameKey.Neighbor, AssetUrl.Actors, {
+      frameWidth: 19,
+      frameHeight: 27,
+      startFrame: 14,
+      endFrame: 24,
+    });
+    this.load.audio(GameKey.MusicGame, AssetUrl.MusicGame);
+    this.load.audio(GameKey.SoundFootsteps, AssetUrl.SoundFootsteps);
+    this.load.audio(GameKey.SoundTrick, AssetUrl.SoundTrick);
     this.load.image(GameKey.Director, director);
     this.load.image(GameKey.Pen, pen);
-    this.load.image(GameKey.Fake, fake);
+    this.load.image(GameKey.FakeDoor, fakeDoor);
     this.load.image(GameKey.Picture, picture);
     this.load.image(GameKey.TrickedPicture, trickedPicture);
   }
-};
+}

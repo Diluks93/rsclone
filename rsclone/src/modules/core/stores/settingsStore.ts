@@ -1,6 +1,14 @@
-import { defaultConfig } from '../constants/constSettings';
-import { StorageKey } from '../enums/enums';
+import { LevelName, MaxScore, StorageKey } from '../enums/enums';
 import { LanguageKeys, SettingsConfigType } from './../types/types';
+
+const defaultConfig: SettingsConfigType = {
+  languageValue: 'ru',
+  volumeValue: '0.5',
+  isSoundEnabled: true,
+  isTimeLimitEnabled: false,
+  isTricksReportEnabled: false,
+  currentLevel: 0,
+};
 
 class SettingsStore {
   private _languageValue: LanguageKeys;
@@ -19,6 +27,14 @@ class SettingsStore {
 
   private _currentLevel: number;
 
+  public playerScore: Record<string, number>;
+
+  public maxScore: Record<string, number> = {
+    [LevelName.FirstSteps]: MaxScore.FirstSteps,
+    [LevelName.Onwards]: MaxScore.Onwards,
+    [LevelName.HereWeGo]: MaxScore.HereWeGo,
+  };
+
   constructor({
     languageValue,
     volumeValue,
@@ -27,6 +43,7 @@ class SettingsStore {
     isTricksReportEnabled,
     currentLevel,
   }: SettingsConfigType) {
+    this.playerScore = JSON.parse(localStorage.getItem(StorageKey.PlayerScore) as string) || {};
     this._currentLevel = JSON.parse(localStorage.getItem(StorageKey.CurrentLevel) as string) || currentLevel;
     this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
     this._volumeValue = localStorage.getItem(StorageKey.SoundVolume) || volumeValue;
@@ -100,6 +117,11 @@ class SettingsStore {
   set isTricksReportEnabled(value: boolean) {
     this._isTricksReportEnabled = value;
   }
-};
+
+  savePlayerScore(level: number, score: number) {
+    this.playerScore[level] = score;
+    localStorage.setItem(StorageKey.PlayerScore, JSON.stringify(this.playerScore));
+  }
+}
 
 export const settingsStore = new SettingsStore(defaultConfig);
