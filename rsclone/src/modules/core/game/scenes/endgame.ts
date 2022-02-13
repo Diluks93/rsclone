@@ -27,7 +27,6 @@ export default class EndgameScene extends Phaser.Scene {
     this.currentLevel = data.currentLevel;
     this.currentScene = data.currentScene;
     this.currentScore = data.currentScore;
-    console.log(this.currentScore);
   }
 
   create() {
@@ -53,7 +52,6 @@ export default class EndgameScene extends Phaser.Scene {
     this.clickableArea.on(
       'pointerdown',
       () => {
-        console.log(this.currentLevel, this.currentScore);
         if (this.currentLevel !== undefined && this.currentScore !== undefined) {
           settingsStore.savePlayerScore(this.currentLevel, this.currentScore);
         }

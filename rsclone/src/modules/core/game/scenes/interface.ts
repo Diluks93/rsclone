@@ -114,7 +114,6 @@ export default class InterfaceScene extends Phaser.Scene {
   }
 
   endGameHandler(gameStatus: GameStatus): void {
-    console.log(this.score.scoreValue);
     this.scene.pause(this.currentScene);
     this.scene.launch(SceneKey.Endgame, {
       currentLevel: this.currentLevel,
