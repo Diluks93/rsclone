@@ -3,8 +3,7 @@ import SvgIcon from '../../core/components/svg-icon';
 import { authorsTitleProps, authorButtonProps } from './../../core/constants/constAuthors';
 import { GameTranslationInterface, LanguageKeys, LinkButtonType } from '../../core/types/types';
 import './style.scss';
-
-const PAGE_NAME = 'authors-page';
+import { PageId } from '../../core/enums/enums';
 
 class AuthorsPage extends Page {
   authorButtonsWrapper: HTMLDivElement;
@@ -24,20 +23,20 @@ class AuthorsPage extends Page {
 
   createAuthorButton({ id, href, subTitle }: LinkButtonType): HTMLDivElement {
     const wrapper = document.createElement('div');
-    wrapper.classList.add(`${PAGE_NAME}__wrapper`, `${PAGE_NAME}__wrapper--${id.toLowerCase()}`);
+    wrapper.classList.add(`${PageId.AuthorsPage}__wrapper`, `${PageId.AuthorsPage}__wrapper--${id.toLowerCase()}`);
 
     const inner = document.createElement('div');
-    inner.className = `${PAGE_NAME}__inner`;
+    inner.className = `${PageId.AuthorsPage}__inner`;
 
     const subtitle = document.createElement('span');
-    subtitle.className = `${PAGE_NAME}__subtitle`;
+    subtitle.className = `${PageId.AuthorsPage}__subtitle`;
     if (subTitle) {
       subtitle.textContent = subTitle;
     }
     subtitle.id = id;
 
     const link = document.createElement('a');
-    link.classList.add('primary-button', `${PAGE_NAME}__button`, 'basic-hover');
+    link.classList.add('primary-button', `${PageId.AuthorsPage}__button`, 'basic-hover');
     link.textContent = id;
     link.href = href;
     link.target = '_blank';

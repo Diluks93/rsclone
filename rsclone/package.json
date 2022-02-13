@@ -54,6 +54,14 @@
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.4"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.ts",
+      "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/__mocks__/fileMock.ts"
+    },
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "phaser": "^3.55.2"
   }

@@ -1,14 +1,6 @@
+import { defaultConfig } from '../constants/constSettings';
 import { StorageKey } from '../enums/enums';
 import { LanguageKeys, SettingsConfigType } from './../types/types';
-
-const defaultConfig: SettingsConfigType = {
-  languageValue: 'ru',
-  volumeValue: '0.5',
-  isSoundEnabled: true,
-  isTimeLimitEnabled: false,
-  isTricksReportEnabled: false,
-  currentLevel: 0,
-};
 
 class SettingsStore {
   private _languageValue: LanguageKeys;
