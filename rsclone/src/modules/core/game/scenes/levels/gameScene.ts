@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
-import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
 import gameTranslation from '../../../data/gameTranslation.json';
 import DoorWay from '../../helpers/doorWay';
 import Neighbor from '../../entities/neighbor';
 
+import { Player } from '../../entities/player';
 import { AnimationKey, EventName, FrameKey, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';

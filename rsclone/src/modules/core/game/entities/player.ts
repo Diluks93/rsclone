@@ -1,10 +1,11 @@
 import Actor from './actor';
+
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { DoorWayInterface } from './../../types/types';
 import { GameKey, GameStatus, Event, FrameKey, AnimationKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
 
-export default class Player extends Actor {
+export class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
 
   private keyD: Phaser.Input.Keyboard.Key;
@@ -32,7 +33,7 @@ export default class Player extends Actor {
     x: number,
     y: number,
     texture: string,
-    playerSounds: {
+    playerSounds?: {
       [index: string]: Phaser.Sound.BaseSound;
     },
     frame?: number
@@ -81,7 +82,7 @@ export default class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      this.playerSounds.footsteps.play();
+      this.playerSounds?.footsteps.play();
     }
   }
 
@@ -181,7 +182,7 @@ export default class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playerSounds.trick.play();
+    this.playerSounds?.trick.play();
   }
 
   public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {

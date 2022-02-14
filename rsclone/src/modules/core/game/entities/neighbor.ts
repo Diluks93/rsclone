@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
 import Actor from './actor';
-import Player from './player';
+import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
+import { Player } from './player';
 
 export default class Neighbor extends Actor {
   private target: Player;

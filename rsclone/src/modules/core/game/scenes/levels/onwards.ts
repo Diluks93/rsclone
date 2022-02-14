@@ -1,8 +1,8 @@
 import GameScene from './gameScene';
-import Player from '../../entities/player';
 import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 
+import { Player } from '../../entities/player';
 import { FrameKey, GameKey, MaxScore, SceneKey } from '../../../enums/enums';
 
 export default class Onwards extends GameScene {
