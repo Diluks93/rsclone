@@ -24,17 +24,26 @@ const PAGE_NAME = PageId.SettingsPage;
 
 class SettingsPage extends Page {
   settingsWrapper: HTMLDivElement;
+
   settingsTitle: HTMLElement;
-  volumeRangeSlider: HTMLLabelElement;
+
+  volumeRangeSliderMainPage: HTMLLabelElement;
+
+  volumeRangeSliderGame: HTMLLabelElement;
+
   languageSelect: HTMLDivElement;
+
   soundCheckbox: HTMLLabelElement;
+
   timeLimitCheckbox: HTMLLabelElement;
+
   saveSettingsButton: HTMLAnchorElement;
 
   constructor(id: string, className: string) {
     super(id, className);
     this.settingsTitle = this.createHeaderTitle(settingsTitleProps);
-    this.volumeRangeSlider = this.createRangeSlider(rangeProps);
+    this.volumeRangeSliderMainPage = this.createRangeSlider(rangeProps);
+    this.volumeRangeSliderGame = this.createRangeSlider(rangeProps);
     this.languageSelect = this.createLanguageSelect(selectProps);
     this.soundCheckbox = this.createCheckbox(checkboxProps.soundCheckbox);
     this.timeLimitCheckbox = this.createCheckbox(checkboxProps.timeLimitCheckbox);
@@ -44,7 +53,7 @@ class SettingsPage extends Page {
 
   createRangeSlider({ id, min, max, step, value, inputHandler }: SettingsRangeType): HTMLLabelElement {
     const range = document.createElement('input');
-    const musicVolume = localStorage.getItem(StorageKey.SoundVolume);
+    const musicVolume = localStorage.getItem(StorageKey.SoundVolumeMenu);
     range.type = 'range';
     range.id = id;
     range.min = min;
@@ -175,7 +184,8 @@ class SettingsPage extends Page {
 
     wrapper.append(this.settingsTitle);
     wrapper.append(this.languageSelect);
-    wrapper.append(this.volumeRangeSlider);
+    wrapper.append(this.volumeRangeSliderMainPage);
+    wrapper.append(this.volumeRangeSliderGame);
     wrapper.append(this.soundCheckbox);
     wrapper.append(this.timeLimitCheckbox);
     wrapper.append(this.saveSettingsButton);
@@ -202,6 +212,6 @@ class SettingsPage extends Page {
 
     return this.container;
   }
-};
+}
 
 export default SettingsPage;

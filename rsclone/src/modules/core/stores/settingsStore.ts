@@ -3,7 +3,8 @@ import { LanguageKeys, SettingsConfigType } from './../types/types';
 
 const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
-  volumeValue: '0.5',
+  volumeValueMenu: '0.5',
+  volumeValueGame: '0.5',
   isSoundEnabled: true,
   isTimeLimitEnabled: false,
   isTricksReportEnabled: false,
@@ -13,7 +14,9 @@ const defaultConfig: SettingsConfigType = {
 class SettingsStore {
   private _languageValue: LanguageKeys;
 
-  private _volumeValue: string;
+  private _volumeValueMenu: string;
+
+  private _volumeValueGame: string;
 
   private _isSoundEnabled: boolean;
 
@@ -37,7 +40,8 @@ class SettingsStore {
 
   constructor({
     languageValue,
-    volumeValue,
+    volumeValueMenu,
+    volumeValueGame,
     isSoundEnabled,
     isTimeLimitEnabled,
     isTricksReportEnabled,
@@ -46,7 +50,8 @@ class SettingsStore {
     this.playerScore = JSON.parse(localStorage.getItem(StorageKey.PlayerScore) as string) || {};
     this._currentLevel = JSON.parse(localStorage.getItem(StorageKey.CurrentLevel) as string) || currentLevel;
     this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
-    this._volumeValue = localStorage.getItem(StorageKey.SoundVolume) || volumeValue;
+    this._volumeValueMenu = localStorage.getItem(StorageKey.SoundVolumeMenu) || volumeValueMenu;
+    this._volumeValueGame = localStorage.getItem(StorageKey.SoundVolumeMenu) || volumeValueGame;
     if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null)
       this._isSoundEnabled = isSoundEnabled;
     else this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
@@ -86,12 +91,20 @@ class SettingsStore {
     this._languageValue = value;
   }
 
-  get volumeValue(): string {
-    return this._volumeValue;
+  get volumeValueMenu(): string {
+    return this._volumeValueMenu;
   }
 
-  set volumeValue(value: string) {
-    this._volumeValue = value;
+  set volumeValueMenu(value: string) {
+    this._volumeValueMenu = value;
+  }
+
+  get volumeValueGame(): string {
+    return this._volumeValueGame;
+  }
+
+  set volumeValueGame(value: string) {
+    this._volumeValueGame = value;
   }
 
   get isSoundEnabled(): boolean {

@@ -43,7 +43,8 @@ export type SettingsSelectType = {
 
 export type SettingsConfigType = {
   languageValue: LanguageKeys;
-  volumeValue: string;
+  volumeValueMenu: string;
+  volumeValueGame: string;
   isSoundEnabled: boolean;
   isTimeLimitEnabled: boolean;
   isTricksReportEnabled: boolean;

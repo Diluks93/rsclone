@@ -56,7 +56,7 @@ export default abstract class GameScene extends Phaser.Scene {
 
     this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
     const tileset = this.map.addTilesetImage('assets', 'assets');
-    const soundConfig = { volume: Number(settingsStore.volumeValue) };
+    const soundConfig = { volume: Number(settingsStore.volumeValueMenu) };
 
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
     this.playerSounds.trick = this.sound.add(GameKey.SoundTrick, soundConfig);

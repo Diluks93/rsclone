@@ -32,7 +32,7 @@ export const selectProps: SettingsSelectType = {
     if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
       localStorage.setItem(StorageKey.LanguageValue, e.target.value);
-      page.setPageLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue);
+      page.setPageLanguage(gameTranslation as GameTranslationInterface, settingsStore.languageValue);
     }
   },
 };
@@ -43,12 +43,12 @@ export const rangeProps: SettingsRangeType = {
   min: '0',
   max: '1',
   step: '0.1',
-  value: settingsStore.volumeValue,
+  value: settingsStore.volumeValueMenu,
   inputHandler(e: Event): void {
     if (e.target instanceof HTMLInputElement) {
-      settingsStore.volumeValue = e.target.value;
+      settingsStore.volumeValueMenu = e.target.value;
       adjustVolume(backgroundMusic, +e.target.value);
-      localStorage.setItem(StorageKey.SoundVolume, e.target.value);
+      localStorage.setItem(StorageKey.SoundVolumeMenu, e.target.value);
 
       e.target.style.backgroundImage = `
           -webkit-gradient(linear, left top, right top,
@@ -57,6 +57,11 @@ export const rangeProps: SettingsRangeType = {
         `;
     }
   },
+};
+
+export const volumeBarId = {
+  volumeBarMainPage: 'volumeBarMainPage',
+  volumeBarGame: 'volumeBarGame',
 };
 
 export const checkboxProps: Record<string, SettingsCheckboxType> = {
