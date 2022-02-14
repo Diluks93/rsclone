@@ -26,12 +26,16 @@ export type SettingsCheckboxType = {
 
 export type SettingsRangeType = {
   iconUrl: string;
-  id: string;
   min: string;
   max: string;
   step: string;
   value: string;
   inputHandler(e: Event): void;
+};
+
+export type SettingsVolumeBarType = {
+  volumeBarSound: string;
+  volumeBarBackgroundMusic: string;
 };
 
 export type SettingsSelectType = {
@@ -43,8 +47,7 @@ export type SettingsSelectType = {
 
 export type SettingsConfigType = {
   languageValue: LanguageKeys;
-  volumeValueMenu: string;
-  volumeValueGame: string;
+  // volumeValue: string;
   isSoundEnabled: boolean;
   isTimeLimitEnabled: boolean;
   isTricksReportEnabled: boolean;

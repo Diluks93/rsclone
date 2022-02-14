@@ -3,9 +3,9 @@ import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
 
-import { AnimationKey, EventName, FrameKey, GameKey } from '../../../enums/enums';
+import { AnimationKey, EventName, FrameKey, GameKey, StorageKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
-import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
+import { DoorWayInterface, LanguageKeys, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
 import gameTranslation from '../../../data/gameTranslation.json';
 import DoorWay from '../../helpers/doorWay';
@@ -56,11 +56,12 @@ export default abstract class GameScene extends Phaser.Scene {
 
     this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
     const tileset = this.map.addTilesetImage('assets', 'assets');
-    const soundConfig = { volume: Number(settingsStore.volumeValueMenu) };
+    const soundConfig = { volume: Number(localStorage.getItem(StorageKey.SoundVolume)) || 0.5 };
+    const backgroundMusicConfig = { volume: Number(localStorage.getItem(StorageKey.BackgroundMusicVolume)) || 0.5 };
 
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
     this.playerSounds.trick = this.sound.add(GameKey.SoundTrick, soundConfig);
-    this.music = this.sound.add(GameKey.MusicGame, soundConfig);
+    this.music = this.sound.add(GameKey.MusicGame, backgroundMusicConfig);
     this.music.play();
 
     this.floor = this.map.createLayer(this.mapLayer.platforms, tileset, 0, 0);

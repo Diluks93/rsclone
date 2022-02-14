@@ -46,9 +46,11 @@ export const turnOnBackgroundMusic = (audio: HTMLAudioElement, event?: MouseEven
     (button && button.id === 'exit-level' && hasSoundResolution)
   ) {
     audio.play();
+    console.log(123);
   } else if (!hasSoundResolution || (button && button.id === 'playLevelButton')) {
     audio.pause();
     audio.currentTime = 0;
+    console.log(321);
   }
 };
 

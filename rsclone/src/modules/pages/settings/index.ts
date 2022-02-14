@@ -2,7 +2,7 @@ import Page from '../../core/templates/Page';
 import SvgIcon from '../../core/components/svg-icon';
 
 import { settingsStore } from './../../core/stores/settingsStore';
-import { TEXT_NODE } from './../../core/constants/constSettings';
+import { TEXT_NODE, volumeBarId } from './../../core/constants/constSettings';
 import { PageId, StorageKey } from '../../core/enums/enums';
 import {
   SettingsCheckboxType,
@@ -42,8 +42,8 @@ class SettingsPage extends Page {
   constructor(id: string, className: string) {
     super(id, className);
     this.settingsTitle = this.createHeaderTitle(settingsTitleProps);
-    this.volumeRangeSliderMainPage = this.createRangeSlider(rangeProps);
-    this.volumeRangeSliderGame = this.createRangeSlider(rangeProps);
+    this.volumeRangeSliderMainPage = this.createRangeSlider(rangeProps, volumeBarId.volumeBarSound);
+    this.volumeRangeSliderGame = this.createRangeSlider(rangeProps, volumeBarId.volumeBarBackgroundMusic);
     this.languageSelect = this.createLanguageSelect(selectProps);
     this.soundCheckbox = this.createCheckbox(checkboxProps.soundCheckbox);
     this.timeLimitCheckbox = this.createCheckbox(checkboxProps.timeLimitCheckbox);
@@ -51,9 +51,16 @@ class SettingsPage extends Page {
     this.settingsWrapper = this.createWrapper('wrapper');
   }
 
-  createRangeSlider({ id, min, max, step, value, inputHandler }: SettingsRangeType): HTMLLabelElement {
+  createRangeSlider({ min, max, step, value, inputHandler }: SettingsRangeType, id: string): HTMLLabelElement {
     const range = document.createElement('input');
-    const musicVolume = localStorage.getItem(StorageKey.SoundVolumeMenu);
+    let musicVolume: string | null;
+
+    if (id === volumeBarId.volumeBarSound) {
+      musicVolume = localStorage.getItem(StorageKey.SoundVolume);
+    } else {
+      musicVolume = localStorage.getItem(StorageKey.BackgroundMusicVolume);
+    }
+
     range.type = 'range';
     range.id = id;
     range.min = min;
