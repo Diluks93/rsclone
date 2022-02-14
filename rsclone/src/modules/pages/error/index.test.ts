@@ -6,7 +6,7 @@ import ErrorPage from './index';
 
 const errorPage = new ErrorPage('test', 'test', 'error');
 
-describe('HomePage', () => {
+describe('ErrorPage', () => {
   test('render', () => {
     expect(errorPage.render()).toBeInstanceOf(HTMLElement);
   });
