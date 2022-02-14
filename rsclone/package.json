@@ -40,6 +40,7 @@
     "eslint-webpack-plugin": "^3.1.1",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
+    "jest-canvas-mock": "^2.3.1",
     "mini-css-extract-plugin": "^2.4.6",
     "prettier": "^2.5.1",
     "sass": "^1.47.0",
@@ -60,7 +61,10 @@
       "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/__mocks__/fileMock.ts"
     },
     "preset": "ts-jest",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   },
   "dependencies": {
     "phaser": "^3.55.2"

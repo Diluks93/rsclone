@@ -19,11 +19,19 @@ class MainPage extends Page {
   constructor(id: string, className: string) {
     super(id, className);
     this.exitModal = this.createExitGameModal();
+    this.eventEscape();
+    this.eventHashchange();
+  }
+
+  private eventEscape(): void {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape') {
         this.exitModal.classList.toggle('hidden');
       }
     });
+  }
+
+  private eventHashchange(): void {
     window.addEventListener('hashchange', (e: HashChangeEvent) => {
       if (e.oldURL.includes(PageId.MainPage)) {
         this.closeGame();
