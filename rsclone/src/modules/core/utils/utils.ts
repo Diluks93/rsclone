@@ -37,20 +37,20 @@ export const transformCamelCaseToKebabCase = (camelCaseString: string): string =
 };
 
 export const turnOnBackgroundMusic = (audio: HTMLAudioElement, event?: MouseEvent): void => {
-  const hasSoundResolution: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+  const hasBackgroundMusicResolution: boolean = JSON.parse(
+    localStorage.getItem(StorageKey.BackgroundMusicCheckbox) as string
+  );
   const button = event?.target as HTMLElement;
 
   if (
-    (audio.paused && hasSoundResolution) ||
-    hasSoundResolution === null ||
-    (button && button.id === 'exit-level' && hasSoundResolution)
+    (audio.paused && hasBackgroundMusicResolution) ||
+    hasBackgroundMusicResolution === null ||
+    (button && button.id === 'exit-level' && hasBackgroundMusicResolution)
   ) {
     audio.play();
-    console.log(123);
-  } else if (!hasSoundResolution || (button && button.id === 'playLevelButton')) {
+  } else if (!hasBackgroundMusicResolution || (button && button.id === 'playLevelButton')) {
     audio.pause();
     audio.currentTime = 0;
-    console.log(321);
   }
 };
 

@@ -76,7 +76,7 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     isEnabled: settingsStore.isSoundEnabled,
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
-      localStorage.setItem(StorageKey.SoundCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
+      localStorage.setItem(StorageKey.BackgroundMusicCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
       turnOnBackgroundMusic(backgroundMusic);
     },
   },

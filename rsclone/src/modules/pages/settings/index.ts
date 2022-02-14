@@ -201,11 +201,13 @@ class SettingsPage extends Page {
   }
 
   updateSettings(): void {
-    const soundCheckedStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    const backgroundMusicCheckboxStorage: boolean = JSON.parse(
+      localStorage.getItem(StorageKey.BackgroundMusicCheckbox) as string
+    );
     const soundTimeLimitStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
 
-    if (soundCheckedStorage !== null) {
-      (this.soundCheckbox.firstChild as HTMLInputElement).checked = soundCheckedStorage;
+    if (backgroundMusicCheckboxStorage !== null) {
+      (this.soundCheckbox.firstChild as HTMLInputElement).checked = backgroundMusicCheckboxStorage;
     }
     if (soundTimeLimitStorage !== null) {
       (this.timeLimitCheckbox.firstChild as HTMLInputElement).checked = soundTimeLimitStorage;

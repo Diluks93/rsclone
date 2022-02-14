@@ -56,13 +56,16 @@ export default abstract class GameScene extends Phaser.Scene {
 
     this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
     const tileset = this.map.addTilesetImage('assets', 'assets');
-    const soundConfig = { volume: Number(localStorage.getItem(StorageKey.SoundVolume)) || 0.5 };
-    const backgroundMusicConfig = { volume: Number(localStorage.getItem(StorageKey.BackgroundMusicVolume)) || 0.5 };
+    const hasBackgroundMusicResolution: boolean = JSON.parse(
+      localStorage.getItem(StorageKey.BackgroundMusicCheckbox) as string
+    );
+    const soundConfig = { volume: Number(localStorage.getItem(StorageKey.SoundVolume) || '0.5') };
+    const backgroundMusicConfig = { volume: Number(localStorage.getItem(StorageKey.BackgroundMusicVolume) || '0.5') };
 
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
     this.playerSounds.trick = this.sound.add(GameKey.SoundTrick, soundConfig);
     this.music = this.sound.add(GameKey.MusicGame, backgroundMusicConfig);
-    this.music.play();
+    if (hasBackgroundMusicResolution) this.music.play();
 
     this.floor = this.map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
     this.map.createLayer(this.mapLayer.bg, tileset, 0, 0);
