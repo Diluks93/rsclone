@@ -158,3 +158,8 @@ export const enum GameFont {
   CenterAlign = 'center',
   RightAlign = 'right',
 }
+
+export const enum NavigationButtonsId {
+  PlayLevelButton = 'play-level-button',
+  ExitTheGame = 'exit-level',
+}

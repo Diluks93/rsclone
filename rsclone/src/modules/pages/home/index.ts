@@ -91,7 +91,9 @@ class HomePage extends Page {
     } else {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
-      if (isFullScreenModalShown) this.container.append(this.fullScreenModal);
+      if (isFullScreenModalShown) {
+        this.container.append(this.fullScreenModal);
+      }
     }
 
     return this.container;

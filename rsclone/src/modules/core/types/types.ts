@@ -25,7 +25,6 @@ export type SettingsCheckboxType = {
 };
 
 export type SettingsRangeType = {
-  // iconUrl: string;
   min: string;
   max: string;
   step: string;
@@ -47,7 +46,6 @@ export type SettingsSelectType = {
 
 export type SettingsConfigType = {
   languageValue: LanguageKeys;
-  // volumeValue: string;
   isSoundEnabled: boolean;
   isTimeLimitEnabled: boolean;
   isTricksReportEnabled: boolean;

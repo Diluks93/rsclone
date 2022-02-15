@@ -42,9 +42,11 @@ class SettingsStore {
     this.playerScore = JSON.parse(localStorage.getItem(StorageKey.PlayerScore) as string) || {};
     this._currentLevel = JSON.parse(localStorage.getItem(StorageKey.CurrentLevel) as string) || currentLevel;
     this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
-    if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null)
+    if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null) {
       this._isSoundEnabled = isSoundEnabled;
-    else this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    } else {
+      this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    }
     this._isTimeLimitEnabled =
       JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string) || isTimeLimitEnabled;
     this._isTricksReportEnabled = isTricksReportEnabled;

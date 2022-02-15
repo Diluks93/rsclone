@@ -1,4 +1,4 @@
-import { StorageKey } from '../enums/enums';
+import { NavigationButtonsId, StorageKey } from '../enums/enums';
 
 export const saveFetchedJsonToStorage = async (localKey: string, url: string): Promise<void> => {
   try {
@@ -40,17 +40,15 @@ export const turnOnBackgroundMusic = (audio: HTMLAudioElement, event?: MouseEven
   const hasBackgroundMusicResolution: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
   const button = event?.target as HTMLElement;
 
-  if (hasBackgroundMusicResolution === false || (button && button.id === 'playLevelButton')) {
+  if (hasBackgroundMusicResolution === false || (button && button.id === NavigationButtonsId.PlayLevelButton)) {
     audio.pause();
     audio.currentTime = 0;
-    console.log(!hasBackgroundMusicResolution);
   } else if (
     (audio.paused && hasBackgroundMusicResolution) ||
     hasBackgroundMusicResolution === null ||
-    (button && button.id === 'exit-level' && hasBackgroundMusicResolution)
+    (button && button.id === NavigationButtonsId.ExitTheGame && hasBackgroundMusicResolution)
   ) {
     audio.play();
-    console.log(2);
   }
 };
 
