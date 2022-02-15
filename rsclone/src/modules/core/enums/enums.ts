@@ -19,7 +19,7 @@ export const enum StorageKey {
   SettingsTranslation = 'settingsTranslation',
   LanguageValue = 'languageValue',
   SoundVolume = 'soundVolume',
-  BackgroundMusicVolume = 'BackgroundMusicVolume',
+  BackgroundMusicVolume = 'backgroundMusicVolume',
   // SoundCheckbox = 'soundCheckbox',
   BackgroundMusicCheckbox = 'backgroundMusicCheckbox',
   TimeLimitCheckbox = 'timeLimitCheckbox',

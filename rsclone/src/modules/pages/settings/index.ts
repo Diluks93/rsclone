@@ -27,9 +27,9 @@ class SettingsPage extends Page {
 
   settingsTitle: HTMLElement;
 
-  volumeRangeSliderMainPage: HTMLLabelElement;
+  volumeRangeSliderSound: HTMLLabelElement;
 
-  volumeRangeSliderGame: HTMLLabelElement;
+  volumeRangeSliderBackgroundMusic: HTMLLabelElement;
 
   languageSelect: HTMLDivElement;
 
@@ -42,8 +42,8 @@ class SettingsPage extends Page {
   constructor(id: string, className: string) {
     super(id, className);
     this.settingsTitle = this.createHeaderTitle(settingsTitleProps);
-    this.volumeRangeSliderMainPage = this.createRangeSlider(rangeProps, volumeBarId.volumeBarSound);
-    this.volumeRangeSliderGame = this.createRangeSlider(rangeProps, volumeBarId.volumeBarBackgroundMusic);
+    this.volumeRangeSliderSound = this.createRangeSlider(rangeProps, volumeBarId.volumeBarSound);
+    this.volumeRangeSliderBackgroundMusic = this.createRangeSlider(rangeProps, volumeBarId.volumeBarBackgroundMusic);
     this.languageSelect = this.createLanguageSelect(selectProps);
     this.soundCheckbox = this.createCheckbox(checkboxProps.soundCheckbox);
     this.timeLimitCheckbox = this.createCheckbox(checkboxProps.timeLimitCheckbox);
@@ -73,9 +73,12 @@ class SettingsPage extends Page {
     soundButton.classList.add(`${PAGE_NAME}__toggle-button`);
     soundButton.append(new SvgIcon('sound').render());
 
+    const rangeTitle = document.createElement('div');
+    rangeTitle.classList.add(`${PAGE_NAME}__range-title`);
+
     const label = document.createElement('label');
     label.classList.add(`${PAGE_NAME}__range-label`);
-    label.append(soundButton, range);
+    label.append(soundButton, range, rangeTitle);
 
     if (musicVolume) {
       range.style.backgroundImage = `
@@ -183,6 +186,16 @@ class SettingsPage extends Page {
     }
 
     this.backToMainButton.textContent = translation[lang].backToMainButton;
+
+    const volumeRangeSoundLastChild = this.volumeRangeSliderSound.lastChild;
+    if (volumeRangeSoundLastChild instanceof HTMLDivElement) {
+      volumeRangeSoundLastChild.textContent = translation[lang].soundTitle;
+    }
+
+    const volumeRangeBackgroundMusicLastChild = this.volumeRangeSliderBackgroundMusic.lastChild;
+    if (volumeRangeBackgroundMusicLastChild instanceof HTMLDivElement) {
+      volumeRangeBackgroundMusicLastChild.textContent = translation[lang].musicTitle;
+    }
   }
 
   createWrapper(className: string): HTMLDivElement {
@@ -191,8 +204,8 @@ class SettingsPage extends Page {
 
     wrapper.append(this.settingsTitle);
     wrapper.append(this.languageSelect);
-    wrapper.append(this.volumeRangeSliderMainPage);
-    wrapper.append(this.volumeRangeSliderGame);
+    wrapper.append(this.volumeRangeSliderBackgroundMusic);
+    wrapper.append(this.volumeRangeSliderSound);
     wrapper.append(this.soundCheckbox);
     wrapper.append(this.timeLimitCheckbox);
     wrapper.append(this.saveSettingsButton);

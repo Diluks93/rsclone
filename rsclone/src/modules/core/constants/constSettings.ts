@@ -44,7 +44,7 @@ export const volumeBarId: SettingsVolumeBarType = {
 };
 
 export const rangeProps: SettingsRangeType = {
-  iconUrl: '../../../assets/svg/volume.svg',
+  // iconUrl: '../../../assets/svg/volume.svg',
   min: '0',
   max: '1',
   step: '0.1',

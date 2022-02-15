@@ -25,7 +25,7 @@ export type SettingsCheckboxType = {
 };
 
 export type SettingsRangeType = {
-  iconUrl: string;
+  // iconUrl: string;
   min: string;
   max: string;
   step: string;
@@ -88,6 +88,8 @@ export type GameTranslationType = {
   playLevelButton: string;
   settingsTitle: string;
   authorsTitle: string;
+  soundTitle: string;
+  musicTitle: string;
   isSoundEnabledLabel: string;
   isTimeLimitEnabledLabel: string;
   saveSettingsButton: string;
