@@ -1,9 +1,10 @@
+import gameTranslation from '../../data/gameTranslation.json';
+
 import { settingsStore } from './../../stores/settingsStore';
 import { endgameFontConfig } from './../../constants/gameTextConfig';
 import { GameText } from './../helpers/gameText';
 import { SceneDataType } from './../../types/types';
 import { GameStatus, PageId, SceneKey } from '../../enums/enums';
-import gameTranslation from '../../data/gameTranslation.json';
 
 export default class EndgameScene extends Phaser.Scene {
   gameStatus: number | undefined;

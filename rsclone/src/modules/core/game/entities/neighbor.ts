@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
-import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
 import Actor from './actor';
-import Player from './player';
+import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
+import { Player } from './player';
 
 export default class Neighbor extends Actor {
   private target: Player;
 
-  private agressionRange = 500;
+  private aggressionRange = 500;
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, target: Player, frame?: number) {
     super(scene, x, y, texture, frame);
@@ -17,7 +17,7 @@ export default class Neighbor extends Actor {
   }
 
   update(): void {
-    if (this.getDistanceFromTarget() > this.agressionRange) {
+    if (this.getDistanceFromTarget() > this.aggressionRange) {
       this.stopMove();
     } else if (this.getDistanceFromTarget() < this.target.width * this.scale) {
       this.attackTarget();

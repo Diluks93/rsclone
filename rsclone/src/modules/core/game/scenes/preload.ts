@@ -1,4 +1,3 @@
-import { settingsStore } from './../../stores/settingsStore';
 import director from '../../../../assets/game/director.png';
 import pen from '../../../../assets/game/pen.png';
 import fakeDoor from '../../../../assets/game/fake-door.png';
@@ -6,6 +5,7 @@ import trickedPicture from '../../../../assets/game/picture-2.png';
 import picture from '../../../../assets/game/picture-1.png';
 import gameTranslation from '../../data/gameTranslation.json';
 
+import { settingsStore } from './../../stores/settingsStore';
 import { GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
 
 const ORIGIN_CENTER = 0.5;
@@ -38,7 +38,7 @@ export default class PreloadScene extends Phaser.Scene {
     });
     loadingText.setOrigin(ORIGIN_CENTER);
 
-    const persentText = this.make.text({
+    const percentText = this.make.text({
       x: this.cameraCenterX,
       y: this.cameraCenterY,
       text: '0%',
@@ -47,7 +47,7 @@ export default class PreloadScene extends Phaser.Scene {
         fontSize: GameFont.SmallSize,
       },
     });
-    persentText.setOrigin(ORIGIN_CENTER);
+    percentText.setOrigin(ORIGIN_CENTER);
 
     const assetText = this.make.text({
       x: this.cameraCenterX,
@@ -65,7 +65,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.on('progress', (value: number) => {
       this.fillProgressBar(progressBar, value);
-      persentText.setText(Math.round(value * 100) + '%');
+      percentText.setText(Math.round(value * 100) + '%');
     });
 
     this.load.on('fileprogress', (file: Phaser.Loader.File) => {
@@ -75,7 +75,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.on('complete', () => {
       progressBox.destroy();
       progressBar.destroy();
-      persentText.destroy();
+      percentText.destroy();
       assetText.destroy();
       this.scene.start(SceneKey.Manager);
     });

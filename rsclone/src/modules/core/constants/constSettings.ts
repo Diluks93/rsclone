@@ -14,6 +14,7 @@ import {
   TitleType,
   GameTranslationInterface,
   SettingsVolumeBarType,
+  SettingsConfigType,
 } from './../types/types';
 
 export const TEXT_NODE = 3;
@@ -96,4 +97,13 @@ export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
     href: `#${PageId.HomePage}`,
     iconId: 'check',
   },
+};
+
+export const defaultConfig: SettingsConfigType = {
+  languageValue: 'ru',
+  // volumeValue: '0.5',
+  isSoundEnabled: true,
+  isTimeLimitEnabled: false,
+  isTricksReportEnabled: false,
+  currentLevel: 0,
 };

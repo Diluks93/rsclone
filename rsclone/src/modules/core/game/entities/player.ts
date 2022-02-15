@@ -1,10 +1,11 @@
 import Actor from './actor';
+
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { DoorWayInterface } from './../../types/types';
 import { GameKey, GameStatus, Event, FrameKey, AnimationKey, StorageKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
 
-export default class Player extends Actor {
+export class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
 
   private keyD: Phaser.Input.Keyboard.Key;
@@ -34,7 +35,7 @@ export default class Player extends Actor {
     x: number,
     y: number,
     texture: string,
-    playerSounds: {
+    playerSounds?: {
       [index: string]: Phaser.Sound.BaseSound;
     },
     frame?: number
@@ -84,7 +85,9 @@ export default class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      if (this.hasSoundResolution || this.hasSoundResolution === null) this.playerSounds.footsteps.play();
+      if (this.hasSoundResolution || this.hasSoundResolution === null) {
+        this.playerSounds?.footsteps.play();
+      }
     }
   }
 
@@ -168,14 +171,14 @@ export default class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
-    this.playerSounds.fright.play();
+    this.playerSounds?.fright.play();
   }
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
-    this.playerSounds.delight.play();
+    this.playerSounds?.delight.play();
   }
 
   public removeItem(itemKey: string): void {
@@ -186,7 +189,7 @@ export default class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playerSounds.trick.play();
+    this.playerSounds?.trick.play();
   }
 
   public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
@@ -196,6 +199,6 @@ export default class Player extends Actor {
     const oldPlayerPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
     this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
     this.isWalkThroughDoor = isWalk;
-    this.playerSounds.doorOpen.play();
+    this.playerSounds?.doorOpen.play();
   }
 }

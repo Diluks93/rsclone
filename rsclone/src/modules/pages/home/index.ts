@@ -16,7 +16,6 @@ class HomePage extends Page {
   openSettingsButton: HTMLAnchorElement;
 
   openAuthorsButton: HTMLAnchorElement;
-
   fullScreenModal: HTMLDivElement;
 
   constructor(id: string, className: string) {

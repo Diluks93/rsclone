@@ -1,15 +1,15 @@
 import Phaser from 'phaser';
-import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
-
-import { AnimationKey, EventName, FrameKey, GameKey, StorageKey } from '../../../enums/enums';
-import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
-import { DoorWayInterface, LanguageKeys, TargetItemConfigType } from '../../../types/types';
-import { settingsStore } from '../../../stores/settingsStore';
 import gameTranslation from '../../../data/gameTranslation.json';
 import DoorWay from '../../helpers/doorWay';
 import Neighbor from '../../entities/neighbor';
+
+import { AnimationKey, EventName, FrameKey, GameKey, StorageKey } from '../../../enums/enums';
+import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
+import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
+import { settingsStore } from '../../../stores/settingsStore';
+import { Player } from '../../entities/player';
 
 export default abstract class GameScene extends Phaser.Scene {
   private tile = tile;
