@@ -44,7 +44,6 @@ export const volumeBarId: SettingsVolumeBarType = {
 };
 
 export const rangeProps: SettingsRangeType = {
-  // iconUrl: '../../../assets/svg/volume.svg',
   min: '0',
   max: '1',
   step: '0.1',
@@ -52,11 +51,9 @@ export const rangeProps: SettingsRangeType = {
   inputHandler(e: Event): void {
     if (e.target instanceof HTMLInputElement) {
       if (e.target.id === volumeBarId.volumeBarBackgroundMusic) {
-        // settingsStore.volumeValueMenu = e.target.value;
         adjustVolume(backgroundMusic, +e.target.value);
         localStorage.setItem(StorageKey.SoundCheckbox, e.target.value);
       } else {
-        // settingsStore.volumeValueGame = e.target.value;
         localStorage.setItem(StorageKey.SoundVolume, e.target.value);
       }
 

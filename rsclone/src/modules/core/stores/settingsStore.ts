@@ -3,7 +3,6 @@ import { LanguageKeys, SettingsConfigType } from './../types/types';
 
 const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
-  // volumeValue: '0.5',
   isSoundEnabled: true,
   isTimeLimitEnabled: false,
   isTricksReportEnabled: false,
@@ -12,10 +11,6 @@ const defaultConfig: SettingsConfigType = {
 
 class SettingsStore {
   private _languageValue: LanguageKeys;
-
-  // private _volumeValueMenu: string;
-
-  // private _volumeValueGame: string;
 
   private _isSoundEnabled: boolean;
 
@@ -39,7 +34,6 @@ class SettingsStore {
 
   constructor({
     languageValue,
-    // volumeValue,
     isSoundEnabled,
     isTimeLimitEnabled,
     isTricksReportEnabled,
@@ -48,8 +42,6 @@ class SettingsStore {
     this.playerScore = JSON.parse(localStorage.getItem(StorageKey.PlayerScore) as string) || {};
     this._currentLevel = JSON.parse(localStorage.getItem(StorageKey.CurrentLevel) as string) || currentLevel;
     this._languageValue = (localStorage.getItem(StorageKey.LanguageValue) as LanguageKeys) || languageValue;
-    // this._volumeValueMenu = localStorage.getItem(StorageKey.SoundVolumeMenu) || volumeValue;
-    // this._volumeValueGame = localStorage.getItem(StorageKey.SoundVolumeGame) || volumeValue;
     if (JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string) === null)
       this._isSoundEnabled = isSoundEnabled;
     else this._isSoundEnabled = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
@@ -88,22 +80,6 @@ class SettingsStore {
   set languageValue(value: LanguageKeys) {
     this._languageValue = value;
   }
-
-  // get volumeValueMenu(): string {
-  //   return this._volumeValueMenu;
-  // }
-
-  // set volumeValueMenu(value: string) {
-  //   this._volumeValueMenu = value;
-  // }
-
-  // get volumeValueGame(): string {
-  //   return this._volumeValueGame;
-  // }
-
-  // set volumeValueGame(value: string) {
-  //   this._volumeValueGame = value;
-  // }
 
   get isSoundEnabled(): boolean {
     return this._isSoundEnabled;
