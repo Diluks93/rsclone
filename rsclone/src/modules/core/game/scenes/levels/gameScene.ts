@@ -66,7 +66,9 @@ export default abstract class GameScene extends Phaser.Scene {
     this.playerSounds.fright = this.sound.add(GameKey.SoundPlayerFright, soundConfig);
     this.playerSounds.doorOpen = this.sound.add(GameKey.SoundDoorOpen, soundConfig);
     this.music = this.sound.add(GameKey.MusicGame, backgroundMusicConfig);
-    if (hasSoundResolution || hasSoundResolution === null) this.music.play();
+    if (hasSoundResolution || hasSoundResolution === null) {
+      this.music.play();
+    }
 
     this.floor = this.map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
     this.map.createLayer(this.mapLayer.bg, tileset, 0, 0);

@@ -58,7 +58,7 @@ class SettingsPage extends Page {
     if (id === volumeBarId.volumeBarSound) {
       musicVolume = localStorage.getItem(StorageKey.SoundVolume);
     } else {
-      musicVolume = localStorage.getItem(StorageKey.SoundCheckbox);
+      musicVolume = localStorage.getItem(StorageKey.BackgroundMusicVolume);
     }
 
     range.type = 'range';

@@ -53,7 +53,7 @@ export const rangeProps: SettingsRangeType = {
     if (e.target instanceof HTMLInputElement) {
       if (e.target.id === volumeBarId.volumeBarBackgroundMusic) {
         adjustVolume(backgroundMusic, +e.target.value);
-        localStorage.setItem(StorageKey.SoundCheckbox, e.target.value);
+        localStorage.setItem(StorageKey.BackgroundMusicVolume, e.target.value);
       } else {
         localStorage.setItem(StorageKey.SoundVolume, e.target.value);
       }
