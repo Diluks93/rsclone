@@ -171,14 +171,18 @@ export class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
-    this.playerSounds?.fright.play();
+    if (this.hasSoundResolution || this.hasSoundResolution === null) {
+      this.playerSounds?.fright.play();
+    }
   }
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
-    this.playerSounds?.delight.play();
+    if (this.hasSoundResolution || this.hasSoundResolution === null) {
+      this.playerSounds?.delight.play();
+    }
   }
 
   public removeItem(itemKey: string): void {
@@ -189,7 +193,9 @@ export class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playerSounds?.trick.play();
+    if (this.hasSoundResolution || this.hasSoundResolution === null) {
+      this.playerSounds?.trick.play();
+    }
   }
 
   public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
@@ -199,6 +205,8 @@ export class Player extends Actor {
     const oldPlayerPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
     this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
     this.isWalkThroughDoor = isWalk;
-    this.playerSounds?.doorOpen.play();
+    if (this.hasSoundResolution || this.hasSoundResolution === null) {
+      this.playerSounds?.doorOpen.play();
+    }
   }
 }
