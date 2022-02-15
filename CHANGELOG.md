@@ -6,39 +6,39 @@ History of RS-Clone project development process. It does not contain links to co
 - Base architecture of project
 - Home Page
 
-0.1.0 - 2022-01-10
+## 0.1.0 - 2022-01-10
 ### Added
 - Settings Page
 
-0.2.0 - 2022-01-11
+## 0.2.0 - 2022-01-11
 ### Added
 - Types
 - Assets and json with translation
 - Levels Page
 
-0.3.1 - 2022-01-12
+## 0.3.1 - 2022-01-12
 ### Added
 - Link Button component
 - Style for Authors Page
 - Storage for settings
 
-0.3.2 - 2022-01-13
+## 0.3.2 - 2022-01-13
 ### Changed
 - Home Page style
 
-0.4.2 - 2022-01-14
+## 0.4.2 - 2022-01-14
 ### Added
 - Levels list and description
 - Connection between settings storage and Settings Page
 ### Fixed
 - Styles for Levels Page
 
-1.1.0 - 2022-01-16
+## 1.1.0 - 2022-01-16
 ### Changed
 - Design of application
 - Settings Page view
 
-1.2.0 - 2022-01-17
+## 1.2.0 - 2022-01-17
 ### Added
 - Back Button component
 ### Changed
@@ -46,7 +46,7 @@ History of RS-Clone project development process. It does not contain links to co
 ### Removed
 - Unused data
 
-2.0.0 - 2022-01-18
+## 2.0.0 - 2022-01-18
 ### Added
 - Language update method
 ### Changed
@@ -54,51 +54,51 @@ History of RS-Clone project development process. It does not contain links to co
 - Levels Page
 - Back Button component
 
-2.1.0 - 2022-01-20
+## 2.1.0 - 2022-01-20
 ### Added
 - Adaptive design of app pages
 - Screen size limiter
 
-2.2.0 - 2022-01-21
+## 2.2.0 - 2022-01-21
 ### Added
 - Phaser to the project
 - Game scene with player's sprite
 
-2.3.0 - 2022-01-22
+## 2.3.0 - 2022-01-22
 ### Added
 - Svg-sprite instead of separate icons
 - Svg-icon component
 
-2.4.0 - 2022-01-23
+## 2.4.0 - 2022-01-23
 ### Added
 - In-game camera
 - Test tilemap
 
-2.4.1 - 2022-01-24
+## 2.4.1 - 2022-01-24
 ### Changed
 - Refactor filenames
 
-2.4.2 - 2022-01-25
+## 2.4.2 - 2022-01-25
 ### Changed
 - Refactor filenames
 
-2.5.0 - 2022-01-31
+## 2.5.0 - 2022-01-31
 ### Added
 - Sounds and music
 - Game world's size
 
-2.6.0 - 2022-02-02
+## 2.6.0 - 2022-02-02
 ### Added
 - Start game event
 - Preload class for assets
 - Translation for episodes description and tutorial
 
-2.7.0 - 2022-02-05
+## 2.7.0 - 2022-02-05
 ### Added
 - New tilemap with doors and spawn points
 - Separate Player class
 
-3.0.0 - 2022-02-06
+## 3.0.0 - 2022-02-06
 ### Added
 - Connect between sounds and settings
 - Neighbor, Score and UI classes
@@ -108,13 +108,13 @@ History of RS-Clone project development process. It does not contain links to co
 - Player's action label 'E'
 - Game exit modal window
 
-3.0.1 - 2022-02-07
+## 3.0.1 - 2022-02-07
 ### Changed
 - Refactor names, extract methods
 ### Removed
 - Unused code
 
-3.1.0 - 2022-02-08
+## 3.1.0 - 2022-02-08
 ### Added
 - New game level
 - New spawn points of the map
@@ -124,14 +124,14 @@ History of RS-Clone project development process. It does not contain links to co
 - Fullscreen modal
 - Game exit process
 
-3.2.0 - 2022-02-09
+## 3.2.0 - 2022-02-09
 ### Changed
 - Resizeable tutorial view
 - Refactor code
 ### Fixed
 - Resolve conflicts
 
-4.0.0 - 2022-02-10
+## 4.0.0 - 2022-02-10
 ### Added
 - Translation for game tutorial
 - Endgame class
@@ -145,11 +145,11 @@ History of RS-Clone project development process. It does not contain links to co
 ### Fixed
 - Improve code and fix mistakes
 
-4.0.1 - 2022-02-11
+## 4.0.1 - 2022-02-11
 ### Changed
 - Code refactoring
 
-4.1.0 - 2022-02-12
+## 4.1.0 - 2022-02-12
 ### Added
 - Animations to Actor entities
 - Aware state for player
