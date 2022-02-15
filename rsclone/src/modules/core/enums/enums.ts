@@ -77,6 +77,7 @@ export const enum AssetUrl {
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
   SoundTrick = 'audio/prank.mp3',
+  SoundPlayerDelighted = 'audio/player-delighted.mp3',
 }
 
 export const enum EventName {
@@ -93,6 +94,7 @@ export const enum GameKey {
   MusicGame = 'music-game',
   SoundFootsteps = 'sound-footsteps',
   SoundTrick = 'sound-prank',
+  SoundPlayerDelighted = 'sound-delighted',
   Tileset = 'tileset',
   Bricks = 'bricks',
   Director = 'director',

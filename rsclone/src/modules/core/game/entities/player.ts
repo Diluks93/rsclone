@@ -174,6 +174,7 @@ export default class Player extends Actor {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
+    this.playerSounds.delight.play();
   }
 
   public removeItem(itemKey: string): void {
