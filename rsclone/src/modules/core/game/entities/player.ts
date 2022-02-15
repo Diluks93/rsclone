@@ -168,6 +168,7 @@ export default class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
+    this.playerSounds.fright.play();
   }
 
   public addItem(itemKey: string): void {
@@ -195,5 +196,6 @@ export default class Player extends Actor {
     const oldPlayerPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
     this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
     this.isWalkThroughDoor = isWalk;
+    this.playerSounds.doorOpen.play();
   }
 }
