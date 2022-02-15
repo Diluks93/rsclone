@@ -1,8 +1,8 @@
-import { GameText } from '../helpers/gameText';
-import { PortraitType, SceneDataType } from './../../types/types';
 import Phaser from 'phaser';
 import gameTranslation from '../../data/gameTranslation.json';
 
+import { GameText } from '../helpers/gameText';
+import { PortraitType, SceneDataType } from './../../types/types';
 import { tutorialSpeechFontConfig, continueTextFontConfig } from '../../constants/gameTextConfig';
 import { tutorialSpeechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
