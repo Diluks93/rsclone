@@ -54,7 +54,7 @@ export const rangeProps: SettingsRangeType = {
       if (e.target.id === volumeBarId.volumeBarBackgroundMusic) {
         // settingsStore.volumeValueMenu = e.target.value;
         adjustVolume(backgroundMusic, +e.target.value);
-        localStorage.setItem(StorageKey.BackgroundMusicVolume, e.target.value);
+        localStorage.setItem(StorageKey.SoundCheckbox, e.target.value);
       } else {
         // settingsStore.volumeValueGame = e.target.value;
         localStorage.setItem(StorageKey.SoundVolume, e.target.value);
@@ -76,7 +76,7 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
     isEnabled: settingsStore.isSoundEnabled,
     clickHandler(): void {
       settingsStore.isSoundEnabled = !settingsStore.isSoundEnabled;
-      localStorage.setItem(StorageKey.BackgroundMusicCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
+      localStorage.setItem(StorageKey.SoundCheckbox, JSON.stringify(settingsStore.isSoundEnabled));
       turnOnBackgroundMusic(backgroundMusic);
     },
   },

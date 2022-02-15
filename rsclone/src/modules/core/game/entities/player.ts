@@ -1,7 +1,7 @@
 import Actor from './actor';
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { DoorWayInterface } from './../../types/types';
-import { GameKey, GameStatus, Event, FrameKey, AnimationKey } from '../../enums/enums';
+import { GameKey, GameStatus, Event, FrameKey, AnimationKey, StorageKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
 
 export default class Player extends Actor {
@@ -27,6 +27,8 @@ export default class Player extends Actor {
 
   isAware = false;
 
+  hasSoundResolution: boolean;
+
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -47,6 +49,7 @@ export default class Player extends Actor {
       .setDepth(1)
       .setVisible(false);
     this.setDepth(1);
+    this.hasSoundResolution = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
   }
 
   update(): void {
@@ -81,7 +84,7 @@ export default class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      this.playerSounds.footsteps.play();
+      if (this.hasSoundResolution || this.hasSoundResolution === null) this.playerSounds.footsteps.play();
     }
   }
 

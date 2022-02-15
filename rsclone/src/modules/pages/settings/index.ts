@@ -58,7 +58,7 @@ class SettingsPage extends Page {
     if (id === volumeBarId.volumeBarSound) {
       musicVolume = localStorage.getItem(StorageKey.SoundVolume);
     } else {
-      musicVolume = localStorage.getItem(StorageKey.BackgroundMusicVolume);
+      musicVolume = localStorage.getItem(StorageKey.SoundCheckbox);
     }
 
     range.type = 'range';
@@ -215,7 +215,7 @@ class SettingsPage extends Page {
 
   updateSettings(): void {
     const backgroundMusicCheckboxStorage: boolean = JSON.parse(
-      localStorage.getItem(StorageKey.BackgroundMusicCheckbox) as string
+      localStorage.getItem(StorageKey.SoundCheckbox) as string
     );
     const soundTimeLimitStorage: boolean = JSON.parse(localStorage.getItem(StorageKey.TimeLimitCheckbox) as string);
 
