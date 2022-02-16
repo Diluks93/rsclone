@@ -12,15 +12,15 @@ export const mapLayer = {
   bgDoors: 'bgDoors',
   object: {
     id: {
-      object: 'object',
-      things: 'things',
-      neighbor: 'neighbor',
+      ['object' as string]: 'object',
+      ['things' as string]: 'things',
+      ['neighbor' as string]: 'neighbor',
     },
     name: {
-      spawnPlayer: 'spawn-point',
-      spawnPen: 'pen',
-      spawnPicture: 'picture',
-      spawnNeighbor: 'spawn-neighbor',
+      ['spawnPlayer' as string]: 'spawn-point',
+      ['spawnPen' as string]: 'pen',
+      ['spawnPicture' as string]: 'picture',
+      ['spawnNeighbor' as string]: 'spawn-neighbor',
     },
   },
 };
