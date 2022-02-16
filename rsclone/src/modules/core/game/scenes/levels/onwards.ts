@@ -3,7 +3,7 @@ import GameScene from './gameScene';
 import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 
-import { FrameKey, GameKey, MaxScore, SceneKey } from '../../../enums/enums';
+import { MaxScore, SceneKey } from '../../../enums/enums';
 import Player from '../../entities/player';
 
 export default class Onwards extends GameScene {
@@ -24,7 +24,7 @@ export default class Onwards extends GameScene {
   }
 
   private initNeighbor(): void {
-    this.physics.add.collider(this.player, this.neighbor, (player, neighbor) => {
+    this.physics.add.collider(this.player, this.neighbor, (player) => {
       (player as Player).getDamage(1);
     });
     this.physics.add.collider(this.neighbor, this.floor as Phaser.Tilemaps.TilemapLayer);

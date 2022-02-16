@@ -3,7 +3,6 @@ import Phaser from 'phaser';
 import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
-
 import { EventName, FrameKey, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';

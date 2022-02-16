@@ -1,12 +1,7 @@
-import { gameConfig } from './../config';
-import { settingsStore } from '../../stores/settingsStore';
 import Phaser from 'phaser';
 import { SceneDataType } from '../../types/types';
 import GameScore from '../helpers/gameScore';
-import { GameText } from '../helpers/gameText';
 import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
-import { endgameFontConfig } from '../../constants/gameTextConfig';
-import gameTranslation from '../../data/gameTranslation.json';
 import GameScene from './levels/gameScene';
 
 export default class InterfaceScene extends Phaser.Scene {
