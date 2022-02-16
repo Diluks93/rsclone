@@ -3,10 +3,27 @@ import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
 import Actor from './actor';
 import Player from './player';
 
+const FIRST_FLOOR_ROOM = {
+  leftSide: 1000,
+  rightSide: 2700,
+  center: 1850,
+  ceil: 1000,
+};
+
 export default class Neighbor extends Actor {
   private target: Player;
 
   private agressionRange = 500;
+
+  public isOverlapDoorway = false;
+
+  public isAngry = false;
+
+  public hasChangedRoom = false;
+
+  public velocity = 200;
+
+  private speedUp = 100;
 
   constructor(scene: Phaser.Scene, x: number, y: number, texture: string, target: Player, frame?: number) {
     super(scene, x, y, texture, frame);
@@ -17,12 +34,39 @@ export default class Neighbor extends Actor {
   }
 
   update(): void {
-    if (this.getDistanceFromTarget() > this.agressionRange) {
-      this.stopMove();
-    } else if (this.getDistanceFromTarget() < this.target.width * this.scale) {
-      this.attackTarget();
+    // door interaction
+    if (this.isWalkThroughDoor) {
+      console.log('door');
+      this.setVelocityX(0);
+      this.anims.play(AnimationKey.NeighborUp, true);
+      return;
+    }
+
+    // reaction to tricks
+    if (this.isAngry) {
+      this.setVelocityX(0);
+      this.anims.play(AnimationKey.NeighborAnger, true);
+      return;
+    }
+
+    // agression
+    if (this.getDistanceFromTarget() < this.agressionRange) {
+      this.followTarget();
     } else {
-      this.moveToTarget();
+      this.stopFollowTarget();
+    }
+    if (this.getDistanceFromTarget() < this.target.width * this.scale) {
+      this.attackTarget();
+    }
+
+    // default movement
+    if (this.x < FIRST_FLOOR_ROOM.leftSide) {
+      this.turnToLeft(this.velocity);
+      this.anims.play(AnimationKey.NeighborSide, true);
+    }
+    if (this.x > FIRST_FLOOR_ROOM.rightSide) {
+      this.turnToRight(this.velocity);
+      this.anims.play(AnimationKey.NeighborSide, true);
     }
   }
 
@@ -83,23 +127,30 @@ export default class Neighbor extends Actor {
     return Phaser.Math.Distance.BetweenPoints({ x: this.x, y: this.y }, { x: this.target.x, y: this.target.y });
   }
 
-  private moveToTarget() {
+  turnToLeft(velocity: number) {
+    this.flipX = false;
+    this.setVelocityX(velocity);
+  }
+
+  turnToRight(velocity: number) {
+    this.flipX = true;
+    this.setVelocityX(-velocity);
+  }
+
+  private followTarget() {
     const targetX = this.target.x;
     const neighborX = this.x;
-
+    const increasedSpeed = this.velocity + this.speedUp;
     if (targetX > neighborX) {
-      this.x += 1;
-      this.flipX = false;
+      this.turnToLeft(increasedSpeed);
     } else {
-      this.x -= 1;
-      this.flipX = true;
+      this.turnToRight(increasedSpeed);
     }
     this.anims.play(AnimationKey.NeighborSide, true);
     this.target.isAware = true;
   }
 
-  private stopMove() {
-    this.anims.play(AnimationKey.NeighborIdle);
+  private stopFollowTarget() {
     this.target.isAware = false;
   }
 

@@ -1,8 +1,8 @@
 import Actor from './actor';
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
-import { DoorWayInterface } from './../../types/types';
 import { GameKey, GameStatus, Event, FrameKey, AnimationKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
+import TrickTargetItem from '../helpers/trickTargetItem';
 
 export default class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
@@ -13,7 +13,7 @@ export default class Player extends Actor {
 
   private keySpace: Phaser.Input.Keyboard.Key;
 
-  private SPEED = 500;
+  private SPEED = 1500;
 
   public actionLabel: GameText;
 
@@ -22,8 +22,6 @@ export default class Player extends Actor {
   inventory: string[] = [];
 
   isPerformTrick = false;
-
-  isWalkThroughDoor = false;
 
   isAware = false;
 
@@ -44,9 +42,8 @@ export default class Player extends Actor {
     this.keySpace = this.scene.input.keyboard.addKey('SPACE');
     this.playerSounds = playerSounds;
     this.actionLabel = new GameText(this.scene, this.x, this.y - this.height, '', actionLabelFontConfig)
-      .setDepth(1)
-      .setVisible(false);
-    this.setDepth(1);
+      .setVisible(false)
+      .setDepth(1);
   }
 
   update(): void {
@@ -186,12 +183,9 @@ export default class Player extends Actor {
     this.playerSounds.trick.play();
   }
 
-  public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
-    // todo: without locationOffset prop hero slightly jumps on Y axis
-    const locationOffset = 30;
-    const oldPlayerPositionX = doorWay.x + (this.width * this.scale) / 2 + locationOffset;
-    const oldPlayerPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
-    this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
-    this.isWalkThroughDoor = isWalk;
+  public finishTrick(targetItem: TrickTargetItem): void {
+    this.removeItem(targetItem.keyItemId);
+    targetItem.trickedItem.setVisible(true);
+    targetItem.isTricked = true;
   }
 }
