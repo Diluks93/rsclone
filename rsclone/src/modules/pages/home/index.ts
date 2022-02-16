@@ -2,23 +2,32 @@ import Page from '../../core/templates/Page';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
-import { StorageKey } from '../../core/enums/enums';
-import {
-  homeTitleProps,
-  homeLinkButtonProps,
-  TEXT_ERROR,
-  screenResolution,
-} from './../../core/constants/constHome';
+import { PageId, StorageKey } from '../../core/enums/enums';
+import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, screenResolution } from './../../core/constants/constHome';
 import './style.scss';
 
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
+
   gameTitle: HTMLElement;
+
   startGameButton: HTMLAnchorElement;
+
   openSettingsButton: HTMLAnchorElement;
+
   openAuthorsButton: HTMLAnchorElement;
 
   fullScreenModal: HTMLDivElement;
+
+  parkLayer: HTMLDivElement;
+
+  heroLayer: HTMLDivElement;
+
+  heroPosition = 0;
+
+  heroVelocity = 3;
+
+  isFlipX = false;
 
   constructor(id: string, className: string) {
     super(id, className);
@@ -26,14 +35,15 @@ class HomePage extends Page {
     this.startGameButton = this.createLinkButton(homeLinkButtonProps.startGameButton);
     this.openSettingsButton = this.createLinkButton(homeLinkButtonProps.openSettingsButton);
     this.openAuthorsButton = this.createLinkButton(homeLinkButtonProps.openAuthorsButton);
-    this.homeButtonsWrapper = this.createWrapper('home-page__wrapper');
+    this.homeButtonsWrapper = this.createWrapper(`${PageId.HomePage}__wrapper`);
     this.fullScreenModal = this.createFullScreenModal();
+    this.parkLayer = this.createParkLayer();
+    this.heroLayer = this.createHeroLayer();
   }
 
   createWrapper(className: string): HTMLDivElement {
     const wrapper = document.createElement('div');
     wrapper.classList.add(className);
-
     wrapper.append(this.startGameButton);
     wrapper.append(this.openSettingsButton);
     wrapper.append(this.openAuthorsButton);
@@ -59,10 +69,8 @@ class HomePage extends Page {
     modalWrapper.classList.add(`${baseClass}__wrapper`);
     modalWarningText.classList.add(`${baseClass}__warning-text`);
     modalActionText.classList.add(`${baseClass}__action-text`);
-
     modalWrapper.append(modalWarningText, modalActionText);
     fullScreenModal.append(modalWrapper);
-
     modalActionText.addEventListener('click', () => {
       fullScreenModal.classList.add('hidden');
       localStorage.setItem(StorageKey.IsFullScreenModalShown, JSON.stringify(true));
@@ -70,6 +78,32 @@ class HomePage extends Page {
     });
 
     return fullScreenModal;
+  }
+
+  createParkLayer(): HTMLDivElement {
+    const parkLayer = document.createElement('div');
+    parkLayer.classList.add(`${PageId.HomePage}__park`);
+    return parkLayer;
+  }
+
+  createHeroLayer(): HTMLDivElement {
+    const heroLayer = document.createElement('div');
+    heroLayer.classList.add(`${PageId.HomePage}__hero`);
+    return heroLayer;
+  }
+
+  moveHero() {
+    requestAnimationFrame(() => this.moveHero());
+    const { x: heroX, width: heroWidth } = this.heroLayer.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    if (heroX < 0 || heroX > windowWidth - heroWidth) {
+      this.isFlipX = !this.isFlipX;
+      this.heroVelocity = -this.heroVelocity;
+    }
+    this.heroPosition += this.heroVelocity;
+    const currentFlipX = this.isFlipX ? -1 : 1;
+    const currentTranslate = this.isFlipX ? -this.heroPosition : this.heroPosition;
+    this.heroLayer.style.transform = `scale(${currentFlipX},1) translateX(${currentTranslate}%)`;
   }
 
   setPageLanguage(translation: GameTranslationInterface, lang: LanguageKeys): void {
@@ -91,9 +125,9 @@ class HomePage extends Page {
     ) {
       this.container.append(this.rangeErrorOutput());
     } else {
-      this.container.append(this.gameTitle);
-      this.container.append(this.homeButtonsWrapper);
-
+      this.parkLayer.append(this.heroLayer);
+      this.moveHero();
+      this.container.append(this.gameTitle, this.homeButtonsWrapper, this.parkLayer);
       try {
         const isFullScreenModalShown: boolean = JSON.parse(
           localStorage.getItem(StorageKey.IsFullScreenModalShown) as string
@@ -105,9 +139,10 @@ class HomePage extends Page {
         console.error(e);
       }
     }
+
     turnOnBackgroundMusic(backgroundMusic);
     return this.container;
   }
-};
+}
 
 export default HomePage;
