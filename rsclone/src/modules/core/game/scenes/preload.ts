@@ -1,12 +1,9 @@
 import { settingsStore } from './../../stores/settingsStore';
-import director from '../../../../assets/game/director.png';
-import pen from '../../../../assets/game/pen.png';
-import fakeDoor from '../../../../assets/game/fake-door.png';
-import trickedPicture from '../../../../assets/game/picture-2.png';
-import picture from '../../../../assets/game/picture-1.png';
 import gameTranslation from '../../data/gameTranslation.json';
+import { GameImageKey, GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
+import { importFilesFromFolder } from '../../utils/utils';
 
-import { GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
+const gameImages = importFilesFromFolder(require.context('../../../../assets/game/', false, /\.(png|jpe?g|svg)$/));
 
 const ORIGIN_CENTER = 0.5;
 const PROGRESS_BOX_WIDTH = 320;
@@ -115,8 +112,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet(GameKey.Player, AssetUrl.Actors, {
       frameWidth: 19,
       frameHeight: 27,
-      startFrame: 14,
-      endFrame: 24,
+      startFrame: 0,
+      endFrame: 13,
     });
     this.load.spritesheet(GameKey.Neighbor, AssetUrl.Actors, {
       frameWidth: 19,
@@ -127,10 +124,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio(GameKey.MusicGame, AssetUrl.MusicGame);
     this.load.audio(GameKey.SoundFootsteps, AssetUrl.SoundFootsteps);
     this.load.audio(GameKey.SoundTrick, AssetUrl.SoundTrick);
-    this.load.image(GameKey.Director, director);
-    this.load.image(GameKey.Pen, pen);
-    this.load.image(GameKey.FakeDoor, fakeDoor);
-    this.load.image(GameKey.Picture, picture);
-    this.load.image(GameKey.TrickedPicture, trickedPicture);
+    for (const imageKey of Object.values(GameImageKey)) {
+      this.load.image(imageKey, gameImages[imageKey]);
+    }
   }
 }

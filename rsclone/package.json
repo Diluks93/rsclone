@@ -1,7 +1,7 @@
 {
   "name": "my-webpack-project",
   "version": "1.0.0",
-  "description": "How to annoy neighbor",
+  "description": "Neighbors from hell",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,8 +17,8 @@
   },
   "authors": {
     "team-lead": "Dzmitry Ilyukovich",
-    "designer and inspier": "Evgeny Borisevich",
-    "game-designer and translater": "Eugenia Ly"
+    "designer and inspirer": "Evgeny Borisevich",
+    "game-designer and translator": "Eugenia Ly"
   },
   "license": "ISC",
   "bugs": {
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Diluks93/rsclone#readme",
   "devDependencies": {
+    "@types/webpack-env": "^1.16.3",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "@webpack-cli/generators": "^2.4.1",
