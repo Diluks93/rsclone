@@ -101,7 +101,6 @@ export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
 
 export const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
-  // volumeValue: '0.5',
   isSoundEnabled: true,
   isTimeLimitEnabled: false,
   isTricksReportEnabled: false,
