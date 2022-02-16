@@ -33,6 +33,9 @@ class SettingsStore {
     [LevelName.FirstSteps]: MaxScore.FirstSteps,
     [LevelName.Onwards]: MaxScore.Onwards,
     [LevelName.HereWeGo]: MaxScore.HereWeGo,
+    [LevelName.TheFirstTrick]: MaxScore.TheFirstTrick,
+    [LevelName.TvAfternoon]: MaxScore.TvAfternoon,
+    [LevelName.BirthdaySurprises]: MaxScore.BirthdaySurprises,
   };
 
   constructor({

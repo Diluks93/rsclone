@@ -34,6 +34,24 @@
         "hintText": "Правая кнопка мыши = 'красться'!",
         "levelDescriptionText": "Джо хочет завершить вступление кратким обзором предстоящих эпизодов.\n Как лучше пробраться мимо бдительных питомцев? Где можно спрятаться?\n Ты узнаешь это и многое другое.\n Теперь у тебя есть (почти) все навыки, необходимые для сладкой мести.",
         "timeLimit": "5 минут"
+      },
+      {
+        "levelTitle": "3",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "4",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "5",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
       }
     ],
     "tutorialSpeech": [
@@ -107,6 +125,24 @@
         "levelTitle": "Here we go!",
         "hintText": "'Sneak' with RMB!",
         "levelDescriptionText": "Joe wants to wrap up this introduction by giving you a brief look at future episodes.\n You will learn all this and more.\n You now have (nearly) all the skills you need to take sweet revenge.",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "3",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "4",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "5",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
         "timeLimit": "5 minutes"
       }
     ],

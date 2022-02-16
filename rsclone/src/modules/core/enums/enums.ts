@@ -93,12 +93,21 @@ export const enum GameKey {
   SoundFootsteps = 'sound-footsteps',
   SoundTrick = 'sound-prank',
   Tileset = 'tileset',
-  Bricks = 'bricks',
+}
+
+export enum GameImageKey {
+  FakeDoor = 'fake-door',
   Director = 'director',
   Pen = 'pen',
-  FakeDoor = 'fake-door',
-  Picture = 'picture',
-  TrickedPicture = 'trickedPicture',
+  PictureBefore = 'picture-before',
+  PictureAfter = 'picture-after',
+  CarpetBefore = 'carpet-before',
+  CarpetAfter = 'carpet-after',
+  Closet = 'closet',
+  ClosetOpened = 'closet-opened',
+  Dog = 'dog',
+  Marbles = 'marbles',
+  Plant = 'plant',
 }
 
 export const enum SceneKey {
@@ -132,12 +141,18 @@ export const enum LevelName {
   FirstSteps,
   Onwards,
   HereWeGo,
+  TheFirstTrick,
+  TvAfternoon,
+  BirthdaySurprises,
 }
 
 export const enum MaxScore {
   FirstSteps = 75,
   Onwards = 100,
   HereWeGo = 150,
+  TheFirstTrick = 200,
+  TvAfternoon = 200,
+  BirthdaySurprises = 200,
 }
 
 export const enum GameFont {
