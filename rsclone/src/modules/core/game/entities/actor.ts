@@ -50,7 +50,7 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
 
   public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
     // todo: without locationOffset prop hero slightly jumps on Y axis
-    const locationOffset = 30;
+    const locationOffset = 20;
     const oldActorPositionX = doorWay.x + (this.width * this.scale) / 2 + locationOffset;
     const oldActorPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
     this.setPosition(oldActorPositionX, oldActorPositionY);

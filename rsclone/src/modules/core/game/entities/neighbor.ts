@@ -36,7 +36,6 @@ export default class Neighbor extends Actor {
   update(): void {
     // door interaction
     if (this.isWalkThroughDoor) {
-      console.log('door');
       this.setVelocityX(0);
       this.anims.play(AnimationKey.NeighborUp, true);
       return;
