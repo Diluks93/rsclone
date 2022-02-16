@@ -1,35 +1,50 @@
 import Page from '../../core/templates/Page';
 import SvgIcon from '../../core/components/svg-icon';
 import gameTranslation from '../../core/data/gameTranslation.json';
-import levelExample from '../../../assets/image/level/level-example.png';
 
 import { settingsStore } from './../../core/stores/settingsStore';
-import { levelPreviewProps, levelLinkButtonProps, levelDetailsProps, levelPageTitleProps } from './../../core/constants/constLevels';
+import {
+  levelPreviewProps,
+  levelLinkButtonProps,
+  levelDetailsProps,
+  levelPageTitleProps,
+} from './../../core/constants/constLevels';
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
-import { turnOnBackgroundMusic } from '../../core/utils/utils';
+import { importFilesFromFolder, turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameKey } from '../../core/enums/enums';
 import './style.scss';
 
+const levelImages = importFilesFromFolder(require.context('../../../assets/image/level/', false, /\.(png|jpe?g|svg)$/));
+
 const PAGE_NAME = 'levels-page';
 const LEVEL_DETAILS = 'level-details';
-const CURRENT_LEVEL = 0;
-const CURRENT_SCORE = 0;
-const TOTAL_SCORE = 5;
 
 class LevelSelectPage extends Page {
   levelSelectLayout: HTMLDivElement;
+
   tutorialWrapper: HTMLDivElement;
+
   seasonOneWrapper: HTMLDivElement;
+
   levelDetailsWrapper: HTMLDivElement;
+
   tutorialTitle: HTMLElement;
+
   seasonOneTitle: HTMLElement;
+
   levelDetailslTitle: HTMLElement;
+
   scoreParagraph: HTMLParagraphElement;
+
   timeLimitParagraph: HTMLParagraphElement;
+
   hintParagraph: HTMLParagraphElement;
+
   previewImage: HTMLImageElement;
+
   levelDescriptionText: HTMLParagraphElement;
+
   playLevelButton: HTMLAnchorElement;
 
   constructor(id: string, className: string) {
@@ -41,8 +56,7 @@ class LevelSelectPage extends Page {
     this.scoreParagraph = this.createScoreWrapper(levelDetailsProps.ratingCountId, 'star');
     this.timeLimitParagraph = this.createInfoParagraph(levelDetailsProps.timeLimitId, 'clock');
     this.hintParagraph = this.createInfoParagraph(levelDetailsProps.hintId, 'wink');
-    //todo: change to better source of image
-    this.previewImage = this.createPreviewImage(levelPreviewProps.tutorialTitle[0].imageUrl);
+    this.previewImage = this.createPreviewImage(levelImages[`level-${settingsStore.currentLevel}`]);
     this.levelDescriptionText = this.createLevelDescriptionText(levelDetailsProps.levelDescriptionId);
     this.playLevelButton = this.createLinkButton(levelLinkButtonProps.playLevelButton);
     this.playLevelButton.addEventListener('click', (e: MouseEvent) => {
@@ -76,13 +90,16 @@ class LevelSelectPage extends Page {
     const { currentLevel } = settingsStore;
     previewButton.classList.add(`${PAGE_NAME}__preview`);
     previewButton.id = String(id);
-    previewButton.style.backgroundImage = `url(${levelExample})`;
+    const imageName = id < 3 ? levelImages[`level-${id}`] : levelImages['level-example'];
+    previewButton.style.backgroundImage = `url(${imageName})`;
 
     if (currentLevel === Number(id)) {
       previewButton.classList.add('selected');
     }
 
-    if (isLocked) {
+    const currentScoreById = settingsStore.playerScore[id - 1] || 0;
+    const maxScoreById = settingsStore.maxScore[id - 1] || 0;
+    if (id > 0 && currentScoreById < maxScoreById) {
       previewButton.classList.add('locked');
       previewButton.disabled = true;
     }
@@ -90,7 +107,11 @@ class LevelSelectPage extends Page {
       const targetButton = e.target as HTMLButtonElement;
       const targetButtonId = Number(targetButton.id);
       settingsStore.currentLevel = targetButtonId;
-      this.setDescriptionLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue, targetButtonId);
+      this.setDescriptionLanguage(
+        gameTranslation as GameTranslationInterface,
+        settingsStore.languageValue,
+        targetButtonId
+      );
 
       const previouslySelectedButton = document.querySelector('.selected');
       if (previouslySelectedButton) {
@@ -106,7 +127,7 @@ class LevelSelectPage extends Page {
   createPreviewImage(imageUrl: string): HTMLImageElement {
     const previewImage = document.createElement('img');
     previewImage.classList.add(`${LEVEL_DETAILS}__preview-image`);
-    previewImage.src = levelExample;
+    previewImage.src = imageUrl;
     return previewImage;
   }
 
@@ -174,10 +195,11 @@ class LevelSelectPage extends Page {
     if (timeSpan && hintSpan && scoreSpan) {
       timeSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].timeLimit;
       hintSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].hintText;
-      scoreSpan.textContent = `${settingsStore.playerScore[levelIndex] || 0}/${settingsStore.maxScore[levelIndex]}`
+      scoreSpan.textContent = `${settingsStore.playerScore[levelIndex] || 0}/${settingsStore.maxScore[levelIndex]}`;
     }
     this.levelDetailslTitle.textContent = translation[lang].levelDetailsBlock[levelIndex].levelTitle;
     this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[levelIndex].levelDescriptionText;
+    this.previewImage.src = levelImages[`level-${levelIndex}`];
   }
 
   createLevelSelectLayout(): HTMLDivElement {
@@ -193,6 +215,6 @@ class LevelSelectPage extends Page {
     this.container.append(this.backToMainButton, this.levelSelectLayout);
     return this.container;
   }
-};
+}
 
 export default LevelSelectPage;
