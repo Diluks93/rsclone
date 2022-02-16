@@ -24,18 +24,6 @@ export default class Onwards extends GameScene {
   }
 
   private initNeighbor(): void {
-    const spawnPointNeighbor = this.map?.findObject(
-      this.mapLayer?.object.id.neighbor,
-      (obj) => obj.name === this.mapLayer.object.name.spawnNeighbor
-    );
-    this.neighbor = new Neighbor(
-      this,
-      spawnPointNeighbor?.x as number,
-      spawnPointNeighbor?.y as number,
-      GameKey.Neighbor,
-      this.player,
-      FrameKey.NeighborFrontMiddle
-    );
     this.physics.add.collider(this.player, this.neighbor, (player, neighbor) => {
       (player as Player).getDamage(1);
     });
