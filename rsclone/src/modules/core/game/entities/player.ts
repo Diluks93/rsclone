@@ -66,7 +66,9 @@ export default class Player extends Actor {
       this.playerSounds?.footsteps.play();
     });
     this.getBody().setVelocity(0);
-    if (this.keyA.isDown) {
+    if (this.keyE.isDown) {
+      this.anims.play(AnimationKey.WoodyPick);
+    } else if (this.keyA.isDown) {
       this.body.velocity.x = -this.SPEED;
       this.flipX = true;
       this.anims.play(AnimationKey.WoodySide, true);
