@@ -6,7 +6,7 @@ import gameTranslation from '../../data/gameTranslation.json';
 import { tutorialSpeechFontConfig, continueTextFontConfig } from '../../constants/gameTextConfig';
 import { tutorialSpeechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
-import { GameKey, SceneKey } from '../../enums/enums';
+import { GameImageKey, SceneKey } from '../../enums/enums';
 
 const UPDATE_TIME = 400;
 
@@ -130,7 +130,7 @@ export default class TutorialScene extends Phaser.Scene {
     portraitBox.setInteractive();
     portraitBox.fillStyle(0x000000, 1);
     portraitBox.fillRect(0, 0, portraitSize, portraitSize);
-    const directorImage = this.add.image(0, 0, GameKey.Director).setOrigin(0, 0);
+    const directorImage = this.add.image(0, 0, GameImageKey.Director).setOrigin(0, 0);
 
     return {
       portraitBox,

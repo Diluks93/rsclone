@@ -1,9 +1,10 @@
+import { GameImageKey } from './../../../enums/enums';
 import Phaser from 'phaser';
 import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
 
-import { AnimationKey, EventName, FrameKey, GameKey } from '../../../enums/enums';
+import { EventName, FrameKey, GameKey } from '../../../enums/enums';
 import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
 import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
 import { settingsStore } from '../../../stores/settingsStore';
@@ -89,39 +90,10 @@ export default abstract class GameScene extends Phaser.Scene {
 
     this.cursor = this.input.keyboard.createCursorKeys();
 
-    this.physics.add.overlap(
-      this.player,
-      this.doorWaysGroup,
-      (actor, object) => {
-        const currentDoorWay = object as DoorWayInterface;
-        const { nextDoorWayId } = currentDoorWay;
-        const nextDoorWay = this.getNextDoorWay(this.doorWaysGroup!, nextDoorWayId) as DoorWayInterface;
-        nextDoorWay.setVisible(true);
-
-        const spaceKey = (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space;
-
-        if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
-          const player = actor as Player;
-          player.moveToDoor(currentDoorWay, true);
-
-          this.time.addEvent({
-            delay: 300,
-            callback: () => {
-              player.moveToDoor(nextDoorWay, false);
-              this.doorWaysGroup!.setVisible(false);
-
-              if (!currentDoorWay.isScored) {
-                this.game.events.emit(EventName.IncreaseScore);
-                currentDoorWay.isScored = true;
-                nextDoorWay.isScored = true;
-              }
-            },
-          });
-        }
-      },
-      undefined,
-      this
-    );
+    this.physics.add.overlap(this.player, this.doorWaysGroup, this.addOverlapActionToDoorWays, undefined, this);
+    if (this.neighbor) {
+      this.physics.add.overlap(this.neighbor, this.doorWaysGroup, this.addOverlapActionToDoorWays, undefined, this);
+    }
 
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
@@ -141,7 +113,6 @@ export default abstract class GameScene extends Phaser.Scene {
     if (this.neighbor) {
       this.neighbor.update();
     }
-
     const { spaceText } = gameTranslation[settingsStore.languageValue];
     const { eKeyText } = gameTranslation[settingsStore.languageValue];
     if (this.isPlayerOverlapDoors(this.doorWaysGroup!)) {
@@ -162,7 +133,7 @@ export default abstract class GameScene extends Phaser.Scene {
     doorObjects.forEach((doorObject: Phaser.Types.Tilemaps.TiledObject) => {
       const { x, y, id } = doorObject;
       const nextDoorId = doorObject.properties[0].value;
-      const fakeDoorObject = new DoorWay(this, x!, y!, GameKey.FakeDoor, nextDoorId, id);
+      const fakeDoorObject = new DoorWay(this, x!, y!, GameImageKey.FakeDoor, nextDoorId, id);
       doorWaysGroup.add(fakeDoorObject);
     });
   }
@@ -214,10 +185,40 @@ export default abstract class GameScene extends Phaser.Scene {
   }
 
   protected pickUpItem(sourceItem: Phaser.GameObjects.Image): void {
-    this.player.anims.play(AnimationKey.WoodyPick);
     this.player.addItem(sourceItem.texture.key);
     this.trickSourceItems = this.trickSourceItems.filter((filteredItem) => filteredItem !== sourceItem);
     sourceItem!.destroy();
+  }
+
+  protected addOverlapActionToDoorWays(
+    objectA: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    objectB: Phaser.Types.Physics.Arcade.GameObjectWithBody
+  ) {
+    const currentDoorWay = objectB as DoorWayInterface;
+    const { nextDoorWayId } = currentDoorWay;
+    const nextDoorWay = this.getNextDoorWay(this.doorWaysGroup!, nextDoorWayId) as DoorWayInterface;
+    nextDoorWay.setVisible(true);
+
+    const spaceKey = (this.cursor as Phaser.Types.Input.Keyboard.CursorKeys).space;
+
+    if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
+      const player = objectA as Player;
+      player.moveToDoor(currentDoorWay, true);
+
+      this.time.addEvent({
+        delay: 300,
+        callback: () => {
+          player.moveToDoor(nextDoorWay, false);
+          this.doorWaysGroup!.setVisible(false);
+
+          if (!currentDoorWay.isScored) {
+            this.game.events.emit(EventName.IncreaseScore);
+            currentDoorWay.isScored = true;
+            nextDoorWay.isScored = true;
+          }
+        },
+      });
+    }
   }
 
   protected addOverlapActionToItems(): void {
