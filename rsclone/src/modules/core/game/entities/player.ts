@@ -13,7 +13,7 @@ export default class Player extends Actor {
 
   private keySpace: Phaser.Input.Keyboard.Key;
 
-  private SPEED = 1500;
+  private speed = 400;
 
   public actionLabel: GameText;
 
@@ -66,12 +66,12 @@ export default class Player extends Actor {
     if (this.keyE.isDown) {
       this.anims.play(AnimationKey.WoodyPick);
     } else if (this.keyA.isDown) {
-      this.body.velocity.x = -this.SPEED;
+      this.body.velocity.x = -this.speed;
       this.flipX = true;
       this.anims.play(AnimationKey.WoodySide, true);
     } else if (this.keyD.isDown) {
       this.flipX = false;
-      this.body.velocity.x = this.SPEED;
+      this.body.velocity.x = this.speed;
       this.anims.play(AnimationKey.WoodySide, true);
     } else if (this.isAware) {
       this.anims.play(AnimationKey.WoodyAware);
