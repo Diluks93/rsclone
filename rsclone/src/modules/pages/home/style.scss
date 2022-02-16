@@ -8,7 +8,7 @@
   color: $white;
   overflow: hidden;
   display: grid;
-  grid-template: repeat(2, 1fr) / 1fr;
+  grid-template: 40vh 60vh / 1fr;
   justify-items: center;
 
   &__wrapper {
@@ -41,6 +41,35 @@
     color: $orange;
     border-radius: 4rem;
     background: transparent;
+  }
+
+  &__park {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    align-items: flex-end;
+    background-image: url(../../../assets/image/park.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+
+  &__hero {
+    position: fixed;
+    width: 8rem;
+    height: 12rem;
+    margin-bottom: 3rem;
+    background-image: url(https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/game/actors-sprite.png);
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    background-size: 200rem;
+    background-position: -32rem 0;
+    animation: heroWalk 0.5s steps(1) infinite alternate;
   }
 }
 
@@ -121,5 +150,17 @@
   }
   to {
     color: $white;
+  }
+}
+
+@keyframes heroWalk {
+  0% {
+    background-position: -24rem 0;
+  }
+  33% {
+    background-position: -32rem 0;
+  }
+  66% {
+    background-position: -40rem 0;
   }
 }
