@@ -13,6 +13,7 @@ import {
   LanguageKeys,
   TitleType,
   GameTranslationInterface,
+  SettingsVolumeBarType,
   SettingsConfigType,
 } from './../types/types';
 
@@ -33,23 +34,29 @@ export const selectProps: SettingsSelectType = {
     if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
       localStorage.setItem(StorageKey.LanguageValue, e.target.value);
-      page.setPageLanguage((gameTranslation as GameTranslationInterface), settingsStore.languageValue);
+      page.setPageLanguage(gameTranslation as GameTranslationInterface, settingsStore.languageValue);
     }
   },
 };
 
+export const volumeBarId: SettingsVolumeBarType = {
+  volumeBarSound: 'volumeBarSound',
+  volumeBarBackgroundMusic: 'volumeBarBackgroundMusic',
+};
+
 export const rangeProps: SettingsRangeType = {
-  iconUrl: '../../../assets/svg/volume.svg',
-  id: 'volumeBar',
   min: '0',
   max: '1',
   step: '0.1',
-  value: settingsStore.volumeValue,
+  value: '0.5',
   inputHandler(e: Event): void {
     if (e.target instanceof HTMLInputElement) {
-      settingsStore.volumeValue = e.target.value;
-      adjustVolume(backgroundMusic, +e.target.value);
-      localStorage.setItem(StorageKey.SoundVolume, e.target.value);
+      if (e.target.id === volumeBarId.volumeBarBackgroundMusic) {
+        adjustVolume(backgroundMusic, +e.target.value);
+        localStorage.setItem(StorageKey.BackgroundMusicVolume, e.target.value);
+      } else {
+        localStorage.setItem(StorageKey.SoundVolume, e.target.value);
+      }
 
       e.target.style.backgroundImage = `
           -webkit-gradient(linear, left top, right top,
@@ -94,7 +101,6 @@ export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
 
 export const defaultConfig: SettingsConfigType = {
   languageValue: 'ru',
-  volumeValue: '0.5',
   isSoundEnabled: true,
   isTimeLimitEnabled: false,
   isTricksReportEnabled: false,

@@ -77,7 +77,7 @@ export const levelPreviewProps: LevelPreviewInterface = {
 export const levelLinkButtonProps: Record<string, LinkButtonType> = {
   playLevelButton: {
     pageName: PageId.LevelSelectPage,
-    id: 'playLevelButton',
+    id: 'play-level-button',
     href: `#${PageId.MainPage}`,
     iconId: 'play',
   },

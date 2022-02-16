@@ -2,20 +2,19 @@ import Page from '../../core/templates/Page';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
-import { StorageKey } from '../../core/enums/enums';
-import {
-  homeTitleProps,
-  homeLinkButtonProps,
-  TEXT_ERROR,
-  screenResolution,
-} from './../../core/constants/constHome';
+import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, screenResolution } from './../../core/constants/constHome';
 import './style.scss';
 
+let isFullScreenModalShown = true;
 class HomePage extends Page {
   homeButtonsWrapper: HTMLDivElement;
+
   gameTitle: HTMLElement;
+
   startGameButton: HTMLAnchorElement;
+
   openSettingsButton: HTMLAnchorElement;
+
   openAuthorsButton: HTMLAnchorElement;
   fullScreenModal: HTMLDivElement;
 
@@ -64,8 +63,8 @@ class HomePage extends Page {
 
     modalActionText.addEventListener('click', () => {
       fullScreenModal.classList.add('hidden');
-      localStorage.setItem(StorageKey.IsFullScreenModalShown, JSON.stringify(true));
       turnOnBackgroundMusic(backgroundMusic);
+      isFullScreenModalShown = false;
     });
 
     return fullScreenModal;
@@ -92,21 +91,13 @@ class HomePage extends Page {
     } else {
       this.container.append(this.gameTitle);
       this.container.append(this.homeButtonsWrapper);
-
-      try {
-        const isFullScreenModalShown: boolean = JSON.parse(
-          localStorage.getItem(StorageKey.IsFullScreenModalShown) as string
-        );
-        if (!isFullScreenModalShown) {
-          this.container.append(this.fullScreenModal);
-        }
-      } catch (e) {
-        console.error(e);
+      if (isFullScreenModalShown) {
+        this.container.append(this.fullScreenModal);
       }
     }
-    turnOnBackgroundMusic(backgroundMusic);
+
     return this.container;
   }
-};
+}
 
 export default HomePage;

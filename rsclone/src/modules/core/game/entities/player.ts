@@ -2,7 +2,7 @@ import Actor from './actor';
 
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { DoorWayInterface } from './../../types/types';
-import { GameKey, GameStatus, Event, FrameKey, AnimationKey } from '../../enums/enums';
+import { GameKey, GameStatus, Event, FrameKey, AnimationKey, StorageKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
 
 export class Player extends Actor {
@@ -28,6 +28,8 @@ export class Player extends Actor {
 
   isAware = false;
 
+  isAllowedToPlaySounds: boolean;
+
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -48,6 +50,7 @@ export class Player extends Actor {
       .setDepth(1)
       .setVisible(false);
     this.setDepth(1);
+    this.isAllowedToPlaySounds = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
   }
 
   update(): void {
@@ -82,7 +85,7 @@ export class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      this.playerSounds?.footsteps.play();
+      this.playSounds(this.playerSounds?.footsteps);
     }
   }
 
@@ -166,12 +169,14 @@ export class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
+    this.playSounds(this.playerSounds?.fright);
   }
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
+    this.playSounds(this.playerSounds?.delight);
   }
 
   public removeItem(itemKey: string): void {
@@ -182,7 +187,7 @@ export class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playerSounds?.trick.play();
+    this.playSounds(this.playerSounds?.trick);
   }
 
   public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
@@ -192,5 +197,12 @@ export class Player extends Actor {
     const oldPlayerPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
     this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
     this.isWalkThroughDoor = isWalk;
+    this.playSounds(this.playerSounds?.doorOpen);
+  }
+
+  public playSounds(soundKey: Phaser.Sound.BaseSound | undefined) {
+    if ((this.isAllowedToPlaySounds || this.isAllowedToPlaySounds === null) && soundKey) {
+      soundKey.play();
+    }
   }
 }

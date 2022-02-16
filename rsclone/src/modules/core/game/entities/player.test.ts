@@ -7,20 +7,22 @@ import { Player } from './player';
 
 class PlayerConsumer {
   scene = new FirstSteps();
+
   player;
+
   constructor() {
     this.player = new Player(this.scene, 1, 1, 'test');
-  };
+  }
 
   getDamage(): void {
-    this.player.getDamage(1)
+    this.player.getDamage(1);
   }
 }
 
 jest.mock('./player');
 
 describe('PlayerConsumer', () => {
-  const MockedPlayer = Player as jest.MockedClass<typeof Player>
+  const MockedPlayer = Player as jest.MockedClass<typeof Player>;
 
   beforeEach(() => {
     MockedPlayer.mockClear();
@@ -38,5 +40,5 @@ describe('PlayerConsumer', () => {
     playerConsumer.getDamage();
     expect(MockedPlayer.prototype.getDamage).toHaveBeenCalledWith(1);
     expect(MockedPlayer.prototype.getDamage).toHaveBeenCalledTimes(1);
-  })
+  });
 });
