@@ -14,11 +14,7 @@ import { importFilesFromFolder, turnOnBackgroundMusic } from '../../core/utils/u
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameKey, PageId } from '../../core/enums/enums';
 import './style.scss';
-
-const levelImages = importFilesFromFolder(require.context('../../../assets/image/level/', false, /\.(png|jpe?g|svg)$/));
-
-const PAGE_NAME = PageId.LevelSelectPage;
-const LEVEL_DETAILS = 'level-details';
+const levelImages = importFilesFromFolder(require.context('../../../assets/image/level/', false, /\.png$/));
 
 class LevelSelectPage extends Page {
   levelSelectLayout: HTMLDivElement;
@@ -47,6 +43,8 @@ class LevelSelectPage extends Page {
 
   playLevelButton: HTMLAnchorElement;
 
+  levelDetailsBaseClass = 'level-details';
+
   constructor(id: string, className: string) {
     super(id, className);
 
@@ -71,10 +69,10 @@ class LevelSelectPage extends Page {
   }
 
   createLevelList(title: HTMLElement): HTMLDivElement {
-    const levelListWrapper = this.createWrapper(`${PAGE_NAME}__wrapper`);
+    const levelListWrapper = this.createWrapper(`${PageId.LevelSelectPage}__wrapper`);
 
     const levelPreviewWrapper = document.createElement('div');
-    levelPreviewWrapper.classList.add(`${PAGE_NAME}__preview-box`);
+    levelPreviewWrapper.classList.add(`${PageId.LevelSelectPage}__preview-box`);
     const levelPreviewButtons = levelPreviewProps[title.id].map((item) => {
       return this.createLevelPreviewButton(item);
     });
@@ -85,10 +83,10 @@ class LevelSelectPage extends Page {
     return levelListWrapper;
   }
 
-  createLevelPreviewButton({ id, isLocked }: LevelPreviewType): HTMLButtonElement {
+  createLevelPreviewButton({ id }: LevelPreviewType): HTMLButtonElement {
     const previewButton = document.createElement('button');
     const { currentLevel } = settingsStore;
-    previewButton.classList.add(`${PAGE_NAME}__preview`);
+    previewButton.classList.add(`${PageId.LevelSelectPage}__preview`);
     previewButton.id = String(id);
     const imageName = id < 3 ? levelImages[`level-${id}`] : levelImages['level-example'];
     previewButton.style.backgroundImage = `url(${imageName})`;
@@ -126,7 +124,7 @@ class LevelSelectPage extends Page {
 
   createPreviewImage(imageUrl: string): HTMLImageElement {
     const previewImage = document.createElement('img');
-    previewImage.classList.add(`${LEVEL_DETAILS}__preview-image`);
+    previewImage.classList.add(`${this.levelDetailsBaseClass}__preview-image`);
     previewImage.src = imageUrl;
     return previewImage;
   }
@@ -134,7 +132,7 @@ class LevelSelectPage extends Page {
   createInfoParagraph(id: string, iconId: string): HTMLParagraphElement {
     const paragraph = document.createElement('p');
     paragraph.id = id;
-    paragraph.classList.add(`${LEVEL_DETAILS}__text`);
+    paragraph.classList.add(`${this.levelDetailsBaseClass}__text`);
 
     paragraph.prepend(new SvgIcon(iconId).render());
 
@@ -151,13 +149,13 @@ class LevelSelectPage extends Page {
   }
 
   createLevelDetails(): HTMLDivElement {
-    const wrapper = this.createWrapper(LEVEL_DETAILS);
+    const wrapper = this.createWrapper(this.levelDetailsBaseClass);
 
     const innerBlock = document.createElement('div');
-    innerBlock.classList.add(`${LEVEL_DETAILS}__inner`);
+    innerBlock.classList.add(`${this.levelDetailsBaseClass}__inner`);
 
     const infoWrapper = document.createElement('div');
-    infoWrapper.classList.add(`${LEVEL_DETAILS}__info`);
+    infoWrapper.classList.add(`${this.levelDetailsBaseClass}__info`);
 
     infoWrapper.append(this.timeLimitParagraph, this.scoreParagraph, this.hintParagraph);
     innerBlock.append(this.previewImage, infoWrapper, this.levelDescriptionText);
@@ -168,7 +166,7 @@ class LevelSelectPage extends Page {
 
   createLevelDescriptionText(id: string): HTMLParagraphElement {
     const levelDescriptionText = document.createElement('p');
-    levelDescriptionText.classList.add(`${LEVEL_DETAILS}__description`);
+    levelDescriptionText.classList.add(`${this.levelDetailsBaseClass}__description`);
     levelDescriptionText.id = id;
     return levelDescriptionText;
   }
@@ -204,7 +202,7 @@ class LevelSelectPage extends Page {
 
   createLevelSelectLayout(): HTMLDivElement {
     const layout = document.createElement('div');
-    layout.classList.add(`${PAGE_NAME}__layout`);
+    layout.classList.add(`${PageId.LevelSelectPage}__layout`);
 
     layout.append(this.tutorialWrapper, this.seasonOneWrapper, this.levelDetailsWrapper);
 

@@ -1,9 +1,10 @@
+import { LayerName } from './../../core/enums/enums';
 import Page from '../../core/templates/Page';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { PageId, StorageKey } from '../../core/enums/enums';
-import { homeTitleProps, homeLinkButtonProps, TEXT_ERROR, screenResolution } from './../../core/constants/constHome';
+import { homeTitleProps, homeLinkButtonProps, screenResolution } from './../../core/constants/constHome';
 import './style.scss';
 
 class HomePage extends Page {
@@ -23,6 +24,8 @@ class HomePage extends Page {
 
   heroLayer: HTMLDivElement;
 
+  rangeError: HTMLDivElement;
+
   heroPosition = 0;
 
   heroVelocity = 3;
@@ -39,8 +42,9 @@ class HomePage extends Page {
     this.openAuthorsButton = this.createLinkButton(homeLinkButtonProps.openAuthorsButton);
     this.homeButtonsWrapper = this.createWrapper(`${PageId.HomePage}__wrapper`);
     this.fullScreenModal = this.createFullScreenModal();
-    this.parkLayer = this.createParkLayer();
-    this.heroLayer = this.createHeroLayer();
+    this.parkLayer = this.createLayer(LayerName.Park);
+    this.heroLayer = this.createLayer(LayerName.Hero);
+    this.rangeError = this.createRangeError();
   }
 
   createWrapper(className: string): HTMLDivElement {
@@ -53,10 +57,9 @@ class HomePage extends Page {
     return wrapper;
   }
 
-  rangeErrorOutput(): HTMLDivElement {
+  createRangeError(): HTMLDivElement {
     const rangeError = document.createElement('div');
     rangeError.classList.add('range-error');
-    rangeError.innerText = TEXT_ERROR;
 
     return rangeError;
   }
@@ -82,16 +85,10 @@ class HomePage extends Page {
     return fullScreenModal;
   }
 
-  createParkLayer(): HTMLDivElement {
-    const parkLayer = document.createElement('div');
-    parkLayer.classList.add(`${PageId.HomePage}__park`);
-    return parkLayer;
-  }
-
-  createHeroLayer(): HTMLDivElement {
-    const heroLayer = document.createElement('div');
-    heroLayer.classList.add(`${PageId.HomePage}__hero`);
-    return heroLayer;
+  createLayer(layerName: string): HTMLDivElement {
+    const layer = document.createElement('div');
+    layer.classList.add(`${PageId.HomePage}${layerName}`);
+    return layer;
   }
 
   moveHero() {
@@ -113,6 +110,7 @@ class HomePage extends Page {
     this.startGameButton.textContent += translation[lang].startGameButton;
     this.openSettingsButton.textContent = translation[lang].openSettingsButton;
     this.openAuthorsButton.textContent = translation[lang].openAuthorsButton;
+    this.rangeError.textContent = translation[lang].screenRangeErrorText;
 
     const warningText = this.fullScreenModal.firstElementChild?.firstElementChild as HTMLParagraphElement;
     const actionText = this.fullScreenModal.firstElementChild?.lastElementChild as HTMLParagraphElement;
@@ -133,7 +131,7 @@ class HomePage extends Page {
       document.documentElement.clientHeight < screenResolution.minHeight ||
       document.documentElement.clientWidth < screenResolution.minWidth
     ) {
-      this.container.append(this.rangeErrorOutput());
+      this.container.append(this.rangeError);
     } else {
       this.parkLayer.append(this.heroLayer);
       this.moveHero();

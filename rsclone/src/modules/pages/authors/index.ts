@@ -7,9 +7,13 @@ import { PageId } from '../../core/enums/enums';
 
 class AuthorsPage extends Page {
   authorButtonsWrapper: HTMLDivElement;
+
   authorsTitle: HTMLElement;
+
   diluksAuthorButton: HTMLDivElement;
+
   jenyaAuthorButton: HTMLDivElement;
+
   randomspellsAuthorButton: HTMLDivElement;
 
   constructor(id: string, className: string) {
@@ -88,6 +92,6 @@ class AuthorsPage extends Page {
 
     return this.container;
   }
-};
+}
 
 export default AuthorsPage;

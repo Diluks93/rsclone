@@ -90,7 +90,8 @@
     "loseText": "Ты погиб",
     "winText": "Ты победил",
     "spaceText": "Пробел",
-    "eKeyText": "У"
+    "eKeyText": "У",
+    "screenRangeErrorText": "Вне диапазона размеров экрана. Минимальное разрешение 1024x600"
   },
 
   "en": {
@@ -184,6 +185,7 @@
     "loseText": "You died",
     "winText": "You won",
     "spaceText": "Space",
-    "eKeyText": "E"
+    "eKeyText": "E",
+    "screenRangeErrorText": "Out of screen range. Minimum resolution 1024x600"
   }
 }

@@ -17,7 +17,7 @@ export default class TrickTargetItem extends Phaser.GameObjects.Container {
     this.keyItemId = keyItemId;
   }
 
-  fixTrick() {
+  fixTrick(): void {
     this.trickedItem.setVisible(false);
   }
 }

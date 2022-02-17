@@ -2,10 +2,10 @@ import { DoorWayInterface } from './../../types/types';
 import Phaser from 'phaser';
 import { StorageKey } from '../../enums/enums';
 
-const SCALE = 8;
-
 export default class Actor extends Phaser.Physics.Arcade.Sprite {
   protected maxHealth = 1;
+
+  protected scaleValue = 8;
 
   protected initAnimations(): void {}
 
@@ -27,7 +27,7 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     scene.physics.add.existing(this);
     this.getBody().setCollideWorldBounds(true);
-    this.setScale(SCALE);
+    this.setScale(this.scaleValue);
     this.initAnimations();
     this.setDepth(1);
     this.actorSounds = actorSounds;
@@ -72,7 +72,7 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
     this.playSounds(this.actorSounds?.doorOpen);
   }
 
-  public playSounds(soundKey: Phaser.Sound.BaseSound | undefined) {
+  public playSounds(soundKey: Phaser.Sound.BaseSound | undefined): void {
     if ((this.isAllowedToPlaySounds || this.isAllowedToPlaySounds === null) && soundKey) {
       soundKey.play();
     }

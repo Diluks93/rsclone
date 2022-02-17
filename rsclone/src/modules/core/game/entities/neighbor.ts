@@ -1,14 +1,8 @@
+import { FirstFloorRoom } from './../../enums/enums';
 import Phaser from 'phaser';
 import Actor from './actor';
 import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
 import { Player } from './player';
-
-const FIRST_FLOOR_ROOM = {
-  leftSide: 1000,
-  rightSide: 2700,
-  center: 1850,
-  ceil: 1000,
-};
 
 export default class Neighbor extends Actor {
   private target: Player;
@@ -67,11 +61,11 @@ export default class Neighbor extends Actor {
     }
 
     // default movement
-    if (this.x < FIRST_FLOOR_ROOM.leftSide) {
+    if (this.x < FirstFloorRoom.LeftSide) {
       this.turnToLeft(this.velocity);
       this.anims.play(AnimationKey.NeighborSide, true);
     }
-    if (this.x > FIRST_FLOOR_ROOM.rightSide) {
+    if (this.x > FirstFloorRoom.RightSide) {
       this.turnToRight(this.velocity);
       this.anims.play(AnimationKey.NeighborSide, true);
     }
@@ -144,7 +138,7 @@ export default class Neighbor extends Actor {
     this.setVelocityX(-velocity);
   }
 
-  private followTarget() {
+  private followTarget(): void {
     const targetX = this.target.x;
     const neighborX = this.x;
     const increasedSpeed = this.velocity + this.speedUp;
@@ -157,11 +151,11 @@ export default class Neighbor extends Actor {
     this.target.isAware = true;
   }
 
-  private stopFollowTarget() {
+  private stopFollowTarget(): void {
     this.target.isAware = false;
   }
 
-  private attackTarget() {
+  private attackTarget(): void {
     this.anims.play(AnimationKey.NeighborAnger, true);
     this.disableBody(true, false);
   }

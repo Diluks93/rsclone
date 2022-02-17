@@ -76,15 +76,10 @@ export default abstract class GameScene extends Phaser.Scene {
     // tilemap layers
     this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
     const tileset = this.map.addTilesetImage('assets', 'assets');
-    this.floor = this.map.createLayer(this.mapLayer.platforms, tileset, 0, 0);
-    this.floor.setCollisionByExclusion([-1], true);
-    const mapLayers = [this.mapLayer.bg, this.mapLayer.bgDoors, this.mapLayer.bgWindow];
-    mapLayers.forEach((layer: string) => {
-      this.map?.createLayer(layer, tileset, 0, 0);
-    });
+    this.createMapLayers(tileset);
 
     // player
-    const playerSpawnPoint = this.getNeighborSpawnPoint('object', 'spawnPlayer');
+    const playerSpawnPoint = this.getSpawnPoint('object', 'spawnPlayer');
     this.player = new Player(
       this,
       playerSpawnPoint?.x as number,
@@ -95,7 +90,7 @@ export default abstract class GameScene extends Phaser.Scene {
     );
 
     // neighbor
-    const neighborSpawnPoint = this.getNeighborSpawnPoint('neighbor', 'spawnNeighbor');
+    const neighborSpawnPoint = this.getSpawnPoint('neighbor', 'spawnNeighbor');
     if (settingsStore.currentLevel > 0) {
       this.neighbor = new Neighbor(
         this,
@@ -128,7 +123,7 @@ export default abstract class GameScene extends Phaser.Scene {
 
     // physics
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
-    this.physics.add.collider(this.player, this.floor);
+    this.physics.add.collider(this.player, this.floor!);
     this.scale.on('resize', this.resize, this);
     this.addOverlapActionToItems();
   }
@@ -151,7 +146,20 @@ export default abstract class GameScene extends Phaser.Scene {
     }
   }
 
-  private getNeighborSpawnPoint(objectId: string, objectName: string): Phaser.Types.Tilemaps.TiledObject | undefined {
+  private createMapLayers(tileset: Phaser.Tilemaps.Tileset): void {
+    const layers = Object.values(this.mapLayer).filter((layer) => typeof layer === 'string') as string[];
+    console.log(layers);
+    layers.forEach((layer: string) => {
+      if (layer === GameKey.Floor) {
+        this.floor = this.map?.createLayer(layer, tileset, 0, 0);
+        this.floor?.setCollisionByExclusion([-1], true);
+      } else {
+        this.map?.createLayer(layer, tileset, 0, 0);
+      }
+    });
+  }
+
+  private getSpawnPoint(objectId: string, objectName: string): Phaser.Types.Tilemaps.TiledObject | undefined {
     return this.map?.findObject(
       this.mapLayer?.object.id[objectId],
       (obj) => obj.name === this.mapLayer.object.name[objectName]
@@ -219,7 +227,7 @@ export default abstract class GameScene extends Phaser.Scene {
   protected addAngerReactionToNeighbor(
     objectA: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     objectB: Phaser.Types.Physics.Arcade.GameObjectWithBody
-  ) {
+  ): void {
     const neighbor = objectA as Neighbor;
     const trickTargetItem = objectB as TrickTargetItem;
     if (trickTargetItem.isTricked) {
@@ -239,7 +247,7 @@ export default abstract class GameScene extends Phaser.Scene {
   protected addMoveToNextDoorway(
     objectA: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     objectB: Phaser.Types.Physics.Arcade.GameObjectWithBody
-  ) {
+  ): void {
     const currentDoorWay = objectB as DoorWayInterface;
     const { nextDoorWayId } = currentDoorWay;
     const nextDoorWay = this.getNextDoorWay(this.doorwaysGroup!, nextDoorWayId) as DoorWayInterface;

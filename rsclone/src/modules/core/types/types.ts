@@ -106,6 +106,7 @@ export type GameTranslationType = {
   winText: string;
   spaceText: string;
   eKeyText: string;
+  screenRangeErrorText: string;
 };
 
 export type LevelDetailsType = {
@@ -169,4 +170,24 @@ export type SceneDataType = {
   gameStatus: number;
   currentScene?: Phaser.Scene;
   currentScore?: number;
+};
+
+export type MapLayerType = {
+  platforms: string;
+  bg: string;
+  bgWindow: string;
+  bgDoors: string;
+  object: {
+    id: {
+      [object: string]: string;
+      things: string;
+      neighbor: string;
+    };
+    name: {
+      [spawnPlayer: string]: string;
+      spawnPen: string;
+      spawnPicture: string;
+      spawnNeighbor: string;
+    };
+  };
 };

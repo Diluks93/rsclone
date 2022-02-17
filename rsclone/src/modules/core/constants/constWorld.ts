@@ -1,3 +1,4 @@
+import { MapLayerType } from './../types/types';
 export const tile = 32;
 
 export const sizeWorld = {
@@ -5,22 +6,22 @@ export const sizeWorld = {
   height: 1536,
 };
 
-export const mapLayer = {
+export const mapLayer: MapLayerType = {
   platforms: 'platforms',
   bg: 'bg',
   bgWindow: 'bgWindow',
   bgDoors: 'bgDoors',
   object: {
     id: {
-      ['object' as string]: 'object',
-      ['things' as string]: 'things',
-      ['neighbor' as string]: 'neighbor',
+      object: 'object',
+      things: 'things',
+      neighbor: 'neighbor',
     },
     name: {
-      ['spawnPlayer' as string]: 'spawn-point',
-      ['spawnPen' as string]: 'pen',
-      ['spawnPicture' as string]: 'picture',
-      ['spawnNeighbor' as string]: 'spawn-neighbor',
+      spawnPlayer: 'spawn-point',
+      spawnPen: 'pen',
+      spawnPicture: 'picture',
+      spawnNeighbor: 'spawn-neighbor',
     },
   },
 };

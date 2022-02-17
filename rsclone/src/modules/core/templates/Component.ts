@@ -16,6 +16,6 @@ abstract class Component {
 
     return this.container;
   }
-};
+}
 
 export default Component;

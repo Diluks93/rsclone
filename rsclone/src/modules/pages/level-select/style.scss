@@ -5,7 +5,7 @@
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template: 1fr 70vh 1fr / 1fr;
+  grid-template: 1fr 70% 1fr / 1fr;
   font-family: $title;
   text-transform: uppercase;
   font-size: 2rem;
@@ -106,11 +106,11 @@
   }
 
   @media (max-width: 1440px) {
-    grid-template: 1fr 65vh 1fr / 1fr;
+    grid-template: 1fr 65% 1fr / 1fr;
   }
 
   @media (max-width: 1280px) {
-    grid-template: 1fr 55vh 1fr / 1fr;
+    grid-template: 1fr 55% 1fr / 1fr;
 
     &__layout {
       gap: 2.25rem;

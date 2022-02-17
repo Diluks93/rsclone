@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import GameScore from '../helpers/gameScore';
 import GameScene from './levels/gameScene';
-
 import { SceneDataType } from '../../types/types';
 import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
 
@@ -30,7 +29,7 @@ export default class InterfaceScene extends Phaser.Scene {
     super({ key: SceneKey.Interface });
   }
 
-  init(data: SceneDataType) {
+  init(data: SceneDataType): void {
     this.currentLevel = data.currentLevel;
     this.currentScene = data.currentScene;
   }

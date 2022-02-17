@@ -13,8 +13,8 @@ describe('HomePage', () => {
   test('createWrapper', () => {
     expect(homePage.createWrapper('test')).toBeInstanceOf(HTMLDivElement);
   });
-  test('rangeErrorOutput', () => {
-    expect(homePage.rangeErrorOutput()).toBeInstanceOf(HTMLDivElement);
+  test('createRangeError', () => {
+    expect(homePage.createRangeError()).toBeInstanceOf(HTMLDivElement);
   });
   test('createFullScreenModal', () => {
     expect(homePage.createFullScreenModal()).toBeInstanceOf(HTMLDivElement);
@@ -27,4 +27,4 @@ describe('HomePage', () => {
   test('render', () => {
     expect(homePage.render()).toBeInstanceOf(HTMLElement);
   });
-})
+});

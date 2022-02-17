@@ -8,14 +8,14 @@ import { tutorialSpeechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
 import { GameImageKey, SceneKey } from '../../enums/enums';
 
-const UPDATE_TIME = 400;
-
 export default class TutorialScene extends Phaser.Scene {
   speechCount = 0;
 
   timer = 0;
 
   isSpeechVisible = true;
+
+  updateTime = 400;
 
   speechContainer: Phaser.GameObjects.Container | undefined;
 
@@ -42,7 +42,7 @@ export default class TutorialScene extends Phaser.Scene {
     this.continueText = gameTranslation[settingsStore.languageValue].continueText;
   }
 
-  init(data: SceneDataType) {
+  init(data: SceneDataType): void {
     this.sceneData = data;
     const { currentLevel, currentScene } = this.sceneData;
     this.currentLevel = currentLevel;
@@ -114,7 +114,7 @@ export default class TutorialScene extends Phaser.Scene {
     this.timer += delta;
     const { windowWidth, windowHeight } = settingsStore;
     const { portraitSize, offset, hintTextWidth } = tutorialSpeechConfig;
-    if (this.timer > UPDATE_TIME) {
+    if (this.timer > this.updateTime) {
       this.speechContainer?.setPosition(0, windowHeight - portraitSize);
       this.speechText?.setStyle({
         fixedWidth: windowWidth - portraitSize,

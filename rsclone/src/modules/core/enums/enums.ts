@@ -88,6 +88,7 @@ export const enum EventName {
 }
 
 export const enum GameKey {
+  Floor = 'platforms',
   CanvasParent = 'game',
   Player = 'player',
   Neighbor = 'neighbor',
@@ -177,4 +178,24 @@ export const enum GameFont {
 export const enum NavigationButtonsId {
   PlayLevelButton = 'play-level-button',
   ExitTheGame = 'exit-level',
+}
+
+export enum FirstFloorRoom {
+  LeftSide = 1000,
+  RightSide = 2700,
+  Center = 1850,
+  Ceil = 1000,
+}
+
+export enum ProgressBoxSize {
+  OuterWidth = 320,
+  OuterHeight = 50,
+  InnerWidth = 300,
+  InnerHeight = 30,
+  Center = 0.5,
+}
+
+export enum LayerName {
+  Park = '__park',
+  Hero = '__hero',
 }

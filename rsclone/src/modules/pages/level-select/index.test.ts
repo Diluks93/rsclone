@@ -15,7 +15,9 @@ describe('LevelSelectPage', () => {
     expect(levelPage.createLevelList(levelPage.tutorialTitle)).toBeInstanceOf(HTMLDivElement);
   });
   test('createLevelPreviewButton', () => {
-    expect(levelPage.createLevelPreviewButton({id: 0, isLocked: false} as LevelPreviewType)).toBeInstanceOf(HTMLButtonElement);
+    expect(levelPage.createLevelPreviewButton({ id: 0, isLocked: false } as LevelPreviewType)).toBeInstanceOf(
+      HTMLButtonElement
+    );
   });
   test('createPreviewImage', () => {
     expect(levelPage.createPreviewImage('test')).toBeInstanceOf(HTMLImageElement);
@@ -38,4 +40,4 @@ describe('LevelSelectPage', () => {
   test('render', () => {
     expect(levelPage.render()).toBeInstanceOf(HTMLElement);
   });
-})
+});

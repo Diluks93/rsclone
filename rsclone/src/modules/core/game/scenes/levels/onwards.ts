@@ -2,7 +2,6 @@ import { GameImageKey } from './../../../enums/enums';
 import GameScene from './gameScene';
 import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
-
 import { MaxScore, SceneKey } from '../../../enums/enums';
 import { Player } from '../../entities/player';
 
@@ -16,7 +15,7 @@ export default class Onwards extends GameScene {
     this.winScore = MaxScore.Onwards;
   }
 
-  create() {
+  create(): void {
     super.create();
     this.initNeighbor();
     this.initThingsOfJoke();
