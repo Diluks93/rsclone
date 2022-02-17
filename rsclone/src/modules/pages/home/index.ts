@@ -1,4 +1,4 @@
-import { LayerName } from './../../core/enums/enums';
+import { LayerName, AssetUrl } from './../../core/enums/enums';
 import Page from '../../core/templates/Page';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
@@ -26,6 +26,8 @@ class HomePage extends Page {
 
   rangeError: HTMLDivElement;
 
+  rsSchoolLink: HTMLAnchorElement;
+
   heroPosition = 0;
 
   heroVelocity = 3;
@@ -45,6 +47,7 @@ class HomePage extends Page {
     this.parkLayer = this.createLayer(LayerName.Park);
     this.heroLayer = this.createLayer(LayerName.Hero);
     this.rangeError = this.createRangeError();
+    this.rsSchoolLink = this.createRsSchoolLink();
   }
 
   createWrapper(className: string): HTMLDivElement {
@@ -62,6 +65,15 @@ class HomePage extends Page {
     rangeError.classList.add('range-error');
 
     return rangeError;
+  }
+
+  createRsSchoolLink(): HTMLAnchorElement {
+    const rsSchoolLink = document.createElement('a');
+    rsSchoolLink.classList.add(`${PageId.HomePage}__rsschool-link`);
+    rsSchoolLink.style.backgroundImage = `url(${AssetUrl.Main}/${AssetUrl.RsSchoolLogo})`;
+    rsSchoolLink.href = 'https://rs.school/js/';
+    rsSchoolLink.target = '_blank';
+    return rsSchoolLink;
   }
 
   createFullScreenModal(): HTMLDivElement {
@@ -135,7 +147,7 @@ class HomePage extends Page {
     } else {
       this.parkLayer.append(this.heroLayer);
       this.moveHero();
-      this.container.append(this.gameTitle, this.homeButtonsWrapper, this.parkLayer);
+      this.container.append(this.gameTitle, this.homeButtonsWrapper, this.parkLayer, this.rsSchoolLink);
 
       if (!this.isFullScreenModalShown) {
         this.container.append(this.fullScreenModal);
