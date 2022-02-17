@@ -1,3 +1,4 @@
+import { IconId } from './../../core/enums/enums';
 import Page from '../../core/templates/Page';
 import SvgIcon from '../../core/components/svg-icon';
 
@@ -69,7 +70,7 @@ class SettingsPage extends Page {
 
     const soundButton = document.createElement('button');
     soundButton.classList.add(`${PageId.SettingsPage}__toggle-button`);
-    soundButton.append(new SvgIcon('sound').render());
+    soundButton.append(new SvgIcon(IconId.Volume).render());
 
     const rangeTitle = document.createElement('div');
     rangeTitle.classList.add(`${PageId.SettingsPage}__range-title`);
@@ -185,6 +186,7 @@ class SettingsPage extends Page {
     }
 
     this.backToMainButton.textContent = translation[lang].backToMainButton;
+    this.backToMainButton.prepend(new SvgIcon(IconId.ArrowLeft).render());
 
     const volumeRangeSoundLastChild = this.volumeRangeSliderSound.lastChild;
     if (volumeRangeSoundLastChild instanceof HTMLDivElement) {

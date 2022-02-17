@@ -1,3 +1,4 @@
+import { IconId } from './../enums/enums';
 import { PageId } from '../enums/enums';
 import { DescriptionType, LevelPreviewInterface, LinkButtonType, LevelTitleInterface } from '../types/types';
 
@@ -69,6 +70,6 @@ export const levelLinkButtonProps: Record<string, LinkButtonType> = {
     pageName: PageId.LevelSelectPage,
     id: 'play-level-button',
     href: `#${PageId.MainPage}`,
-    iconId: 'play',
+    iconId: IconId.Play,
   },
 };

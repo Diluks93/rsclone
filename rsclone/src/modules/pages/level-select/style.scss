@@ -67,21 +67,8 @@
     background-position: center;
     cursor: pointer;
 
-    &::before {
-      position: relative;
-      top: -50%;
-      left: -50%;
-      width: 300%;
-      height: 300%;
-      content: '';
-      display: block;
-    }
-
     &:hover {
-      &::before {
-        background-color: $orange;
-        opacity: 0.2;
-      }
+      box-shadow: inset 0 0 0 1000px rgba($orange, 0.2);
     }
 
     &.selected {
@@ -89,12 +76,8 @@
     }
 
     &.locked {
-      &::before {
-        background-color: $navy;
-        mix-blend-mode: multiply;
-        opacity: 0.9;
-        cursor: not-allowed;
-      }
+      box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.7);
+      cursor: not-allowed;
     }
   }
 

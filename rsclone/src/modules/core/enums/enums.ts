@@ -69,7 +69,7 @@ export const enum AnimationKey {
   NeighborAnger = 'neighbor-anger',
 }
 
-export const enum AssetUrl {
+export enum AssetUrl {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
   TilemapJson = 'game/map/map.json',
@@ -80,6 +80,11 @@ export const enum AssetUrl {
   SoundPlayerDelighted = 'audio/player-delighted.mp3',
   SoundPlayerFright = 'audio/fright-player.mp3',
   SoundDoorOpen = 'audio/door-open.mp3',
+  RsSchoolLogo = 'rs-school.png',
+  Level0 = 'level/level-0.png',
+  Level1 = 'level/level-1.png',
+  Level2 = 'level/level-2.png',
+  LevelExample = 'level/level-example.png',
 }
 
 export const enum EventName {
@@ -168,7 +173,7 @@ export const enum GameFont {
   MediumSize = '24px',
   SmallSize = '16px',
   PressStartFamily = 'PressStart2P',
-  OpenSansFamily = 'Open sans',
+  OpenSansFamily = 'OpenSans',
   TransparentBlackColor = 'rgba(0,0,0,0.5)',
   WhiteColor = '#fff',
   CenterAlign = 'center',
@@ -198,4 +203,18 @@ export enum ProgressBoxSize {
 export enum LayerName {
   Park = '__park',
   Hero = '__hero',
+}
+
+export enum IconId {
+  ChevronUp = 'chevron-up',
+  ArrowLeft = 'arrow-left',
+  Check = 'check',
+  Clock = 'clock',
+  Github = 'github',
+  Link = 'link',
+  Music = 'music',
+  Play = 'play',
+  Star = 'star',
+  Volume = 'volume',
+  Wink = 'wink',
 }

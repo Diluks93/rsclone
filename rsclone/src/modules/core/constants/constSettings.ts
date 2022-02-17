@@ -1,3 +1,4 @@
+import { IconId } from './../enums/enums';
 import Page from '../templates/Page';
 import gameTranslation from '../data/gameTranslation.json';
 
@@ -26,7 +27,7 @@ export const settingsTitleProps: TitleType = {
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
   options: ['ru', 'en'],
-  iconId: 'chevron-up',
+  iconId: IconId.ChevronUp,
   changeHandler(e: Event, page: Page): void {
     if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
@@ -92,7 +93,7 @@ export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
     pageName: PageId.SettingsPage,
     id: 'saveSettingsButton',
     href: `#${PageId.HomePage}`,
-    iconId: 'check',
+    iconId: IconId.Check,
   },
 };
 
