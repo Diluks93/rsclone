@@ -170,14 +170,14 @@ class SettingsPage extends Page {
       selectCurrentOption.textContent = lang;
     }
 
-    const textNode = 3;
+    const DOMTextNode = 3;
     const soundLastChild = this.soundCheckbox.lastChild;
-    if (soundLastChild?.nodeType === textNode) {
+    if (soundLastChild?.nodeType === DOMTextNode) {
       soundLastChild.textContent = translation[lang].isSoundEnabledLabel;
     }
 
     const timeLimitLastChild = this.timeLimitCheckbox.lastChild;
-    if (timeLimitLastChild?.nodeType === textNode) {
+    if (timeLimitLastChild?.nodeType === DOMTextNode) {
       timeLimitLastChild.textContent = translation[lang].isTimeLimitEnabledLabel;
     }
 

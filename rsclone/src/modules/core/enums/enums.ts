@@ -1,4 +1,4 @@
-export const enum PageId {
+export enum PageId {
   MainPage = 'main-page',
   HomePage = 'home-page',
   SettingsPage = 'settings-page',
@@ -8,11 +8,11 @@ export const enum PageId {
   LevelSelectPage = 'levels-page',
 }
 
-export const enum ErrorType {
+export enum ErrorType {
   Error_404 = '404',
 }
 
-export const enum StorageKey {
+export enum StorageKey {
   HomeTranslation = 'homeTranslation',
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
@@ -27,7 +27,7 @@ export const enum StorageKey {
   PlayerScore = 'playerScore',
 }
 
-export const enum FrameKey {
+export enum FrameKey {
   WoodyBackStart,
   WoodyBackMiddle,
   WoodyBackEnd,
@@ -54,7 +54,7 @@ export const enum FrameKey {
   NeighborAngerStart,
   NeighborAngerEnd,
 }
-export const enum AnimationKey {
+export enum AnimationKey {
   WoodyIdle = 'woody-idle',
   WoodyUp = 'woody-up',
   WoodySide = 'woody-side',
@@ -87,12 +87,12 @@ export enum AssetUrl {
   LevelExample = 'level/level-example.png',
 }
 
-export const enum EventName {
+export enum EventName {
   IncreaseScore = 'increasescore',
   GoThroughDoor = 'fake-door',
 }
 
-export const enum GameKey {
+export enum GameKey {
   Floor = 'platforms',
   CanvasParent = 'game',
   Player = 'player',
@@ -123,7 +123,7 @@ export enum GameImageKey {
   Plant = 'plant',
 }
 
-export const enum SceneKey {
+export enum SceneKey {
   Interface = 'ui-scene',
   Preload = 'preload-scene',
   Tutorial = 'tutorial-scene',
@@ -133,24 +133,24 @@ export const enum SceneKey {
   Endgame = 'endgame-scene',
 }
 
-export const enum ScoreOperations {
+export enum ScoreOperations {
   Increase,
   Decrease,
   SetValue,
 }
 
-export const enum GameStatus {
+export enum GameStatus {
   Win,
   Lose,
 }
 
-export const enum Event {
+export enum Event {
   Endgame = 'endgame',
   AddItem = 'additem',
   RemoveItem = 'removeitem',
 }
 
-export const enum LevelName {
+export enum LevelName {
   FirstSteps,
   Onwards,
   HereWeGo,
@@ -159,7 +159,7 @@ export const enum LevelName {
   BirthdaySurprises,
 }
 
-export const enum MaxScore {
+export enum MaxScore {
   FirstSteps = 75,
   Onwards = 100,
   HereWeGo = 150,
@@ -168,7 +168,7 @@ export const enum MaxScore {
   BirthdaySurprises = 200,
 }
 
-export const enum GameFont {
+export enum GameFont {
   LargeSize = '32px',
   MediumSize = '24px',
   SmallSize = '16px',
@@ -180,7 +180,7 @@ export const enum GameFont {
   RightAlign = 'right',
 }
 
-export const enum NavigationButtonsId {
+export enum NavigationButtonsId {
   PlayLevelButton = 'play-level-button',
   ExitTheGame = 'exit-level',
 }

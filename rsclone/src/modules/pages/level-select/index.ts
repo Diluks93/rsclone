@@ -46,8 +46,6 @@ class LevelSelectPage extends Page {
 
   levelImageUrls = Object.values(AssetUrl).filter((url) => url.includes('level'));
 
-  exampleImageUrl = this.levelImageUrls.filter((url) => url.includes('example'))[0];
-
   constructor(id: string, className: string) {
     super(id, className);
     this.tutorialTitle = this.createHeaderTitle(levelPageTitleProps.tutorialTitle);
@@ -89,7 +87,7 @@ class LevelSelectPage extends Page {
     if (imageUrl) {
       return `${AssetUrl.Main}/${imageUrl}`;
     } else {
-      return `${AssetUrl.Main}/${this.exampleImageUrl}`;
+      return `${AssetUrl.Main}/${AssetUrl.LevelExample}`;
     }
   }
 
@@ -105,12 +103,11 @@ class LevelSelectPage extends Page {
       previewButton.classList.add('selected');
     }
 
-    const currentScoreById = settingsStore.playerScore[id - 1] || 0;
-    const maxScoreById = settingsStore.maxScore[id - 1] || 0;
-    if (id > 0 && currentScoreById < maxScoreById) {
+    if (this.isLevelLocked(id)) {
       previewButton.classList.add('locked');
       previewButton.disabled = true;
     }
+
     previewButton.addEventListener('click', (e) => {
       const targetButton = e.target as HTMLButtonElement;
       const targetButtonId = Number(targetButton.id);
@@ -130,6 +127,12 @@ class LevelSelectPage extends Page {
     });
 
     return previewButton;
+  }
+
+  isLevelLocked(id: number): boolean {
+    const currentScoreById = settingsStore.playerScore[id - 1] || 0;
+    const maxScoreById = settingsStore.maxScore[id - 1] || 0;
+    return id > 0 && currentScoreById < maxScoreById;
   }
 
   createPreviewImage(imageUrl: string): HTMLImageElement {
