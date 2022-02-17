@@ -29,10 +29,10 @@ export class Player extends Actor {
     x: number,
     y: number,
     texture: string,
-
-    frame?: number
+    frame?: number,
+    actorSounds?: Record<string, Phaser.Sound.BaseSound>
   ) {
-    super(scene, x, y, texture, frame);
+    super(scene, x, y, texture, frame, actorSounds);
     this.keyA = this.scene.input.keyboard.addKey('A');
     this.keyD = this.scene.input.keyboard.addKey('D');
     this.keyE = this.scene.input.keyboard.addKey('E');
@@ -55,8 +55,8 @@ export class Player extends Actor {
       this.anims.play(AnimationKey.WoodyUp, true);
       return;
     }
-    this.playerSounds?.footsteps.on('keyup', () => {
-      this.playerSounds?.footsteps.play();
+    this.actorSounds?.footsteps.on('keyup', () => {
+      this.actorSounds?.footsteps.play();
     });
     this.getBody().setVelocity(0);
     if (this.keyE.isDown) {
@@ -76,7 +76,7 @@ export class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      this.playSounds(this.playerSounds?.footsteps);
+      this.playSounds(this.actorSounds?.footsteps);
     }
   }
 
@@ -160,14 +160,14 @@ export class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
-    this.playSounds(this.playerSounds?.fright);
+    this.playSounds(this.actorSounds?.fright);
   }
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
-    this.playSounds(this.playerSounds?.delight);
+    this.playSounds(this.actorSounds?.delight);
   }
 
   public removeItem(itemKey: string): void {
@@ -178,7 +178,7 @@ export class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playSounds(this.playerSounds?.trick);
+    this.playSounds(this.actorSounds?.trick);
   }
 
   public finishTrick(targetItem: TrickTargetItem): void {

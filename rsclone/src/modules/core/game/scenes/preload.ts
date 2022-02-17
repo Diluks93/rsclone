@@ -124,6 +124,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio(GameKey.MusicGame, AssetUrl.MusicGame);
     this.load.audio(GameKey.SoundFootsteps, AssetUrl.SoundFootsteps);
     this.load.audio(GameKey.SoundTrick, AssetUrl.SoundTrick);
+    this.load.audio(GameKey.SoundPlayerDelighted, AssetUrl.SoundPlayerDelighted);
+    this.load.audio(GameKey.SoundPlayerFright, AssetUrl.SoundPlayerFright);
+    this.load.audio(GameKey.SoundDoorOpen, AssetUrl.SoundDoorOpen);
     for (const imageKey of Object.values(GameImageKey)) {
       this.load.image(imageKey, gameImages[imageKey]);
     }

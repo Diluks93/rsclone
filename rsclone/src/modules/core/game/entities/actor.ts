@@ -1,5 +1,6 @@
 import { DoorWayInterface } from './../../types/types';
 import Phaser from 'phaser';
+import { StorageKey } from '../../enums/enums';
 
 const SCALE = 8;
 
@@ -10,7 +11,18 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
 
   protected isWalkThroughDoor = false;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, texture: string, frame?: string | number) {
+  protected isAllowedToPlaySounds: boolean;
+
+  protected actorSounds: Record<string, Phaser.Sound.BaseSound> | undefined;
+
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    texture: string,
+    frame?: string | number,
+    actorSounds?: Record<string, Phaser.Sound.BaseSound>
+  ) {
     super(scene, x, y, texture, frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -18,6 +30,8 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
     this.setScale(SCALE);
     this.initAnimations();
     this.setDepth(1);
+    this.actorSounds = actorSounds;
+    this.isAllowedToPlaySounds = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
   }
 
   public getDamage(value?: number): void {
@@ -55,5 +69,12 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
     const oldActorPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
     this.setPosition(oldActorPositionX, oldActorPositionY);
     this.isWalkThroughDoor = isWalk;
+    this.playSounds(this.actorSounds?.doorOpen);
+  }
+
+  public playSounds(soundKey: Phaser.Sound.BaseSound | undefined) {
+    if ((this.isAllowedToPlaySounds || this.isAllowedToPlaySounds === null) && soundKey) {
+      soundKey.play();
+    }
   }
 }

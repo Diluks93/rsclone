@@ -25,8 +25,16 @@ export default class Neighbor extends Actor {
 
   private speedUp = 100;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, texture: string, target: Player, frame?: number) {
-    super(scene, x, y, texture, frame);
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    texture: string,
+    target: Player,
+    frame?: number,
+    actorSounds?: Record<string, Phaser.Sound.BaseSound>
+  ) {
+    super(scene, x, y, texture, frame, actorSounds);
     this.target = target;
     scene.add.existing(this);
     scene.physics.add.existing(this);

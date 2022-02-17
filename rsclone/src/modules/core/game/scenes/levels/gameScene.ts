@@ -1,16 +1,16 @@
 import { GameImageKey } from './../../../enums/enums';
 import Phaser from 'phaser';
-import Player from '../../entities/player';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 import TrickTargetItem from '../../helpers/trickTargetItem';
-import { EventName, FrameKey, GameKey } from '../../../enums/enums';
-import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
-import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
-import { settingsStore } from '../../../stores/settingsStore';
 import gameTranslation from '../../../data/gameTranslation.json';
 import DoorWay from '../../helpers/doorWay';
 import Neighbor from '../../entities/neighbor';
 import Actor from '../../entities/actor';
+import { EventName, FrameKey, GameKey, StorageKey } from '../../../enums/enums';
+import { tile, sizeWorld, mapLayer } from '../../../constants/constWorld';
+import { DoorWayInterface, TargetItemConfigType } from '../../../types/types';
+import { settingsStore } from '../../../stores/settingsStore';
+import { Player } from '../../entities/player';
 
 export default abstract class GameScene extends Phaser.Scene {
   private tile = tile;
@@ -58,11 +58,20 @@ export default abstract class GameScene extends Phaser.Scene {
     this.actionKeyE = this.input.keyboard.addKey('E');
 
     // sounds
-    const soundConfig = { volume: Number(settingsStore.volumeValue) };
+    this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
+    const hasSoundResolution: boolean = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+    const soundConfig = { volume: Number(localStorage.getItem(StorageKey.SoundVolume) || '0.5') };
+    const backgroundMusicConfig = { volume: Number(localStorage.getItem(StorageKey.BackgroundMusicVolume) || '0.5') };
+
     this.playerSounds.footsteps = this.sound.add(GameKey.SoundFootsteps, soundConfig);
     this.playerSounds.trick = this.sound.add(GameKey.SoundTrick, soundConfig);
-    this.music = this.sound.add(GameKey.MusicGame, soundConfig);
-    this.music.play();
+    this.playerSounds.delight = this.sound.add(GameKey.SoundPlayerDelighted, soundConfig);
+    this.playerSounds.fright = this.sound.add(GameKey.SoundPlayerFright, soundConfig);
+    this.playerSounds.doorOpen = this.sound.add(GameKey.SoundDoorOpen, soundConfig);
+    this.music = this.sound.add(GameKey.MusicGame, backgroundMusicConfig);
+    if (hasSoundResolution || hasSoundResolution === null) {
+      this.music.play();
+    }
 
     // tilemap layers
     this.map = this.make.tilemap({ key: 'map', tileWidth: this.tile, tileHeight: this.tile });
@@ -81,8 +90,8 @@ export default abstract class GameScene extends Phaser.Scene {
       playerSpawnPoint?.x as number,
       playerSpawnPoint?.y as number,
       GameKey.Player,
-      this.playerSounds,
-      FrameKey.WoodyFrontMiddle
+      FrameKey.WoodyFrontMiddle,
+      this.playerSounds
     );
 
     // neighbor
@@ -112,8 +121,10 @@ export default abstract class GameScene extends Phaser.Scene {
 
     // overlaps
     this.physics.add.overlap(this.player, this.doorwaysGroup, this.addMoveToNextDoorway, undefined, this);
-    this.physics.add.overlap(this.neighbor, this.doorwaysGroup, this.addMoveToNextDoorway, undefined, this);
-    this.physics.add.overlap(this.neighbor, this.trickTargetItems, this.addAngerReactionToNeighbor, undefined, this);
+    if (settingsStore.currentLevel > 0) {
+      this.physics.add.overlap(this.neighbor, this.doorwaysGroup, this.addMoveToNextDoorway, undefined, this);
+      this.physics.add.overlap(this.neighbor, this.trickTargetItems, this.addAngerReactionToNeighbor, undefined, this);
+    }
 
     // physics
     this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -219,6 +230,7 @@ export default abstract class GameScene extends Phaser.Scene {
         callback: () => {
           trickTargetItem.fixTrick();
           neighbor.isAngry = false;
+          this.game.events.emit(EventName.IncreaseScore);
         },
       });
     }
