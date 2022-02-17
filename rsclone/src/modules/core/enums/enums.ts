@@ -19,6 +19,7 @@ export const enum StorageKey {
   SettingsTranslation = 'settingsTranslation',
   LanguageValue = 'languageValue',
   SoundVolume = 'soundVolume',
+  BackgroundMusicVolume = 'backgroundMusicVolume',
   SoundCheckbox = 'soundCheckbox',
   TimeLimitCheckbox = 'timeLimitCheckbox',
   IsFullScreenModalShown = 'isFullScreenModalShown',
@@ -76,6 +77,9 @@ export const enum AssetUrl {
   MusicGame = 'audio/game.mp3',
   SoundFootsteps = 'audio/footsteps.mp3',
   SoundTrick = 'audio/prank.mp3',
+  SoundPlayerDelighted = 'audio/player-delighted.mp3',
+  SoundPlayerFright = 'audio/fright-player.mp3',
+  SoundDoorOpen = 'audio/door-open.mp3',
 }
 
 export const enum EventName {
@@ -92,6 +96,9 @@ export const enum GameKey {
   MusicGame = 'music-game',
   SoundFootsteps = 'sound-footsteps',
   SoundTrick = 'sound-prank',
+  SoundPlayerDelighted = 'sound-delighted',
+  SoundPlayerFright = 'sound-flight',
+  SoundDoorOpen = 'door-open',
   Tileset = 'tileset',
 }
 
@@ -165,4 +172,9 @@ export const enum GameFont {
   WhiteColor = '#fff',
   CenterAlign = 'center',
   RightAlign = 'right',
+}
+
+export const enum NavigationButtonsId {
+  PlayLevelButton = 'play-level-button',
+  ExitTheGame = 'exit-level',
 }

@@ -12,12 +12,12 @@ import {
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
 import { importFilesFromFolder, turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
-import { GameKey } from '../../core/enums/enums';
+import { GameKey, PageId } from '../../core/enums/enums';
 import './style.scss';
 
 const levelImages = importFilesFromFolder(require.context('../../../assets/image/level/', false, /\.(png|jpe?g|svg)$/));
 
-const PAGE_NAME = 'levels-page';
+const PAGE_NAME = PageId.LevelSelectPage;
 const LEVEL_DETAILS = 'level-details';
 
 class LevelSelectPage extends Page {
@@ -33,7 +33,7 @@ class LevelSelectPage extends Page {
 
   seasonOneTitle: HTMLElement;
 
-  levelDetailslTitle: HTMLElement;
+  levelDetailsTitle: HTMLElement;
 
   scoreParagraph: HTMLParagraphElement;
 
@@ -52,7 +52,7 @@ class LevelSelectPage extends Page {
 
     this.tutorialTitle = this.createHeaderTitle(levelPageTitleProps.tutorialTitle);
     this.seasonOneTitle = this.createHeaderTitle(levelPageTitleProps.seasonOneTitle);
-    this.levelDetailslTitle = this.createHeaderTitle(levelPageTitleProps.levelDetailsTitle);
+    this.levelDetailsTitle = this.createHeaderTitle(levelPageTitleProps.levelDetailsTitle);
     this.scoreParagraph = this.createScoreWrapper(levelDetailsProps.ratingCountId, 'star');
     this.timeLimitParagraph = this.createInfoParagraph(levelDetailsProps.timeLimitId, 'clock');
     this.hintParagraph = this.createInfoParagraph(levelDetailsProps.hintId, 'wink');
@@ -161,7 +161,7 @@ class LevelSelectPage extends Page {
 
     infoWrapper.append(this.timeLimitParagraph, this.scoreParagraph, this.hintParagraph);
     innerBlock.append(this.previewImage, infoWrapper, this.levelDescriptionText);
-    wrapper.append(this.levelDetailslTitle, innerBlock, this.playLevelButton);
+    wrapper.append(this.levelDetailsTitle, innerBlock, this.playLevelButton);
 
     return wrapper;
   }
@@ -197,7 +197,7 @@ class LevelSelectPage extends Page {
       hintSpan.textContent = translation[lang].levelDetailsBlock[levelIndex].hintText;
       scoreSpan.textContent = `${settingsStore.playerScore[levelIndex] || 0}/${settingsStore.maxScore[levelIndex]}`;
     }
-    this.levelDetailslTitle.textContent = translation[lang].levelDetailsBlock[levelIndex].levelTitle;
+    this.levelDetailsTitle.textContent = translation[lang].levelDetailsBlock[levelIndex].levelTitle;
     this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[levelIndex].levelDescriptionText;
     this.previewImage.src = levelImages[`level-${levelIndex}`];
   }

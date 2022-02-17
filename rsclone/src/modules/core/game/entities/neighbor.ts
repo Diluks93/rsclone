@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
 import Actor from './actor';
-import Player from './player';
+import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
+import { Player } from './player';
 
 const FIRST_FLOOR_ROOM = {
   leftSide: 1000,
@@ -13,7 +13,7 @@ const FIRST_FLOOR_ROOM = {
 export default class Neighbor extends Actor {
   private target: Player;
 
-  private agressionRange = 500;
+  private aggressionRange = 500;
 
   public isOverlapDoorway = false;
 
@@ -49,7 +49,7 @@ export default class Neighbor extends Actor {
     }
 
     // agression
-    if (this.getDistanceFromTarget() < this.agressionRange) {
+    if (this.getDistanceFromTarget() < this.aggressionRange) {
       this.followTarget();
     } else {
       this.stopFollowTarget();

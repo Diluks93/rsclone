@@ -31,10 +31,10 @@ export const loaderFontConfig = {
 };
 
 export const scoreFontConfig = {
-  fontSise: GameFont.LargeSize,
+  fontSize: GameFont.LargeSize,
   fontFamily: GameFont.PressStartFamily,
 };
 export const endgameFontConfig = {
-  fontSise: GameFont.LargeSize,
+  fontSize: GameFont.LargeSize,
   fontFamily: GameFont.PressStartFamily,
 };

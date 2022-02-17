@@ -5,9 +5,9 @@ import ManagerScene from './scenes/manager';
 import InterfaceScene from './scenes/interface';
 import FirstSteps from './scenes/levels/firstSteps';
 import Onwards from './scenes/levels/onwards';
+import EndgameScene from './scenes/endgame';
 
 import { GameKey } from '../enums/enums';
-import EndgameScene from './scenes/endgame';
 
 export const gameConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,

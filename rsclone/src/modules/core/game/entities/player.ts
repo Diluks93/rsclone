@@ -1,10 +1,11 @@
 import Actor from './actor';
+
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
 import { GameKey, GameStatus, Event, FrameKey, AnimationKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
 import TrickTargetItem from '../helpers/trickTargetItem';
 
-export default class Player extends Actor {
+export class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
 
   private keyD: Phaser.Input.Keyboard.Key;
@@ -17,8 +18,6 @@ export default class Player extends Actor {
 
   public actionLabel: GameText;
 
-  playerSounds;
-
   inventory: string[] = [];
 
   isPerformTrick = false;
@@ -30,9 +29,7 @@ export default class Player extends Actor {
     x: number,
     y: number,
     texture: string,
-    playerSounds: {
-      [index: string]: Phaser.Sound.BaseSound;
-    },
+
     frame?: number
   ) {
     super(scene, x, y, texture, frame);
@@ -40,7 +37,6 @@ export default class Player extends Actor {
     this.keyD = this.scene.input.keyboard.addKey('D');
     this.keyE = this.scene.input.keyboard.addKey('E');
     this.keySpace = this.scene.input.keyboard.addKey('SPACE');
-    this.playerSounds = playerSounds;
     this.actionLabel = new GameText(this.scene, this.x, this.y - this.height, '', actionLabelFontConfig)
       .setVisible(false)
       .setDepth(1);
@@ -80,7 +76,7 @@ export default class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      this.playerSounds.footsteps.play();
+      this.playSounds(this.playerSounds?.footsteps);
     }
   }
 
@@ -164,12 +160,14 @@ export default class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
+    this.playSounds(this.playerSounds?.fright);
   }
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
+    this.playSounds(this.playerSounds?.delight);
   }
 
   public removeItem(itemKey: string): void {
@@ -180,7 +178,7 @@ export default class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playerSounds.trick.play();
+    this.playSounds(this.playerSounds?.trick);
   }
 
   public finishTrick(targetItem: TrickTargetItem): void {

@@ -4,7 +4,7 @@ import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
 
 import { MaxScore, SceneKey } from '../../../enums/enums';
-import Player from '../../entities/player';
+import { Player } from '../../entities/player';
 
 export default class Onwards extends GameScene {
   protected neighbor!: Neighbor;

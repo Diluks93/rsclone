@@ -1,9 +1,10 @@
 import Page from '../../core/templates/Page';
+
 import { gameConfig } from '../../core/game/config';
 import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
 import { GameTranslationInterface, LanguageKeys } from '../../core/types/types';
-import { GameKey, PageId, SceneKey } from '../../core/enums/enums';
+import { GameKey, PageId } from '../../core/enums/enums';
 import './style.scss';
 
 class MainPage extends Page {
@@ -18,11 +19,19 @@ class MainPage extends Page {
   constructor(id: string, className: string) {
     super(id, className);
     this.exitModal = this.createExitGameModal();
+    this.eventEscape();
+    this.eventHashchange();
+  }
+
+  private eventEscape(): void {
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape') {
         this.exitModal.classList.toggle('hidden');
       }
     });
+  }
+
+  private eventHashchange(): void {
     window.addEventListener('hashchange', (e: HashChangeEvent) => {
       if (e.oldURL.includes(PageId.MainPage)) {
         this.closeGame();

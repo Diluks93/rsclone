@@ -35,7 +35,7 @@ export default class PreloadScene extends Phaser.Scene {
     });
     loadingText.setOrigin(ORIGIN_CENTER);
 
-    const persentText = this.make.text({
+    const percentText = this.make.text({
       x: this.cameraCenterX,
       y: this.cameraCenterY,
       text: '0%',
@@ -44,7 +44,7 @@ export default class PreloadScene extends Phaser.Scene {
         fontSize: GameFont.SmallSize,
       },
     });
-    persentText.setOrigin(ORIGIN_CENTER);
+    percentText.setOrigin(ORIGIN_CENTER);
 
     const assetText = this.make.text({
       x: this.cameraCenterX,
@@ -62,7 +62,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.on('progress', (value: number) => {
       this.fillProgressBar(progressBar, value);
-      persentText.setText(Math.round(value * 100) + '%');
+      percentText.setText(Math.round(value * 100) + '%');
     });
 
     this.load.on('fileprogress', (file: Phaser.Loader.File) => {
@@ -72,7 +72,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.on('complete', () => {
       progressBox.destroy();
       progressBar.destroy();
-      persentText.destroy();
+      percentText.destroy();
       assetText.destroy();
       this.scene.start(SceneKey.Manager);
     });

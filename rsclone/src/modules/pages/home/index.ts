@@ -29,6 +29,8 @@ class HomePage extends Page {
 
   isFlipX = false;
 
+  isFullScreenModalShown = this.getShownModalStateFromStorage() || false;
+
   constructor(id: string, className: string) {
     super(id, className);
     this.gameTitle = this.createHeaderTitle(homeTitleProps);
@@ -73,8 +75,8 @@ class HomePage extends Page {
     fullScreenModal.append(modalWrapper);
     modalActionText.addEventListener('click', () => {
       fullScreenModal.classList.add('hidden');
-      localStorage.setItem(StorageKey.IsFullScreenModalShown, JSON.stringify(true));
       turnOnBackgroundMusic(backgroundMusic);
+      this.isFullScreenModalShown = true;
     });
 
     return fullScreenModal;
@@ -118,6 +120,14 @@ class HomePage extends Page {
     actionText.textContent = translation[lang].fullScreenActionText;
   }
 
+  getShownModalStateFromStorage(): boolean | undefined | never {
+    try {
+      return JSON.parse(localStorage.getItem(StorageKey.IsFullScreenModalShown) as string);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   render(): HTMLElement {
     if (
       document.documentElement.clientHeight < screenResolution.minHeight ||
@@ -128,15 +138,9 @@ class HomePage extends Page {
       this.parkLayer.append(this.heroLayer);
       this.moveHero();
       this.container.append(this.gameTitle, this.homeButtonsWrapper, this.parkLayer);
-      try {
-        const isFullScreenModalShown: boolean = JSON.parse(
-          localStorage.getItem(StorageKey.IsFullScreenModalShown) as string
-        );
-        if (!isFullScreenModalShown) {
-          this.container.append(this.fullScreenModal);
-        }
-      } catch (e) {
-        console.error(e);
+
+      if (!this.isFullScreenModalShown) {
+        this.container.append(this.fullScreenModal);
       }
     }
 
