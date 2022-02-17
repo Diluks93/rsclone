@@ -10,11 +10,10 @@ import {
   levelPageTitleProps,
 } from './../../core/constants/constLevels';
 import { GameTranslationInterface, LanguageKeys, LevelPreviewType } from '../../core/types/types';
-import { importFilesFromFolder, turnOnBackgroundMusic } from '../../core/utils/utils';
+import { turnOnBackgroundMusic } from '../../core/utils/utils';
 import { backgroundMusic } from '../../core/constants/constAudio';
-import { GameKey, PageId } from '../../core/enums/enums';
+import { AssetUrl, GameKey, PageId } from '../../core/enums/enums';
 import './style.scss';
-const levelImages = importFilesFromFolder(require.context('../../../assets/image/level/', false, /\.png$/));
 
 class LevelSelectPage extends Page {
   levelSelectLayout: HTMLDivElement;
@@ -45,16 +44,19 @@ class LevelSelectPage extends Page {
 
   levelDetailsBaseClass = 'level-details';
 
+  levelImageUrls = Object.values(AssetUrl).filter((url) => url.includes('level'));
+
+  exampleImageUrl = this.levelImageUrls.filter((url) => url.includes('example'))[0];
+
   constructor(id: string, className: string) {
     super(id, className);
-
     this.tutorialTitle = this.createHeaderTitle(levelPageTitleProps.tutorialTitle);
     this.seasonOneTitle = this.createHeaderTitle(levelPageTitleProps.seasonOneTitle);
     this.levelDetailsTitle = this.createHeaderTitle(levelPageTitleProps.levelDetailsTitle);
     this.scoreParagraph = this.createScoreWrapper(levelDetailsProps.ratingCountId, 'star');
     this.timeLimitParagraph = this.createInfoParagraph(levelDetailsProps.timeLimitId, 'clock');
     this.hintParagraph = this.createInfoParagraph(levelDetailsProps.hintId, 'wink');
-    this.previewImage = this.createPreviewImage(levelImages[`level-${settingsStore.currentLevel}`]);
+    this.previewImage = this.createPreviewImage(this.createPreviewUrl(this.levelImageUrls[settingsStore.currentLevel]));
     this.levelDescriptionText = this.createLevelDescriptionText(levelDetailsProps.levelDescriptionId);
     this.playLevelButton = this.createLinkButton(levelLinkButtonProps.playLevelButton);
     this.playLevelButton.addEventListener('click', (e: MouseEvent) => {
@@ -83,13 +85,21 @@ class LevelSelectPage extends Page {
     return levelListWrapper;
   }
 
+  createPreviewUrl(imageUrl: string): string {
+    if (imageUrl) {
+      return `${AssetUrl.Main}/${imageUrl}`;
+    } else {
+      return `${AssetUrl.Main}/${this.exampleImageUrl}`;
+    }
+  }
+
   createLevelPreviewButton({ id }: LevelPreviewType): HTMLButtonElement {
     const previewButton = document.createElement('button');
     const { currentLevel } = settingsStore;
     previewButton.classList.add(`${PageId.LevelSelectPage}__preview`);
     previewButton.id = String(id);
-    const imageName = id < 3 ? levelImages[`level-${id}`] : levelImages['level-example'];
-    previewButton.style.backgroundImage = `url(${imageName})`;
+
+    previewButton.style.backgroundImage = `url(${this.createPreviewUrl(this.levelImageUrls[id])})`;
 
     if (currentLevel === Number(id)) {
       previewButton.classList.add('selected');
@@ -197,7 +207,7 @@ class LevelSelectPage extends Page {
     }
     this.levelDetailsTitle.textContent = translation[lang].levelDetailsBlock[levelIndex].levelTitle;
     this.levelDescriptionText.textContent = translation[lang].levelDetailsBlock[levelIndex].levelDescriptionText;
-    this.previewImage.src = levelImages[`level-${levelIndex}`];
+    this.previewImage.src = this.createPreviewUrl(this.levelImageUrls[levelIndex]);
   }
 
   createLevelSelectLayout(): HTMLDivElement {

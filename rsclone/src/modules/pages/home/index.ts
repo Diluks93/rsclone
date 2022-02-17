@@ -139,6 +139,7 @@ class HomePage extends Page {
 
       if (!this.isFullScreenModalShown) {
         this.container.append(this.fullScreenModal);
+        localStorage.setItem(StorageKey.IsFullScreenModalShown, JSON.stringify(true));
       }
     }
 

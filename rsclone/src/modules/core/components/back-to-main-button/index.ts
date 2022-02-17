@@ -1,6 +1,8 @@
+import { IconId } from './../../enums/enums';
 import Component from '../../templates/component';
 import { LinkButtonType } from '../../types/types';
-import '../style.scss';
+import SvgIcon from '../svg-icon';
+import './style.scss';
 
 class BackToMainButton extends Component {
   createButton({ id, href, className }: LinkButtonType): HTMLAnchorElement {
@@ -11,6 +13,7 @@ class BackToMainButton extends Component {
     }
     link.id = id;
     link.href = href;
+    link.append(new SvgIcon(IconId.ArrowLeft).render());
     return link;
   }
 }

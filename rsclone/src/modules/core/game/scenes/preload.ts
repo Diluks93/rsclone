@@ -1,7 +1,6 @@
-import { ProgressBoxSize } from './../../enums/enums';
 import { settingsStore } from './../../stores/settingsStore';
 import gameTranslation from '../../data/gameTranslation.json';
-import { GameImageKey, GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
+import { ProgressBoxSize, GameImageKey, GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
 import { importFilesFromFolder } from '../../utils/utils';
 
 const gameImages = importFilesFromFolder(require.context('../../../../assets/game/', false, /\.(png|jpe?g|svg)$/));
