@@ -65,3 +65,12 @@ export const toggleFullScreen = (): void => {
     }
   }
 };
+
+export function importFilesFromFolder(context: __WebpackModuleApi.RequireContext): Record<string, string> {
+  const files: Record<string, string> = {};
+  context.keys().map((link) => {
+    const fileName = link.replace('./', '').replace('.png', '');
+    files[fileName] = context(link);
+  });
+  return files;
+}

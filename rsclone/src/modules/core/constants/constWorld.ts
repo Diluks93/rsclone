@@ -1,3 +1,4 @@
+import { MapLayerType } from './../types/types';
 export const tile = 32;
 
 export const sizeWorld = {
@@ -5,7 +6,7 @@ export const sizeWorld = {
   height: 1536,
 };
 
-export const mapLayer = {
+export const mapLayer: MapLayerType = {
   platforms: 'platforms',
   bg: 'bg',
   bgWindow: 'bgWindow',

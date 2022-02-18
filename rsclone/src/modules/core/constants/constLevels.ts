@@ -1,15 +1,6 @@
+import { IconId } from './../enums/enums';
 import { PageId } from '../enums/enums';
 import { DescriptionType, LevelPreviewInterface, LinkButtonType, LevelTitleInterface } from '../types/types';
-
-const NUMBER_SERIES_SECTIONS = 2;
-const PREPARATORY_LEVEL_NUMBER = 3;
-const MAIN_LEVEL_NUMBER = 4;
-
-export const numericConstants = {
-  NUMBER_SERIES_SECTIONS,
-  PREPARATORY_LEVEL_NUMBER,
-  MAIN_LEVEL_NUMBER,
-};
 
 export const levelPageTitleProps: LevelTitleInterface = {
   tutorialTitle: {
@@ -79,6 +70,6 @@ export const levelLinkButtonProps: Record<string, LinkButtonType> = {
     pageName: PageId.LevelSelectPage,
     id: 'play-level-button',
     href: `#${PageId.MainPage}`,
-    iconId: 'play',
+    iconId: IconId.Play,
   },
 };

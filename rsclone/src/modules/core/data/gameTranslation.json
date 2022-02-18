@@ -27,15 +27,33 @@
       },
       {
         "levelTitle": "Только вперед",
-        "hintText": "Сосед не должен увидеть Вуди!",
+        "hintText": "Не попадись!",
         "levelDescriptionText": "Теперь, когда ты освоил управление, пришло время уделить внимание пакостям.\n Кстати, здесь сосед наконец-то становится частью нашего шоу.\n У тебя есть возможность ему насолить и понаблюдать, как он бесится.\n Дальше будет только веселее, не так ли?",
         "timeLimit": "5 минут"
       },
       {
         "levelTitle": "Поехали!",
-        "hintText": "Правая кнопка мыши = 'красться'!",
+        "hintText": "Попробуй красться",
         "levelDescriptionText": "Джо хочет завершить вступление кратким обзором предстоящих эпизодов.\n Как лучше пробраться мимо бдительных питомцев? Где можно спрятаться?\n Ты узнаешь это и многое другое.\n Теперь у тебя есть (почти) все навыки, необходимые для сладкой мести.",
         "timeLimit": "5 минут"
+      },
+      {
+        "levelTitle": "3",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "4",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "5",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
       }
     ],
     "tutorialSpeech": [
@@ -72,7 +90,8 @@
     "loseText": "Ты погиб",
     "winText": "Ты победил",
     "spaceText": "Пробел",
-    "eKeyText": "У"
+    "eKeyText": "У",
+    "screenRangeErrorText": "Вне диапазона размеров экрана. Минимальное разрешение 1024x600"
   },
 
   "en": {
@@ -103,14 +122,32 @@
       },
       {
         "levelTitle": "Onwards",
-        "hintText": "Woody mustn't get caught!",
+        "hintText": "Don't get caught!",
         "levelDescriptionText": "Now that you know the basic controls, you can pay closer attention to the tricks.\n By the way: the neighbor will be joining the fun now, too.\n You get to play the first trick on him. Watch him get angry.",
         "timeLimit": "5 minutes"
       },
       {
         "levelTitle": "Here we go!",
-        "hintText": "'Sneak' with RMB!",
+        "hintText": "Try to sneak",
         "levelDescriptionText": "Joe wants to wrap up this introduction by giving you a brief look at future episodes.\n You will learn all this and more.\n You now have (nearly) all the skills you need to take sweet revenge.",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "3",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "4",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
+        "timeLimit": "5 minutes"
+      },
+      {
+        "levelTitle": "5",
+        "hintText": "hint",
+        "levelDescriptionText": ".",
         "timeLimit": "5 minutes"
       }
     ],
@@ -148,6 +185,7 @@
     "loseText": "You died",
     "winText": "You won",
     "spaceText": "Space",
-    "eKeyText": "E"
+    "eKeyText": "E",
+    "screenRangeErrorText": "Out of screen range. Minimal resolution 1024x600"
   }
 }

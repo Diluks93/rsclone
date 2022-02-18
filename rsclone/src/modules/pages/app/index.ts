@@ -6,15 +6,10 @@ import HomePage from '../home/index';
 import LevelSelectPage from '../level-select/index';
 import ErrorPage from '../error/index';
 import gameTranslation from '../../core/data/gameTranslation.json';
-import faceSprite from '../../../assets/image/faces/face-sprite.png';
-
 import { settingsStore } from './../../core/stores/settingsStore';
 import { PageId, ErrorType } from '../../core/enums/enums';
 import { toggleFullScreen } from '../../core/utils/utils';
 import { GameTranslationInterface } from '../../core/types/types';
-
-// faces spritesheet preload
-new Image().src = faceSprite;
 
 class App {
   private static container: HTMLElement = document.body;

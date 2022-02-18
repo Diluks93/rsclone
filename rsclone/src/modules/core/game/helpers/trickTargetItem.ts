@@ -1,8 +1,12 @@
 export default class TrickTargetItem extends Phaser.GameObjects.Container {
   keyItemId: string;
+
   isTricked = false;
+
   originalItem: Phaser.GameObjects.Image;
+
   trickedItem: Phaser.GameObjects.Image;
+
   scale = 6;
 
   constructor(scene: Phaser.Scene, x: number, y: number, children: Phaser.GameObjects.Image[], keyItemId: string) {
@@ -12,4 +16,8 @@ export default class TrickTargetItem extends Phaser.GameObjects.Container {
     this.trickedItem.setVisible(false);
     this.keyItemId = keyItemId;
   }
-};
+
+  fixTrick(): void {
+    this.trickedItem.setVisible(false);
+  }
+}

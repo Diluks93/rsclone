@@ -1,3 +1,4 @@
+import { FirstFloorRoom } from './../../enums/enums';
 import Phaser from 'phaser';
 import Actor from './actor';
 import { AnimationKey, FrameKey, GameKey } from '../../enums/enums';
@@ -8,8 +9,26 @@ export default class Neighbor extends Actor {
 
   private aggressionRange = 500;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, texture: string, target: Player, frame?: number) {
-    super(scene, x, y, texture, frame);
+  public isOverlapDoorway = false;
+
+  public isAngry = false;
+
+  public hasChangedRoom = false;
+
+  public velocity = 200;
+
+  private speedUp = 100;
+
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    texture: string,
+    target: Player,
+    frame?: number,
+    actorSounds?: Record<string, Phaser.Sound.BaseSound>
+  ) {
+    super(scene, x, y, texture, frame, actorSounds);
     this.target = target;
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -17,12 +36,38 @@ export default class Neighbor extends Actor {
   }
 
   update(): void {
-    if (this.getDistanceFromTarget() > this.aggressionRange) {
-      this.stopMove();
-    } else if (this.getDistanceFromTarget() < this.target.width * this.scale) {
-      this.attackTarget();
+    // door interaction
+    if (this.isWalkThroughDoor) {
+      this.setVelocityX(0);
+      this.anims.play(AnimationKey.NeighborUp, true);
+      return;
+    }
+
+    // reaction to tricks
+    if (this.isAngry) {
+      this.setVelocityX(0);
+      this.anims.play(AnimationKey.NeighborAnger, true);
+      return;
+    }
+
+    // agression
+    if (this.getDistanceFromTarget() < this.aggressionRange) {
+      this.followTarget();
     } else {
-      this.moveToTarget();
+      this.stopFollowTarget();
+    }
+    if (this.getDistanceFromTarget() < this.target.width * this.scale) {
+      this.attackTarget();
+    }
+
+    // default movement
+    if (this.x < FirstFloorRoom.LeftSide) {
+      this.turnToLeft(this.velocity);
+      this.anims.play(AnimationKey.NeighborSide, true);
+    }
+    if (this.x > FirstFloorRoom.RightSide) {
+      this.turnToRight(this.velocity);
+      this.anims.play(AnimationKey.NeighborSide, true);
     }
   }
 
@@ -83,27 +128,34 @@ export default class Neighbor extends Actor {
     return Phaser.Math.Distance.BetweenPoints({ x: this.x, y: this.y }, { x: this.target.x, y: this.target.y });
   }
 
-  private moveToTarget() {
+  turnToLeft(velocity: number) {
+    this.flipX = false;
+    this.setVelocityX(velocity);
+  }
+
+  turnToRight(velocity: number) {
+    this.flipX = true;
+    this.setVelocityX(-velocity);
+  }
+
+  private followTarget(): void {
     const targetX = this.target.x;
     const neighborX = this.x;
-
+    const increasedSpeed = this.velocity + this.speedUp;
     if (targetX > neighborX) {
-      this.x += 1;
-      this.flipX = false;
+      this.turnToLeft(increasedSpeed);
     } else {
-      this.x -= 1;
-      this.flipX = true;
+      this.turnToRight(increasedSpeed);
     }
     this.anims.play(AnimationKey.NeighborSide, true);
     this.target.isAware = true;
   }
 
-  private stopMove() {
-    this.anims.play(AnimationKey.NeighborIdle);
+  private stopFollowTarget(): void {
     this.target.isAware = false;
   }
 
-  private attackTarget() {
+  private attackTarget(): void {
     this.anims.play(AnimationKey.NeighborAnger, true);
     this.disableBody(true, false);
   }

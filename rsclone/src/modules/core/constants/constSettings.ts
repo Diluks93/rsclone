@@ -1,3 +1,4 @@
+import { IconId } from './../enums/enums';
 import Page from '../templates/Page';
 import gameTranslation from '../data/gameTranslation.json';
 
@@ -17,11 +18,8 @@ import {
   SettingsConfigType,
 } from './../types/types';
 
-export const TEXT_NODE = 3;
-
-const PAGE_NAME = PageId.SettingsPage;
 export const settingsTitleProps: TitleType = {
-  pageName: PAGE_NAME,
+  pageName: PageId.SettingsPage,
   id: 'settingsTitle',
   tagName: 'h1',
 };
@@ -29,7 +27,7 @@ export const settingsTitleProps: TitleType = {
 export const selectProps: SettingsSelectType = {
   id: 'lang-select',
   options: ['ru', 'en'],
-  iconId: 'chevron-up',
+  iconId: IconId.ChevronUp,
   changeHandler(e: Event, page: Page): void {
     if (e.target instanceof HTMLInputElement) {
       settingsStore.languageValue = e.target.value as LanguageKeys;
@@ -92,10 +90,10 @@ export const checkboxProps: Record<string, SettingsCheckboxType> = {
 
 export const settingsLinkButtonProps: Record<string, LinkButtonType> = {
   saveButton: {
-    pageName: PAGE_NAME,
+    pageName: PageId.SettingsPage,
     id: 'saveSettingsButton',
     href: `#${PageId.HomePage}`,
-    iconId: 'check',
+    iconId: IconId.Check,
   },
 };
 

@@ -1,4 +1,4 @@
-export const enum PageId {
+export enum PageId {
   MainPage = 'main-page',
   HomePage = 'home-page',
   SettingsPage = 'settings-page',
@@ -8,11 +8,11 @@ export const enum PageId {
   LevelSelectPage = 'levels-page',
 }
 
-export const enum ErrorType {
+export enum ErrorType {
   Error_404 = '404',
 }
 
-export const enum StorageKey {
+export enum StorageKey {
   HomeTranslation = 'homeTranslation',
   CategoriesTranslation = 'categoriesTranslation',
   EpisodesTranslation = 'episodesTranslation',
@@ -27,7 +27,7 @@ export const enum StorageKey {
   PlayerScore = 'playerScore',
 }
 
-export const enum FrameKey {
+export enum FrameKey {
   WoodyBackStart,
   WoodyBackMiddle,
   WoodyBackEnd,
@@ -54,7 +54,7 @@ export const enum FrameKey {
   NeighborAngerStart,
   NeighborAngerEnd,
 }
-export const enum AnimationKey {
+export enum AnimationKey {
   WoodyIdle = 'woody-idle',
   WoodyUp = 'woody-up',
   WoodySide = 'woody-side',
@@ -69,7 +69,7 @@ export const enum AnimationKey {
   NeighborAnger = 'neighbor-anger',
 }
 
-export const enum AssetUrl {
+export enum AssetUrl {
   Main = 'https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source',
   Tileset = 'game/map/assets.png',
   TilemapJson = 'game/map/map.json',
@@ -80,14 +80,20 @@ export const enum AssetUrl {
   SoundPlayerDelighted = 'audio/player-delighted.mp3',
   SoundPlayerFright = 'audio/fright-player.mp3',
   SoundDoorOpen = 'audio/door-open.mp3',
+  RsSchoolLogo = 'rs-school.png',
+  Level0 = 'level/level-0.png',
+  Level1 = 'level/level-1.png',
+  Level2 = 'level/level-2.png',
+  LevelExample = 'level/level-example.png',
 }
 
-export const enum EventName {
+export enum EventName {
   IncreaseScore = 'increasescore',
   GoThroughDoor = 'fake-door',
 }
 
-export const enum GameKey {
+export enum GameKey {
+  Floor = 'platforms',
   CanvasParent = 'game',
   Player = 'player',
   Neighbor = 'neighbor',
@@ -100,15 +106,24 @@ export const enum GameKey {
   SoundPlayerFright = 'sound-flight',
   SoundDoorOpen = 'door-open',
   Tileset = 'tileset',
-  Bricks = 'bricks',
-  Director = 'director',
-  Pen = 'pen',
-  FakeDoor = 'fake-door',
-  Picture = 'picture',
-  TrickedPicture = 'trickedPicture',
 }
 
-export const enum SceneKey {
+export enum GameImageKey {
+  FakeDoor = 'fake-door',
+  Director = 'director',
+  Pen = 'pen',
+  PictureBefore = 'picture-before',
+  PictureAfter = 'picture-after',
+  CarpetBefore = 'carpet-before',
+  CarpetAfter = 'carpet-after',
+  Closet = 'closet',
+  ClosetOpened = 'closet-opened',
+  Dog = 'dog',
+  Marbles = 'marbles',
+  Plant = 'plant',
+}
+
+export enum SceneKey {
   Interface = 'ui-scene',
   Preload = 'preload-scene',
   Tutorial = 'tutorial-scene',
@@ -118,48 +133,88 @@ export const enum SceneKey {
   Endgame = 'endgame-scene',
 }
 
-export const enum ScoreOperations {
+export enum ScoreOperations {
   Increase,
   Decrease,
   SetValue,
 }
 
-export const enum GameStatus {
+export enum GameStatus {
   Win,
   Lose,
 }
 
-export const enum Event {
+export enum Event {
   Endgame = 'endgame',
   AddItem = 'additem',
   RemoveItem = 'removeitem',
 }
 
-export const enum LevelName {
+export enum LevelName {
   FirstSteps,
   Onwards,
   HereWeGo,
+  TheFirstTrick,
+  TvAfternoon,
+  BirthdaySurprises,
 }
 
-export const enum MaxScore {
+export enum MaxScore {
   FirstSteps = 75,
   Onwards = 100,
   HereWeGo = 150,
+  TheFirstTrick = 200,
+  TvAfternoon = 200,
+  BirthdaySurprises = 200,
 }
 
-export const enum GameFont {
+export enum GameFont {
   LargeSize = '32px',
   MediumSize = '24px',
   SmallSize = '16px',
   PressStartFamily = 'PressStart2P',
-  OpenSansFamily = 'Open sans',
+  OpenSansFamily = 'OpenSans',
   TransparentBlackColor = 'rgba(0,0,0,0.5)',
   WhiteColor = '#fff',
   CenterAlign = 'center',
   RightAlign = 'right',
 }
 
-export const enum NavigationButtonsId {
+export enum NavigationButtonsId {
   PlayLevelButton = 'play-level-button',
   ExitTheGame = 'exit-level',
+}
+
+export enum FirstFloorRoom {
+  LeftSide = 1000,
+  RightSide = 2700,
+  Center = 1850,
+  Ceil = 1000,
+}
+
+export enum ProgressBoxSize {
+  OuterWidth = 320,
+  OuterHeight = 50,
+  InnerWidth = 300,
+  InnerHeight = 30,
+  Center = 0.5,
+}
+
+export enum LayerName {
+  Park = '__park',
+  Hero = '__hero',
+}
+
+export enum IconId {
+  ChevronUp = 'chevron-up',
+  ArrowLeft = 'arrow-left',
+  Check = 'check',
+  Clock = 'clock',
+  Github = 'github',
+  Link = 'link',
+  Music = 'music',
+  Play = 'play',
+  Star = 'star',
+  Volume = 'volume',
+  Wink = 'wink',
 }

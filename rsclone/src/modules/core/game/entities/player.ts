@@ -1,9 +1,9 @@
 import Actor from './actor';
 
 import { actionLabelFontConfig } from './../../constants/gameTextConfig';
-import { DoorWayInterface } from './../../types/types';
-import { GameKey, GameStatus, Event, FrameKey, AnimationKey, StorageKey } from '../../enums/enums';
+import { GameKey, GameStatus, Event, FrameKey, AnimationKey } from '../../enums/enums';
 import { GameText } from '../helpers/gameText';
+import TrickTargetItem from '../helpers/trickTargetItem';
 
 export class Player extends Actor {
   private keyA: Phaser.Input.Keyboard.Key;
@@ -14,43 +14,32 @@ export class Player extends Actor {
 
   private keySpace: Phaser.Input.Keyboard.Key;
 
-  private SPEED = 500;
+  private speed = 400;
 
   public actionLabel: GameText;
-
-  playerSounds;
 
   inventory: string[] = [];
 
   isPerformTrick = false;
 
-  isWalkThroughDoor = false;
-
   isAware = false;
-
-  isAllowedToPlaySounds: boolean;
 
   constructor(
     scene: Phaser.Scene,
     x: number,
     y: number,
     texture: string,
-    playerSounds?: {
-      [index: string]: Phaser.Sound.BaseSound;
-    },
-    frame?: number
+    frame?: number,
+    actorSounds?: Record<string, Phaser.Sound.BaseSound>
   ) {
-    super(scene, x, y, texture, frame);
+    super(scene, x, y, texture, frame, actorSounds);
     this.keyA = this.scene.input.keyboard.addKey('A');
     this.keyD = this.scene.input.keyboard.addKey('D');
     this.keyE = this.scene.input.keyboard.addKey('E');
     this.keySpace = this.scene.input.keyboard.addKey('SPACE');
-    this.playerSounds = playerSounds;
     this.actionLabel = new GameText(this.scene, this.x, this.y - this.height, '', actionLabelFontConfig)
-      .setDepth(1)
-      .setVisible(false);
-    this.setDepth(1);
-    this.isAllowedToPlaySounds = JSON.parse(localStorage.getItem(StorageKey.SoundCheckbox) as string);
+      .setVisible(false)
+      .setDepth(1);
   }
 
   update(): void {
@@ -66,17 +55,19 @@ export class Player extends Actor {
       this.anims.play(AnimationKey.WoodyUp, true);
       return;
     }
-    this.playerSounds?.footsteps.on('keyup', () => {
-      this.playerSounds?.footsteps.play();
+    this.actorSounds?.footsteps.on('keyup', () => {
+      this.actorSounds?.footsteps.play();
     });
     this.getBody().setVelocity(0);
-    if (this.keyA.isDown) {
-      this.body.velocity.x = -this.SPEED;
+    if (this.keyE.isDown) {
+      this.anims.play(AnimationKey.WoodyPick);
+    } else if (this.keyA.isDown) {
+      this.body.velocity.x = -this.speed;
       this.flipX = true;
       this.anims.play(AnimationKey.WoodySide, true);
     } else if (this.keyD.isDown) {
       this.flipX = false;
-      this.body.velocity.x = this.SPEED;
+      this.body.velocity.x = this.speed;
       this.anims.play(AnimationKey.WoodySide, true);
     } else if (this.isAware) {
       this.anims.play(AnimationKey.WoodyAware);
@@ -85,7 +76,7 @@ export class Player extends Actor {
     }
 
     if (this.keyA.isUp && this.keyD.isUp) {
-      this.playSounds(this.playerSounds?.footsteps);
+      this.playSounds(this.actorSounds?.footsteps);
     }
   }
 
@@ -169,14 +160,14 @@ export class Player extends Actor {
     if (this.maxHealth <= 0) {
       this.scene.game.events.emit(Event.Endgame, GameStatus.Lose);
     }
-    this.playSounds(this.playerSounds?.fright);
+    this.playSounds(this.actorSounds?.fright);
   }
 
   public addItem(itemKey: string): void {
     this.inventory.push(itemKey);
     this.scene!.events.emit(Event.AddItem, itemKey);
     this.actionLabel.setVisible(false);
-    this.playSounds(this.playerSounds?.delight);
+    this.playSounds(this.actorSounds?.delight);
   }
 
   public removeItem(itemKey: string): void {
@@ -187,22 +178,12 @@ export class Player extends Actor {
 
   public startTrick(): void {
     this.isPerformTrick = true;
-    this.playSounds(this.playerSounds?.trick);
+    this.playSounds(this.actorSounds?.trick);
   }
 
-  public moveToDoor(doorWay: DoorWayInterface, isWalk: boolean): void {
-    // todo: without locationOffset prop hero slightly jumps on Y axis
-    const locationOffset = 30;
-    const oldPlayerPositionX = doorWay.x + (this.width * this.scale) / 2 + locationOffset;
-    const oldPlayerPositionY = doorWay.y + (this.height * this.scale) / 2 + locationOffset;
-    this.setPosition(oldPlayerPositionX, oldPlayerPositionY);
-    this.isWalkThroughDoor = isWalk;
-    this.playSounds(this.playerSounds?.doorOpen);
-  }
-
-  public playSounds(soundKey: Phaser.Sound.BaseSound | undefined) {
-    if ((this.isAllowedToPlaySounds || this.isAllowedToPlaySounds === null) && soundKey) {
-      soundKey.play();
-    }
+  public finishTrick(targetItem: TrickTargetItem): void {
+    this.removeItem(targetItem.keyItemId);
+    targetItem.trickedItem.setVisible(true);
+    targetItem.isTricked = true;
   }
 }

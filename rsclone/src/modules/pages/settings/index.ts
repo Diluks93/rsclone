@@ -1,8 +1,9 @@
+import { IconId } from './../../core/enums/enums';
 import Page from '../../core/templates/Page';
 import SvgIcon from '../../core/components/svg-icon';
 
 import { settingsStore } from './../../core/stores/settingsStore';
-import { TEXT_NODE, volumeBarId } from './../../core/constants/constSettings';
+import { volumeBarId } from './../../core/constants/constSettings';
 import { PageId, StorageKey } from '../../core/enums/enums';
 import {
   SettingsCheckboxType,
@@ -19,8 +20,6 @@ import {
   settingsTitleProps,
 } from '../../core/constants/constSettings';
 import './style.scss';
-
-const PAGE_NAME = PageId.SettingsPage;
 
 class SettingsPage extends Page {
   settingsWrapper: HTMLDivElement;
@@ -67,17 +66,17 @@ class SettingsPage extends Page {
     range.max = max;
     range.step = step;
     range.value = musicVolume || value;
-    range.classList.add(`${PAGE_NAME}__range`);
+    range.classList.add(`${PageId.SettingsPage}__range`);
 
     const soundButton = document.createElement('button');
-    soundButton.classList.add(`${PAGE_NAME}__toggle-button`);
-    soundButton.append(new SvgIcon('sound').render());
+    soundButton.classList.add(`${PageId.SettingsPage}__toggle-button`);
+    soundButton.append(new SvgIcon(IconId.Volume).render());
 
     const rangeTitle = document.createElement('div');
-    rangeTitle.classList.add(`${PAGE_NAME}__range-title`);
+    rangeTitle.classList.add(`${PageId.SettingsPage}__range-title`);
 
     const label = document.createElement('label');
-    label.classList.add(`${PAGE_NAME}__range-label`);
+    label.classList.add(`${PageId.SettingsPage}__range-label`);
     label.append(soundButton, range, rangeTitle);
 
     if (musicVolume) {
@@ -97,10 +96,10 @@ class SettingsPage extends Page {
     const { options, iconId, changeHandler } = props;
 
     const selectWrapper = document.createElement('div');
-    selectWrapper.classList.add(`${PAGE_NAME}__custom-select`);
+    selectWrapper.classList.add(`${PageId.SettingsPage}__custom-select`);
 
     const selectCurrentWrapper = document.createElement('div');
-    selectCurrentWrapper.classList.add(`${PAGE_NAME}__current-wrapper`, 'basic-hover');
+    selectCurrentWrapper.classList.add(`${PageId.SettingsPage}__current-wrapper`, 'basic-hover');
     const selectCurrentOption = document.createElement('span');
 
     const currentLanguage = settingsStore.languageValue;
@@ -109,7 +108,7 @@ class SettingsPage extends Page {
     selectCurrentWrapper.append(new SvgIcon(iconId).render());
 
     const selectOptionsWrapper = document.createElement('div');
-    selectOptionsWrapper.classList.add(`${PAGE_NAME}__options-wrapper`, 'hidden');
+    selectOptionsWrapper.classList.add(`${PageId.SettingsPage}__options-wrapper`, 'hidden');
     options.forEach((option) => {
       const radioWrapper = document.createElement('div');
       radioWrapper.classList.add('basic-hover');
@@ -146,16 +145,16 @@ class SettingsPage extends Page {
   createCheckbox({ id, isEnabled, text, clickHandler }: SettingsCheckboxType): HTMLLabelElement {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.classList.add(`${PAGE_NAME}__checkbox`);
+    checkbox.classList.add(`${PageId.SettingsPage}__checkbox`);
     checkbox.id = id;
     checkbox.checked = isEnabled;
     checkbox.onclick = clickHandler;
 
     const checkmark = document.createElement('span');
-    checkmark.classList.add(`${PAGE_NAME}__checkmark`);
+    checkmark.classList.add(`${PageId.SettingsPage}__checkmark`);
 
     const label = document.createElement('label');
-    label.classList.add(`${PAGE_NAME}__checkbox-label`);
+    label.classList.add(`${PageId.SettingsPage}__checkbox-label`);
     label.htmlFor = checkbox.id;
     label.textContent = text;
 
@@ -171,13 +170,14 @@ class SettingsPage extends Page {
       selectCurrentOption.textContent = lang;
     }
 
+    const DOMTextNode = 3;
     const soundLastChild = this.soundCheckbox.lastChild;
-    if (soundLastChild?.nodeType === TEXT_NODE) {
+    if (soundLastChild?.nodeType === DOMTextNode) {
       soundLastChild.textContent = translation[lang].isSoundEnabledLabel;
     }
 
     const timeLimitLastChild = this.timeLimitCheckbox.lastChild;
-    if (timeLimitLastChild?.nodeType === TEXT_NODE) {
+    if (timeLimitLastChild?.nodeType === DOMTextNode) {
       timeLimitLastChild.textContent = translation[lang].isTimeLimitEnabledLabel;
     }
 
@@ -186,6 +186,7 @@ class SettingsPage extends Page {
     }
 
     this.backToMainButton.textContent = translation[lang].backToMainButton;
+    this.backToMainButton.prepend(new SvgIcon(IconId.ArrowLeft).render());
 
     const volumeRangeSoundLastChild = this.volumeRangeSliderSound.lastChild;
     if (volumeRangeSoundLastChild instanceof HTMLDivElement) {

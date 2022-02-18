@@ -1,3 +1,4 @@
+import { IconId } from './../../core/enums/enums';
 import Page from '../../core/templates/Page';
 import SvgIcon from '../../core/components/svg-icon';
 import { authorsTitleProps, authorButtonProps } from './../../core/constants/constAuthors';
@@ -7,9 +8,13 @@ import { PageId } from '../../core/enums/enums';
 
 class AuthorsPage extends Page {
   authorButtonsWrapper: HTMLDivElement;
+
   authorsTitle: HTMLElement;
+
   diluksAuthorButton: HTMLDivElement;
+
   jenyaAuthorButton: HTMLDivElement;
+
   randomspellsAuthorButton: HTMLDivElement;
 
   constructor(id: string, className: string) {
@@ -40,7 +45,7 @@ class AuthorsPage extends Page {
     link.textContent = id;
     link.href = href;
     link.target = '_blank';
-    link.append(new SvgIcon('link').render());
+    link.append(new SvgIcon(IconId.Link).render());
 
     inner.append(link);
     inner.append(subtitle);
@@ -88,6 +93,6 @@ class AuthorsPage extends Page {
 
     return this.container;
   }
-};
+}
 
 export default AuthorsPage;

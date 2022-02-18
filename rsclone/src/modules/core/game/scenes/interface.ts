@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import GameScore from '../helpers/gameScore';
 import GameScene from './levels/gameScene';
-
 import { SceneDataType } from '../../types/types';
 import { ScoreOperations, Event, GameStatus, SceneKey, EventName } from '../../enums/enums';
 
@@ -30,7 +29,7 @@ export default class InterfaceScene extends Phaser.Scene {
     super({ key: SceneKey.Interface });
   }
 
-  init(data: SceneDataType) {
+  init(data: SceneDataType): void {
     this.currentLevel = data.currentLevel;
     this.currentScene = data.currentScene;
   }
@@ -101,7 +100,7 @@ export default class InterfaceScene extends Phaser.Scene {
     }
   }
 
-  doorHandler(): void {
+  scoreHandler(): void {
     this.score.changeValue(ScoreOperations.Increase, 25);
     const { winScore } = this.scene.get(this.currentScene!) as GameScene;
     if (this.score.getValue() >= winScore) {
@@ -117,12 +116,12 @@ export default class InterfaceScene extends Phaser.Scene {
       gameStatus,
       currentScore: this.score.scoreValue,
     });
-    this.game.events.off(EventName.IncreaseScore, this.doorHandler);
+    this.game.events.off(EventName.IncreaseScore, this.scoreHandler);
     this.game.events.off(Event.Endgame, this.endGameHandler);
   }
 
   private initListeners(): void {
-    this.game.events.on(EventName.IncreaseScore, this.doorHandler, this);
+    this.game.events.on(EventName.IncreaseScore, this.scoreHandler, this);
     this.game.events.once(Event.Endgame, this.endGameHandler, this);
   }
 }

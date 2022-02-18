@@ -1,16 +1,9 @@
-import director from '../../../../assets/game/director.png';
-import pen from '../../../../assets/game/pen.png';
-import fakeDoor from '../../../../assets/game/fake-door.png';
-import trickedPicture from '../../../../assets/game/picture-2.png';
-import picture from '../../../../assets/game/picture-1.png';
-import gameTranslation from '../../data/gameTranslation.json';
-
 import { settingsStore } from './../../stores/settingsStore';
-import { GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
+import gameTranslation from '../../data/gameTranslation.json';
+import { ProgressBoxSize, GameImageKey, GameKey, SceneKey, GameFont, AssetUrl } from '../../enums/enums';
+import { importFilesFromFolder } from '../../utils/utils';
 
-const ORIGIN_CENTER = 0.5;
-const PROGRESS_BOX_WIDTH = 320;
-const PROGRESS_BOX_HEIGHT = 50;
+const gameImages = importFilesFromFolder(require.context('../../../../assets/game/', false, /\.(png|jpe?g|svg)$/));
 
 export default class PreloadScene extends Phaser.Scene {
   cameraCenterX = 0;
@@ -29,14 +22,14 @@ export default class PreloadScene extends Phaser.Scene {
 
     const loadingText = this.make.text({
       x: this.cameraCenterX,
-      y: this.cameraCenterY - PROGRESS_BOX_HEIGHT,
+      y: this.cameraCenterY - ProgressBoxSize.OuterHeight,
       text: gameTranslation[settingsStore.languageValue].preloaderText,
       style: {
         fontFamily: GameFont.OpenSansFamily,
         fontSize: GameFont.MediumSize,
       },
     });
-    loadingText.setOrigin(ORIGIN_CENTER);
+    loadingText.setOrigin(ProgressBoxSize.Center);
 
     const percentText = this.make.text({
       x: this.cameraCenterX,
@@ -47,18 +40,18 @@ export default class PreloadScene extends Phaser.Scene {
         fontSize: GameFont.SmallSize,
       },
     });
-    percentText.setOrigin(ORIGIN_CENTER);
+    percentText.setOrigin(ProgressBoxSize.Center);
 
     const assetText = this.make.text({
       x: this.cameraCenterX,
-      y: this.cameraCenterY + PROGRESS_BOX_HEIGHT,
+      y: this.cameraCenterY + ProgressBoxSize.OuterHeight,
       text: '',
       style: {
         fontFamily: GameFont.PressStartFamily,
         fontSize: GameFont.SmallSize,
       },
     });
-    assetText.setOrigin(ORIGIN_CENTER);
+    assetText.setOrigin(ProgressBoxSize.Center);
 
     // every asset should be in here
     this.preloadAssets();
@@ -86,25 +79,23 @@ export default class PreloadScene extends Phaser.Scene {
 
     progressBox.fillStyle(0x222222, 0.4);
     progressBox.fillRect(
-      this.cameraCenterX - PROGRESS_BOX_WIDTH / 2,
-      this.cameraCenterY - PROGRESS_BOX_HEIGHT / 2,
-      PROGRESS_BOX_WIDTH,
-      PROGRESS_BOX_HEIGHT
+      this.cameraCenterX - ProgressBoxSize.OuterWidth / 2,
+      this.cameraCenterY - ProgressBoxSize.OuterHeight / 2,
+      ProgressBoxSize.OuterWidth,
+      ProgressBoxSize.OuterHeight
     );
 
     return progressBox;
   }
 
   fillProgressBar(bar: Phaser.GameObjects.Graphics, value: number): void {
-    const progressBarWidth = 300;
-    const progressBarHeight = 30;
     bar.clear();
     bar.fillStyle(0xff6633);
     bar.fillRect(
-      this.cameraCenterX - progressBarWidth / 2,
-      this.cameraCenterY - progressBarHeight / 2,
-      progressBarWidth * value,
-      progressBarHeight
+      this.cameraCenterX - ProgressBoxSize.InnerWidth / 2,
+      this.cameraCenterY - ProgressBoxSize.InnerHeight / 2,
+      ProgressBoxSize.InnerWidth * value,
+      ProgressBoxSize.InnerHeight
     );
   }
 
@@ -115,8 +106,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet(GameKey.Player, AssetUrl.Actors, {
       frameWidth: 19,
       frameHeight: 27,
-      startFrame: 14,
-      endFrame: 24,
+      startFrame: 0,
+      endFrame: 13,
     });
     this.load.spritesheet(GameKey.Neighbor, AssetUrl.Actors, {
       frameWidth: 19,
@@ -130,10 +121,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio(GameKey.SoundPlayerDelighted, AssetUrl.SoundPlayerDelighted);
     this.load.audio(GameKey.SoundPlayerFright, AssetUrl.SoundPlayerFright);
     this.load.audio(GameKey.SoundDoorOpen, AssetUrl.SoundDoorOpen);
-    this.load.image(GameKey.Director, director);
-    this.load.image(GameKey.Pen, pen);
-    this.load.image(GameKey.FakeDoor, fakeDoor);
-    this.load.image(GameKey.Picture, picture);
-    this.load.image(GameKey.TrickedPicture, trickedPicture);
+    for (const imageKey of Object.values(GameImageKey)) {
+      this.load.image(imageKey, gameImages[imageKey]);
+    }
   }
 }

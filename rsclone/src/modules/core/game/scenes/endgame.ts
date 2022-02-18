@@ -25,14 +25,14 @@ export default class EndgameScene extends Phaser.Scene {
     super({ key: SceneKey.Endgame });
   }
 
-  init(data: SceneDataType) {
+  init(data: SceneDataType): void {
     this.gameStatus = data.gameStatus;
     this.currentLevel = data.currentLevel;
     this.currentScene = data.currentScene;
     this.currentScore = data.currentScore;
   }
 
-  create() {
+  create(): void {
     this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6)');
     const { loseText, winText, continueText } = gameTranslation[settingsStore.languageValue];
     const gameStatusText = this.gameStatus === GameStatus.Lose ? loseText : winText;

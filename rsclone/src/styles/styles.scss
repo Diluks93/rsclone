@@ -3,8 +3,13 @@
 @import 'mixins';
 
 @font-face {
-  font-family: 'PressStart2P';
   src: url('../assets/fonts/PressStart2P.ttf') format('truetype');
+  font-family: 'PressStart2P';
+}
+@font-face {
+  src: url('../assets/fonts/OpenSans-VariableFont.ttf') format('truetype');
+  font-family: 'OpenSans';
+  font-weight: 300;
 }
 
 * {
@@ -28,6 +33,10 @@
   }
 }
 
+.noselect {
+  user-select: none;
+}
+
 .hidden {
   display: none;
 }
@@ -39,7 +48,7 @@
 .page {
   position: relative;
   background-color: $main-color;
-  background-image: url(../assets/image/back.png);
+  background-image: url(https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/background/back.png);
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;

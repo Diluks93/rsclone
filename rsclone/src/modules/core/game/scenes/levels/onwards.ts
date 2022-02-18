@@ -1,9 +1,9 @@
+import { GameImageKey } from './../../../enums/enums';
 import GameScene from './gameScene';
 import Neighbor from '../../entities/neighbor';
 import TrickSourceItem from '../../helpers/trickSourceItem';
-
+import { MaxScore, SceneKey } from '../../../enums/enums';
 import { Player } from '../../entities/player';
-import { FrameKey, GameKey, MaxScore, SceneKey } from '../../../enums/enums';
 
 export default class Onwards extends GameScene {
   protected neighbor!: Neighbor;
@@ -15,7 +15,7 @@ export default class Onwards extends GameScene {
     this.winScore = MaxScore.Onwards;
   }
 
-  create() {
+  create(): void {
     super.create();
     this.initNeighbor();
     this.initThingsOfJoke();
@@ -23,19 +23,7 @@ export default class Onwards extends GameScene {
   }
 
   private initNeighbor(): void {
-    const spawnPointNeighbor = this.map?.findObject(
-      this.mapLayer?.object.id.neighbor,
-      (obj) => obj.name === this.mapLayer.object.name.spawnNeighbor
-    );
-    this.neighbor = new Neighbor(
-      this,
-      spawnPointNeighbor?.x as number,
-      spawnPointNeighbor?.y as number,
-      GameKey.Neighbor,
-      this.player,
-      FrameKey.NeighborFrontMiddle
-    );
-    this.physics.add.collider(this.player, this.neighbor, (player, neighbor) => {
+    this.physics.add.collider(this.player, this.neighbor, (player) => {
       (player as Player).getDamage(1);
     });
     this.physics.add.collider(this.neighbor, this.floor as Phaser.Tilemaps.TilemapLayer);
@@ -46,7 +34,7 @@ export default class Onwards extends GameScene {
       this.mapLayer?.object.id.things,
       (obj) => obj.name === this.mapLayer.object.name.spawnPen
     );
-    const pen = new TrickSourceItem(this, spawnPointPen?.x as number, spawnPointPen?.y as number, GameKey.Pen);
+    const pen = new TrickSourceItem(this, spawnPointPen?.x as number, spawnPointPen?.y as number, GameImageKey.Pen);
     this.trickSourceItems.push(pen);
 
     super.addOverlapActionToItems();
@@ -60,9 +48,9 @@ export default class Onwards extends GameScene {
     const picture = this.createTrickTargetItem({
       x: spawnPointPicture?.x as number,
       y: spawnPointPicture?.y as number,
-      originalItemKey: GameKey.Picture,
-      trickedItemKey: GameKey.TrickedPicture,
-      actionItemKey: GameKey.Pen,
+      originalItemKey: GameImageKey.PictureBefore,
+      trickedItemKey: GameImageKey.PictureAfter,
+      actionItemKey: GameImageKey.Pen,
     });
     this.trickTargetItems.push(picture);
   }

@@ -40,11 +40,11 @@
       image-rendering: pixelated;
       align-items: center;
       background-size: 200%;
+      background-image: url(https://raw.githubusercontent.com/Diluks93/source-rsclone/main/rsclone-source/face-sprite.png);
     }
 
     &--diluks93 {
       &::before {
-        background-image: url(../../../assets/image/faces/face-sprite.png);
         background-position: 0 0;
       }
 
@@ -55,7 +55,6 @@
 
     &--jenya-b {
       &::before {
-        background-image: url(../../../assets/image/faces/face-sprite.png);
         background-position: 0 -4rem;
       }
       &:hover::before {
@@ -65,7 +64,6 @@
 
     &--randomspells {
       &::before {
-        background-image: url(../../../assets/image/faces/face-sprite.png);
         background-position: 0 -8rem;
       }
       &:hover::before {
@@ -101,41 +99,33 @@
 
 @keyframes diluksFace {
   0% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: 0 0;
   }
   55% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: -4.666rem 0;
   }
 }
 
 @keyframes jenyaFace {
   0% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: -4.666rem -4rem;
   }
   25% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: 0 -4rem;
   }
   60% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: -4.666rem -4rem;
   }
 }
 
 @keyframes randomspellsFace {
   0% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: 0 -8rem;
   }
   25% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: -4.666rem -8rem;
   }
   75% {
-    background-image: url(../../../assets/image/faces/face-sprite.png);
     background-position: 0 -8rem;
   }
 }

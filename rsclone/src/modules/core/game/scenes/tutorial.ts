@@ -6,9 +6,7 @@ import { PortraitType, SceneDataType } from './../../types/types';
 import { tutorialSpeechFontConfig, continueTextFontConfig } from '../../constants/gameTextConfig';
 import { tutorialSpeechConfig } from '../../constants/constInterfaceScene';
 import { settingsStore } from '../../stores/settingsStore';
-import { GameKey, SceneKey } from '../../enums/enums';
-
-const UPDATE_TIME = 400;
+import { GameImageKey, SceneKey } from '../../enums/enums';
 
 export default class TutorialScene extends Phaser.Scene {
   speechCount = 0;
@@ -16,6 +14,8 @@ export default class TutorialScene extends Phaser.Scene {
   timer = 0;
 
   isSpeechVisible = true;
+
+  updateTime = 400;
 
   speechContainer: Phaser.GameObjects.Container | undefined;
 
@@ -42,7 +42,7 @@ export default class TutorialScene extends Phaser.Scene {
     this.continueText = gameTranslation[settingsStore.languageValue].continueText;
   }
 
-  init(data: SceneDataType) {
+  init(data: SceneDataType): void {
     this.sceneData = data;
     const { currentLevel, currentScene } = this.sceneData;
     this.currentLevel = currentLevel;
@@ -114,7 +114,7 @@ export default class TutorialScene extends Phaser.Scene {
     this.timer += delta;
     const { windowWidth, windowHeight } = settingsStore;
     const { portraitSize, offset, hintTextWidth } = tutorialSpeechConfig;
-    if (this.timer > UPDATE_TIME) {
+    if (this.timer > this.updateTime) {
       this.speechContainer?.setPosition(0, windowHeight - portraitSize);
       this.speechText?.setStyle({
         fixedWidth: windowWidth - portraitSize,
@@ -130,7 +130,7 @@ export default class TutorialScene extends Phaser.Scene {
     portraitBox.setInteractive();
     portraitBox.fillStyle(0x000000, 1);
     portraitBox.fillRect(0, 0, portraitSize, portraitSize);
-    const directorImage = this.add.image(0, 0, GameKey.Director).setOrigin(0, 0);
+    const directorImage = this.add.image(0, 0, GameImageKey.Director).setOrigin(0, 0);
 
     return {
       portraitBox,
