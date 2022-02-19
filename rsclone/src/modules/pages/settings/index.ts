@@ -208,7 +208,6 @@ class SettingsPage extends Page {
     wrapper.append(this.volumeRangeSliderBackgroundMusic);
     wrapper.append(this.volumeRangeSliderSound);
     wrapper.append(this.soundCheckbox);
-    wrapper.append(this.timeLimitCheckbox);
     wrapper.append(this.saveSettingsButton);
 
     return wrapper;
