@@ -88,10 +88,7 @@
 
   &__button {
     align-self: center;
-
-    &#saveSettingsButton {
-      margin-top: 1.5rem;
-    }
+    margin-top: 1.5rem;
 
     & .button-icon {
       margin-right: 1.5rem;
@@ -215,5 +212,25 @@
 
   .title {
     visibility: hidden;
+  }
+
+  @media (max-height: 900px) {
+    &__title {
+      margin-bottom: 2rem;
+    }
+    &__range-label {
+      margin-bottom: 2rem;
+    }
+    &__checkbox-label {
+      margin-bottom: 3rem;
+
+      &:last-of-type {
+        margin-bottom: 2rem;
+      }
+    }
+
+    &__button {
+      margin-top: 0;
+    }
   }
 }
