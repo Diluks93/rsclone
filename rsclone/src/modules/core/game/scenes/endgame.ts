@@ -52,6 +52,10 @@ export default class EndgameScene extends Phaser.Scene {
       .setInteractive()
       .setScale(5);
 
+    setTimeout(() => {
+      this.sound.mute = true;
+    }, 500);
+
     this.clickableArea.on(
       'pointerdown',
       () => {
