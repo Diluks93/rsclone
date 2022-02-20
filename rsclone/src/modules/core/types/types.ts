@@ -1,3 +1,4 @@
+import GameScene from '../game/scenes/levels/gameScene';
 import Page from '../templates/Page';
 
 export type TitleType = {
@@ -168,7 +169,7 @@ export type PortraitType = {
 export type SceneDataType = {
   currentLevel: number;
   gameStatus: number;
-  currentScene?: Phaser.Scene;
+  currentScene?: GameScene;
   currentScore?: number;
 };
 

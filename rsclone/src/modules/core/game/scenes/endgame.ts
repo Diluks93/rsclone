@@ -7,11 +7,12 @@ import { SceneDataType } from './../../types/types';
 import { GameStatus, PageId, SceneKey } from '../../enums/enums';
 import { backgroundMusic } from '../../constants/constAudio';
 import { turnOnBackgroundMusic } from '../../utils/utils';
+import GameScene from './levels/gameScene';
 
 export default class EndgameScene extends Phaser.Scene {
   gameStatus: number | undefined;
 
-  currentScene: Phaser.Scene | undefined;
+  currentScene: GameScene | undefined;
 
   currentLevel: number | undefined;
 
@@ -33,6 +34,8 @@ export default class EndgameScene extends Phaser.Scene {
   }
 
   create(): void {
+    const gameSscene = this.scene.get(this.currentScene!) as GameScene;
+    gameSscene.playerSounds.footsteps.stop();
     this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6)');
     const { loseText, winText, continueText } = gameTranslation[settingsStore.languageValue];
     const gameStatusText = this.gameStatus === GameStatus.Lose ? loseText : winText;

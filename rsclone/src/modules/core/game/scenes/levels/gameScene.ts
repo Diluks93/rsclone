@@ -23,13 +23,13 @@ export default abstract class GameScene extends Phaser.Scene {
 
   private isActionAvailable = false;
 
-  private playerSounds: {
+  public playerSounds: {
     [index: string]: Phaser.Sound.BaseSound;
   };
 
   protected cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
 
-  protected player!: Player;
+  public player!: Player;
 
   protected neighbor!: Neighbor;
 
@@ -103,6 +103,7 @@ export default abstract class GameScene extends Phaser.Scene {
     }
 
     // camera
+    this.cameras.main.setZoom(0.71);
     this.cameras.main.setBounds(0, 0, this.sizeWorld.width, this.sizeWorld.height);
     if (this.player) {
       this.cameras.main.startFollow(this.player);
