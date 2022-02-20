@@ -13,7 +13,7 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
 
   protected isAllowedToPlaySounds: boolean;
 
-  protected actorSounds: Record<string, Phaser.Sound.BaseSound> | undefined;
+  public actorSounds: Record<string, Phaser.Sound.BaseSound> | undefined;
 
   constructor(
     scene: Phaser.Scene,
@@ -75,6 +75,12 @@ export default class Actor extends Phaser.Physics.Arcade.Sprite {
   public playSounds(soundKey: Phaser.Sound.BaseSound | undefined): void {
     if ((this.isAllowedToPlaySounds || this.isAllowedToPlaySounds === null) && soundKey) {
       soundKey.play();
+    }
+  }
+
+  public pauseSounds(soundKey: Phaser.Sound.BaseSound | undefined): void {
+    if (soundKey) {
+      soundKey.pause();
     }
   }
 }

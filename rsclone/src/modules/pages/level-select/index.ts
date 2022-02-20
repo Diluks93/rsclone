@@ -170,7 +170,7 @@ class LevelSelectPage extends Page {
     const infoWrapper = document.createElement('div');
     infoWrapper.classList.add(`${this.levelDetailsBaseClass}__info`);
 
-    infoWrapper.append(this.timeLimitParagraph, this.scoreParagraph, this.hintParagraph);
+    infoWrapper.append(this.scoreParagraph, this.hintParagraph);
     innerBlock.append(this.previewImage, infoWrapper, this.levelDescriptionText);
     wrapper.append(this.levelDetailsTitle, innerBlock, this.playLevelButton);
 
