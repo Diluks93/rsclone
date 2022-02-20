@@ -34,8 +34,8 @@ export default class EndgameScene extends Phaser.Scene {
   }
 
   create(): void {
-    const gameSscene = this.scene.get(this.currentScene!) as GameScene;
-    gameSscene.playerSounds.footsteps.stop();
+    const gameScene = this.scene.get(this.currentScene!) as GameScene;
+    gameScene.playerSounds.footsteps.stop();
     this.cameras.main.setBackgroundColor('rgba(0,0,0,0.6)');
     const { loseText, winText, continueText } = gameTranslation[settingsStore.languageValue];
     const gameStatusText = this.gameStatus === GameStatus.Lose ? loseText : winText;
