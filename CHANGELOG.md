@@ -153,5 +153,65 @@ History of RS-Clone project development process. It does not contain links to co
 ### Added
 - Animations to Actor entities
 - Aware state for player
+- Level exit
 ### Changed
 - Neighbor behaviour logic
+- Score counting and load
+- Variable names
+
+## 4.2.0 - 2022-02-13
+### Added
+- Tests for Authors page, Home page, back to main menu button
+### Fixed
+- Branches conflicts
+
+## 4.3.0 - 2022-02-14
+### Added
+- Tests for Error page, Level Select page, Main page, Player
+- Volume bar for sounds
+
+## 4.4.0 - 2022-02-15
+### Added
+- Sounds for picking up object and door opening
+### Changed
+- Separate sounds and music settings
+### Fixed
+- Branches onflicts
+- Local storage saving
+
+## 4.5.0 - 2022-02-16
+### Added
+- Function to load all files from folder
+- New game images
+- Animated layer for Home page
+- Level preview images
+### Fixed
+- Player's pick up animation
+- Refactor code
+
+## 5.0.0 - 2022-02-17
+### Added
+- Neighbor movement
+- Neighbor anger
+- Rs-School logo
+### Changed
+- Move assets to source repo
+### Fixed
+- Refactoring of constants
+- Resolve conflicts
+- Translation text
+
+## 5.0.1 - 2022-02-18
+### Fixed
+- Code refactoring
+
+## 5.0.2 - 2022-02-19
+### Fixed
+- Style for vertically narrow devices
+- Game translation
+
+## 5.0.3 - 2022-02-20
+### Fixed
+- Remove unused interface elements
+- Rescale game world
+- Remove footsteps sound bug
